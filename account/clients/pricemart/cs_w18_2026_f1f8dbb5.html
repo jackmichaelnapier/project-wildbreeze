@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Customer-service insights · CW 18 · 2026 · Price Mart · WildBreeze</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="canonical" href="https://www.wildbreeze.io/account/clients/pricemart/cs_w18_2026_f1f8dbb5.html">
+<meta name="theme-color" content="#06080F">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/wb-style.css">
+<style>
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 18px; margin: 32px 0;
+  }
+  .stat {
+    border: 1px solid var(--line); border-radius: var(--rad);
+    padding: 22px 24px; background: rgba(255,255,255,0.02);
+  }
+  .stat .label {
+    font-family: var(--mono); font-size: 10.5px;
+    text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3);
+    margin-bottom: 10px;
+  }
+  .stat .value {
+    font-family: var(--serif); font-size: 36px; font-weight: 500;
+    color: var(--ink); letter-spacing: -0.02em; line-height: 1;
+  }
+  .stat .sub {
+    margin-top: 8px; font-family: var(--mono); font-size: 11.5px;
+    color: var(--ink-2); letter-spacing: 0.04em;
+  }
+
+  .ttable {
+    width: 100%; border-collapse: collapse; margin: 24px 0;
+    font-size: 14px;
+  }
+  .ttable th, .ttable td {
+    padding: 12px 14px; text-align: left;
+    border-bottom: 1px solid var(--line);
+  }
+  .ttable th {
+    font-family: var(--mono); font-size: 10.5px;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-3); font-weight: 500;
+    border-bottom-color: var(--line-2);
+  }
+  .ttable td { color: var(--ink-2); }
+  .ttable td.topic { color: var(--ink); font-family: var(--sans); }
+  .ttable td.num { font-family: var(--mono); text-align: right; color: var(--ink-2); }
+  .ttable td.pct { font-family: var(--mono); text-align: right; color: var(--ink-3); font-size: 12px; }
+  .ttable tbody tr:hover { background: rgba(255,255,255,0.015); }
+
+  .trend { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.04em; }
+  .trend.up { color: #FFB46B; }
+  .trend.up-strong { color: #FF7A6B; }
+  .trend.down { color: var(--phos); }
+  .trend.flat { color: var(--ink-3); }
+
+  .action {
+    border: 1px solid var(--line); border-radius: var(--rad);
+    padding: 24px 26px; margin-bottom: 16px;
+    background: rgba(255,255,255,0.02);
+  }
+  .action.priority-1 { border-color: rgba(94,242,255,0.25); background: rgba(94,242,255,0.03); }
+  .action .head {
+    display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .action .rank {
+    font-family: var(--mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--cyan);
+    border: 1px solid rgba(94,242,255,0.3); border-radius: 4px;
+    padding: 3px 8px;
+  }
+  .action .kind {
+    font-family: var(--mono); font-size: 10.5px;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--ink-3);
+  }
+  .action .name {
+    font-family: var(--serif); font-size: 20px; font-weight: 500;
+    color: var(--ink); letter-spacing: -0.01em; flex: 1;
+  }
+  .action .what { color: var(--ink-2); line-height: 1.6; font-size: 15px; }
+  .action .what code {
+    font-family: var(--mono); font-size: 0.92em;
+    background: rgba(94,242,255,0.06); color: var(--ink);
+    padding: 1px 6px; border-radius: 3px;
+  }
+  .action .meta {
+    margin-top: 16px; padding-top: 14px;
+    border-top: 1px solid var(--line);
+    display: flex; gap: 28px; flex-wrap: wrap;
+    font-family: var(--mono); font-size: 11.5px;
+    color: var(--ink-3); letter-spacing: 0.04em;
+  }
+  .action .meta .k { color: var(--ink-3); }
+  .action .meta .v { color: var(--ink); }
+
+  .lede {
+    color: var(--ink-2); font-size: 18px; line-height: 1.6;
+    max-width: 720px;
+  }
+  .lede strong { color: var(--ink); font-weight: 500; }
+
+  .insight {
+    border-left: 2px solid var(--cyan);
+    padding: 18px 22px; margin: 28px 0;
+    background: rgba(94,242,255,0.04);
+    color: var(--ink-2); font-size: 15px; line-height: 1.6;
+    border-radius: 0 var(--rad) var(--rad) 0;
+  }
+  .insight strong { color: var(--ink); }
+
+  .toc {
+    border: 1px solid var(--line); border-radius: var(--rad);
+    padding: 18px 22px; margin: 28px 0;
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.04em;
+  }
+  .toc a { color: var(--ink-2); display: block; padding: 4px 0; text-decoration: none; }
+  .toc a:hover { color: var(--cyan); }
+
+  h2.section-title {
+    margin-top: 56px;
+    font-family: var(--serif); font-size: 32px;
+    font-weight: 500; letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  h2.section-title .num {
+    font-family: var(--mono); font-size: 12px; font-weight: 400;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--cyan);
+    display: block; margin-bottom: 8px;
+  }
+  h3.sub-title {
+    margin-top: 36px;
+    font-family: var(--serif); font-size: 22px;
+    font-weight: 500; letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+</style>
+<!-- WB-TAGS-START -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4S960N841V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4S960N841V');
+</script>
+<!-- WB-TAGS-END -->
+</head>
+<body>
+
+<div class="field" aria-hidden="true"></div>
+<div class="grid" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap row">
+    <a href="/" class="logo">
+      <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+        <defs><linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#5EF2FF"/><stop offset="55%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#5EF2FF"/>
+        </linearGradient></defs>
+        <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+              fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>WildBreeze</span>
+    </a>
+    <nav class="main">
+      <a href="customerservice.html">← All reports</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap prose">
+    <div class="kicker">Customer service insights · CW 18 · 2026 · 26 Apr – 02 May 2026</div>
+    <h1 class="page-title">Where customer-service contact is coming from <span class="accent">— and how to turn it down.</span></h1>
+    <p class="lede">
+      Two years of Intercom conversations classified into 26 contact reasons after
+      filtering autoresponders, review notifications, and social-media noise.
+      <strong>12,259 real cases</strong> over the period — pacing
+      <strong>≈ 6,130 cases / year</strong>. Last week was steady
+      (104 real cases, +5 vs prior week). The picture is the
+      same now as it was a year ago, only louder: a small number of contact
+      reasons drive most volume, almost all are deflectable, and the email
+      channel — not the chat widget — is where the leverage lives.
+    </p>
+  </div>
+</section>
+
+<section class="prose-body">
+  <div class="wrap prose">
+
+    <div class="toc">
+      <a href="#last-week">01 — Last week at a glance</a>
+      <a href="#picture">02 — The two-year picture</a>
+      <a href="#fastest">03 — What's growing fastest</a>
+      <a href="#channel">04 — Where the contact comes from</a>
+      <a href="#actions">05 — Action plan, ranked by impact</a>
+      <a href="#methodology">06 — How the numbers were built</a>
+    </div>
+
+    <h2 class="section-title" id="last-week"><span class="num">// 01</span>Last week at a glance</h2>
+
+    <p>Window: <strong>26 Apr – 02 May 2026</strong>. Pacing was in line with the long-run weekly average (≈ 118 real cases / week over the last 24 months).</p>
+
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="label">Real customer cases</div>
+        <div class="value">104</div>
+        <div class="sub">+5 vs prior 7 days</div>
+      </div>
+      <div class="stat">
+        <div class="label">Filtered as noise</div>
+        <div class="value">22</div>
+        <div class="sub">17% of inbound — autoresponders, review notifications, social spam</div>
+      </div>
+      <div class="stat">
+        <div class="label">Top reason</div>
+        <div class="value">17</div>
+        <div class="sub">Where is my order? (delivery late / never arrived)</div>
+      </div>
+      <div class="stat">
+        <div class="label">Cases with order # in message</div>
+        <div class="value">≈ 50%</div>
+        <div class="sub">customers already have the lookup data — they just have nowhere to do it themselves</div>
+      </div>
+    </div>
+
+    <h3 class="sub-title">Top reasons last week</h3>
+
+    <table class="ttable">
+      <thead>
+        <tr>
+          <th>Contact reason</th>
+          <th style="text-align:right">Last 7d</th>
+          <th style="text-align:right">Prior 7d</th>
+          <th style="text-align:right">Δ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="topic">Where is my order? (delivery late / never arrived)</td>
+          <td class="num">17</td>
+          <td class="num">15</td>
+          <td class="num"><span class="trend up">▲ +2</span></td>
+        </tr>
+        <tr>
+          <td class="topic">Ingredient / allergen / safety questions</td>
+          <td class="num">13</td>
+          <td class="num">8</td>
+          <td class="num"><span class="trend up">▲ +5</span></td>
+        </tr>
+        <tr>
+          <td class="topic">Account / login / password</td>
+          <td class="num">11</td>
+          <td class="num">5</td>
+          <td class="num"><span class="trend up">▲ +6</span></td>
+        </tr>
+        <tr>
+          <td class="topic">Order confirmation email never arrived</td>
+          <td class="num">11</td>
+          <td class="num">4</td>
+          <td class="num"><span class="trend up">▲ +7</span></td>
+        </tr>
+        <tr>
+          <td class="topic">Product specs (nutrition, dosing, flavour)</td>
+          <td class="num">10</td>
+          <td class="num">6</td>
+          <td class="num"><span class="trend up">▲ +4</span></td>
+        </tr>
+        <tr>
+          <td class="topic">Wrong or missing item in order</td>
+          <td class="num">10</td>
+          <td class="num">6</td>
+          <td class="num"><span class="trend up">▲ +4</span></td>
+        </tr>
+        <tr>
+          <td class="topic">Subscription / unsubscribe</td>
+          <td class="num">8</td>
+          <td class="num">6</td>
+          <td class="num"><span class="trend up">▲ +2</span></td>
+        </tr>
+        <tr>
+          <td class="topic">Returns and refunds</td>
+          <td class="num">6</td>
+          <td class="num">6</td>
+          <td class="num"><span class="trend flat">– 0</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="insight">
+      The week's top three (delivery questions, login / order-finding, missing
+      confirmations) are the same three reasons that dominate the two-year
+      picture. They're also the three with the highest deflection ceiling — see
+      action plan below.
+    </div>
+
+    <h2 class="section-title" id="picture"><span class="num">// 02</span>The two-year picture</h2>
+
+    <p>
+      All customer-initiated conversations from May 2024 through 2 May 2026,
+      after filtering autoresponders and review notifications. 12,259 real cases.
+      Order-number presence is shown because it's the strongest "this is form-able" signal — when 50%+ of
+      messages already include the order number, the customer is doing the lookup, just without a place
+      to do it.
+    </p>
+
+    <table class="ttable">
+      <thead>
+        <tr>
+          <th>Contact reason</th>
+          <th style="text-align:right">Cases</th>
+          <th style="text-align:right">% of total</th>
+          <th style="text-align:right">2024 → 2025</th>
+          <th style="text-align:right">Order # in msg</th>
+          <th style="text-align:right">Email channel</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="topic">Where is my order? (delivery late / never arrived)</td>
+          <td class="num">2,224</td>
+          <td class="pct">18.1%</td>
+          <td class="num"><span class="trend up">▲ +32%</span></td>
+          <td class="pct">50%</td>
+          <td class="pct">73%</td>
+        </tr>
+        <tr>
+          <td class="topic">Ingredient / allergen / safety questions</td>
+          <td class="num">1,284</td>
+          <td class="pct">10.5%</td>
+          <td class="num"><span class="trend up-strong">▲ +135%</span></td>
+          <td class="pct">28%</td>
+          <td class="pct">63%</td>
+        </tr>
+        <tr>
+          <td class="topic">Product specs (nutrition, dosing, flavour)</td>
+          <td class="num">1,116</td>
+          <td class="pct">9.1%</td>
+          <td class="num"><span class="trend down">▼ -2%</span></td>
+          <td class="pct">61%</td>
+          <td class="pct">83%</td>
+        </tr>
+        <tr>
+          <td class="topic">Order confirmation email never arrived</td>
+          <td class="num">894</td>
+          <td class="pct">7.3%</td>
+          <td class="num"><span class="trend up-strong">▲ +144%</span></td>
+          <td class="pct">26%</td>
+          <td class="pct">64%</td>
+        </tr>
+        <tr>
+          <td class="topic">Returns and refunds</td>
+          <td class="num">746</td>
+          <td class="pct">6.1%</td>
+          <td class="num"><span class="trend up">▲ +36%</span></td>
+          <td class="pct">70%</td>
+          <td class="pct">85%</td>
+        </tr>
+        <tr>
+          <td class="topic">Wrong or missing item in order</td>
+          <td class="num">689</td>
+          <td class="pct">5.6%</td>
+          <td class="num"><span class="trend up-strong">▲ +134%</span></td>
+          <td class="pct">53%</td>
+          <td class="pct">76%</td>
+        </tr>
+        <tr>
+          <td class="topic">Account / login / password</td>
+          <td class="num">432</td>
+          <td class="pct">3.5%</td>
+          <td class="num"><span class="trend up-strong">▲ +111%</span></td>
+          <td class="pct">33%</td>
+          <td class="pct">79%</td>
+        </tr>
+        <tr>
+          <td class="topic">Damaged, leaking or contaminated product</td>
+          <td class="num">431</td>
+          <td class="pct">3.5%</td>
+          <td class="num"><span class="trend up-strong">▲ +83%</span></td>
+          <td class="pct">68%</td>
+          <td class="pct">89%</td>
+        </tr>
+        <tr>
+          <td class="topic">Out of stock / when is X back?</td>
+          <td class="num">382</td>
+          <td class="pct">3.1%</td>
+          <td class="num"><span class="trend up-strong">▲ +137%</span></td>
+          <td class="pct">21%</td>
+          <td class="pct">70%</td>
+        </tr>
+        <tr>
+          <td class="topic">Invoice / VAT / B2B receipts</td>
+          <td class="num">374</td>
+          <td class="pct">3.1%</td>
+          <td class="num"><span class="trend up">▲ +5%</span></td>
+          <td class="pct">86%</td>
+          <td class="pct">98%</td>
+        </tr>
+        <tr>
+          <td class="topic">B2B / wholesale / sponsorship enquiries</td>
+          <td class="num">351</td>
+          <td class="pct">2.9%</td>
+          <td class="num"><span class="trend up-strong">▲ +80%</span></td>
+          <td class="pct">7%</td>
+          <td class="pct">72%</td>
+        </tr>
+        <tr>
+          <td class="topic">Cancel or modify an order</td>
+          <td class="num">327</td>
+          <td class="pct">2.7%</td>
+          <td class="num"><span class="trend up-strong">▲ +55%</span></td>
+          <td class="pct">74%</td>
+          <td class="pct">77%</td>
+        </tr>
+        <tr>
+          <td class="topic">Subscription / unsubscribe</td>
+          <td class="num">313</td>
+          <td class="pct">2.6%</td>
+          <td class="num"><span class="trend up-strong">▲ +256%</span></td>
+          <td class="pct">0%</td>
+          <td class="pct">99%</td>
+        </tr>
+        <tr>
+          <td class="topic">Discount code / voucher problems</td>
+          <td class="num">276</td>
+          <td class="pct">2.3%</td>
+          <td class="num"><span class="trend up">▲ +46%</span></td>
+          <td class="pct">23%</td>
+          <td class="pct">41%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="insight">
+      <strong>Read of the table.</strong> The top six reasons (WISMO, ingredient questions,
+      product specs, missing confirmations, returns, and wrong/missing items)
+      account for roughly <strong>56% of all real customer-service contact</strong>.
+      Five of the six have order-number presence ≥ 50%, meaning the customer
+      already has the data needed to self-serve. The sixth — ingredient/safety —
+      is FAQ-deflectable on the product page.
+    </div>
+
+    <h2 class="section-title" id="fastest"><span class="num">// 03</span>What's growing fastest</h2>
+
+    <p>
+      Year-over-year change between 2024 and 2025 (full-year totals). Where a
+      bucket grows much faster than overall order volume, treat it as a signal
+      that something has broken or degraded — not as natural customer-base
+      growth.
+    </p>
+
+    <table class="ttable">
+      <thead>
+        <tr>
+          <th>Contact reason</th>
+          <th style="text-align:right">2024</th>
+          <th style="text-align:right">2025</th>
+          <th style="text-align:right">YoY</th>
+          <th style="text-align:left">Likely cause</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="topic">Subscription / unsubscribe</td>
+          <td class="num">41</td>
+          <td class="num">146</td>
+          <td class="num"><span class="trend up-strong">▲ +256%</span></td>
+          <td>Unsubscribe link broken or not honoured promptly. Verify the link, audit timing of removal.</td>
+        </tr>
+        <tr>
+          <td class="topic">Order confirmation email never arrived</td>
+          <td class="num">219</td>
+          <td class="num">535</td>
+          <td class="num"><span class="trend up-strong">▲ +144%</span></td>
+          <td>Transactional email deliverability. SPF/DKIM/DMARC drift, IP reputation, or a from-address change.</td>
+        </tr>
+        <tr>
+          <td class="topic">Out of stock / when is X back?</td>
+          <td class="num">81</td>
+          <td class="num">192</td>
+          <td class="num"><span class="trend up-strong">▲ +137%</span></td>
+          <td>More OOS products, no notify-me UI on PDPs.</td>
+        </tr>
+        <tr>
+          <td class="topic">Ingredient / allergen / safety questions</td>
+          <td class="num">328</td>
+          <td class="num">771</td>
+          <td class="num"><span class="trend up-strong">▲ +135%</span></td>
+          <td>Allergen labelling unclear on PDPs. Add badges, expand ingredient lists.</td>
+        </tr>
+        <tr>
+          <td class="topic">Wrong or missing item in order</td>
+          <td class="num">167</td>
+          <td class="num">390</td>
+          <td class="num"><span class="trend up-strong">▲ +134%</span></td>
+          <td>Pick accuracy at the warehouse. Audit once claim form is live and you have structured data.</td>
+        </tr>
+        <tr>
+          <td class="topic">Free shipping threshold question</td>
+          <td class="num">64</td>
+          <td class="num">142</td>
+          <td class="num"><span class="trend up-strong">▲ +122%</span></td>
+          <td>Threshold not visible enough. Header banner.</td>
+        </tr>
+        <tr>
+          <td class="topic">Account / login / password</td>
+          <td class="num">118</td>
+          <td class="num">249</td>
+          <td class="num"><span class="trend up-strong">▲ +111%</span></td>
+          <td>Customers don't actually want an account, they want their order. Replace login wall with order lookup.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-title" id="channel"><span class="num">// 04</span>Where the contact comes from</h2>
+
+    <p>
+      Almost every contact reason is dominated by email — the chat widget on
+      the site is only 10–35% of inbound for any given topic. That changes
+      where deflection has to live: the order-confirmation email and the
+      shipping email matter more than anything inside Intercom.
+    </p>
+
+    <div class="insight">
+      <strong>Practical implication.</strong> Building self-serve forms is only
+      half the job. Every form needs to be linked from <em>the email the
+      customer is replying to</em> — the order confirmation, the shipping
+      notification, the dispatch alert. That's where the customer is when they
+      decide to write in. Putting a "Track your order →" link in the shipping
+      email will move more volume than putting it in the site header.
+    </div>
+
+    <h2 class="section-title" id="actions"><span class="num">// 05</span>Action plan, ranked by impact</h2>
+
+    <p>
+      Items are ranked by estimated annual contact reduction with effort as a
+      tie-breaker. Cumulative impact assumes the top six items launch — that
+      moves roughly <strong>50–55% of all customer-service contact</strong>
+      either to self-service, to better products, or out of existence
+      (deliverability fixes).
+    </p>
+
+    <p style="margin-top:18px;">
+      Estimates use 2025 + 2026-YTD pacing as the baseline. "Impact %" is the
+      share of total real customer-service contact a fully-deployed item is
+      expected to deflect — it's a planning estimate, not a guarantee.
+    </p>
+
+    <div class="action priority-1" id="action-1">
+      <div class="head">
+        <span class="rank">#1</span>
+        <span class="kind">Form</span>
+        <span class="name">Order-tracking page (/track-order)</span>
+      </div>
+      <div class="what">Self-serve page: customer enters order number + email, sees pre-ship / in-transit / delayed / delivered status, courier link, ETA, and a 'report missing parcel' button if late. Wire it into the site header, the order confirmation email, the shipping email, and as an Intercom auto-reply for inbound emails matching <code>Re: .* pakke .* på vej</code> / <code># 12...</code> subjects.</div>
+      <div class="meta">
+        <span><span class="k">Impact:</span> <span class="v">≈ 3,100 / yr</span></span>
+        <span><span class="k">Share of total:</span> <span class="v">25%</span></span>
+        <span><span class="k">Effort:</span> <span class="v">Medium</span></span>
+      </div>
+    </div>
+    <div class="action" id="action-2">
+      <div class="head">
+        <span class="rank">#2</span>
+        <span class="kind">Infrastructure</span>
+        <span class="name">Email-deliverability audit (transactional)</span>
+      </div>
+      <div class="what">'Order confirmation never arrived' grew <strong>+144% YoY</strong> — by far the fastest-growing pain in the data. Run Google Postmaster Tools + Mailgun/SendGrid logs against the last 90 days. Verify SPF, DKIM and DMARC are aligned. Check whether the from-address rotated or the IP reputation dropped. This is almost certainly a deliverability issue, not customer demand.</div>
+      <div class="meta">
+        <span><span class="k">Impact:</span> <span class="v">≈ 900 / yr</span></span>
+        <span><span class="k">Share of total:</span> <span class="v">7%</span></span>
+        <span><span class="k">Effort:</span> <span class="v">Low</span></span>
+      </div>
+    </div>
+    <div class="action" id="action-3">
+      <div class="head">
+        <span class="rank">#3</span>
+        <span class="kind">Form</span>
+        <span class="name">Claim form (/claim)</span>
+      </div>
+      <div class="what">Order number + email + radio for issue type (missing item / wrong item / damaged / leaked / contaminated / other) + photo upload + description. Auto-creates an Intercom ticket with structured fields and the photos already attached. Won't deflect contact (these need human resolution) but cuts handle-time, sets clear SLA, and — crucially — gives you SKU-level data on which products fail in transit so packaging can be fixed once and for all.</div>
+      <div class="meta">
+        <span><span class="k">Impact:</span> <span class="v">≈ 1,100 / yr (handle-time, not deflection)</span></span>
+        <span><span class="k">Share of total:</span> <span class="v">0%</span></span>
+        <span><span class="k">Effort:</span> <span class="v">Medium</span></span>
+      </div>
+    </div>
+    <div class="action" id="action-4">
+      <div class="head">
+        <span class="rank">#4</span>
+        <span class="kind">Content</span>
+        <span class="name">Help centre / FAQ pages</span>
+      </div>
+      <div class="what">About 20% of all real contact comes from pre-purchase questions where the customer just wants information. Top 20 articles to write: free-shipping threshold; is X gluten-free / vegan / lactose-free; protein-per-serving for top SKUs; delivery times by region; do you ship to Sweden / Norway / EU; how to apply a discount code; subscribe-and-save explained; how to track an order; how to return; what's in a private-label vs branded supplement; expiry dates and storage; jaw-trainer type 2 vs type 3 etc. Link prominently in site header and on PDPs.</div>
+      <div class="meta">
+        <span><span class="k">Impact:</span> <span class="v">≈ 1,200 / yr</span></span>
+        <span><span class="k">Share of total:</span> <span class="v">10%</span></span>
+        <span><span class="k">Effort:</span> <span class="v">Medium</span></span>
+      </div>
+    </div>
+    <div class="action" id="action-5">
+      <div class="head">
+        <span class="rank">#5</span>
+        <span class="kind">Form</span>
+        <span class="name">Returns portal (/returns)</span>
+      </div>
+      <div class="what">Order number + email → choose items → select reason → generate prepaid return label PDF. Display return policy and refund timeline up-front so the customer can self-resolve. 70% of return requests already include the order number — they're doing the lookup work, you just don't give them anywhere to do it.</div>
+      <div class="meta">
+        <span><span class="k">Impact:</span> <span class="v">≈ 600 / yr</span></span>
+        <span><span class="k">Share of total:</span> <span class="v">5%</span></span>
+        <span><span class="k">Effort:</span> <span class="v">Medium-High</span></span>
+      </div>
+    </div>
+    <div class="action" id="action-6">
+      <div class="head">
+        <span class="rank">#6</span>
+        <span class="kind">Process</span>
+        <span class="name">Guest order lookup (kill the login wall)</span>
+      </div>
+      <div class="what">Account-login contacts grew <strong>+111% YoY</strong>. A third of these messages already include an order number — these aren't password-reset requests, they're customers who don't actually want an account, they want their order. The /track-order form (#1) covers most of this. Belt-and-braces: make the 'Login / My account' header link offer 'Find my order with email + order #' as the primary path, with create-account secondary.</div>
+      <div class="meta">
+        <span><span class="k">Impact:</span> <span class="v">≈ 380 / yr</span></span>
+        <span><span class="k">Share of total:</span> <span class="v">3%</span></span>
+        <span><span class="k">Effort:</span> <span class="v">Low</span></span>
+      </div>
+    </div>
+    <div class="action" id="action-7">
+      <div class="head">
+        <span class="rank">#7</span>
+        <span class="kind">Form</span>
+        <span class="name">Cancel / modify order (/manage-order)</span>
+      </div>
+      <div class="what">Order number + email → if order is pre-pick, show a 'Cancel order' button that fires immediately. If pre-pick and warehouse system supports it, allow 'Add item' too. After pick, show 'this order is being packed' with an option to refuse delivery on arrival. 74% of cancel requests already include the order number.</div>
+      <div class="meta">
+        <span><span class="k">Impact:</span> <span class="v">≈ 280 / yr</span></span>
+        <span><span class="k">Share of total:</span> <span class="v">2%</span></span>
+        <span><span class="k">Effort:</span> <span class="v">Medium</span></span>
+      </div>
+    </div>
+    <div class="action" id="action-8">
+      <div class="head">
+        <span class="rank">#8</span>
+        <span class="kind">Process</span>
+        <span class="name">Email-typo guard at checkout</span>
+      </div>
+      <div class="what">Detect common typos in the email field at checkout — <code>gmial.com</code>, <code>hotnail.com</code>, <code>outloo.com</code>, <code>hotmial.com</code>, <code>yaho.com</code> — and show 'did you mean...?'. Cheap fix; the wrong-email-on-order bucket is small (40 cases / yr in the data) but each typo cascades into a 'no confirmation' contact later, so the actual impact is larger.</div>
+      <div class="meta">
+        <span><span class="k">Impact:</span> <span class="v">≈ 100 / yr (preventive)</span></span>
+        <span><span class="k">Share of total:</span> <span class="v">1%</span></span>
+        <span><span class="k">Effort:</span> <span class="v">Low</span></span>
+      </div>
+    </div>
+    <div class="action" id="action-9">
+      <div class="head">
+        <span class="rank">#9</span>
+        <span class="kind">Process</span>
+        <span class="name">One-click unsubscribe — verify it works</span>
+      </div>
+      <div class="what">Unsubscribe-related contacts grew <strong>+256% YoY</strong> — the loudest signal in the dataset. This is almost never customer demand for an unsubscribe; it's the unsubscribe link being broken or unsubscribes not being applied promptly. Audit: click every unsubscribe link in every active marketing email template, confirm it lands on a confirmation page within 1s and that the customer is removed from sends within 5 minutes.</div>
+      <div class="meta">
+        <span><span class="k">Impact:</span> <span class="v">≈ 290 / yr</span></span>
+        <span><span class="k">Share of total:</span> <span class="v">2%</span></span>
+        <span><span class="k">Effort:</span> <span class="v">Low</span></span>
+      </div>
+    </div>
+    <div class="action" id="action-10">
+      <div class="head">
+        <span class="rank">#10</span>
+        <span class="kind">Page</span>
+        <span class="name">'Notify when back in stock' button on PDPs</span>
+      </div>
+      <div class="what">Stock / availability questions grew +137% YoY. On any out-of-stock product detail page, replace the 'Out of stock' label with a 'Notify me when back in stock' email-capture. Also surface an estimated restock date for managed-inventory items.</div>
+      <div class="meta">
+        <span><span class="k">Impact:</span> <span class="v">≈ 320 / yr</span></span>
+        <span><span class="k">Share of total:</span> <span class="v">3%</span></span>
+        <span><span class="k">Effort:</span> <span class="v">Low-Medium</span></span>
+      </div>
+    </div>
+    <div class="action" id="action-11">
+      <div class="head">
+        <span class="rank">#11</span>
+        <span class="kind">Page</span>
+        <span class="name">Product-detail-page upgrades</span>
+      </div>
+      <div class="what">On every PDP: visible allergen badges (gluten-free, vegan, lactose-free, sugar-free), nutrition label image as a primary asset, expanded ingredient list by default, structured Q&A section. On category pages: filter facets for the same allergen flags and for product type / form / manufacturer. This is the long-term reduction lever for the FAQ bucket — combined with #4, it can take 50%+ off ingredient/safety/spec questions.</div>
+      <div class="meta">
+        <span><span class="k">Impact:</span> <span class="v">≈ 1,100 / yr (combined with #4)</span></span>
+        <span><span class="k">Share of total:</span> <span class="v">9%</span></span>
+        <span><span class="k">Effort:</span> <span class="v">High</span></span>
+      </div>
+    </div>
+    <div class="action" id="action-12">
+      <div class="head">
+        <span class="rank">#12</span>
+        <span class="kind">Process</span>
+        <span class="name">Trustpilot review notifications → out of inbox</span>
+      </div>
+      <div class="what">About 440 / yr of inbound 'tickets' are Trustpilot review notifications cluttering the support inbox. Set up a filter or dedicated inbox so the support team isn't triaging non-tickets.</div>
+      <div class="meta">
+        <span><span class="k">Impact:</span> <span class="v">≈ 440 / yr (triage time)</span></span>
+        <span><span class="k">Share of total:</span> <span class="v">0%</span></span>
+        <span><span class="k">Effort:</span> <span class="v">Low</span></span>
+      </div>
+    </div>
+    <div class="action" id="action-13">
+      <div class="head">
+        <span class="rank">#13</span>
+        <span class="kind">Process</span>
+        <span class="name">Fulfilment pick-accuracy QA</span>
+      </div>
+      <div class="what">Wrong-item / missing-item complaints grew <strong>+134% YoY</strong>. That's a warehouse pick-accuracy signal, not a deflectable contact. Once #3 (claim form) is live and you have 4-6 weeks of structured claim data, run an audit on which SKUs / pickers / shifts / pack-lines are over-represented and address at the warehouse level.</div>
+      <div class="meta">
+        <span><span class="k">Impact:</span> <span class="v">≈ 700 / yr (over time)</span></span>
+        <span><span class="k">Share of total:</span> <span class="v">5%</span></span>
+        <span><span class="k">Effort:</span> <span class="v">Medium</span></span>
+      </div>
+    </div>
+    <div class="action" id="action-14">
+      <div class="head">
+        <span class="rank">#14</span>
+        <span class="kind">Procurement</span>
+        <span class="name">Packaging review for top-leaking SKUs</span>
+      </div>
+      <div class="what">Damaged / leaked / contaminated complaints grew +83% YoY. Repeat offenders visible from a quick read of verbatims: peanut butter (jar lids), electrolyte sachets (puncture in transit), 'AK47' / Ragnarok pre-workout (bag tear), large 4 kg protein bags (bottom seam splits). After 8 weeks of #3 data, the worst-offender list will be unambiguous — change packaging supplier or pack process for those SKUs only.</div>
+      <div class="meta">
+        <span><span class="k">Impact:</span> <span class="v">≈ 320 / yr</span></span>
+        <span><span class="k">Share of total:</span> <span class="v">3%</span></span>
+        <span><span class="k">Effort:</span> <span class="v">High</span></span>
+      </div>
+    </div>
+    <div class="action" id="action-15">
+      <div class="head">
+        <span class="rank">#15</span>
+        <span class="kind">Infrastructure</span>
+        <span class="name">Move report URL behind the access gate (infra)</span>
+      </div>
+      <div class="what">Internal note. The current portal URL <code>/account/clients/pricemart/customerservice.html</code> is publicly accessible — the gate at <code>/account/</code> routes you here, but the URL itself is guessable. Action: rename the portal and each report file to include an unguessable random suffix, and update the gate's encrypted records so the (email + access key) for the customer-service user decrypts to the new randomised path. No customer-facing impact — just closes the back door.</div>
+      <div class="meta">
+        <span><span class="k">Impact:</span> <span class="v">—</span></span>
+        <span><span class="k">Share of total:</span> <span class="v">0%</span></span>
+        <span><span class="k">Effort:</span> <span class="v">Low</span></span>
+      </div>
+    </div>
+
+
+    <h2 class="section-title" id="methodology"><span class="num">// 06</span>How the numbers were built</h2>
+
+    <p>
+      Source: full Intercom bulk export (Preview API schema) of all conversations
+      from 3 May 2024 through 3 May 2026. Exported daily to a private Google
+      Cloud Storage bucket and pulled to a local machine for analysis.
+    </p>
+
+    <h3 class="sub-title">PII handling</h3>
+    <p>
+      Before any analysis touches a record, the export is run through a local
+      sanitiser: customer emails, names and phone numbers are replaced with
+      stable hashed pseudonyms (so the same customer is recognisable across
+      conversations without identity), free-text bodies are scrubbed for email
+      addresses, phone numbers, IBANs and card numbers, and IP / device / geo
+      fields are dropped entirely. Only the sanitised version is read for the
+      analysis above. The raw export never leaves the local machine.
+    </p>
+
+    <h3 class="sub-title">Filtering</h3>
+    <p>
+      About 29% of inbound traffic on the email channel is non-customer noise:
+      out-of-office autoresponders to Price Mart's marketing emails, third-party
+      review-platform notifications coming into the support inbox, and
+      promotional auto-bounces. These are filtered before classification —
+      counts in this report represent <em>real</em> customer messages only,
+      not raw inbox volume.
+    </p>
+
+    <h3 class="sub-title">Classification</h3>
+    <p>
+      Multilingual rule set covering Danish, Swedish, Norwegian and English,
+      iterated against a hold-out sample. A single message can match multiple
+      reasons (e.g. "my order didn't arrive AND the confirmation email never
+      came"). Roughly 44% of messages don't match any rule and remain
+      unclassified — these are typically very short widget messages or unusual
+      one-offs and don't change the ranked picture.
+    </p>
+
+    <h3 class="sub-title">Confidence and caveats</h3>
+    <ul>
+      <li>The classifier is conservative — when in doubt it leaves a message unclassified rather than guess. Real volumes per topic are likely <em>somewhat higher</em> than reported, not lower.</li>
+      <li>Year-over-year comparisons are between full calendar years 2024 and 2025. 2026 YTD is excluded from those deltas.</li>
+      <li>Impact estimates per action assume the form / page is wired into the appropriate transactional emails (order confirmation, shipping). A form that exists but isn't linked from email will deflect substantially less.</li>
+      <li>Conversation tagging in Intercom itself is currently empty for this account. All categorisation here is rule-based after the fact. If the team starts tagging, future reports can use those tags as a higher-confidence signal.</li>
+    </ul>
+
+    <p style="margin-top:48px; padding-top:24px; border-top:1px solid var(--line); font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); letter-spacing: 0.04em;">
+      Generated 03 May 2026 · Window: full export through 02 May 2026 ·
+      Next report: weekly, Monday morning CET ·
+      <a href="customerservice.html" style="color: var(--cyan);">Back to all reports</a>
+    </p>
+  </div>
+</section>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+</body>
+</html>
