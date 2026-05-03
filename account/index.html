@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Client Gateway · WildBreeze</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/wb-style.css">
+<style>
+  body { display: flex; flex-direction: column; min-height: 100vh; }
+  .gate-wrap { flex: 1; display: flex; align-items: center; justify-content: center; padding: 60px 20px 80px; }
+  .gate {
+    position: relative;
+    width: 480px; max-width: 92vw;
+    border: 1px solid var(--line);
+    border-radius: var(--rad);
+    background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.008));
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    padding: 40px 38px 32px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,.55), inset 0 0 0 1px rgba(94,242,255,.04);
+  }
+  .gate::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(420px 220px at 50% -10%, rgba(94,242,255,.12), transparent 60%);
+  }
+  .gate-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 22px; position: relative;
+  }
+  .gate .kicker { margin-bottom: 0; }
+  .gate .kicker.live {
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .gate .kicker.live::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--phos); box-shadow: 0 0 8px var(--phos);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
+  .gate h1 {
+    font-family: var(--serif); font-weight: 500; letter-spacing: -0.025em;
+    font-size: 34px; line-height: 1.05; color: var(--ink);
+    margin: 18px 0 8px; position: relative;
+  }
+  .gate h1 .accent {
+    background: linear-gradient(110deg, var(--cyan) 20%, var(--violet) 80%);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; font-style: italic; font-weight: 400;
+  }
+  .gate p.lede {
+    font-size: 14px; color: var(--ink-2); line-height: 1.55;
+    margin: 8px 0 26px; max-width: 38ch;
+  }
+  .form-stack {
+    display: grid; gap: 16px;
+    border-top: 1px solid var(--line);
+    padding-top: 22px; position: relative;
+  }
+  .field-row label {
+    display: block; font-family: var(--mono); font-size: 10.5px;
+    text-transform: uppercase; letter-spacing: .12em; color: var(--ink-3);
+    margin-bottom: 8px;
+  }
+  .field-row label .num { color: var(--cyan); }
+  .field-row .input {
+    display: block; width: 100%;
+    background: rgba(255,255,255,.025);
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+    color: var(--ink);
+    font-family: var(--mono); font-size: 14px;
+    padding: 13px 14px;
+    transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+    outline: 0;
+  }
+  .field-row .input::placeholder { color: var(--ink-3); font-size: 13px; }
+  .field-row .input:focus {
+    border-color: var(--cyan);
+    background: rgba(94,242,255,.04);
+    box-shadow: 0 0 0 3px rgba(94,242,255,.12);
+  }
+  .form-stack.error .input { border-color: rgba(255,120,120,.55) !important; background: rgba(255,120,120,.04) !important; }
+  .form-actions {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 8px; flex-wrap: wrap; gap: 12px;
+  }
+  #go {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; border-radius: 999px;
+    border: 1px solid transparent; cursor: pointer;
+    font-family: var(--sans); font-size: 14px; font-weight: 600;
+    background: linear-gradient(180deg, rgba(94,242,255,.95), rgba(94,242,255,.7));
+    color: #001318;
+    box-shadow: 0 8px 24px -8px rgba(94,242,255,.6), inset 0 0 0 1px rgba(255,255,255,.4);
+    transition: transform 180ms ease, filter 180ms ease;
+  }
+  #go:hover { transform: translateY(-1px); filter: brightness(1.05); }
+  #go:active { transform: translateY(0); }
+  #go[disabled] { opacity: .55; cursor: wait; filter: grayscale(.2); }
+  #go .arrow { transition: transform 180ms ease; }
+  #go:hover .arrow { transform: translateX(3px); }
+  .status {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em;
+    color: var(--ink-3); min-height: 14px;
+  }
+  .status.err { color: #FF9090; }
+  .meta-strip {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    margin-top: 16px;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .05em; color: var(--ink-3);
+  }
+  .meta-strip .key { color: var(--cyan); }
+  .gate.shake { animation: shake .42s ease; }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+  }
+  .fadeout {
+    position: fixed; inset: 0; z-index: 9999; background: var(--bg-0);
+    opacity: 0; pointer-events: none; transition: opacity 600ms ease;
+  }
+  .fadeout.on { opacity: 1; }
+  .miniback {
+    margin-top: 24px; text-align: center;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--ink-3);
+  }
+  .miniback a { color: var(--ink-2); border-bottom: 1px solid var(--line-2); padding-bottom: 1px; }
+  .miniback a:hover { color: var(--cyan); border-color: var(--cyan); }
+</style>
+</head>
+<body>
+  <div class="field" aria-hidden="true"></div>
+  <div class="grid" aria-hidden="true"></div>
+
+  <header class="nav">
+    <div class="wrap row">
+      <a href="/" class="logo">
+        <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+          <defs>
+            <linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#5EF2FF"/>
+              <stop offset="55%" stop-color="#A78BFA"/>
+              <stop offset="100%" stop-color="#5EF2FF"/>
+            </linearGradient>
+          </defs>
+          <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>WildBreeze</span>
+      </a>
+      <nav class="main">
+        <a href="/field-guide/">Field Guide</a>
+        <a href="/about/">About</a>
+        <a href="/contact/" class="cta">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="gate-wrap">
+    <main class="gate" id="gate" role="main" aria-labelledby="gate-h1">
+      <div class="gate-head">
+        <span class="kicker">Client Gateway</span>
+        <span class="kicker live">SECURE</span>
+      </div>
+
+      <h1 id="gate-h1">Open your reports. <span class="accent">Quiet by default.</span></h1>
+      <p class="lede">Enter the email and access key we shared with you. Both are required. Nothing is stored — verification happens in your browser.</p>
+
+      <form class="form-stack" id="form" autocomplete="off">
+        <div class="field-row">
+          <label for="email"><span class="num">// 01</span> &nbsp; EMAIL</label>
+          <input id="email" name="email" class="input" type="email"
+                 autocomplete="off" spellcheck="false" autocapitalize="off"
+                 autocorrect="off" placeholder="you@company.com" autofocus required>
+        </div>
+        <div class="field-row">
+          <label for="key"><span class="num">// 02</span> &nbsp; ACCESS KEY</label>
+          <input id="key" name="key" class="input" type="password"
+                 autocomplete="off" spellcheck="false" autocapitalize="off"
+                 autocorrect="off" placeholder="paste the key from your invite" required>
+        </div>
+
+        <div class="form-actions">
+          <span class="status" id="status">awaiting input</span>
+          <button id="go" type="submit">Open <span class="arrow">→</span></button>
+        </div>
+
+        <div class="meta-strip">
+          <span>PBKDF2 · AES-GCM · 200k</span>
+          <span class="key">SHARED · NOT INDEXED</span>
+        </div>
+      </form>
+
+      <div class="miniback">
+        Not a client? <a href="/contact/">Get in touch</a>
+      </div>
+    </main>
+  </div>
+
+  <div class="fadeout" id="fadeout" aria-hidden="true"></div>
+
+  <script>
+  /* Encrypted records: PBKDF2 input is "<email>|<access_key>" (lowercased email).
+     Each record decrypts to a relative HTML path (e.g. "preview/index.html"). */
+  var RECORDS = [{"s": "38b4e459802d92abf071cf95afeb76fb", "iv": "e0fff0b8e7d8c551a46d8921", "ct": "3af5a2fd9f9e5ecae74f8b709ba9eb1008f53558b56f763f22876eb2e475515212b8"}];
+
+  function hexToBytes(hex){
+    var b = new Uint8Array(hex.length/2);
+    for (var i=0;i<b.length;i++) b[i] = parseInt(hex.substr(i*2,2),16);
+    return b;
+  }
+  async function tryDecrypt(combined, record){
+    var enc = new TextEncoder();
+    var baseKey = await crypto.subtle.importKey(
+      "raw", enc.encode(combined), {name:"PBKDF2"}, false, ["deriveKey"]);
+    var aesKey = await crypto.subtle.deriveKey(
+      {name:"PBKDF2", salt:hexToBytes(record.s), iterations:200000, hash:"SHA-256"},
+      baseKey,
+      {name:"AES-GCM", length:256},
+      false,
+      ["decrypt"]);
+    var pt = await crypto.subtle.decrypt(
+      {name:"AES-GCM", iv:hexToBytes(record.iv)},
+      aesKey,
+      hexToBytes(record.ct));
+    return new TextDecoder().decode(pt);
+  }
+
+  var form = document.getElementById('form');
+  var emailEl = document.getElementById('email');
+  var keyEl = document.getElementById('key');
+  var btn = document.getElementById('go');
+  var status = document.getElementById('status');
+  var gate = document.getElementById('gate');
+  var fadeout = document.getElementById('fadeout');
+
+  function setStatus(msg, isErr){
+    status.textContent = msg;
+    status.classList.toggle('err', !!isErr);
+  }
+  function flashError(){
+    form.classList.add('error');
+    gate.classList.add('shake');
+    setTimeout(function(){ form.classList.remove('error'); gate.classList.remove('shake'); }, 700);
+    setStatus('access denied', true);
+  }
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var email = emailEl.value.trim().toLowerCase();
+    var key = keyEl.value.trim();
+    if (!email || !key){ flashError(); return; }
+    var combined = email + "|" + key;
+    btn.setAttribute('disabled','disabled');
+    setStatus('verifying…', false);
+    for (var i=0;i<RECORDS.length;i++){
+      try {
+        var target = await tryDecrypt(combined, RECORDS[i]);
+        if (/^[a-z0-9_\-\.\/]+\.html$/i.test(target)){
+          setStatus('granted. opening…', false);
+          fadeout.classList.add('on');
+          setTimeout(function(){ window.location.replace(target); }, 520);
+          return;
+        }
+      } catch(_){ /* wrong key, try next */ }
+    }
+    btn.removeAttribute('disabled');
+    flashError();
+    keyEl.select();
+  });
+  </script>
+</body>
+</html>
