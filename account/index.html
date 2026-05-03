@@ -270,13 +270,13 @@
   var emailEl = document.getElementById('email');
   var keyEl = document.getElementById('key');
   var btn = document.getElementById('go');
-  var status = document.getElementById('status');
+  var statusEl = document.getElementById('status');
   var gate = document.getElementById('gate');
   var fadeout = document.getElementById('fadeout');
 
   function setStatus(msg, isErr){
-    status.textContent = msg;
-    status.classList.toggle('err', !!isErr);
+    statusEl.textContent = msg;
+    statusEl.classList.toggle('err', !!isErr);
   }
   function flashError(){
     form.classList.add('error');
