@@ -134,7 +134,38 @@
   }
   .miniback a { color: var(--ink-2); border-bottom: 1px solid var(--line-2); padding-bottom: 1px; }
   .miniback a:hover { color: var(--cyan); border-color: var(--cyan); }
+  /* WB-CLIENT-CSS-START */
+  /* Client area pill (footer .legal) — managed by _inject_client_link.py */
+  .client-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-2);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    padding: 6px 14px;
+    text-decoration: none;
+    transition: all 180ms ease;
+  }
+  .client-link:hover {
+    color: var(--cyan);
+    border-color: rgba(94, 242, 255, 0.5);
+    background: rgba(94, 242, 255, 0.04);
+  }
+  .client-link .arrow { color: var(--cyan); transition: transform 180ms ease; }
+  .client-link:hover .arrow { transform: translateX(3px); }
+  /* WB-CLIENT-CSS-END */
 </style>
+<!-- WB-TAGS-START -->
+<!-- Google tag (gtag.js) — GA4 G-4S960N841V -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4S960N841V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4S960N841V');
+</script>
+<!-- WB-TAGS-END -->
 </head>
 <body>
   <div class="field" aria-hidden="true"></div>
@@ -211,7 +242,7 @@
   <script>
   /* Encrypted records: PBKDF2 input is "<email>|<access_key>" (lowercased email).
      Each record decrypts to a relative HTML path (e.g. "preview/index.html"). */
-  var RECORDS = [{"s": "38b4e459802d92abf071cf95afeb76fb", "iv": "e0fff0b8e7d8c551a46d8921", "ct": "3af5a2fd9f9e5ecae74f8b709ba9eb1008f53558b56f763f22876eb2e475515212b8"}];
+  var RECORDS = [{"s": "b839a82702a10513d0ae5260637e593c", "iv": "ae5e0dd23ec43e53b6df8ccd", "ct": "2b32f4265884b08f4a7572e9d7ab889e6a65fb01fd18d2fb4172840765938fa5ef38"}];
 
   function hexToBytes(hex){
     var b = new Uint8Array(hex.length/2);
