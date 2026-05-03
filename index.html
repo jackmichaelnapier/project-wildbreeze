@@ -949,7 +949,7 @@
     <div class="hero-content">
       <div class="eyebrow"><span class="dot"></span> <span data-scramble>Now booking · Q3 2026</span></div>
       <h1 class="hero-title reveal">
-        <span class="scramble" data-scramble>The plumbing nobody sees.</span>
+        The plumbing nobody sees.
         <span class="accent">The clarity everyone feels.</span>
       </h1>
       <p class="lede reveal">
@@ -1522,30 +1522,11 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 })();
 
 /* ============================================================
-   Hero cursor parallax — subtle drift on the rings + headline
+   Hero cursor parallax — disabled.
+   The headline used to drift with the cursor, but since the hero
+   now has the circular intro video next to it, two simultaneously
+   moving elements was too busy. Title sits still.
    ============================================================ */
-(() => {
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduceMotion) return;
-  const hero = document.querySelector('.hero');
-  const title = document.querySelector('.hero-title');
-  if (!hero) return;
-  let tx = 0, ty = 0, cx = 0, cy = 0;
-  hero.addEventListener('mousemove', (e) => {
-    const r = hero.getBoundingClientRect();
-    cx = ((e.clientX - r.left) / r.width - 0.5);
-    cy = ((e.clientY - r.top) / r.height - 0.5);
-  });
-  function loop() {
-    tx += (cx - tx) * 0.06;
-    ty += (cy - ty) * 0.06;
-    if (title) {
-      title.style.transform = `translate3d(${tx * 6}px, ${ty * 4}px, 0)`;
-    }
-    requestAnimationFrame(loop);
-  }
-  loop();
-})();
 
 /* ============================================================
    Hero intro video — ambient muted teaser, click to play
