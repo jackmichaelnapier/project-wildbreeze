@@ -30,7 +30,7 @@ The pitch in one sentence: the work that nobody loves to keep current, kept curr
 
 - Website: https://www.wildbreeze.io
 - Contact form: https://www.wildbreeze.io/contact/
-- Email: jack@napier.me
+- Email: hello@wildbreeze.io
 - Built by: napier.me
 
 ## For LLM crawlers
