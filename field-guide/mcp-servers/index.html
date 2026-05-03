@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>What is an MCP server? The bridge between AI and your stack — WildBreeze</title>
+<meta name="description" content="MCP servers let AI assistants safely talk to your tools — Slack, your CRM, your warehouse, your spreadsheets. Here's what they are, in plain English." />
+<link rel="canonical" href="https://www.wildbreeze.io/field-guide/mcp-servers/" />
+<meta name="theme-color" content="#06080F" />
+<meta property="og:title" content="What is an MCP server? The bridge between AI and your stack" />
+<meta property="og:description" content="MCP servers let AI assistants safely talk to your tools — Slack, your CRM, your warehouse, your spreadsheets. Here's what they are, in plain English." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.wildbreeze.io/field-guide/mcp-servers/" />
+<meta property="og:image" content="https://www.wildbreeze.io/og-preview.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="article:published_time" content="2026-04-22" />
+<meta property="article:section" content="Core Concept" />
+<meta property="article:tag" content="mcp" />
+<meta property="article:tag" content="ai-basics" />
+<meta property="article:tag" content="operations" />
+<meta property="article:tag" content="integrations" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="What is an MCP server? The bridge between AI and your stack" />
+<meta name="twitter:description" content="MCP servers let AI assistants safely talk to your tools — Slack, your CRM, your warehouse, your spreadsheets. Here's what they are, in plain English." />
+<meta name="twitter:image" content="https://www.wildbreeze.io/og-preview.png" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/wb-style.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "What is an MCP server? The bridge between AI and your stack",
+  "description": "MCP servers let AI assistants safely talk to your tools \u2014 Slack, your CRM, your warehouse, your spreadsheets. Here's what they are, in plain English.",
+  "datePublished": "2026-04-22",
+  "dateModified": "2026-04-22",
+  "author": { "@type": "Organization", "name": "WildBreeze", "url": "https://www.wildbreeze.io/" },
+  "publisher": { "@type": "Organization", "name": "WildBreeze", "url": "https://www.wildbreeze.io/", "logo": { "@type": "ImageObject", "url": "https://www.wildbreeze.io/favicon-512.png" } },
+  "image": "https://www.wildbreeze.io/og-preview.png",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.wildbreeze.io/field-guide/mcp-servers/" },
+  "keywords": "mcp, ai-basics, operations, integrations"
+}
+</script>
+</head>
+<body>
+
+<div class="field" aria-hidden="true"></div>
+<div class="grid" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap row">
+    <a href="/" class="logo">
+      <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+        <defs>
+          <linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#5EF2FF"/>
+            <stop offset="55%" stop-color="#A78BFA"/>
+            <stop offset="100%" stop-color="#5EF2FF"/>
+          </linearGradient>
+        </defs>
+        <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+              fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>WildBreeze</span>
+    </a>
+    <nav class="main">
+      <a href="/#services">Services</a>
+      <a href="/field-guide/">Field Guide</a>
+      <a href="/contact/" class="cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<article>
+  <section class="page-hero">
+    <div class="wrap prose">
+      <div class="kicker">CORE CONCEPT 02</div>
+      <h1 class="page-title">What is an MCP server? <span class="accent">The bridge between AI and your stack.</span></h1>
+      <p class="lede">MCP — Model Context Protocol — is the part of the AI stack that small-business owners hear about and assume is too technical to care about. It's actually the most important piece. Here's why.</p>
+      <div class="article-meta">
+        <span><time datetime="2026-04-22">22 April 2026</time></span>
+        <span>8 min read</span>
+        <span class="tag">#mcp</span> <span class="tag">#ai-basics</span> <span class="tag">#operations</span> <span class="tag">#integrations</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="prose-body">
+    <div class="wrap prose">
+      <p>An <strong>MCP server</strong> is a small piece of software that lets an AI assistant — Claude, ChatGPT, your team's internal AI — safely read from and act on a specific business tool. One MCP server per tool. Slack has an MCP server. Your CRM probably has one (or could have one). Your BigQuery warehouse can have one. Your custom internal database can have one too.</p>
+
+      <p>MCP stands for <strong>Model Context Protocol</strong>. It's an open standard, originally published by Anthropic in 2024, that has become the de-facto way AI assistants connect to "the rest of your stuff." Think of it as <em>USB for AI</em> — a single shared protocol so any AI assistant can plug into any tool that exposes an MCP server.</p>
+
+      <h2>Why does this matter to an operator?</h2>
+
+      <p>For most of 2023 and 2024, "using AI in your business" meant copy-pasting things into ChatGPT. That was fine for one-off questions. It broke down the moment you wanted an AI to actually <em>do</em> something in your business — pull a report, post a message, file an expense, update a record. You either had to do it manually, or pay an integration consultant a lot of money to wire up custom plumbing.</p>
+
+      <p>MCP servers solve this. Once a tool has an MCP server (and most major tools now do), any AI assistant can talk to it. No bespoke integrations. No "we need to wait for the next product release to support that." No "let me copy-paste this into a spreadsheet first."</p>
+
+      <h2>A worked example</h2>
+
+      <p>Imagine a 30-person agency. They use ClickUp for projects, Slack for chat, Gmail for client comms, and a Postgres database for invoicing. The CEO wants a Monday-morning summary of: open projects past their deadline, unpaid invoices over 30 days, and any client emails from the weekend that haven't been answered.</p>
+
+      <p>Without MCP, this is three separate integration projects, each with its own auth flow, each with its own data model, each maintained separately when something changes. It's the kind of project that gets quoted as "$15k, 8 weeks" and ships 14 weeks later if it ships at all.</p>
+
+      <p>With MCP, the math changes. ClickUp has an MCP server. Slack has an MCP server. Gmail has an MCP server. Postgres has one. So the agent's instructions become roughly:</p>
+
+      <pre><code>Every Monday at 7am:
+  1. Use the ClickUp MCP to find tasks with due_date &lt; today AND status != "done"
+  2. Use the Postgres MCP to find invoices where issued_at &lt; today - 30 days AND paid_at IS NULL
+  3. Use the Gmail MCP to find unread emails since Friday 6pm
+  4. Use the Slack MCP to post a summary to #leadership</code></pre>
+
+      <p>Each "MCP" call is one or two lines. The agent is maybe a 30-line spec total. It runs in your cloud, on your auth tokens, with audit logs you can inspect. <strong>The whole project is days, not months.</strong></p>
+
+      <h2>The three things MCP servers do for you</h2>
+
+      <h3>1. They make AI agents possible at all</h3>
+      <p>Without MCP servers, AI assistants are just talkative interns who can't open any of the doors in your office. With MCP servers, they can actually pick up files from the filing cabinet, file new ones, and post a note on the wall.</p>
+
+      <h3>2. They keep your data inside your perimeter</h3>
+      <p>This is the part vendors gloss over. A well-designed MCP server runs on infrastructure <em>you</em> control. The AI assistant calls it; it reads from your database <em>locally</em>; it returns only the specific data the agent asked for. Your customer list is not getting uploaded to anyone's training data. That's the difference between "we use AI" and "we securely use AI."</p>
+
+      <h3>3. They make it cheap to swap AI providers</h3>
+      <p>Because MCP is an open standard, your investment in an MCP server is portable. If you build a custom MCP server for your invoicing system today and use it with Claude, you can use the exact same MCP server with ChatGPT or Gemini next year if you decide to switch. The plumbing doesn't have to be rebuilt every time the AI vendor landscape shifts. <strong>That's a big deal in a fast-moving market.</strong></p>
+
+      <h2>Common types of MCP servers</h2>
+
+      <ul>
+        <li><strong>SaaS connectors</strong> — Slack, Gmail, Google Drive, Notion, ClickUp, Linear, GitHub, Stripe, HubSpot. Most major SaaS tools have official or community-maintained MCP servers now. You install, authenticate once, done.</li>
+        <li><strong>Database connectors</strong> — Postgres, MySQL, BigQuery, Snowflake. Read-only by default, write access only where you explicitly grant it.</li>
+        <li><strong>Internal-tool connectors</strong> — Custom MCP servers wrapping your own internal APIs, your reporting dashboard, your warehouse-management system. This is where most of the unique value is for any operation with a non-trivial internal stack.</li>
+        <li><strong>File-system connectors</strong> — Read and write specific folders on a server. Useful for the half-dozen processes in every operation that still revolve around dropping a file in a shared folder.</li>
+      </ul>
+
+      <h2>Common worries (and what's actually true)</h2>
+
+      <blockquote>
+        "Doesn't this mean the AI has access to all our data?"
+      </blockquote>
+      <p>Only the data the MCP server exposes — and you control that. A well-scoped MCP server might expose <em>only</em> a single read-only view of "orders from the last 90 days," nothing else. The agent can't ask the MCP server for things the MCP server wasn't built to give it.</p>
+
+      <blockquote>
+        "Doesn't this mean we're locked into one AI vendor?"
+      </blockquote>
+      <p>The opposite — MCP is specifically designed so you're not. Same MCP server, multiple AI clients.</p>
+
+      <blockquote>
+        "Isn't this only for big companies with engineering teams?"
+      </blockquote>
+      <p>The big companies have it easier — they can build their own. But for small operations, the win is using <em>existing</em> MCP servers (which are mostly free and open-source) plus one or two small custom ones for whatever's unique about your business. That's the WildBreeze sweet spot: we build the custom one, we wire up the existing ones, and we leave you with a system that runs on your infrastructure.</p>
+
+      <h2>What to do with this</h2>
+      <p>If you're an operator, you don't need to <em>build</em> MCP servers. You need to know enough to <strong>ask the right question of vendors and consultants</strong>:</p>
+      <ul>
+        <li>"Does this tool have an MCP server?" If yes, you have options. If no, you have a future integration problem.</li>
+        <li>"Where does the MCP server run?" In your cloud (good) or in someone else's (worth thinking about).</li>
+        <li>"What scope does it have?" Read-only is safer than read-write. Per-table is safer than full-database.</li>
+      </ul>
+
+      <p>That's enough vocabulary to be dangerous in a vendor meeting. Which is the goal.</p>
+
+      <hr>
+
+      <p><strong>Previous:</strong> <a href="/field-guide/agents/">What is an AI agent?</a> &nbsp; · &nbsp; <strong>Next:</strong> <a href="/field-guide/safe-data-access/">From ChatGPT to action: giving AI safe access to your business data</a></p>
+    </div>
+  </section>
+</article>
+
+<section class="section" style="border-top: 1px solid var(--line);">
+  <div class="wrap prose">
+    <div class="section-head">
+      <div class="kicker">Keep reading</div>
+      <h2 style="font-size: 28px;">More from the Field Guide</h2>
+    </div>
+    <div class="articles">
+      <a class="article-card" href="/field-guide/agents/">
+        <div class="meta">
+          <span class="date">15 April 2026</span>
+          <span>Core Concept</span>
+        </div>
+        <div class="body">
+          <h3>What is an AI agent? A plain-English explainer for operators</h3>
+          <p>An agent is an AI assistant with a job, a schedule, and access to your tools. Here's what that actually means for a 10-50 person operation.</p>
+          <span class="read-more">READ →</span>
+        </div>
+      </a>
+      <a class="article-card" href="/field-guide/ai-90-day-plan/">
+        <div class="meta">
+          <span class="date">29 April 2026</span>
+          <span>Briefing</span>
+        </div>
+        <div class="body">
+          <h3>AI for small business: a realistic 90-day plan</h3>
+          <p>Most AI advice is written for Fortune 500 IT departments. Here's what 90 days actually looks like for a 10-50 person operation, week by week.</p>
+          <span class="read-more">READ →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <a href="/" class="logo">
+          <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+            <defs>
+              <linearGradient id="wb-mark-grad-f" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#5EF2FF"/>
+                <stop offset="55%" stop-color="#A78BFA"/>
+                <stop offset="100%" stop-color="#5EF2FF"/>
+              </linearGradient>
+            </defs>
+            <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                  fill="none" stroke="url(#wb-mark-grad-f)" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>WildBreeze</span>
+        </a>
+        <p class="blurb">Quiet automation infrastructure for operations run by humans.</p>
+      </div>
+      <div class="meta">
+        <div class="col">
+          <h5>Build</h5>
+          <a href="/#services">Custom MCP servers</a>
+          <a href="/#services">Scheduled agents</a>
+          <a href="/#services">Weekly reports</a>
+        </div>
+        <div class="col">
+          <h5>Learn</h5>
+          <a href="/field-guide/agents/">What is an agent?</a>
+          <a href="/field-guide/mcp-servers/">What is an MCP server?</a>
+          <a href="/field-guide/#articles">All briefings</a>
+        </div>
+        <div class="col">
+          <h5>Contact</h5>
+          <a href="/contact/">Contact form</a>
+          <a href="mailto:jack@napier.me">jack@napier.me</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      <div>© 2026 WildBreeze. All systems quiet.</div>
+      <div>Built by <a href="https://www.napier.me" class="link" target="_blank" rel="noopener">napier.me</a></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
