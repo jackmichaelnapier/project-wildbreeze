@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>What is an MCP server? The bridge between AI and your stack — WildBreeze</title>
-<meta name="description" content="MCP servers let AI assistants safely talk to your tools — Slack, your CRM, your warehouse, your spreadsheets. Here's what they are, in plain English." />
+<title>What is an MCP server? The bridge between AI and your stack. WildBreeze</title>
+<meta name="description" content="MCP servers let AI assistants safely talk to your tools. Slack, your CRM, your warehouse, your spreadsheets. Here's what they are, in plain English." />
 <link rel="canonical" href="https://www.wildbreeze.io/field-guide/mcp-servers/" />
 <meta name="theme-color" content="#06080F" />
 <meta property="og:title" content="What is an MCP server? The bridge between AI and your stack" />
-<meta property="og:description" content="MCP servers let AI assistants safely talk to your tools — Slack, your CRM, your warehouse, your spreadsheets. Here's what they are, in plain English." />
+<meta property="og:description" content="MCP servers let AI assistants safely talk to your tools. Slack, your CRM, your warehouse, your spreadsheets. Here's what they are, in plain English." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.wildbreeze.io/field-guide/mcp-servers/" />
 <meta property="og:image" content="https://www.wildbreeze.io/og-preview.png" />
@@ -22,7 +22,7 @@
 <meta property="article:tag" content="integrations" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="What is an MCP server? The bridge between AI and your stack" />
-<meta name="twitter:description" content="MCP servers let AI assistants safely talk to your tools — Slack, your CRM, your warehouse, your spreadsheets. Here's what they are, in plain English." />
+<meta name="twitter:description" content="MCP servers let AI assistants safely talk to your tools. Slack, your CRM, your warehouse, your spreadsheets. Here's what they are, in plain English." />
 <meta name="twitter:image" content="https://www.wildbreeze.io/og-preview.png" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
@@ -46,6 +46,9 @@
   "keywords": "mcp, ai-basics, operations, integrations"
 }
 </script>
+<link rel="alternate" hreflang="en" href="https://www.wildbreeze.io/field-guide/mcp-servers/" />
+<link rel="alternate" hreflang="es" href="https://www.wildbreeze.io/es/guia-de-campo/servidores-mcp/" />
+<link rel="alternate" hreflang="x-default" href="https://www.wildbreeze.io/field-guide/mcp-servers/" />
 </head>
 <body>
 
@@ -72,6 +75,7 @@
     <nav class="main">
       <a href="/#services">Services</a>
       <a href="/field-guide/">Field Guide</a>
+      <a href="/about/">About</a>
       <a href="/contact/" class="cta">Contact</a>
     </nav>
   </div>
@@ -82,7 +86,7 @@
     <div class="wrap prose">
       <div class="kicker">CORE CONCEPT 02</div>
       <h1 class="page-title">What is an MCP server? <span class="accent">The bridge between AI and your stack.</span></h1>
-      <p class="lede">MCP — Model Context Protocol — is the part of the AI stack that small-business owners hear about and assume is too technical to care about. It's actually the most important piece. Here's why.</p>
+      <p class="lede">MCP. Model Context Protocol, is the part of the AI stack that small-business owners hear about and assume is too technical to care about. It's actually the most important piece. Here's why.</p>
       <div class="article-meta">
         <span><time datetime="2026-04-22">22 April 2026</time></span>
         <span>8 min read</span>
@@ -93,13 +97,13 @@
 
   <section class="prose-body">
     <div class="wrap prose">
-      <p>An <strong>MCP server</strong> is a small piece of software that lets an AI assistant — Claude, ChatGPT, your team's internal AI — safely read from and act on a specific business tool. One MCP server per tool. Slack has an MCP server. Your CRM probably has one (or could have one). Your BigQuery warehouse can have one. Your custom internal database can have one too.</p>
+      <p>An <strong>MCP server</strong> is a small piece of software that lets an AI assistant. Claude, ChatGPT, your team's internal AI, safely read from and act on a specific business tool. One MCP server per tool. Slack has an MCP server. Your CRM probably has one (or could have one). Your BigQuery warehouse can have one. Your custom internal database can have one too.</p>
 
-      <p>MCP stands for <strong>Model Context Protocol</strong>. It's an open standard, originally published by Anthropic in 2024, that has become the de-facto way AI assistants connect to "the rest of your stuff." Think of it as <em>USB for AI</em> — a single shared protocol so any AI assistant can plug into any tool that exposes an MCP server.</p>
+      <p>MCP stands for <strong>Model Context Protocol</strong>. It's an open standard, originally published by Anthropic in 2024, that has become the de-facto way AI assistants connect to "the rest of your stuff." Think of it as <em>USB for AI</em>, a single shared protocol so any AI assistant can plug into any tool that exposes an MCP server.</p>
 
       <h2>Why does this matter to an operator?</h2>
 
-      <p>For most of 2023 and 2024, "using AI in your business" meant copy-pasting things into ChatGPT. That was fine for one-off questions. It broke down the moment you wanted an AI to actually <em>do</em> something in your business — pull a report, post a message, file an expense, update a record. You either had to do it manually, or pay an integration consultant a lot of money to wire up custom plumbing.</p>
+      <p>For most of 2023 and 2024, "using AI in your business" meant copy-pasting things into ChatGPT. That was fine for one-off questions. It broke down the moment you wanted an AI to actually <em>do</em> something in your business, pull a report, post a message, file an expense, update a record. You either had to do it manually, or pay an integration consultant a lot of money to wire up custom plumbing.</p>
 
       <p>MCP servers solve this. Once a tool has an MCP server (and most major tools now do), any AI assistant can talk to it. No bespoke integrations. No "we need to wait for the next product release to support that." No "let me copy-paste this into a spreadsheet first."</p>
 
@@ -133,10 +137,10 @@
       <h2>Common types of MCP servers</h2>
 
       <ul>
-        <li><strong>SaaS connectors</strong> — Slack, Gmail, Google Drive, Notion, ClickUp, Linear, GitHub, Stripe, HubSpot. Most major SaaS tools have official or community-maintained MCP servers now. You install, authenticate once, done.</li>
-        <li><strong>Database connectors</strong> — Postgres, MySQL, BigQuery, Snowflake. Read-only by default, write access only where you explicitly grant it.</li>
-        <li><strong>Internal-tool connectors</strong> — Custom MCP servers wrapping your own internal APIs, your reporting dashboard, your warehouse-management system. This is where most of the unique value is for any operation with a non-trivial internal stack.</li>
-        <li><strong>File-system connectors</strong> — Read and write specific folders on a server. Useful for the half-dozen processes in every operation that still revolve around dropping a file in a shared folder.</li>
+        <li><strong>SaaS connectors</strong>. Slack, Gmail, Google Drive, Notion, ClickUp, Linear, GitHub, Stripe, HubSpot. Most major SaaS tools have official or community-maintained MCP servers now. You install, authenticate once, done.</li>
+        <li><strong>Database connectors</strong>. Postgres, MySQL, BigQuery, Snowflake. Read-only by default, write access only where you explicitly grant it.</li>
+        <li><strong>Internal-tool connectors</strong>. Custom MCP servers wrapping your own internal APIs, your reporting dashboard, your warehouse-management system. This is where most of the unique value is for any operation with a non-trivial internal stack.</li>
+        <li><strong>File-system connectors</strong>. Read and write specific folders on a server. Useful for the half-dozen processes in every operation that still revolve around dropping a file in a shared folder.</li>
       </ul>
 
       <h2>Common worries (and what's actually true)</h2>
@@ -144,17 +148,17 @@
       <blockquote>
         "Doesn't this mean the AI has access to all our data?"
       </blockquote>
-      <p>Only the data the MCP server exposes — and you control that. A well-scoped MCP server might expose <em>only</em> a single read-only view of "orders from the last 90 days," nothing else. The agent can't ask the MCP server for things the MCP server wasn't built to give it.</p>
+      <p>Only the data the MCP server exposes, and you control that. A well-scoped MCP server might expose <em>only</em> a single read-only view of "orders from the last 90 days," nothing else. The agent can't ask the MCP server for things the MCP server wasn't built to give it.</p>
 
       <blockquote>
         "Doesn't this mean we're locked into one AI vendor?"
       </blockquote>
-      <p>The opposite — MCP is specifically designed so you're not. Same MCP server, multiple AI clients.</p>
+      <p>The opposite. MCP is specifically designed so you're not. Same MCP server, multiple AI clients.</p>
 
       <blockquote>
         "Isn't this only for big companies with engineering teams?"
       </blockquote>
-      <p>The big companies have it easier — they can build their own. But for small operations, the win is using <em>existing</em> MCP servers (which are mostly free and open-source) plus one or two small custom ones for whatever's unique about your business. That's the WildBreeze sweet spot: we build the custom one, we wire up the existing ones, and we leave you with a system that runs on your infrastructure.</p>
+      <p>The big companies have it easier, they can build their own. But for small operations, the win is using <em>existing</em> MCP servers (which are mostly free and open-source) plus one or two small custom ones for whatever's unique about your business. That's the WildBreeze sweet spot: we build the custom one, we wire up the existing ones, and we leave you with a system that runs on your infrastructure.</p>
 
       <h2>What to do with this</h2>
       <p>If you're an operator, you don't need to <em>build</em> MCP servers. You need to know enough to <strong>ask the right question of vendors and consultants</strong>:</p>
@@ -237,9 +241,12 @@
         </div>
         <div class="col">
           <h5>Learn</h5>
-          <a href="/field-guide/agents/">What is an agent?</a>
-          <a href="/field-guide/mcp-servers/">What is an MCP server?</a>
-          <a href="/field-guide/#articles">All briefings</a>
+          <a href="/field-guide/">Field Guide</a>
+          <a href="/glossary/">Glossary</a>
+          <a href="/calculator/">Cost calculator</a>
+          <a href="/11pm-audit/">11pm Audit</a>
+          <a href="/vs/ai-agent-vs-virtual-assistant/">Agent vs VA</a>
+          <a href="/about/">About</a>
         </div>
         <div class="col">
           <h5>Contact</h5>
