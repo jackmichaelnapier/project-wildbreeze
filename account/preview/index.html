@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Preview · Reports · WildBreeze</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/wb-style.css">
+<style>
+  .account-strip {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px; border: 1px solid var(--line);
+    border-radius: var(--rad);
+    background: linear-gradient(180deg, rgba(94,242,255,0.04), rgba(94,242,255,0.005));
+    margin-top: 24px; margin-bottom: 8px; gap: 16px; flex-wrap: wrap;
+  }
+  .account-strip .who { display: flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--ink-2); }
+  .account-strip .who .live { width: 7px; height: 7px; border-radius: 50%; background: var(--phos); box-shadow: 0 0 8px var(--phos); animation: pulse 1.6s ease-in-out infinite; }
+  .account-strip .who strong { color: var(--ink); font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; font-size: 11px; }
+  .account-strip a.signout { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--ink-3); border-bottom: 1px solid var(--line-2); padding-bottom: 1px; }
+  .account-strip a.signout:hover { color: var(--cyan); border-color: var(--cyan); }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
+
+  .reports-list { display: grid; gap: 14px; margin-top: 28px; }
+  .report-card {
+    display: grid; grid-template-columns: 160px 1fr auto; gap: 28px;
+    align-items: center;
+    padding: 24px 28px; border: 1px solid var(--line);
+    border-radius: var(--rad);
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+    transition: all 220ms ease; position: relative; overflow: hidden;
+    color: var(--ink); text-decoration: none;
+  }
+  .report-card::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(380px 180px at 0% 50%, rgba(94,242,255,.10), transparent 60%);
+    opacity: 0; transition: opacity 220ms ease;
+  }
+  .report-card:hover { border-color: var(--line-2); transform: translateY(-1px); }
+  .report-card:hover::before { opacity: 1; }
+  .report-card .meta { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; display: flex; flex-direction: column; gap: 6px; color: var(--ink-3); }
+  .report-card .meta .date { color: var(--cyan); font-size: 12px; }
+  .report-card .body h3 { font-family: var(--serif); font-weight: 500; font-size: 20px; letter-spacing: -0.015em; margin: 0 0 6px; }
+  .report-card .body p { color: var(--ink-2); font-size: 14px; margin: 0; }
+  .report-card .arrow { color: var(--cyan); font-family: var(--mono); font-size: 14px; transition: transform 180ms ease; }
+  .report-card:hover .arrow { transform: translateX(4px); }
+  .report-card.placeholder { opacity: .5; pointer-events: none; cursor: default; }
+
+  .empty-note {
+    margin-top: 32px; padding: 22px 24px;
+    border: 1px dashed var(--line-2); border-radius: var(--rad);
+    font-family: var(--mono); font-size: 12.5px; color: var(--ink-2);
+    line-height: 1.65; letter-spacing: 0.02em;
+  }
+  .empty-note .label {
+    display: block; font-size: 10.5px; color: var(--cyan);
+    letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .empty-note code { background: rgba(94,242,255,.08); color: var(--cyan); padding: 2px 6px; border-radius: 4px; font-size: 0.92em; }
+
+  @media (max-width: 720px) {
+    .report-card { grid-template-columns: 1fr; gap: 8px; padding: 22px 22px; }
+    .report-card .arrow { display: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="field" aria-hidden="true"></div>
+  <div class="grid" aria-hidden="true"></div>
+
+  <header class="nav">
+    <div class="wrap row">
+      <a href="/" class="logo">
+        <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+          <defs>
+            <linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#5EF2FF"/>
+              <stop offset="55%" stop-color="#A78BFA"/>
+              <stop offset="100%" stop-color="#5EF2FF"/>
+            </linearGradient>
+          </defs>
+          <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>WildBreeze</span>
+      </a>
+      <nav class="main">
+        <a href="/field-guide/">Field Guide</a>
+        <a href="/about/">About</a>
+        <a href="/contact/" class="cta">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="account-strip">
+      <span class="who"><span class="live"></span><strong>PREVIEW</strong> · Account area</span>
+      <a href="/account/" class="signout">Sign out →</a>
+    </div>
+
+    <section class="page-hero" style="padding: 50px 0 30px;">
+      <div class="kicker">Reports — chronological</div>
+      <h1 class="page-title">Welcome, Preview. <span class="accent">Your reports live here.</span></h1>
+      <p class="lede">Newest first. Each entry opens its full report. Reports are unlisted and won't appear in search results.</p>
+    </section>
+
+    <section class="section" style="padding-top: 0; border-top: 0;">
+      <div class="reports-list">
+        <!-- Newest first. When a report ships, prepend a new <a class="report-card"> here. -->
+        <div class="report-card placeholder" aria-disabled="true">
+          <div class="meta">
+            <span class="date">— pending —</span>
+            <span>// 01 placeholder</span>
+          </div>
+          <div class="body">
+            <h3>First weekly report — coming soon</h3>
+            <p>Once the first report ships it'll appear at the top of this list.</p>
+          </div>
+          <div class="arrow">→</div>
+        </div>
+
+        <a class="report-card" href="sample-report.html">
+          <div class="meta">
+            <span class="date">2026-05-03</span>
+            <span>// sample</span>
+          </div>
+          <div class="body">
+            <h3>Sample report — what a delivery looks like</h3>
+            <p>A short walkthrough of the layout we use for weekly and monthly reports.</p>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+      </div>
+
+      <div class="empty-note">
+        <span class="label">For the operator</span>
+        Drop new reports at <code>/account/preview/&lt;slug&gt;.html</code> and prepend a matching <code>&lt;a class="report-card"&gt;</code> entry above. Newest goes first; the placeholder stays until the first real report ships, then delete it.
+      </div>
+    </section>
+  </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <a href="/" class="logo">
+            <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+              <defs>
+                <linearGradient id="wb-mark-grad-f" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#5EF2FF"/>
+                  <stop offset="55%" stop-color="#A78BFA"/>
+                  <stop offset="100%" stop-color="#5EF2FF"/>
+                </linearGradient>
+              </defs>
+              <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                    fill="none" stroke="url(#wb-mark-grad-f)" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>WildBreeze</span>
+          </a>
+          <p class="blurb">Quiet automation infrastructure for operations run by humans.</p>
+        </div>
+        <div class="meta">
+          <div class="col">
+            <h5>Account</h5>
+            <a href="/account/">Client Gateway</a>
+            <a href="/contact/">Contact</a>
+          </div>
+        </div>
+      </div>
+      <div class="legal">
+        <div>© 2026 WildBreeze. All systems quiet.</div>
+        <div>v1.0 · Made in the wind</div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
