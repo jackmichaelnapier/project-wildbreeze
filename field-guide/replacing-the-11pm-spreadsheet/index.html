@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Replacing the spreadsheet someone updates at 11pm — WildBreeze</title>
+<meta name="description" content="The fastest AI win for small operations isn't a chatbot — it's a scheduled agent that owns the manual report nobody wants. How to spot the right candidate, scope it, and roll it out." />
+<link rel="canonical" href="https://www.wildbreeze.io/field-guide/replacing-the-11pm-spreadsheet/" />
+<meta name="theme-color" content="#06080F" />
+<meta property="og:title" content="Replacing the spreadsheet someone updates at 11pm" />
+<meta property="og:description" content="The fastest AI win for small operations isn't a chatbot — it's a scheduled agent that owns the manual report nobody wants. How to spot the right candidate, scope it, and roll it out." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.wildbreeze.io/field-guide/replacing-the-11pm-spreadsheet/" />
+<meta property="og:image" content="https://www.wildbreeze.io/og-preview.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="article:published_time" content="2026-05-03" />
+<meta property="article:section" content="Briefing" />
+<meta property="article:tag" content="agents" />
+<meta property="article:tag" content="operations" />
+<meta property="article:tag" content="automation" />
+<meta property="article:tag" content="implementation" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Replacing the spreadsheet someone updates at 11pm" />
+<meta name="twitter:description" content="The fastest AI win for small operations isn't a chatbot — it's a scheduled agent that owns the manual report nobody wants. How to spot the right candidate, scope it, and roll it out." />
+<meta name="twitter:image" content="https://www.wildbreeze.io/og-preview.png" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/wb-style.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Replacing the spreadsheet someone updates at 11pm",
+  "description": "The fastest AI win for small operations isn't a chatbot \u2014 it's a scheduled agent that owns the manual report nobody wants. How to spot the right candidate, scope it, and roll it out.",
+  "datePublished": "2026-05-03",
+  "dateModified": "2026-05-03",
+  "author": { "@type": "Organization", "name": "WildBreeze", "url": "https://www.wildbreeze.io/" },
+  "publisher": { "@type": "Organization", "name": "WildBreeze", "url": "https://www.wildbreeze.io/", "logo": { "@type": "ImageObject", "url": "https://www.wildbreeze.io/favicon-512.png" } },
+  "image": "https://www.wildbreeze.io/og-preview.png",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.wildbreeze.io/field-guide/replacing-the-11pm-spreadsheet/" },
+  "keywords": "agents, operations, automation, implementation"
+}
+</script>
+</head>
+<body>
+
+<div class="field" aria-hidden="true"></div>
+<div class="grid" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap row">
+    <a href="/" class="logo">
+      <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+        <defs>
+          <linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#5EF2FF"/>
+            <stop offset="55%" stop-color="#A78BFA"/>
+            <stop offset="100%" stop-color="#5EF2FF"/>
+          </linearGradient>
+        </defs>
+        <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+              fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>WildBreeze</span>
+    </a>
+    <nav class="main">
+      <a href="/#services">Services</a>
+      <a href="/field-guide/">Field Guide</a>
+      <a href="/contact/" class="cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<article>
+  <section class="page-hero">
+    <div class="wrap prose">
+      <div class="kicker">BRIEFING 003</div>
+      <h1 class="page-title">Replacing the spreadsheet <span class="accent">someone updates at 11pm.</span></h1>
+      <p class="lede">Every operation has one. The Tuesday-morning roll-up, the Friday compliance digest, the Sunday-night inventory reconciliation. The spreadsheet someone secretly maintains at 11pm because if they don't, Monday breaks. Here's how to retire it without breaking what already works.</p>
+      <div class="article-meta">
+        <span><time datetime="2026-05-03">3 May 2026</time></span>
+        <span>9 min read</span>
+        <span class="tag">#agents</span> <span class="tag">#operations</span> <span class="tag">#automation</span> <span class="tag">#implementation</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="prose-body">
+    <div class="wrap prose">
+      <p>Find the spreadsheet first.</p>
+
+      <p>In every operation we've looked at, there's one document — usually a Google Sheet or an Excel file — that quietly carries more weight than its appearance suggests. It's the spreadsheet that gets opened at 11pm on Sunday because the operations lead remembers Monday's leadership meeting needs the numbers. Or it's the Friday-afternoon scramble to roll up the week's hours before payroll closes. It's the reconciliation between two systems that supposedly talk to each other but actually don't.</p>
+
+      <p>This is the right place to start with AI. Not your chatbot. Not your customer service. Not your "AI-powered" anything. The spreadsheet.</p>
+
+      <h2>Why this is the right starting point</h2>
+
+      <p>Three reasons:</p>
+
+      <ol>
+        <li><strong>The work is well-defined.</strong> Whoever maintains it can describe it in two minutes. "I pull X from system A, Y from system B, drop them into these columns, this formula calculates the delta, then I email it to the leadership team." That's a job spec — and it took 30 seconds to write.</li>
+        <li><strong>The output is internal.</strong> Low-stakes. If the AI version is wrong once in the first month, you fix it and try again. Nobody got fired. No customer was harmed.</li>
+        <li><strong>The savings are immediate.</strong> Whoever was doing it at 11pm gets that hour back. They become enthusiastic supporters of further AI projects. Without that internal advocate, the second project never happens.</li>
+      </ol>
+
+      <h2>How to spot YOUR 11pm spreadsheet</h2>
+
+      <p>Sometimes you know what it is the moment you read this. If not, ask three people in your operation a single question:</p>
+
+      <blockquote>"What's the recurring task you do every week that you wish you didn't have to do?"</blockquote>
+
+      <p>You'll get a few different answers. Look for the overlap. The thing that two or more people mention — that's your candidate. If everyone mentions a different thing, pick the one that runs on the most predictable schedule. Schedule beats stakes for a first project.</p>
+
+      <h3>Good candidates share these properties</h3>
+      <ul>
+        <li>The data sources are tools that have APIs (any modern SaaS — your CRM, accounting tool, project tracker, cloud database).</li>
+        <li>The output is a document, a Slack message, or an email — not a phone call or a meeting.</li>
+        <li>The structure of the output doesn't change week to week. (The numbers change. The shape doesn't.)</li>
+        <li>It currently takes 1–4 hours per cycle. Less than 1 hour: not worth the project. More than 4 hours: scope it down before you start.</li>
+        <li>Someone could explain how to do it correctly to a new hire in 30 minutes.</li>
+      </ul>
+
+      <h3>Bad candidates share these properties (skip these for now)</h3>
+      <ul>
+        <li>"It depends on what's happening that week" — too much judgment, too little structure.</li>
+        <li>The task involves contacting customers in any way (much higher stakes — leave it for project 4 or 5).</li>
+        <li>The data sources are PDFs, scanned documents, or things in someone's email inbox that they manually triage. Solvable, but harder; not a first project.</li>
+        <li>"It's faster to just do it than explain it" — usually a sign the job isn't actually well-defined.</li>
+      </ul>
+
+      <h2>The scoping conversation (60 minutes)</h2>
+
+      <p>Once you have a candidate, sit down with the person who currently does it. One hour, maximum. Cover these six questions and write the answers in a shared doc:</p>
+
+      <ol>
+        <li><strong>What triggers it?</strong> ("Every Monday at 7am" / "When a new lead enters CRM" / "When QuickBooks closes the month")</li>
+        <li><strong>Where does the data come from?</strong> List every source, with names of specific tables/views/folders/sheets.</li>
+        <li><strong>What transformations happen?</strong> Be exact. "If column X is empty, skip the row. If column Y &gt; column Z, flag it as 'overdue.'"</li>
+        <li><strong>What's the output?</strong> A Slack message? An email? A doc? Show an example of the most recent one.</li>
+        <li><strong>Who reads it?</strong> Names. Roles. What action do they take after reading?</li>
+        <li><strong>What can go wrong?</strong> What's the worst-case error and how would someone notice?</li>
+      </ol>
+
+      <p>If at the end of this hour you can't answer all six questions, the task isn't ready to be automated. That's not a failure — it's information. Sharpen the spec, or pick a different candidate.</p>
+
+      <h2>Building it (the technical bit, kept short)</h2>
+
+      <p>The implementation looks roughly the same for every operation:</p>
+
+      <pre><code>1. MCP servers for each data source
+   (existing ones if available, custom for internal tools)
+
+2. A scheduled trigger
+   (cron job, GitHub Actions, or your existing scheduler)
+
+3. An agent script that:
+   - Calls each MCP server to pull data
+   - Applies the transformations from the spec
+   - Generates the output document/message
+   - Posts it where it needs to go
+
+4. Error handling that pings a human if anything fails</code></pre>
+
+      <p>The whole thing is typically 200-500 lines of code, depending on complexity. Building it from scratch with AI assistance: 2-3 days of focused work. Hiring a specialist: 1-2 weeks elapsed. Either way, far cheaper than the consulting-firm "AI roadmap" that every operation gets pitched.</p>
+
+      <h2>The transition period</h2>
+
+      <p>Don't kill the old spreadsheet on day one. For the first month, run the agent <strong>in parallel</strong> with the manual process. The 11pm operator still does their thing; the agent also runs. Compare the outputs. If they match for 4-5 cycles in a row, you have green light. Retire the manual version.</p>
+
+      <p>This step is non-negotiable for two reasons:</p>
+      <ol>
+        <li>It catches edge cases the spec missed. There are always edge cases the spec missed.</li>
+        <li>It builds trust. The team needs to <em>see</em> the agent be correct over a real period of time before they'll let go of the manual safety net.</li>
+      </ol>
+
+      <h2>What changes after</h2>
+
+      <p>Three things, in this order:</p>
+
+      <ol>
+        <li><strong>The output gets better, not just faster.</strong> An agent that runs reliably every week tends to produce more consistent output than a human doing it at 11pm. The format stabilizes. Edge cases get handled the same way every time. Numbers stop drifting because of last-minute manual tweaks.</li>
+        <li><strong>The schedule becomes load-bearing.</strong> Once leadership knows the report shows up every Monday at 7am without fail, they start <em>using</em> it differently. Decisions get made earlier in the week. The data stops being something you ask for and becomes something that arrives.</li>
+        <li><strong>The 11pm operator is freed up.</strong> Often this person is one of your most valuable employees — that's why they were doing the manual roll-up in the first place. Now their hours go to the work that actually requires their judgment. This is the biggest dollar-value win, and the hardest to put on a project ROI sheet.</li>
+      </ol>
+
+      <h2>Don't make these mistakes</h2>
+
+      <ul>
+        <li><strong>Don't build the perfect agent.</strong> Build the boring agent that exactly replicates the current spreadsheet. Improvements come later, after it's running reliably.</li>
+        <li><strong>Don't hide the agent.</strong> Tell the team what it does, where it runs, who owns it. Mystery automation is the fastest way to lose trust the next time you propose a project.</li>
+        <li><strong>Don't pick the spreadsheet that's the most painful.</strong> Pick the one that's the most predictable. Pain doesn't predict automation success — predictability does.</li>
+      </ul>
+
+      <h2>What we do</h2>
+
+      <p>WildBreeze specializes in exactly this category of project: custom scheduled agents for small operations, lives in your cloud, three weeks, fixed price. If your 11pm spreadsheet has a name, we'd like to hear about it. <a href="/contact/">Tell us about your operation.</a></p>
+
+      <hr>
+
+      <p><strong>Related:</strong> <a href="/field-guide/agents/">What is an AI agent?</a> · <a href="/field-guide/ai-90-day-plan/">AI for small business: a realistic 90-day plan</a></p>
+    </div>
+  </section>
+</article>
+
+<section class="section" style="border-top: 1px solid var(--line);">
+  <div class="wrap prose">
+    <div class="section-head">
+      <div class="kicker">Keep reading</div>
+      <h2 style="font-size: 28px;">More from the Field Guide</h2>
+    </div>
+    <div class="articles">
+      <a class="article-card" href="/field-guide/agents/">
+        <div class="meta">
+          <span class="date">15 April 2026</span>
+          <span>Core Concept</span>
+        </div>
+        <div class="body">
+          <h3>What is an AI agent? A plain-English explainer for operators</h3>
+          <p>An agent is an AI assistant with a job, a schedule, and access to your tools. Here's what that actually means for a 10-50 person operation.</p>
+          <span class="read-more">READ →</span>
+        </div>
+      </a>
+      <a class="article-card" href="/field-guide/mcp-servers/">
+        <div class="meta">
+          <span class="date">22 April 2026</span>
+          <span>Core Concept</span>
+        </div>
+        <div class="body">
+          <h3>What is an MCP server? The bridge between AI and your stack</h3>
+          <p>MCP servers let AI assistants safely talk to your tools — Slack, your CRM, your warehouse, your spreadsheets. Here's what they are, in plain English.</p>
+          <span class="read-more">READ →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <a href="/" class="logo">
+          <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+            <defs>
+              <linearGradient id="wb-mark-grad-f" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#5EF2FF"/>
+                <stop offset="55%" stop-color="#A78BFA"/>
+                <stop offset="100%" stop-color="#5EF2FF"/>
+              </linearGradient>
+            </defs>
+            <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                  fill="none" stroke="url(#wb-mark-grad-f)" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>WildBreeze</span>
+        </a>
+        <p class="blurb">Quiet automation infrastructure for operations run by humans.</p>
+      </div>
+      <div class="meta">
+        <div class="col">
+          <h5>Build</h5>
+          <a href="/#services">Custom MCP servers</a>
+          <a href="/#services">Scheduled agents</a>
+          <a href="/#services">Weekly reports</a>
+        </div>
+        <div class="col">
+          <h5>Learn</h5>
+          <a href="/field-guide/agents/">What is an agent?</a>
+          <a href="/field-guide/mcp-servers/">What is an MCP server?</a>
+          <a href="/field-guide/#articles">All briefings</a>
+        </div>
+        <div class="col">
+          <h5>Contact</h5>
+          <a href="/contact/">Contact form</a>
+          <a href="mailto:jack@napier.me">jack@napier.me</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      <div>© 2026 WildBreeze. All systems quiet.</div>
+      <div>Built by <a href="https://www.napier.me" class="link" target="_blank" rel="noopener">napier.me</a></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
