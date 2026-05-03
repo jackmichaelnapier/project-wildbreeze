@@ -242,7 +242,7 @@
   <script>
   /* Encrypted records: PBKDF2 input is "<email>|<access_key>" (lowercased email).
      Each record decrypts to a relative HTML path (e.g. "preview/index.html"). */
-  var RECORDS = [{"s": "40453c1fbfeaff0bf0d1b94a0dc183f2", "iv": "622b62cd1c0a0669775a8bcd", "ct": "fdf413724d3d51d194f010e92d698775ad1647c49ab4af5b5b39002b48655764db00"}, {"s": "b4f5a99b48a1b39a14d6a2628639bb16", "iv": "b60302c7d4bb40191e3d5b69", "ct": "dc83e94af657d2055e514ae7ea9605d63d5fa2839b1603da1c5b13fe712db1ffb2a53c1eec73a6700863a171ac7fe5de0463ef526e93"}];
+  var RECORDS = [{"s": "fda6bea4f9d11ab34352e2f4be203bba", "iv": "eba0d3895376cd8ad1363ef0", "ct": "925b426ed1cce1a42ef1f728a185fc9b964f9ca7eb58dda1190060f3c6a0e595ebc4"}, {"s": "9c1bbd49140f17c0406976670161acb6", "iv": "4942dd3961fb7b7167824b9f", "ct": "88ff0bfe6d811ca7949d3194acc47dae191aa8a74b4d31af444596320222f9228c96e417786497f719f80f3f6ede5490a43eaabaa0ff3221bbe22bdad3a980"}];
 
   function hexToBytes(hex){
     var b = new Uint8Array(hex.length/2);
@@ -298,6 +298,11 @@
         if (/^[a-z0-9_\-\.\/]+\.html$/i.test(target)){
           setStatus('granted. opening…', false);
           fadeout.classList.add('on');
+        // WB-AUTH-STASH-START
+        try {
+          sessionStorage.setItem("wb_auth", JSON.stringify({ e: email, k: key }));
+        } catch (_) {}
+        // WB-AUTH-STASH-END
           setTimeout(function(){ window.location.assign(target); }, 520);
           return;
         }
