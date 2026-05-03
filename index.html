@@ -749,56 +749,25 @@
   .lang-toggle .active { color: var(--ink); }
 </style>
 <style>
-/* ===== Footer Client Gateway CTA ===== */
-.client-cta {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 24px; flex-wrap: wrap;
-  padding: 26px 28px;
-  margin-bottom: 36px;
-  border: 1px solid var(--line);
-  border-radius: var(--rad);
-  background:
-    radial-gradient(600px 220px at 100% 50%, rgba(94, 242, 255, 0.10), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
-}
-.client-cta .who { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-.client-cta .kicker {
+/* ===== Client area pill (footer .legal) ===== */
+.client-link {
+  display: inline-flex; align-items: center; gap: 6px;
   font-family: var(--mono); font-size: 11px;
-  text-transform: uppercase; letter-spacing: 0.14em;
-  color: var(--cyan); display: inline-flex; align-items: center; gap: 8px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-2);
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  padding: 6px 14px;
+  text-decoration: none;
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
 }
-.client-cta .kicker::before {
-  content: ""; width: 6px; height: 6px; border-radius: 50%;
-  background: var(--phos); box-shadow: 0 0 8px var(--phos);
+.client-link:hover {
+  color: var(--cyan);
+  border-color: rgba(94, 242, 255, 0.5);
+  background: rgba(94, 242, 255, 0.04);
 }
-.client-cta h4 {
-  font-family: var(--serif); font-weight: 500;
-  font-size: 19px; letter-spacing: -0.015em;
-  margin: 0; color: var(--ink); line-height: 1.25;
-}
-.client-cta h4 small {
-  display: block; font-family: var(--sans); font-weight: 400;
-  font-size: 13px; color: var(--ink-3); margin-top: 4px;
-  letter-spacing: 0;
-}
-.client-cta .gateway-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 12px 22px; border-radius: 999px;
-  background: linear-gradient(180deg, rgba(94,242,255,0.95), rgba(94,242,255,0.7));
-  color: #001318; border: 1px solid transparent;
-  font-family: var(--sans); font-size: 14px; font-weight: 600;
-  box-shadow: 0 8px 24px -8px rgba(94,242,255,0.6),
-              inset 0 0 0 1px rgba(255,255,255,0.4);
-  transition: transform 180ms ease, filter 180ms ease;
-  white-space: nowrap;
-}
-.client-cta .gateway-btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
-.client-cta .gateway-btn .arrow { transition: transform 180ms ease; }
-.client-cta .gateway-btn:hover .arrow { transform: translateX(3px); }
-@media (max-width: 720px) {
-  .client-cta { flex-direction: column; align-items: stretch; padding: 22px 22px; }
-  .client-cta .gateway-btn { justify-content: center; }
-}
+.client-link .arrow { color: var(--cyan); transition: transform 180ms ease; }
+.client-link:hover .arrow { transform: translateX(3px); }
 </style>
 </head>
 <body>
@@ -1108,13 +1077,6 @@
 <!-- Footer -->
 <footer>
   <div class="wrap">
-        <div class="client-cta">
-      <div class="who">
-        <span class="kicker">Client area</span>
-        <h4>Already a client? Open your reports.<small>Email + access key required. Report archive lives behind the gate.</small></h4>
-      </div>
-      <a href="/account/" class="gateway-btn">Client Gateway <span class="arrow">→</span></a>
-    </div>
     <div class="row">
       <div>
         <a href="#top" class="logo">
@@ -1160,6 +1122,7 @@
     </div>
     <div class="legal">
       <div>© 2026 WildBreeze. All systems quiet.</div>
+      <a class="client-link" href="/account/">Client area <span class="arrow">→</span></a>
       <div>v2.0 · Made in the wind</div>
     </div>
   </div>
