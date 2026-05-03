@@ -375,7 +375,40 @@
     border: 5px solid var(--bg-0);
     background: var(--bg-0);
     z-index: 1;
+    cursor: pointer;
   }
+  /* Hover hint: faint overlay + label that surfaces on hover when muted */
+  .video-ring .play-hint {
+    position: absolute;
+    inset: 5px;
+    border-radius: 50%;
+    z-index: 4;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(closest-side, rgba(6, 8, 15, 0.55), transparent 75%);
+    opacity: 0;
+    transition: opacity 220ms ease;
+  }
+  .video-ring:hover .play-hint { opacity: 1; }
+  /* Hide the hint once the video is playing with sound */
+  .video-ring.unmuted .play-hint { display: none; }
+  .play-hint .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink);
+    background: rgba(6, 8, 15, 0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(94, 242, 255, 0.4);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .play-hint .label svg { width: 12px; height: 12px; color: var(--cyan); }
   /* Mute toggle in bottom-right */
   .mute-toggle {
     position: absolute;
@@ -930,16 +963,22 @@
     </div>
 
     <div class="hero-video reveal" aria-hidden="false">
-      <div class="video-ring">
+      <div class="video-ring" id="video-ring">
         <span class="ring-glow" aria-hidden="true"></span>
         <span class="ring-rotor" aria-hidden="true"></span>
         <video id="intro-video"
                autoplay muted loop playsinline preload="metadata"
                poster="/og-preview.png"
-               aria-label="WildBreeze intro video">
+               aria-label="WildBreeze intro video. Click to play with sound.">
           <source src="/media/intro.mp4" type="video/mp4">
         </video>
-        <button class="mute-toggle" type="button" aria-label="Unmute video" aria-pressed="false">
+        <div class="play-hint" aria-hidden="true">
+          <span class="label">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Play with sound
+          </span>
+        </div>
+        <button class="mute-toggle" type="button" aria-label="Unmute video and restart" aria-pressed="false">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path class="icon-muted"   d="M11 5L6 9H2v6h4l5 4V5z M23 9l-6 6 M17 9l6 6"/>
             <path class="icon-unmuted" d="M11 5L6 9H2v6h4l5 4V5z M15.54 8.46a5 5 0 010 7.07 M19.07 4.93a10 10 0 010 14.14" style="display:none"/>
@@ -1509,28 +1548,59 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 })();
 
 /* ============================================================
-   Hero intro video — mute toggle + autoplay safety net.
+   Hero intro video — ambient muted teaser, click to play
+   from the beginning with sound.
    ============================================================ */
 (() => {
   const video  = document.getElementById('intro-video');
   const button = document.querySelector('.mute-toggle');
-  if (!video || !button) return;
+  const ring   = document.getElementById('video-ring');
+  if (!video || !button || !ring) return;
 
   const iconMuted   = button.querySelector('.icon-muted');
   const iconUnmuted = button.querySelector('.icon-unmuted');
 
-  function paint() {
+  function paintIcon() {
     const muted = video.muted;
     button.setAttribute('aria-pressed', String(!muted));
-    button.setAttribute('aria-label', muted ? 'Unmute video' : 'Mute video');
+    button.setAttribute('aria-label', muted ? 'Play with sound from the start' : 'Mute video');
     if (iconMuted)   iconMuted.style.display   = muted ? '' : 'none';
     if (iconUnmuted) iconUnmuted.style.display = muted ? 'none' : '';
+    ring.classList.toggle('unmuted', !muted);
   }
 
-  button.addEventListener('click', () => {
+  // Restart from 0 + unmute + play. Used by both video click and button click.
+  function playFromStartWithSound(e) {
+    if (e) e.stopPropagation();
+    video.currentTime = 0;
+    video.muted = false;
+    video.play().catch((err) => {
+      // If unmuting fails (some browsers block until user gesture is "real"),
+      // re-mute and let the user try again — better than a silent failure.
+      console.warn('Unmute play failed:', err);
+      video.muted = true;
+    });
+    paintIcon();
+  }
+
+  // Just toggle mute, no restart (they are already watching).
+  function toggleMuteOnly(e) {
+    if (e) e.stopPropagation();
     video.muted = !video.muted;
     if (!video.muted && video.paused) video.play().catch(() => {});
-    paint();
+    paintIcon();
+  }
+
+  // The button: when muted → restart-with-sound; when unmuted → just mute.
+  button.addEventListener('click', (e) => {
+    if (video.muted) playFromStartWithSound(e);
+    else             toggleMuteOnly(e);
+  });
+
+  // Clicking the video itself: only triggers the restart-with-sound behavior
+  // when currently muted. Once unmuted, video clicks do nothing (passive watch).
+  video.addEventListener('click', (e) => {
+    if (video.muted) playFromStartWithSound(e);
   });
 
   // Some mobile browsers refuse autoplay until visible; nudge it.
@@ -1541,7 +1611,7 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   }, { threshold: 0.1 });
   io.observe(video);
 
-  paint();
+  paintIcon();
 })();
 </script>
 
