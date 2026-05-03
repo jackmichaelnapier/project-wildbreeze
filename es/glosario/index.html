@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Glosario de IA para pequeños negocios · WildBreeze</title>
+<meta name="description" content="Definiciones en lenguaje claro de los términos de IA con los que un dueño de pequeño negocio se topa de verdad. Agente, MCP, RAG, fine-tuning, prompt, ventana de contexto y más." />
+<link rel="canonical" href="https://www.wildbreeze.io/es/glosario/" />
+<meta name="theme-color" content="#06080F" />
+<meta property="og:title" content="Glosario de IA para pequeños negocios · WildBreeze" />
+<meta property="og:description" content="Definiciones en lenguaje claro de los términos de IA con los que un dueño de pequeño negocio se topa de verdad. Agente, MCP, RAG, fine-tuning, prompt, ventana de contexto y más." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.wildbreeze.io/es/glosario/" />
+<meta property="og:image" content="https://www.wildbreeze.io/og-preview.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="es_ES" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.wildbreeze.io/og-preview.png" />
+<link rel="alternate" hreflang="en" href="https://www.wildbreeze.io/glossary/" />
+<link rel="alternate" hreflang="es" href="https://www.wildbreeze.io/es/glosario/" />
+<link rel="alternate" hreflang="x-default" href="https://www.wildbreeze.io/glossary/" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/wb-style.css" />
+<style>
+  .lang-toggle { font-family: var(--mono); font-size: 12px; color: var(--ink-3); letter-spacing: 0.08em; margin-left: 16px; }
+  .lang-toggle a { color: var(--cyan); padding: 0 4px; }
+  .lang-toggle .sep { color: var(--line-2); }
+  .lang-toggle .active { color: var(--ink); }
+  .gloss-grid { display: grid; gap: 28px; }
+  .gloss-entry { padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .gloss-entry:last-child { border-bottom: none; }
+  .gloss-entry .term { font-family: var(--serif); font-weight: 600; font-size: 22px; letter-spacing: -0.015em; margin: 0 0 6px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .gloss-entry .term .alias { font-family: var(--mono); font-size: 12px; font-weight: 400; color: var(--ink-3); letter-spacing: 0.06em; }
+  .gloss-entry .def { color: var(--ink-2); font-size: 16px; line-height: 1.6; margin: 0 0 10px; }
+  .gloss-entry .ex { font-family: var(--mono); font-size: 13px; line-height: 1.6; color: var(--ink-3); padding-left: 14px; border-left: 2px solid var(--line); margin: 8px 0 0; }
+</style>
+
+</head>
+<body>
+
+<div class="field" aria-hidden="true"></div>
+<div class="grid" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap row">
+    <a href="/es/" class="logo">
+      <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+        <defs><linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#5EF2FF"/><stop offset="55%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#5EF2FF"/></linearGradient></defs>
+        <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0" fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>WildBreeze</span>
+    </a>
+    <nav class="main">
+      <a href="/es/#servicios">Servicios</a>
+      <a href="/es/guia-de-campo/">Guía de campo</a>
+      <a href="/es/sobre/">Sobre</a>
+      <a href="/es/contacto/" class="cta">Contacto</a>
+      <span class="lang-toggle"><a href="/glossary/" hreflang="en">EN</a><span class="sep">·</span><span class="active">ES</span></span>
+    </nav>
+  </div>
+</header>
+<section class="page-hero">
+  <div class="wrap prose">
+    <div class="kicker">Glosario</div>
+    <h1 class="page-title">IA para pequeños negocios, <span class="accent">en lenguaje claro.</span></h1>
+    <p class="lede">Cada término que un dueño de pequeño negocio se encuentra de verdad cuando empieza a mirar IA para su operación. Sin jerga, sin rodeos. Cada entrada tiene una definición de una frase, una explicación más larga, y un ejemplo del mundo real.</p>
+  </div>
+</section>
+
+<section class="prose-body">
+  <div class="wrap prose">
+    <div class="gloss-grid">
+
+      <div class="gloss-entry"><h3 class="term">Agente <span class="alias">también: agente de IA</span></h3>
+        <p class="def">Un asistente de IA que hace trabajo por su cuenta. Tiene un trabajo, un horario y acceso a tus herramientas. No es un chatbot.</p>
+        <p class="ex">Ejemplo: un agente que extrae los ingresos de la semana pasada de tu sistema contable cada lunes a las 7h, los formatea como informe y los publica en un canal de Slack antes de que empiece la reunión de dirección.</p>
+        <p style="margin-top:10px;"><a class="link" href="/es/guia-de-campo/agentes/">Explicación completa →</a></p>
+      </div>
+
+      <div class="gloss-entry"><h3 class="term">API <span class="alias">interfaz de programación de aplicaciones</span></h3>
+        <p class="def">Una forma estandarizada de que un software hable con otro software. El número de teléfono que un programa usa para llamar a otro programa.</p>
+        <p class="ex">Ejemplo: cuando tu tienda Shopify envía datos de pedidos a tu herramienta de contabilidad automáticamente, eso es una llamada API. Las APIs son cómo funciona toda integración moderna por debajo.</p>
+      </div>
+
+      <div class="gloss-entry"><h3 class="term">Chatbot</h3>
+        <p class="def">Una IA que espera en una ventana de chat a que le preguntes algo, responde, y se olvida. Lo que la mayoría de la gente quiere decir con "IA" en 2026. Útil, pero el suelo de lo que la IA puede hacer por una operación, no el techo.</p>
+        <p class="ex">Ejemplo: ChatGPT, Claude, Gemini en su modo de chat por defecto. Tú escribes una pregunta, responde. Compáralo con un agente, que actúa sin que se le pregunte.</p>
+      </div>
+
+      <div class="gloss-entry"><h3 class="term">Ventana de contexto</h3>
+        <p class="def">Cuánta información puede mantener una IA en su memoria de trabajo durante una sola conversación. Se mide en tokens (aproximadamente, palabras). Cuando se llena, el modelo empieza a olvidar partes anteriores de la conversación.</p>
+        <p class="ex">Ejemplo: una ventana de 200.000 tokens es lo bastante grande para leer una novela completa de un tirón. Las pequeñas operaciones rara vez chocan con este límite.</p>
+      </div>
+
+      <div class="gloss-entry"><h3 class="term">Embedding</h3>
+        <p class="def">Una representación matemática de un fragmento de texto que permite a un ordenador encontrar fragmentos similares. La tecnología detrás de la "búsqueda semántica": encontrar cosas por significado, no por coincidencia exacta de palabras.</p>
+        <p class="ex">Ejemplo: una búsqueda con embeddings permite a un cliente preguntar "¿enviáis a Italia?" y encontrar un artículo de ayuda titulado "Políticas de entrega en Europa", aunque esas palabras no se solapen.</p>
+      </div>
+
+      <div class="gloss-entry"><h3 class="term">Fine-tuning <span class="alias">ajuste fino</span></h3>
+        <p class="def">Coger un modelo de IA existente y entrenarlo más con tus datos para que recoja tu estilo, tu terminología, tu dominio. Caro. Rara vez es la respuesta correcta para una pequeña operación. Normalmente un servidor MCP a medida da el 90% del resultado por el 1% del coste.</p>
+        <p class="ex">Ejemplo: un despacho de abogados haciendo fine-tuning sobre sus escritos pasados para que la IA redacte borradores en su voz. Caso real, coste real (a menudo más de 20.000 € por ronda).</p>
+      </div>
+
+      <div class="gloss-entry"><h3 class="term">Alucinación</h3>
+        <p class="def">Cuando una IA afirma con seguridad algo que no es cierto. No es un fallo, es una característica de cómo funcionan los modelos de lenguaje. La razón por la que toda salida de IA que toca datos del negocio necesita un paso de verificación o revisión humana antes de actuar.</p>
+        <p class="ex">Ejemplo: pedir a una IA "el título del PDF de la llamada de resultados del Q3" y recibir un nombre plausible que no existe. La defensa: anclar la IA en datos reales vía servidores MCP y RAG, no en recuerdo libre.</p>
+      </div>
+
+      <div class="gloss-entry"><h3 class="term">LLM <span class="alias">modelo grande de lenguaje</span></h3>
+        <p class="def">El tipo de IA que mueve ChatGPT, Claude, Gemini. Entrenado para predecir la siguiente palabra dado un contexto, escalado hasta poder hacer trabajo útil. El motor. Todo lo demás (agentes, chatbots, RAG) está construido encima.</p>
+        <p class="ex">Ejemplo: GPT-5, Claude Opus 4.6, Gemini 2.5 Ultra. Cada uno tiene fortalezas diferentes. Las pequeñas operaciones rara vez necesitan el modelo de frontera absoluta.</p>
+      </div>
+
+      <div class="gloss-entry"><h3 class="term">MCP <span class="alias">Model Context Protocol</span></h3>
+        <p class="def">Un estándar abierto que permite a los asistentes de IA hablar con tus herramientas. El puente entre Claude o ChatGPT y tu CRM, Slack, base de datos o API interna. USB para la IA. Diseñado por Anthropic en 2024, ya adoptado en todas partes.</p>
+        <p class="ex">Ejemplo: un servidor MCP para ClickUp permite a un agente de IA leer tus tareas, publicar comentarios y actualizar estados. El mismo servidor funciona ya sea que lo use Claude, ChatGPT u otro cliente de IA.</p>
+        <p style="margin-top:10px;"><a class="link" href="/es/guia-de-campo/servidores-mcp/">Explicación completa →</a></p>
+      </div>
+
+      <div class="gloss-entry"><h3 class="term">Prompt</h3>
+        <p class="def">La instrucción que le das a una IA. Puede ser una frase ("resume este email") o un prompt de sistema de varias páginas con reglas detalladas. La calidad del prompt importa menos de lo que la gente piensa. La calidad del dato de entrada importa más.</p>
+        <p class="ex">Ejemplo: "Lee este email del cliente y redacta una respuesta en nuestro tono habitual" es un prompt. "Lee estos 10.000 emails y dime de qué se queja la gente" también lo es. Requisitos diferentes.</p>
+      </div>
+
+      <div class="gloss-entry"><h3 class="term">RAG <span class="alias">retrieval-augmented generation</span></h3>
+        <p class="def">Un patrón en el que la IA busca información relevante en tus documentos antes de responder. Se usa para anclar las respuestas de la IA en tus datos reales en lugar del entrenamiento del modelo. La respuesta correcta para "quiero que la IA conteste preguntas sobre nuestra documentación interna".</p>
+        <p class="ex">Ejemplo: una IA de atención al cliente que busca la sección relevante de tu centro de ayuda antes de redactar una respuesta. El mismo patrón funciona para contratos legales, wikis internos, manuales de producto.</p>
+      </div>
+
+      <div class="gloss-entry"><h3 class="term">Token</h3>
+        <p class="def">La unidad por la que facturan los proveedores de IA. Aproximadamente: 1 token = 0,75 palabras en español. Un email típico son 100-300 tokens. La tarifa suele ser por millón de tokens, con entrada y salida facturadas por separado.</p>
+        <p class="ex">Ejemplo: a precios actuales (Claude Sonnet 4.5), una respuesta de 1.000 palabras cuesta unos 0,005 € en entrada + salida combinadas. Útil saber cuándo dimensionar si una automatización es viable.</p>
+      </div>
+
+      <div class="gloss-entry"><h3 class="term">Tool use <span class="alias">uso de herramientas</span></h3>
+        <p class="def">Cuando una IA llama a un servidor MCP, una API o un trozo de código para obtener información o realizar una acción, en lugar de solo generar texto. El mecanismo que convierte un modelo de lenguaje en algo útil para una operación.</p>
+        <p class="ex">Ejemplo: un agente de IA usa tool use para llamar a tu API meteorológica, recibir el pronóstico actual, y escribir una respuesta amistosa a un cliente que pregunta si su pedido llegará a tiempo.</p>
+      </div>
+
+      <div class="gloss-entry"><h3 class="term">Base de datos vectorial</h3>
+        <p class="def">Una base de datos especializada que guarda embeddings (ver arriba) y permite buscarlos rápidamente. La infraestructura debajo de la mayoría de sistemas RAG. Las pequeñas operaciones no necesitan saber la marca; solo que hay una implicada cuando un asistente de IA busca en sus documentos.</p>
+        <p class="ex">Ejemplo: Pinecone, Weaviate, pgvector (extensión de Postgres). La elección rara vez importa para pequeñas operaciones; las opciones predeterminadas funcionan hasta varios millones de documentos.</p>
+      </div>
+
+    </div>
+
+    <hr>
+
+    <p>¿No ves un término? <a class="link" href="/es/contacto/">Cuéntanoslo</a> y lo añadimos.</p>
+  </div>
+</section>
+<footer class="site">
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <a href="/es/" class="logo">
+          <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+            <defs><linearGradient id="wb-mark-grad-f" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#5EF2FF"/><stop offset="55%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#5EF2FF"/></linearGradient></defs>
+            <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0" fill="none" stroke="url(#wb-mark-grad-f)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>WildBreeze</span>
+        </a>
+        <p class="blurb">Infraestructura de automatización silenciosa para operaciones humanas.</p>
+      </div>
+      <div class="meta">
+        <div class="col"><h5>Construir</h5><a href="/es/#servicios">Servidores MCP</a><a href="/es/#servicios">Agentes programados</a><a href="/es/#servicios">Informes semanales</a></div>
+        <div class="col"><h5>Aprender</h5><a href="/es/guia-de-campo/">Guía de campo</a><a href="/es/glosario/">Glosario</a><a href="/es/calculadora/">Calculadora</a><a href="/es/auditoria-11pm/">Auditoría 23h</a><a href="/es/sobre/">Sobre</a></div>
+        <div class="col"><h5>Contacto</h5><a href="/es/contacto/">Formulario</a><a href="mailto:hello@wildbreeze.io">hello@wildbreeze.io</a></div>
+      </div>
+    </div>
+    <div class="legal">
+      <div>© 2026 WildBreeze. Todos los sistemas en silencio.</div>
+      <div>Hecho por <a href="https://www.napier.me" class="link" target="_blank" rel="noopener">napier.me</a></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
