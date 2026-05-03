@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The 11pm Spreadsheet Audit · Worksheet · WildBreeze</title>
+<meta name="description" content="The printable 11pm Spreadsheet Audit worksheet. Six questions that find your strongest AI agent candidate task." />
+<link rel="canonical" href="https://www.wildbreeze.io/11pm-audit/download/" />
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#06080F" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/wb-style.css" />
+<style>
+  .audit-doc {
+    background: rgba(255,255,255,0.96); color: #1c1c1c;
+    border-radius: var(--rad);
+    padding: 60px 56px;
+    margin-top: 40px;
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,0.6);
+    font-family: 'Inter', sans-serif;
+  }
+  .audit-doc h2, .audit-doc h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    color: #1c1c1c; letter-spacing: -0.015em;
+  }
+  .audit-doc h1 { font-size: 32px; margin: 0 0 8px; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.025em; }
+  .audit-doc .doc-kicker { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #999; margin-bottom: 24px; }
+  .audit-doc h2 { font-size: 22px; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #1c1c1c; }
+  .audit-doc h3 { font-size: 16px; margin: 22px 0 8px; }
+  .audit-doc p { line-height: 1.6; margin: 0 0 14px; }
+  .audit-doc ol, .audit-doc ul { line-height: 1.6; padding-left: 22px; }
+  .audit-doc li { margin-bottom: 8px; }
+  .audit-doc .blank {
+    display: block; min-height: 22px;
+    border-bottom: 1px solid #999; margin: 4px 0 16px;
+  }
+  .audit-doc .blank.tall { min-height: 60px; }
+  .audit-doc .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 14px 0 24px; }
+  .audit-doc .grid-3 .col {
+    border: 1px solid #ddd; border-radius: 4px;
+    padding: 10px 12px; min-height: 80px;
+    font-size: 13px; line-height: 1.5;
+  }
+  .audit-doc .grid-3 .col h4 { font-size: 12px; margin: 0 0 6px; font-family: 'JetBrains Mono', monospace; color: #999; letter-spacing: 0.1em; }
+  .audit-doc .red-flag { background: #fff4ed; border-left: 3px solid #c1440e; padding: 10px 14px; margin: 8px 0; font-size: 14px; }
+  .audit-doc .footer-note {
+    margin-top: 40px; padding-top: 22px; border-top: 1px solid #ddd;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: #999; letter-spacing: 0.06em;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+  @media print {
+    body { background: white !important; color: black !important; }
+    .audit-doc { box-shadow: none; padding: 0; background: white; }
+    .field, .grid, header.nav, footer.site, .print-controls { display: none !important; }
+    .audit-doc h2 { page-break-after: avoid; }
+  }
+  .print-controls {
+    margin-top: 24px;
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+</style>
+</head>
+<body>
+
+<div class="field" aria-hidden="true"></div>
+<div class="grid" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap row">
+    <a href="/" class="logo">
+      <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+        <defs>
+          <linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#5EF2FF"/>
+            <stop offset="55%" stop-color="#A78BFA"/>
+            <stop offset="100%" stop-color="#5EF2FF"/>
+          </linearGradient>
+        </defs>
+        <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+              fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>WildBreeze</span>
+    </a>
+    <nav class="main">
+      <a href="/#services">Services</a>
+      <a href="/field-guide/">Field Guide</a>
+      <a href="/about/">About</a>
+      <a href="/contact/" class="cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap prose">
+    <div class="kicker">✓ Submitted</div>
+    <h1 class="page-title">Your audit, <span class="accent">below.</span></h1>
+    <p class="lede">
+      Print this page (⌘P / Ctrl+P), fill it in by hand or on a tablet, and bring the result to your next operations meeting. The whole thing takes about 10 minutes per candidate task.
+    </p>
+
+    <div class="print-controls">
+      <button class="btn primary" onclick="window.print()">Print this page <span class="arrow">↧</span></button>
+      <a class="btn" href="/contact/">Or send your filled-in audit to us</a>
+    </div>
+  </div>
+</section>
+
+<section class="prose-body">
+  <div class="wrap prose">
+
+    <article class="audit-doc">
+      <div class="doc-kicker">WildBreeze · The 11pm Spreadsheet Audit · v1.0</div>
+      <h1>Find your first AI agent candidate.</h1>
+      <p style="color:#555; font-style: italic;">Score one or more recurring tasks against the six questions below. The task that scores highest is your strongest candidate for an AI agent build.</p>
+
+      <h2>Step 1 · The candidate task</h2>
+      <p><strong>What's the task?</strong> One sentence. Plain English.</p>
+      <span class="blank tall"></span>
+
+      <p><strong>Who currently does it?</strong> Name and role.</p>
+      <span class="blank"></span>
+
+      <h2>Step 2 · Six diagnostic questions</h2>
+
+      <h3>1. Does it run on a predictable schedule?</h3>
+      <p>Daily, weekly, monthly, or event-driven? Pick one.</p>
+      <span class="blank"></span>
+      <p style="font-size: 13px; color: #666;">Score: 3 if predictable schedule. 1 if event-driven. 0 if "it depends."</p>
+
+      <h3>2. Are the data sources tools with APIs?</h3>
+      <p>List every system the task pulls from.</p>
+      <span class="blank tall"></span>
+      <p style="font-size: 13px; color: #666;">Score: 3 if every source is a modern SaaS or database. 2 if mostly. 0 if any sources are PDFs, scanned documents, or someone's email inbox.</p>
+
+      <h3>3. Is the output structure stable from cycle to cycle?</h3>
+      <p>The numbers change, but does the SHAPE of the output change?</p>
+      <span class="blank tall"></span>
+      <p style="font-size: 13px; color: #666;">Score: 3 if shape is identical every time. 1 if mostly stable. 0 if shape changes weekly.</p>
+
+      <h3>4. How long does it currently take per cycle?</h3>
+      <span class="blank"></span>
+      <p style="font-size: 13px; color: #666;">Score: 3 if 2-4 hours. 2 if 1-2 hours or 4-8 hours. 0 if &lt;1 hour or &gt;8 hours.</p>
+
+      <h3>5. Where does the output go?</h3>
+      <p>An internal Slack channel? An email to the team? A document? A customer? Be specific.</p>
+      <span class="blank tall"></span>
+      <p style="font-size: 13px; color: #666;">Score: 3 if internal. 1 if external-internal hybrid (e.g. drafts for a human to review and send). 0 if directly to customers (start with a different task first).</p>
+
+      <h3>6. If it goes wrong by 5%, what happens?</h3>
+      <p>Honest answer. Reversible inconvenience? Or a real consequence?</p>
+      <span class="blank tall"></span>
+      <p style="font-size: 13px; color: #666;">Score: 3 if reversible inconvenience. 1 if requires a small fix. 0 if has external consequences (regulatory, customer-facing, financial).</p>
+
+      <h2>Step 3 · Your score</h2>
+      <p>Total each question:</p>
+      <div class="grid-3">
+        <div class="col"><h4>Q1</h4><span class="blank"></span></div>
+        <div class="col"><h4>Q2</h4><span class="blank"></span></div>
+        <div class="col"><h4>Q3</h4><span class="blank"></span></div>
+        <div class="col"><h4>Q4</h4><span class="blank"></span></div>
+        <div class="col"><h4>Q5</h4><span class="blank"></span></div>
+        <div class="col"><h4>Q6</h4><span class="blank"></span></div>
+      </div>
+      <p style="font-weight: 600;">Total: <span class="blank" style="display:inline-block; min-width: 60px;"></span> / 18</p>
+
+      <h2>Step 4 · How to read your score</h2>
+      <ul>
+        <li><strong>15-18 ·</strong> Strong candidate. Build it. Single-task scope, 2-4 weeks, fixed price.</li>
+        <li><strong>11-14 ·</strong> Worth scoping. Tighten the task definition first; the gap to 15+ is usually a re-defining of scope, not a re-shaping of the work.</li>
+        <li><strong>7-10 ·</strong> Marginal. The task probably needs to be broken into two distinct sub-tasks, with one of them being the actual agent candidate.</li>
+        <li><strong>0-6 ·</strong> Wrong task for an agent. Don't try to force it. This work is human work. Look at your other candidate tasks.</li>
+      </ul>
+
+      <h2>Common red flags (do not ignore these)</h2>
+      <div class="red-flag"><strong>Red flag 1.</strong> The task involves customer communication. Don't make this your first agent. Pick something internal-only for project 1, build trust, then revisit.</div>
+      <div class="red-flag"><strong>Red flag 2.</strong> "It's faster to just do it than explain it." This usually means the task isn't well-defined yet. The fix isn't AI; it's writing a clear spec.</div>
+      <div class="red-flag"><strong>Red flag 3.</strong> One of the data sources is "an email someone forwards me." Solvable, but not a first project. Pick a task with cleaner inputs.</div>
+      <div class="red-flag"><strong>Red flag 4.</strong> "It depends what's happening that week." This task has too much judgment in it. Pick something where the rules are stable.</div>
+
+      <h2>Step 5 · One-paragraph project spec</h2>
+      <p>If your highest-scoring task got 11+, fill this out:</p>
+      <p style="margin-top: 8px;">"Every <strong style="text-decoration: underline;">[when]</strong>, an agent should pull <strong style="text-decoration: underline;">[what data]</strong> from <strong style="text-decoration: underline;">[which source(s)]</strong>, transform it by <strong style="text-decoration: underline;">[what rules]</strong>, format it as <strong style="text-decoration: underline;">[what output shape]</strong>, and post it to <strong style="text-decoration: underline;">[where]</strong>. If anything fails, ping <strong style="text-decoration: underline;">[whom]</strong>."</p>
+      <span class="blank tall" style="min-height: 120px;"></span>
+
+      <p style="font-style: italic; color: #555;">If you can fill this out, you have enough to bring to any specialist for a build quote. You also have enough to build it yourself if you have someone in-house who codes.</p>
+
+      <div class="footer-note">
+        <span>WildBreeze · wildbreeze.io · hello@wildbreeze.io</span>
+        <span>v1.0 · 2026</span>
+      </div>
+    </article>
+
+    <p style="margin-top: 40px;">When you've filled it out, <a class="link" href="/contact/">tell us about the highest-scoring task</a>. No commitment. We'll either tell you it's a great fit, or honestly point you elsewhere.</p>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <a href="/" class="logo">
+          <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+            <defs>
+              <linearGradient id="wb-mark-grad-f" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#5EF2FF"/>
+                <stop offset="55%" stop-color="#A78BFA"/>
+                <stop offset="100%" stop-color="#5EF2FF"/>
+              </linearGradient>
+            </defs>
+            <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                  fill="none" stroke="url(#wb-mark-grad-f)" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>WildBreeze</span>
+        </a>
+        <p class="blurb">Quiet automation infrastructure for operations run by humans.</p>
+      </div>
+      <div class="meta">
+        <div class="col"><h5>Build</h5><a href="/#services">Custom MCP servers</a><a href="/#services">Scheduled agents</a><a href="/#services">Weekly reports</a></div>
+        <div class="col">
+          <h5>Learn</h5>
+          <a href="/field-guide/">Field Guide</a>
+          <a href="/glossary/">Glossary</a>
+          <a href="/calculator/">Cost calculator</a>
+          <a href="/11pm-audit/">11pm Audit</a>
+          <a href="/vs/ai-agent-vs-virtual-assistant/">Agent vs VA</a>
+          <a href="/about/">About</a>
+        </div>
+        <div class="col"><h5>Contact</h5><a href="/contact/">Contact form</a><a href="mailto:hello@wildbreeze.io">hello@wildbreeze.io</a></div>
+      </div>
+    </div>
+    <div class="legal">
+      <div>© 2026 WildBreeze. All systems quiet.</div>
+      <div>Built by <a href="https://www.napier.me" class="link" target="_blank" rel="noopener">napier.me</a></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
