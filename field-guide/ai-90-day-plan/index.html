@@ -54,6 +54,27 @@
   .lang-toggle a { color: var(--cyan); padding: 0 4px; }
   .lang-toggle .sep { color: var(--line-2); }
   .lang-toggle .active { color: var(--ink); }
+      /* WB-CLIENT-CSS-START */
+  /* Client area pill (footer .legal) — managed by _inject_client_link.py */
+  .client-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-2);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    padding: 6px 14px;
+    text-decoration: none;
+    transition: all 180ms ease;
+  }
+  .client-link:hover {
+    color: var(--cyan);
+    border-color: rgba(94, 242, 255, 0.5);
+    background: rgba(94, 242, 255, 0.04);
+  }
+  .client-link .arrow { color: var(--cyan); transition: transform 180ms ease; }
+  .client-link:hover .arrow { transform: translateX(3px); }
+  /* WB-CLIENT-CSS-END */
 </style>
 <!-- WB-TAGS-START -->
 <!-- Google tag (gtag.js) — GA4 G-4S960N841V -->
@@ -297,6 +318,7 @@
     </div>
     <div class="legal">
       <div>© 2026 WildBreeze. All systems quiet.</div>
+      <!-- WB-CLIENT-HTML-START --><a class="client-link" href="/account/">Client area <span class="arrow">→</span></a><!-- WB-CLIENT-HTML-END -->
       <div>Built by <a href="https://www.napier.me" class="link" target="_blank" rel="noopener">napier.me</a></div>
     </div>
   </div>
