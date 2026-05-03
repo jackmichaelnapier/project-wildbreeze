@@ -311,6 +311,110 @@
 
   .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
 
+  /* ===== Hero grid (content + circular video) ===== */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .hero-content { min-width: 0; }
+  .hero-video {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    justify-self: center;
+    position: relative;
+  }
+  .video-ring {
+    position: relative;
+    width: 360px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    isolation: isolate;
+    /* Ambient glow that the rotating gradient lives inside of */
+    filter: drop-shadow(0 0 28px rgba(94, 242, 255, 0.45))
+            drop-shadow(0 0 60px rgba(167, 139, 250, 0.30));
+  }
+  /* Outer rotating conic-gradient ring */
+  .ring-rotor {
+    position: absolute; inset: -3px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg,
+      rgba(94, 242, 255, 0.95) 0deg,
+      rgba(167, 139, 250, 0.85) 90deg,
+      rgba(94, 242, 255, 0.20) 180deg,
+      rgba(167, 139, 250, 0.85) 270deg,
+      rgba(94, 242, 255, 0.95) 360deg);
+    animation: ringRotate 14s linear infinite;
+    z-index: -1;
+  }
+  /* Soft second-layer pulse */
+  .ring-glow {
+    position: absolute; inset: -16px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(94, 242, 255, 0.18), rgba(167, 139, 250, 0.10) 60%, transparent 80%);
+    animation: ringPulse 4.6s ease-in-out infinite;
+    z-index: -2;
+    pointer-events: none;
+  }
+  @keyframes ringRotate { to { transform: rotate(360deg); } }
+  @keyframes ringPulse {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50%      { opacity: 1.0;  transform: scale(1.04); }
+  }
+  /* The video itself, masked into the circle */
+  .video-ring video {
+    position: relative;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    /* Inner dark border separating the video from the rotor ring */
+    border: 5px solid var(--bg-0);
+    background: var(--bg-0);
+    z-index: 1;
+  }
+  /* Mute toggle in bottom-right */
+  .mute-toggle {
+    position: absolute;
+    right: 6%; bottom: 6%;
+    z-index: 5;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--line-2);
+    background: rgba(6, 8, 15, 0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: var(--ink);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 180ms ease;
+  }
+  .mute-toggle:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-1px); }
+  .mute-toggle svg { width: 18px; height: 18px; }
+  /* Tag below the video */
+  .video-tag {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 4px;
+  }
+  .video-tag .tag-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--phos);
+    box-shadow: 0 0 8px var(--phos);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ring-rotor { animation: none; }
+    .ring-glow { animation: none; }
+  }
+
   .hero-meta {
     margin-top: 70px;
     display: grid;
@@ -319,6 +423,7 @@
     border-top: 1px solid var(--line);
     padding-top: 32px;
     position: relative;
+    grid-column: 1 / -1;
   }
   .hero-meta::before {
     content: ""; position: absolute;
@@ -730,6 +835,12 @@
     .section { padding: 80px 0; }
     .cta-block { padding: 44px 24px; }
     .process-wrap::before, .process-wrap .pulse { display: none; }
+    /* Hero: stack content under video on mobile */
+    .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+    .hero-video { order: -1; }
+    .video-ring { width: 240px; }
+    .mute-toggle { width: 38px; height: 38px; }
+    .mute-toggle svg { width: 16px; height: 16px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -747,27 +858,6 @@
   .lang-toggle a { color: var(--cyan); padding: 0 4px; }
   .lang-toggle .sep { color: var(--line-2); }
   .lang-toggle .active { color: var(--ink); }
-</style>
-<style>
-/* ===== Client area pill (footer .legal) ===== */
-.client-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-family: var(--mono); font-size: 11px;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--ink-2);
-  border: 1px solid var(--line-2);
-  border-radius: 999px;
-  padding: 6px 14px;
-  text-decoration: none;
-  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
-}
-.client-link:hover {
-  color: var(--cyan);
-  border-color: rgba(94, 242, 255, 0.5);
-  background: rgba(94, 242, 255, 0.04);
-}
-.client-link .arrow { color: var(--cyan); transition: transform 180ms ease; }
-.client-link:hover .arrow { transform: translateX(3px); }
 </style>
 </head>
 <body>
@@ -822,19 +912,41 @@
 
 <!-- Hero -->
 <section class="hero" id="top">
-  <div class="wrap">
-    <div class="eyebrow"><span class="dot"></span> <span data-scramble>Now booking · Q3 2026</span></div>
-    <h1 class="hero-title reveal">
-      <span class="scramble" data-scramble>The plumbing nobody sees.</span>
-      <span class="accent">The clarity everyone feels.</span>
-    </h1>
-    <p class="lede reveal">
-      WildBreeze builds custom MCP servers, scheduled agents, and weekly reports for small operations.
-      Quiet automation that lives in your cloud, runs on its own, and lands the right numbers in the right inbox every Monday morning.
-    </p>
-    <div class="hero-cta reveal">
-      <a class="btn primary" href="#contact">Book a 30-minute call <span class="arrow">→</span></a>
-      <a class="btn" href="#services">See what we build</a>
+  <div class="wrap hero-grid">
+    <div class="hero-content">
+      <div class="eyebrow"><span class="dot"></span> <span data-scramble>Now booking · Q3 2026</span></div>
+      <h1 class="hero-title reveal">
+        <span class="scramble" data-scramble>The plumbing nobody sees.</span>
+        <span class="accent">The clarity everyone feels.</span>
+      </h1>
+      <p class="lede reveal">
+        WildBreeze builds custom MCP servers, scheduled agents, and weekly reports for small operations.
+        Quiet automation that lives in your cloud, runs on its own, and lands the right numbers in the right inbox every Monday morning.
+      </p>
+      <div class="hero-cta reveal">
+        <a class="btn primary" href="#contact">Book a 30-minute call <span class="arrow">→</span></a>
+        <a class="btn" href="#services">See what we build</a>
+      </div>
+    </div>
+
+    <div class="hero-video reveal" aria-hidden="false">
+      <div class="video-ring">
+        <span class="ring-glow" aria-hidden="true"></span>
+        <span class="ring-rotor" aria-hidden="true"></span>
+        <video id="intro-video"
+               autoplay muted loop playsinline preload="metadata"
+               poster="/og-preview.png"
+               aria-label="WildBreeze intro video">
+          <source src="/media/intro.mp4" type="video/mp4">
+        </video>
+        <button class="mute-toggle" type="button" aria-label="Unmute video" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path class="icon-muted"   d="M11 5L6 9H2v6h4l5 4V5z M23 9l-6 6 M17 9l6 6"/>
+            <path class="icon-unmuted" d="M11 5L6 9H2v6h4l5 4V5z M15.54 8.46a5 5 0 010 7.07 M19.07 4.93a10 10 0 010 14.14" style="display:none"/>
+          </svg>
+        </button>
+      </div>
+      <div class="video-tag"><span class="tag-dot"></span>WB · INTRO · 0:30</div>
     </div>
 
     <div class="hero-meta reveal">
@@ -1122,7 +1234,6 @@
     </div>
     <div class="legal">
       <div>© 2026 WildBreeze. All systems quiet.</div>
-      <a class="client-link" href="/account/">Client area <span class="arrow">→</span></a>
       <div>v2.0 · Made in the wind</div>
     </div>
   </div>
@@ -1395,6 +1506,42 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     requestAnimationFrame(loop);
   }
   loop();
+})();
+
+/* ============================================================
+   Hero intro video — mute toggle + autoplay safety net.
+   ============================================================ */
+(() => {
+  const video  = document.getElementById('intro-video');
+  const button = document.querySelector('.mute-toggle');
+  if (!video || !button) return;
+
+  const iconMuted   = button.querySelector('.icon-muted');
+  const iconUnmuted = button.querySelector('.icon-unmuted');
+
+  function paint() {
+    const muted = video.muted;
+    button.setAttribute('aria-pressed', String(!muted));
+    button.setAttribute('aria-label', muted ? 'Unmute video' : 'Mute video');
+    if (iconMuted)   iconMuted.style.display   = muted ? '' : 'none';
+    if (iconUnmuted) iconUnmuted.style.display = muted ? 'none' : '';
+  }
+
+  button.addEventListener('click', () => {
+    video.muted = !video.muted;
+    if (!video.muted && video.paused) video.play().catch(() => {});
+    paint();
+  });
+
+  // Some mobile browsers refuse autoplay until visible; nudge it.
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && video.paused) video.play().catch(() => {});
+    });
+  }, { threshold: 0.1 });
+  io.observe(video);
+
+  paint();
 })();
 </script>
 
