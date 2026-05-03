@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>WildBreeze Field Guide</title>
+    <link>https://www.wildbreeze.io/field-guide/</link>
+    <description>Plain-English briefings on adopting AI in small operations. Updated every two days.</description>
+    <language>en</language>
+    <atom:link href="https://www.wildbreeze.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://www.wildbreeze.io/favicon-512.png</url>
+      <title>WildBreeze Field Guide</title>
+      <link>https://www.wildbreeze.io/field-guide/</link>
+    </image>
+
+    <item>
+      <title>Replacing the spreadsheet someone updates at 11pm</title>
+      <link>https://www.wildbreeze.io/field-guide/replacing-the-11pm-spreadsheet/</link>
+      <guid isPermaLink="true">https://www.wildbreeze.io/field-guide/replacing-the-11pm-spreadsheet/</guid>
+      <pubDate>Sun, 03 May 2026 00:00:00 GMT</pubDate>
+      <description>The fastest AI win for small operations is not a chatbot. It is a scheduled agent that owns the manual report nobody wants. How to spot, scope, and roll it out.</description>
+    </item>
+    <item>
+      <title>From ChatGPT to action: giving AI safe access to your business data</title>
+      <link>https://www.wildbreeze.io/field-guide/safe-data-access/</link>
+      <guid isPermaLink="true">https://www.wildbreeze.io/field-guide/safe-data-access/</guid>
+      <pubDate>Fri, 01 May 2026 00:00:00 GMT</pubDate>
+      <description>The honest answer to "can I just paste customer data into ChatGPT?" plus the four safer alternatives.</description>
+    </item>
+    <item>
+      <title>AI for small business: a realistic 90-day plan</title>
+      <link>https://www.wildbreeze.io/field-guide/ai-90-day-plan/</link>
+      <guid isPermaLink="true">https://www.wildbreeze.io/field-guide/ai-90-day-plan/</guid>
+      <pubDate>Wed, 29 Apr 2026 00:00:00 GMT</pubDate>
+      <description>Week-by-week plan for a 10-50 person operation. What to skip, what to invest in.</description>
+    </item>
+    <item>
+      <title>What is an MCP server? The bridge between AI and your stack</title>
+      <link>https://www.wildbreeze.io/field-guide/mcp-servers/</link>
+      <guid isPermaLink="true">https://www.wildbreeze.io/field-guide/mcp-servers/</guid>
+      <pubDate>Wed, 22 Apr 2026 00:00:00 GMT</pubDate>
+      <description>MCP servers let AI assistants safely talk to your tools. Here is what they are, in plain English.</description>
+    </item>
+    <item>
+      <title>What is an AI agent? A plain-English explainer for operators</title>
+      <link>https://www.wildbreeze.io/field-guide/agents/</link>
+      <guid isPermaLink="true">https://www.wildbreeze.io/field-guide/agents/</guid>
+      <pubDate>Wed, 15 Apr 2026 00:00:00 GMT</pubDate>
+      <description>An AI agent is an AI assistant with a job, a schedule, and access to your tools. Here is what that means for your operation.</description>
+    </item>
+  </channel>
+</rss>
