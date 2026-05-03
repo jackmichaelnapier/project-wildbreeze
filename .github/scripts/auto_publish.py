@@ -108,8 +108,16 @@ Use web search to identify ONE trending question or topic that small/mid-size
 business owners are currently searching for around adopting AI in their
 operations. Then write a complete briefing on it.
 
-Return your output as a single JSON object (and nothing else — no markdown
-fences, no commentary), with this exact shape:
+Process:
+1. Use web search 1-4 times to identify a trending topic.
+2. Once you have your topic, write the article.
+3. Output ONLY the JSON object below — no preamble, no commentary, no
+   markdown fences, no "here's the article" text. Your entire final
+   response must be a single parseable JSON object and nothing else.
+   The script that consumes this response will fail if there is any
+   text before the opening { or after the closing }.
+
+Return your output as a single JSON object with this exact shape:
 
 {{
   "slug": "kebab-case-url-slug-no-special-chars",
@@ -145,18 +153,54 @@ Pick a "BRIEFING NNN" number that's higher than any in the existing-article list
         messages=[{"role": "user", "content": user_prompt}],
     )
 
-    # Extract the final text content (after any tool use blocks)
+    # Extract all text content (skipping tool_use / tool_result blocks).
+    # When web_search is used, Claude often interleaves narration with the
+    # final JSON. We need to find the JSON wherever it appears.
     text_blocks = [b.text for b in resp.content if hasattr(b, "text")]
     if not text_blocks:
-        raise RuntimeError("No text in Claude response")
-    text = text_blocks[-1].strip()
+        raise RuntimeError("No text blocks in Claude response")
+    full_text = "\n".join(text_blocks).strip()
 
-    # Strip ``` fences if present (model might disregard the instruction)
-    if text.startswith("```"):
-        text = re.sub(r"^```(?:json)?\s*", "", text)
-        text = re.sub(r"\s*```$", "", text)
+    # Strip ``` fences anywhere in the text (model may wrap json in fences).
+    fenced = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", full_text, re.DOTALL)
+    if fenced:
+        candidate = fenced.group(1)
+    else:
+        # No fences — find the first balanced JSON object in the text by
+        # walking braces. Naive approach: locate first `{` that begins a
+        # parsable object. Try progressively larger spans until json.loads
+        # succeeds, starting from each `{` position.
+        candidate = None
+        for start in [m.start() for m in re.finditer(r"\{", full_text)]:
+            # Track brace depth starting from this `{`
+            depth = 0
+            for i in range(start, len(full_text)):
+                c = full_text[i]
+                if c == "{":
+                    depth += 1
+                elif c == "}":
+                    depth -= 1
+                    if depth == 0:
+                        chunk = full_text[start:i+1]
+                        try:
+                            json.loads(chunk)
+                            candidate = chunk
+                            break
+                        except json.JSONDecodeError:
+                            break  # this `{` didn't start a valid object — try the next one
+            if candidate:
+                break
 
-    return json.loads(text)
+    if not candidate:
+        # Last resort: dump the raw text to stderr so the workflow run
+        # surfaces what Claude actually returned, then re-raise.
+        print("ERR: could not extract JSON from Claude response.", file=sys.stderr)
+        print("=== RAW RESPONSE START ===", file=sys.stderr)
+        print(full_text[:4000], file=sys.stderr)
+        print("=== RAW RESPONSE END ===", file=sys.stderr)
+        raise RuntimeError("No parsable JSON found in Claude response")
+
+    return json.loads(candidate)
 
 
 # ============================================================
