@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>From ChatGPT to action: giving AI safe access to your business data — WildBreeze</title>
-<meta name="description" content="&quot;Can I just paste customer data into ChatGPT?&quot; — every small-business owner this year. The honest answer, four safer alternatives, and why MCP servers solve this properly." />
+<title>From ChatGPT to action: giving AI safe access to your business data. WildBreeze</title>
+<meta name="description" content="&quot;Can I just paste customer data into ChatGPT?&quot;, every small-business owner this year. The honest answer, four safer alternatives, and why MCP servers solve this properly." />
 <link rel="canonical" href="https://www.wildbreeze.io/field-guide/safe-data-access/" />
 <meta name="theme-color" content="#06080F" />
 <meta property="og:title" content="From ChatGPT to action: giving AI safe access to your business data" />
-<meta property="og:description" content="&quot;Can I just paste customer data into ChatGPT?&quot; — every small-business owner this year. The honest answer, four safer alternatives, and why MCP servers solve this properly." />
+<meta property="og:description" content="&quot;Can I just paste customer data into ChatGPT?&quot;, every small-business owner this year. The honest answer, four safer alternatives, and why MCP servers solve this properly." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.wildbreeze.io/field-guide/safe-data-access/" />
 <meta property="og:image" content="https://www.wildbreeze.io/og-preview.png" />
@@ -22,7 +22,7 @@
 <meta property="article:tag" content="small-business" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="From ChatGPT to action: giving AI safe access to your business data" />
-<meta name="twitter:description" content="&quot;Can I just paste customer data into ChatGPT?&quot; — every small-business owner this year. The honest answer, four safer alternatives, and why MCP servers solve this properly." />
+<meta name="twitter:description" content="&quot;Can I just paste customer data into ChatGPT?&quot;, every small-business owner this year. The honest answer, four safer alternatives, and why MCP servers solve this properly." />
 <meta name="twitter:image" content="https://www.wildbreeze.io/og-preview.png" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
@@ -46,6 +46,9 @@
   "keywords": "security, data-privacy, ai-basics, small-business"
 }
 </script>
+<link rel="alternate" hreflang="en" href="https://www.wildbreeze.io/field-guide/safe-data-access/" />
+<link rel="alternate" hreflang="es" href="https://www.wildbreeze.io/es/guia-de-campo/acceso-seguro-datos/" />
+<link rel="alternate" hreflang="x-default" href="https://www.wildbreeze.io/field-guide/safe-data-access/" />
 </head>
 <body>
 
@@ -72,6 +75,7 @@
     <nav class="main">
       <a href="/#services">Services</a>
       <a href="/field-guide/">Field Guide</a>
+      <a href="/about/">About</a>
       <a href="/contact/" class="cta">Contact</a>
     </nav>
   </div>
@@ -95,7 +99,7 @@
     <div class="wrap prose">
       <p>Let's start with the question itself: <em>Can you just paste customer data into ChatGPT?</em></p>
 
-      <p>Technically: yes, your computer will let you. Practically: it depends on three things — what plan you're on, what's actually in the data, and what the AI does with it after. The popular advice is "never do that." That's wrong, but only by a little. The real advice is "rarely, and only with these guardrails."</p>
+      <p>Technically: yes, your computer will let you. Practically: it depends on three things, what plan you're on, what's actually in the data, and what the AI does with it after. The popular advice is "never do that." That's wrong, but only by a little. The real advice is "rarely, and only with these guardrails."</p>
 
       <h2>What actually happens when you paste data into ChatGPT</h2>
 
@@ -113,18 +117,18 @@
       <h2>The four safer alternatives</h2>
 
       <h3>1. Anonymize before pasting</h3>
-      <p>If the question you want to ask the AI doesn't actually need the names — just the patterns — strip the names. Replace with IDs. The AI doesn't care if your customer is "Alice Smith" or "customer_4831" when it's looking for patterns in their order history. This is the lowest-effort fix and works for a surprising number of cases.</p>
+      <p>If the question you want to ask the AI doesn't actually need the names, just the patterns, strip the names. Replace with IDs. The AI doesn't care if your customer is "Alice Smith" or "customer_4831" when it's looking for patterns in their order history. This is the lowest-effort fix and works for a surprising number of cases.</p>
       <p>Tools that do this for you: most spreadsheets have find-and-replace. Python's pandas takes 3 lines. Or have ChatGPT itself anonymize the data first and then work from the anonymized version (yes, this is paradoxical; it works because anonymized data has lower risk even on the provider's servers).</p>
 
       <h3>2. Use an enterprise plan from a vendor with proper data agreements</h3>
-      <p>OpenAI Enterprise, Anthropic's Claude for Business, Google Workspace AI — all offer Business Associate Agreements (BAAs) for healthcare, SOC 2 compliance, data residency commitments, and zero-retention modes. If you have any regulated data, this is the floor. The cost ranges from $25-60 per user per month for the AI tier; the documentation overhead is real but manageable.</p>
+      <p>OpenAI Enterprise, Anthropic's Claude for Business, Google Workspace AI, all offer Business Associate Agreements (BAAs) for healthcare, SOC 2 compliance, data residency commitments, and zero-retention modes. If you have any regulated data, this is the floor. The cost ranges from $25-60 per user per month for the AI tier; the documentation overhead is real but manageable.</p>
 
       <h3>3. Run the AI on your infrastructure (the MCP path)</h3>
       <p>This is the path WildBreeze and similar shops typically recommend for any operation that wants <em>repeated</em> AI-driven analysis of internal data. Instead of pasting data INTO the AI, you run an <strong>MCP server</strong> on your own infrastructure that exposes a controlled view of the data. The AI calls the MCP server, the data is read locally, only the specific results are returned to the AI. <a href="/field-guide/mcp-servers/">See the full MCP explainer</a>.</p>
       <p>The win: data never leaves your perimeter. The AI sees only what your MCP server lets it see. You have an audit log of every query. If you cancel your AI subscription tomorrow, the MCP server keeps working (and another AI vendor can use it).</p>
 
       <h3>4. Run a local AI model</h3>
-      <p>For very privacy-sensitive operations, you can run a model entirely on your own hardware. The open-source Llama, Mistral, and Qwen families are now competitive with the smaller commercial models for most small-business tasks. The downside: you need someone who can manage the inference infrastructure, and the largest commercial models (Claude Opus, GPT-5, Gemini Ultra) are still meaningfully better at complex reasoning. For most operations, this is overkill — the MCP-server path (#3) is cheaper, easier, and gets you 90% of the way.</p>
+      <p>For very privacy-sensitive operations, you can run a model entirely on your own hardware. The open-source Llama, Mistral, and Qwen families are now competitive with the smaller commercial models for most small-business tasks. The downside: you need someone who can manage the inference infrastructure, and the largest commercial models (Claude Opus, GPT-5, Gemini Ultra) are still meaningfully better at complex reasoning. For most operations, this is overkill, the MCP-server path (#3) is cheaper, easier, and gets you 90% of the way.</p>
 
       <h2>The decision tree</h2>
 
@@ -143,12 +147,12 @@
 
       <p>If you find yourself or your team copying-and-pasting the same kind of data into an AI more than three times in a month, that's the trigger. Stop. Either:</p>
       <ul>
-        <li>Build a one-shot script that does the work without the AI (sometimes this is right — not every recurring task needs AI),</li>
+        <li>Build a one-shot script that does the work without the AI (sometimes this is right, not every recurring task needs AI),</li>
         <li>Or build a properly-scoped MCP integration so the AI can do it in-place without the data leaving your perimeter.</li>
       </ul>
 
       <h2>What we build</h2>
-      <p>WildBreeze builds custom MCP servers for small operations that have hit exactly this wall — the "we keep pasting our customer data into ChatGPT and it's faster than the manual way but it doesn't feel right" wall. Three weeks, fixed price, lives in your cloud, and crucially, the AI assistants you keep using don't change. They just get a new safe way to talk to your data. <a href="/contact/">Tell us about it.</a></p>
+      <p>WildBreeze builds custom MCP servers for small operations that have hit exactly this wall, the "we keep pasting our customer data into ChatGPT and it's faster than the manual way but it doesn't feel right" wall. Three weeks, fixed price, lives in your cloud, and crucially, the AI assistants you keep using don't change. They just get a new safe way to talk to your data. <a href="/contact/">Tell us about it.</a></p>
 
       <hr>
 
@@ -182,7 +186,7 @@
         </div>
         <div class="body">
           <h3>What is an MCP server? The bridge between AI and your stack</h3>
-          <p>MCP servers let AI assistants safely talk to your tools — Slack, your CRM, your warehouse, your spreadsheets. Here's what they are, in plain English.</p>
+          <p>MCP servers let AI assistants safely talk to your tools. Slack, your CRM, your warehouse, your spreadsheets. Here's what they are, in plain English.</p>
           <span class="read-more">READ →</span>
         </div>
       </a>
@@ -221,9 +225,12 @@
         </div>
         <div class="col">
           <h5>Learn</h5>
-          <a href="/field-guide/agents/">What is an agent?</a>
-          <a href="/field-guide/mcp-servers/">What is an MCP server?</a>
-          <a href="/field-guide/#articles">All briefings</a>
+          <a href="/field-guide/">Field Guide</a>
+          <a href="/glossary/">Glossary</a>
+          <a href="/calculator/">Cost calculator</a>
+          <a href="/11pm-audit/">11pm Audit</a>
+          <a href="/vs/ai-agent-vs-virtual-assistant/">Agent vs VA</a>
+          <a href="/about/">About</a>
         </div>
         <div class="col">
           <h5>Contact</h5>
