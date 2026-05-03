@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Sample report · Preview · WildBreeze</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/wb-style.css">
+<style>
+  .back-link { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--ink-3); margin-top: 32px; margin-bottom: 16px; }
+  .back-link:hover { color: var(--cyan); }
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 32px 0; }
+  .stat { padding: 22px 22px; border: 1px solid var(--line); border-radius: var(--rad); background: rgba(255,255,255,0.02); }
+  .stat .label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--ink-3); text-transform: uppercase; margin-bottom: 8px; }
+  .stat .value { font-family: var(--serif); font-weight: 500; font-size: 28px; color: var(--ink); letter-spacing: -0.02em; }
+  .stat .delta { font-family: var(--mono); font-size: 11px; color: var(--phos); margin-top: 4px; letter-spacing: 0.06em; }
+  .stat .delta.down { color: var(--warn); }
+  @media (max-width: 720px) { .stat-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+  <div class="field" aria-hidden="true"></div>
+  <div class="grid" aria-hidden="true"></div>
+
+  <header class="nav">
+    <div class="wrap row">
+      <a href="/" class="logo">
+        <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+          <defs>
+            <linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#5EF2FF"/>
+              <stop offset="55%" stop-color="#A78BFA"/>
+              <stop offset="100%" stop-color="#5EF2FF"/>
+            </linearGradient>
+          </defs>
+          <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>WildBreeze</span>
+      </a>
+      <nav class="main">
+        <a href="/field-guide/">Field Guide</a>
+        <a href="/about/">About</a>
+        <a href="/contact/" class="cta">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap prose">
+    <a class="back-link" href="./">← Back to your reports</a>
+
+    <section class="page-hero" style="padding-top: 24px;">
+      <div class="kicker">Sample report · 2026-05-03</div>
+      <h1 class="page-title">Sample report. <span class="accent">Same shape every time.</span></h1>
+      <p class="lede">This is a placeholder showing the typical layout for a weekly or monthly report we deliver into your account area. The real reports replace this content but keep the structure: headline numbers, a few sections of context, and a short closing note.</p>
+    </section>
+
+    <section class="prose-body">
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="label">Headline metric A</div>
+          <div class="value">€ 124,308</div>
+          <div class="delta">↑ 4.2% vs prior</div>
+        </div>
+        <div class="stat">
+          <div class="label">Headline metric B</div>
+          <div class="value">2,184</div>
+          <div class="delta">↑ 6.8% vs prior</div>
+        </div>
+        <div class="stat">
+          <div class="label">Headline metric C</div>
+          <div class="value">€ 56.92</div>
+          <div class="delta down">↓ 1.3% vs prior</div>
+        </div>
+      </div>
+
+      <h2>What happened this period</h2>
+      <p>This is where the headline narrative goes — usually three or four short paragraphs explaining what moved, why, and what to keep an eye on next. The content is generated from your data warehouse by a scheduled agent and reviewed before it lands here.</p>
+
+      <h2>What we'd watch next</h2>
+      <p>A short watchlist — usually 2 or 3 items. The point is to make the next decision obvious without making you read a dashboard.</p>
+
+      <ul>
+        <li><strong>Item one</strong> — short reason it matters this period.</li>
+        <li><strong>Item two</strong> — what to look for in the next report.</li>
+        <li><strong>Item three</strong> — anything that needs a human call.</li>
+      </ul>
+
+      <blockquote>Reports are short on purpose. If a number needs a paragraph to explain, it usually means the chart isn't right.</blockquote>
+
+      <hr>
+
+      <p style="font-family: var(--mono); font-size: 12px; color: var(--ink-3); letter-spacing: 0.04em;">Run · 2026-05-03 07:00 CET &nbsp;·&nbsp; Source · BigQuery (welzyn) &nbsp;·&nbsp; Pipeline · weekly-overview</p>
+    </section>
+
+    <a class="back-link" href="./">← Back to your reports</a>
+  </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <a href="/" class="logo">
+            <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+              <defs>
+                <linearGradient id="wb-mark-grad-f" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#5EF2FF"/>
+                  <stop offset="55%" stop-color="#A78BFA"/>
+                  <stop offset="100%" stop-color="#5EF2FF"/>
+                </linearGradient>
+              </defs>
+              <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                    fill="none" stroke="url(#wb-mark-grad-f)" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>WildBreeze</span>
+          </a>
+          <p class="blurb">Quiet automation infrastructure for operations run by humans.</p>
+        </div>
+        <div class="meta">
+          <div class="col">
+            <h5>Account</h5>
+            <a href="/account/">Client Gateway</a>
+            <a href="/contact/">Contact</a>
+          </div>
+        </div>
+      </div>
+      <div class="legal">
+        <div>© 2026 WildBreeze. All systems quiet.</div>
+        <div>v1.0 · Made in the wind</div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
