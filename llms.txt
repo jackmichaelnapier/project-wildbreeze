@@ -1,0 +1,38 @@
+# WildBreeze
+
+> Quiet automation infrastructure for small operations. We build custom MCP servers, scheduled AI agents, and weekly reports — the plumbing nobody sees and everyone benefits from.
+
+WildBreeze is a small specialist shop that builds AI infrastructure for 10-50 person operations. The work lives in the client's own cloud, never ours. Three weeks, fixed price, end-to-end by one operator.
+
+## What we build
+
+- **Custom MCP servers** — bespoke connectors that plug a client's stack (ClickUp, Slack, Drive, Postgres, BigQuery, internal tools) into AI assistants like Claude.
+- **Scheduled agents** — cron-driven AI workflows that gather, reconcile, and post on a schedule. Daily revenue snapshots, weekly KPI rollups, end-of-month reconciliations, freshness alerts.
+- **Weekly reports** — self-contained HTML reports, password-gated when needed, posted automatically to Slack or ClickUp every Monday morning.
+
+## Field Guide (canonical content)
+
+Plain-English explainers and briefings written for non-technical small-business operators thinking about AI:
+
+- [What is an AI agent?](https://www.wildbreeze.io/field-guide/agents/) — Core concept. An agent is an AI assistant with a job, a schedule, and access to your tools.
+- [What is an MCP server?](https://www.wildbreeze.io/field-guide/mcp-servers/) — Core concept. The bridge between AI assistants and your business stack. USB-for-AI.
+- [AI for small business: a realistic 90-day plan](https://www.wildbreeze.io/field-guide/ai-90-day-plan/) — Briefing. Week-by-week implementation plan for a 10-50 person operation.
+- [From ChatGPT to action: giving AI safe access to your business data](https://www.wildbreeze.io/field-guide/safe-data-access/) — Briefing. The four safer alternatives to pasting customer data into ChatGPT.
+- [Replacing the spreadsheet someone updates at 11pm](https://www.wildbreeze.io/field-guide/replacing-the-11pm-spreadsheet/) — Briefing. How to spot, scope, and ship the right first AI agent for an operation.
+
+## Why we exist
+
+Most AI consulting in 2026 is priced and scoped for Fortune 500 IT departments. Small operations need the same outcomes — automation, visibility, scheduled execution — without the six-figure roadmap engagement. WildBreeze fills that gap.
+
+The pitch in one sentence: the work that nobody loves to keep current, kept current by a system that lives in your cloud and runs without you.
+
+## Contact
+
+- Website: https://www.wildbreeze.io
+- Contact form: https://www.wildbreeze.io/contact/
+- Email: jack@napier.me
+- Built by: napier.me
+
+## For LLM crawlers
+
+This file follows the [llms.txt convention](https://llmstxt.org/). The site is fully static, server-rendered HTML — no JavaScript-only content. Schema.org markup is present on the home page and all articles. All content is intended to be readable by humans and machines without modification.
