@@ -1529,8 +1529,9 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
    ============================================================ */
 
 /* ============================================================
-   Hero intro video — ambient muted teaser, click to play
-   from the beginning with sound.
+   Hero intro video — two states:
+     · AMBIENT  : muted + looping (the default; teaser)
+     · ENGAGED  : unmuted, single playthrough, then auto-returns to ambient
    ============================================================ */
 (() => {
   const video  = document.getElementById('intro-video');
@@ -1550,39 +1551,47 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     ring.classList.toggle('unmuted', !muted);
   }
 
-  // Restart from 0 + unmute + play. Used by both video click and button click.
-  function playFromStartWithSound(e) {
+  // ENGAGED: restart from 0, unmuted, single playthrough (loop OFF).
+  // The 'ended' listener below catches when this finishes.
+  function engage(e) {
     if (e) e.stopPropagation();
+    video.loop = false;
     video.currentTime = 0;
     video.muted = false;
     video.play().catch((err) => {
-      // If unmuting fails (some browsers block until user gesture is "real"),
-      // re-mute and let the user try again — better than a silent failure.
+      // If unmute autoplay is blocked, fall back to ambient — better than silent failure.
       console.warn('Unmute play failed:', err);
-      video.muted = true;
+      returnToAmbient();
     });
     paintIcon();
   }
 
-  // Just toggle mute, no restart (they are already watching).
-  function toggleMuteOnly(e) {
-    if (e) e.stopPropagation();
-    video.muted = !video.muted;
-    if (!video.muted && video.paused) video.play().catch(() => {});
+  // AMBIENT: muted, looping, restart from 0. The default state, also where
+  // we return to after a full unmuted playthrough or when the user mutes.
+  function returnToAmbient() {
+    video.loop = true;
+    video.muted = true;
+    video.currentTime = 0;
+    if (video.paused) video.play().catch(() => {});
     paintIcon();
   }
 
-  // The button: when muted → restart-with-sound; when unmuted → just mute.
+  // The button: when muted → engage; when unmuted → return to ambient.
   button.addEventListener('click', (e) => {
-    if (video.muted) playFromStartWithSound(e);
-    else             toggleMuteOnly(e);
+    if (video.muted) engage(e);
+    else             returnToAmbient();
   });
 
-  // Clicking the video itself: only triggers the restart-with-sound behavior
-  // when currently muted. Once unmuted, video clicks do nothing (passive watch).
-  video.addEventListener('click', (e) => {
-    if (video.muted) playFromStartWithSound(e);
+  // Clicking the video itself: only engages when currently muted.
+  // Once unmuted, video clicks do nothing (passive watch).
+  video.addEventListener('click', () => {
+    if (video.muted) engage();
   });
+
+  // When the unmuted single-playthrough finishes, snap back to ambient.
+  // (The 'ended' event only fires when loop=false; in ambient state loop=true,
+  // so the loop point never fires this — exactly what we want.)
+  video.addEventListener('ended', returnToAmbient);
 
   // Some mobile browsers refuse autoplay until visible; nudge it.
   const io = new IntersectionObserver((entries) => {
