@@ -206,7 +206,7 @@
       <h1 id="gate-h1">Open your reports. <span class="accent">Quiet by default.</span></h1>
       <p class="lede">Enter the email and access key we shared with you. Both are required. Nothing is stored — verification happens in your browser.</p>
 
-      <form class="form-stack" id="form" autocomplete="off">
+      <form class="form-stack" id="form" autocomplete="off" action="javascript:void(0)" onsubmit="return false">
         <div class="field-row">
           <label for="email"><span class="num">// 01</span> &nbsp; EMAIL</label>
           <input id="email" name="email" class="input" type="email"
@@ -222,7 +222,7 @@
 
         <div class="form-actions">
           <span class="status" id="status">awaiting input</span>
-          <button id="go" type="submit">Open <span class="arrow">→</span></button>
+          <button id="go" type="button">Open <span class="arrow">→</span></button>
         </div>
 
         <div class="meta-strip">
@@ -285,10 +285,9 @@
     setStatus('access denied', true);
   }
 
-  form.addEventListener('submit', async function(e){
-    e.preventDefault();
-    var email = emailEl.value.trim().toLowerCase();
-    var key = keyEl.value.trim();
+  async function attemptOpen(){
+    var email = (emailEl.value || '').trim().toLowerCase();
+    var key   = (keyEl.value || '').trim();
     if (!email || !key){ flashError(); return; }
     var combined = email + "|" + key;
     btn.setAttribute('disabled','disabled');
@@ -299,15 +298,24 @@
         if (/^[a-z0-9_\-\.\/]+\.html$/i.test(target)){
           setStatus('granted. opening…', false);
           fadeout.classList.add('on');
-          setTimeout(function(){ window.location.replace(target); }, 520);
+          setTimeout(function(){ window.location.assign(target); }, 520);
           return;
         }
       } catch(_){ /* wrong key, try next */ }
     }
     btn.removeAttribute('disabled');
     flashError();
-    keyEl.select();
+    try { keyEl.select(); } catch(_){}
+  }
+  btn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); attemptOpen(); });
+  // Enter-to-submit from either input
+  [emailEl, keyEl].forEach(function(el){
+    el.addEventListener('keydown', function(e){
+      if (e.key === 'Enter'){ e.preventDefault(); attemptOpen(); }
+    });
   });
+  // belt-and-suspenders: if anything still submits the form, swallow it
+  form.addEventListener('submit', function(e){ e.preventDefault(); e.stopPropagation(); attemptOpen(); return false; });
   </script>
 </body>
 </html>
