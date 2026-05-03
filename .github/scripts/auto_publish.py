@@ -115,7 +115,7 @@ Process:
    markdown fences, no "here's the article" text. Your entire final
    response must be a single parseable JSON object and nothing else.
    The script that consumes this response will fail if there is any
-   text before the opening { or after the closing }.
+   text before the opening brace or after the closing brace.
 
 Return your output as a single JSON object with this exact shape:
 
