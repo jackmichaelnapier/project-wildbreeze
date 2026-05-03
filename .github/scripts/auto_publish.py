@@ -346,6 +346,16 @@ def render_article(slug, data, lang, other_slug=None):
 <meta name="twitter:image" content="{site_base}/og-preview.png" />
 <link rel="alternate" hreflang="{'es' if is_es else 'en'}" href="{article_url}" />
 <link rel="alternate" hreflang="{'en' if is_es else 'es'}" href="{other_url}" />
+<!-- WB-TAGS-START -->
+<!-- Google tag (gtag.js) — GA4 G-4S960N841V -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4S960N841V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-4S960N841V');
+</script>
+<!-- WB-TAGS-END -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
