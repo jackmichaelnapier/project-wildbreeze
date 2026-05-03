@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>What is an AI agent? A plain-English explainer for operators — WildBreeze</title>
+<title>What is an AI agent? A plain-English explainer for operators. WildBreeze</title>
 <meta name="description" content="An agent is an AI assistant with a job, a schedule, and access to your tools. Here's what that actually means for a 10-50 person operation." />
 <link rel="canonical" href="https://www.wildbreeze.io/field-guide/agents/" />
 <meta name="theme-color" content="#06080F" />
@@ -45,6 +45,9 @@
   "keywords": "agents, ai-basics, operations"
 }
 </script>
+<link rel="alternate" hreflang="en" href="https://www.wildbreeze.io/field-guide/agents/" />
+<link rel="alternate" hreflang="es" href="https://www.wildbreeze.io/es/guia-de-campo/agentes/" />
+<link rel="alternate" hreflang="x-default" href="https://www.wildbreeze.io/field-guide/agents/" />
 </head>
 <body>
 
@@ -71,6 +74,7 @@
     <nav class="main">
       <a href="/#services">Services</a>
       <a href="/field-guide/">Field Guide</a>
+      <a href="/about/">About</a>
       <a href="/contact/" class="cta">Contact</a>
     </nav>
   </div>
@@ -99,19 +103,19 @@
       <h2>The three things that make an agent an agent</h2>
 
       <h3>1. A job (what to do)</h3>
-      <p>Not a question. A repeatable, well-defined task — usually one that's currently being done by a human in a way that's both expensive and inconsistent. Good agent jobs share a shape: they pull data from one or two systems, transform it lightly, and put the result somewhere a human will see.</p>
+      <p>Not a question. A repeatable, well-defined task, usually one that's currently being done by a human in a way that's both expensive and inconsistent. Good agent jobs share a shape: they pull data from one or two systems, transform it lightly, and put the result somewhere a human will see.</p>
       <ul>
         <li>"Every Monday, summarize last week's orders, refunds, and AOV. Post in #leadership."</li>
         <li>"Every morning, check whether yesterday's data finished loading. If it didn't, ping Operations."</li>
         <li>"Every time a high-value lead enters the CRM, write a draft outreach email and put it in the rep's drafts folder."</li>
       </ul>
-      <p>Notice: each job is one paragraph. If you can't describe the job in a paragraph, it's not yet a job — it's a wish.</p>
+      <p>Notice: each job is one paragraph. If you can't describe the job in a paragraph, it's not yet a job, it's a wish.</p>
 
       <h3>2. A schedule (when to do it)</h3>
-      <p>Either time-based ("every Monday at 7am"), event-based ("when a new lead arrives"), or on-demand ("when an operator clicks this button"). Most useful agents are scheduled — they run on a cron, in the background, without anyone needing to remember they exist. That's the whole point: <strong>the agent is supposed to be invisible</strong>. If you're thinking about it on a Tuesday morning, something has gone wrong.</p>
+      <p>Either time-based ("every Monday at 7am"), event-based ("when a new lead arrives"), or on-demand ("when an operator clicks this button"). Most useful agents are scheduled, they run on a cron, in the background, without anyone needing to remember they exist. That's the whole point: <strong>the agent is supposed to be invisible</strong>. If you're thinking about it on a Tuesday morning, something has gone wrong.</p>
 
       <h3>3. Access to your tools</h3>
-      <p>This is the part that's actually new. A chatbot in 2023 could only talk. An agent in 2026 can read your BigQuery warehouse, post to your Slack, edit a Google Doc, file a ticket in your project management tool. It does this through <strong>MCP servers</strong> — small bridges between the AI and your stack. <a href="/field-guide/mcp-servers/">There's a separate explainer for those</a>.</p>
+      <p>This is the part that's actually new. A chatbot in 2023 could only talk. An agent in 2026 can read your BigQuery warehouse, post to your Slack, edit a Google Doc, file a ticket in your project management tool. It does this through <strong>MCP servers</strong>, small bridges between the AI and your stack. <a href="/field-guide/mcp-servers/">There's a separate explainer for those</a>.</p>
       <p>The shift from "can answer questions about my data" to "can act on my data" is the big one. Five years ago, the human did the action and the AI helped them write a prettier version of it. Now the AI does the action and the human reviews the result.</p>
 
       <h2>What an agent is NOT</h2>
@@ -121,24 +125,24 @@
       <ul>
         <li><strong>An agent is not a chatbot.</strong> It doesn't sit in a chat window waiting for prompts. It runs on its own schedule, often before anyone is awake.</li>
         <li><strong>An agent is not "AI strategy."</strong> It's a specific piece of working software with a specific job. If a vendor talks about agents in the abstract for ten minutes, run.</li>
-        <li><strong>An agent is not autonomous in the science-fiction sense.</strong> It does exactly what its instructions say. The hard part isn't writing the instructions — it's discovering what the instructions should be. That's an operations problem, not an AI problem.</li>
-        <li><strong>An agent is not a replacement for judgment.</strong> Use agents for repetitive, well-defined work. Use humans for ambiguous, judgment-heavy work. Don't mix them up — that's where companies get into trouble.</li>
+        <li><strong>An agent is not autonomous in the science-fiction sense.</strong> It does exactly what its instructions say. The hard part isn't writing the instructions, it's discovering what the instructions should be. That's an operations problem, not an AI problem.</li>
+        <li><strong>An agent is not a replacement for judgment.</strong> Use agents for repetitive, well-defined work. Use humans for ambiguous, judgment-heavy work. Don't mix them up, that's where companies get into trouble.</li>
       </ul>
 
       <h2>What changes when you have one</h2>
       <p>Three things, in this order:</p>
       <ol>
-        <li><strong>The 11pm spreadsheet retires.</strong> Whatever your operation's "spreadsheet someone secretly maintains at 11pm" is — the weekly KPI roll-up, the inventory reconciliation, the Tuesday-morning donor report — that's the first thing an agent should own.</li>
-        <li><strong>Numbers arrive on time.</strong> Once an agent owns a recurring report, the report doesn't get skipped because someone was on holiday or sick. It just shows up. That sounds boring; it's actually transformative for how a team trusts data.</li>
+        <li><strong>The 11pm spreadsheet retires.</strong> Whatever your operation's "spreadsheet someone secretly maintains at 11pm" is, the weekly KPI roll-up, the inventory reconciliation, the Tuesday-morning donor report, that's the first thing an agent should own.</li>
+        <li><strong>Numbers arrive on time.</strong> Once an agent owns a recurring report, the report doesn't get skipped because someone was on holiday or sick. It just shows up. That sounds boring; it's actually useful for how a team trusts data.</li>
         <li><strong>You stop hiring around the manual work.</strong> Most small operations have one or two people whose job is functionally "remember to do the manual stuff every week." Agents free those people up to do work that actually requires their judgment. They tend to be very enthusiastic about this.</li>
       </ol>
 
       <h2>What we build</h2>
-      <p>WildBreeze builds custom agents for small and mid-size operations. Three weeks, fixed price, lives in your cloud. The agents are specific to your operation — there's no agent template, because there's no template for the way you actually run things. <a href="/contact/">Tell us about the spreadsheet someone is updating at 11pm</a> and we'll figure out whether an agent fits.</p>
+      <p>WildBreeze builds custom agents for small and mid-size operations. Three weeks, fixed price, lives in your cloud. The agents are specific to your operation, there's no agent template, because there's no template for the way you actually run things. <a href="/contact/">Tell us about the spreadsheet someone is updating at 11pm</a> and we'll figure out whether an agent fits.</p>
 
       <hr>
 
-      <p><strong>Next:</strong> <a href="/field-guide/mcp-servers/">What is an MCP server?</a> — the bridge that lets agents touch your tools safely.</p>
+      <p><strong>Next:</strong> <a href="/field-guide/mcp-servers/">What is an MCP server?</a>, the bridge that lets agents touch your tools safely.</p>
     </div>
   </section>
 </article>
@@ -157,7 +161,7 @@
         </div>
         <div class="body">
           <h3>What is an MCP server? The bridge between AI and your stack</h3>
-          <p>MCP servers let AI assistants safely talk to your tools — Slack, your CRM, your warehouse, your spreadsheets. Here's what they are, in plain English.</p>
+          <p>MCP servers let AI assistants safely talk to your tools. Slack, your CRM, your warehouse, your spreadsheets. Here's what they are, in plain English.</p>
           <span class="read-more">READ →</span>
         </div>
       </a>
@@ -207,9 +211,12 @@
         </div>
         <div class="col">
           <h5>Learn</h5>
-          <a href="/field-guide/agents/">What is an agent?</a>
-          <a href="/field-guide/mcp-servers/">What is an MCP server?</a>
-          <a href="/field-guide/#articles">All briefings</a>
+          <a href="/field-guide/">Field Guide</a>
+          <a href="/glossary/">Glossary</a>
+          <a href="/calculator/">Cost calculator</a>
+          <a href="/11pm-audit/">11pm Audit</a>
+          <a href="/vs/ai-agent-vs-virtual-assistant/">Agent vs VA</a>
+          <a href="/about/">About</a>
         </div>
         <div class="col">
           <h5>Contact</h5>
