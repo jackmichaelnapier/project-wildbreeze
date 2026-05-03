@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>What is your manual work costing you? · WildBreeze</title>
+<meta name="description" content="A 30-second calculator. Plug in the recurring manual work in your operation and see what it actually costs you per year. Plus: what an AI agent doing the same job would cost." />
+<link rel="canonical" href="https://www.wildbreeze.io/calculator/" />
+<meta name="theme-color" content="#06080F" />
+<meta property="og:title" content="What is your manual work costing you? · WildBreeze" />
+<meta property="og:description" content="A 30-second calculator for the recurring manual work in your operation." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.wildbreeze.io/calculator/" />
+<meta property="og:image" content="https://www.wildbreeze.io/og-preview.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.wildbreeze.io/og-preview.png" />
+<link rel="alternate" hreflang="en" href="https://www.wildbreeze.io/calculator/" />
+<link rel="alternate" hreflang="es" href="https://www.wildbreeze.io/es/calculadora/" />
+<link rel="alternate" hreflang="x-default" href="https://www.wildbreeze.io/calculator/" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/wb-style.css" />
+<style>
+  .calc-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+    margin-top: 32px;
+  }
+  @media (max-width: 880px) { .calc-grid { grid-template-columns: 1fr; } }
+
+  .calc-inputs {
+    border: 1px solid var(--line); border-radius: var(--rad);
+    padding: 28px; background: rgba(255,255,255,0.02);
+  }
+  .calc-input { margin-bottom: 22px; }
+  .calc-input:last-child { margin-bottom: 0; }
+  .calc-input label {
+    display: block;
+    font-family: var(--mono); font-size: 11.5px;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--ink-3); margin-bottom: 6px;
+  }
+  .calc-input .hint {
+    font-family: var(--sans); font-size: 13px;
+    color: var(--ink-3); font-style: italic;
+    margin-top: 6px; line-height: 1.4;
+  }
+  .calc-input input[type="number"] {
+    width: 100%;
+    font-family: var(--mono); font-size: 22px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--line-2);
+    border-radius: 8px;
+    color: var(--ink);
+  }
+  .calc-input input[type="number"]:focus {
+    outline: none;
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 3px rgba(94,242,255,0.12);
+  }
+
+  .calc-result {
+    border: 1px solid var(--line-2); border-radius: var(--rad);
+    padding: 28px;
+    background: linear-gradient(180deg, rgba(94,242,255,0.06), rgba(167,139,250,0.04));
+    position: sticky; top: 80px;
+  }
+  .result-row { padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .result-row:last-child { border-bottom: none; }
+  .result-row .label {
+    font-family: var(--mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--ink-3); margin-bottom: 4px;
+  }
+  .result-row .value {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 32px; letter-spacing: -0.02em; color: var(--ink);
+  }
+  .result-row .value.big {
+    font-size: 48px;
+    background: linear-gradient(110deg, var(--cyan), var(--violet));
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
+  .result-row .sub {
+    font-family: var(--sans); font-size: 13px;
+    color: var(--ink-2); margin-top: 4px;
+  }
+  .interpretation {
+    margin-top: 22px; padding: 18px;
+    border-left: 3px solid var(--cyan);
+    background: rgba(94,242,255,0.04);
+    border-radius: 0 8px 8px 0;
+    font-family: var(--sans); font-size: 14.5px;
+    line-height: 1.6; color: var(--ink-2);
+  }
+  .interpretation strong { color: var(--ink); }
+
+  .calc-cta {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    margin-top: 22px;
+  }
+
+  .share-line {
+    margin-top: 16px;
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.06em;
+  }
+  .share-line a { color: var(--cyan); cursor: pointer; }
+  .share-line a.copied { color: var(--phos); }
+</style>
+</head>
+<body>
+
+<div class="field" aria-hidden="true"></div>
+<div class="grid" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap row">
+    <a href="/" class="logo">
+      <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+        <defs>
+          <linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#5EF2FF"/>
+            <stop offset="55%" stop-color="#A78BFA"/>
+            <stop offset="100%" stop-color="#5EF2FF"/>
+          </linearGradient>
+        </defs>
+        <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+              fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>WildBreeze</span>
+    </a>
+    <nav class="main">
+      <a href="/#services">Services</a>
+      <a href="/field-guide/">Field Guide</a>
+      <a href="/about/">About</a>
+      <a href="/contact/" class="cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="kicker">Calculator · 30 seconds</div>
+    <h1 class="page-title">What is your manual work <span class="accent">actually costing you?</span></h1>
+    <p class="lede">
+      Pick the most painful recurring task in your operation. The one someone updates at 11pm because if they don't, Monday breaks. Plug in four numbers. See what that work is costing you per year — and what an AI agent doing the same job would cost.
+    </p>
+  </div>
+</section>
+
+<section class="prose-body">
+  <div class="wrap">
+    <div class="calc-grid">
+
+      <div class="calc-inputs">
+        <div class="calc-input">
+          <label for="hours">Hours per cycle</label>
+          <input id="hours" type="number" min="0" step="0.5" value="3" inputmode="decimal" />
+          <div class="hint">How long the task takes each time. Be honest. Include the part where someone else asks "did you send it yet?"</div>
+        </div>
+
+        <div class="calc-input">
+          <label for="cycles">Cycles per year</label>
+          <input id="cycles" type="number" min="0" step="1" value="52" inputmode="numeric" />
+          <div class="hint">Weekly = 52. Daily (workdays) = 250. Monthly = 12. Bi-weekly = 26.</div>
+        </div>
+
+        <div class="calc-input">
+          <label for="rate">Loaded hourly cost (€ / $)</label>
+          <input id="rate" type="number" min="0" step="1" value="60" inputmode="numeric" />
+          <div class="hint">Salary plus benefits, divided by hours worked. For a typical operations manager: €40-80/hr. For senior staff: €80-150/hr.</div>
+        </div>
+
+        <div class="calc-input">
+          <label for="errors">Estimated re-work / error rate (%)</label>
+          <input id="errors" type="number" min="0" max="50" step="1" value="10" inputmode="numeric" />
+          <div class="hint">Honest estimate. How often does the manual version need to be re-checked, corrected, or re-run? Most teams say 5-15%.</div>
+        </div>
+      </div>
+
+      <div class="calc-result">
+        <div class="result-row">
+          <div class="label">Annual cost of the manual version</div>
+          <div class="value big" id="r-annual">€10,296</div>
+          <div class="sub" id="r-annual-detail">3.0 hrs × 52 cycles × €60/hr × 1.10 (re-work)</div>
+        </div>
+
+        <div class="result-row">
+          <div class="label">Time spent (per year)</div>
+          <div class="value" id="r-time">171 hrs</div>
+          <div class="sub" id="r-time-detail">≈ 4.3 working weeks of one person's time</div>
+        </div>
+
+        <div class="result-row">
+          <div class="label">Cost of an AI agent doing the same job</div>
+          <div class="value" id="r-agent">€8,500</div>
+          <div class="sub" id="r-agent-detail">One-time build (€8k) + ongoing API costs (€500/yr)</div>
+        </div>
+
+        <div class="result-row">
+          <div class="label">Year-1 net</div>
+          <div class="value" id="r-net">€1,796</div>
+          <div class="sub" id="r-net-detail">After build cost. Year 2+: pure savings.</div>
+        </div>
+
+        <div class="result-row">
+          <div class="label">Year-3 cumulative savings</div>
+          <div class="value big" id="r-three">€21,388</div>
+          <div class="sub">Assuming the same task continues at the same cadence.</div>
+        </div>
+
+        <div class="interpretation" id="interpretation">
+          <strong>Verdict:</strong> at this scale, automating this task pays back in under a year and saves <span id="i-three-yr">€21k</span> over three years. Worth scoping properly.
+        </div>
+
+        <div class="calc-cta">
+          <a class="btn primary" href="/contact/" id="cta-contact">Tell us about this task <span class="arrow">→</span></a>
+          <a class="btn" href="#" id="share-link" aria-label="Copy shareable link">Copy share link</a>
+        </div>
+
+        <div class="share-line">
+          Numbers shown are an estimate. Build cost varies by complexity (€4k-15k typical for a single agent). API costs depend on volume.
+        </div>
+      </div>
+
+    </div>
+
+    <hr style="margin-top: 60px;">
+
+    <h2 style="margin-top:0;">How the math works</h2>
+    <p>
+      <strong>Manual cost = hours × cycles × hourly rate × (1 + error rate).</strong> The error multiplier captures the time spent re-checking, correcting, and re-running. Most teams underestimate this; in our experience the true rate is usually higher than the first guess.
+    </p>
+    <p>
+      <strong>Agent cost = one-time build + annual API spend.</strong> A typical scheduled agent for a single workflow costs €4-15k to build (depending on the number of data sources and the complexity of the output) and runs on €100-500/year in API costs for typical small-business volumes. We anchor on €8k + €500 as a middle-of-the-road default.
+    </p>
+    <p>
+      <strong>What this calculation does NOT include:</strong> the qualitative wins. The report not getting skipped because someone was sick. The numbers being consistent week-to-week instead of formatted differently every time. The team member doing higher-leverage work instead of the manual roll-up. These tend to dwarf the dollar savings, but they're harder to estimate, so we leave them off the headline number.
+    </p>
+
+    <h2>What to do with the result</h2>
+    <p>
+      If the year-1 net is comfortably positive, this task is a strong candidate for automation. <a class="link" href="/contact/">Tell us about it</a> and we'll figure out together whether a 3-week build makes sense. Bring the spec, or just describe the spreadsheet.
+    </p>
+    <p>
+      If the year-1 net is negative or close to zero, the task is probably too small to be worth automating on its own. Worth bundling with one or two other tasks of the same shape into a single project.
+    </p>
+
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <a href="/" class="logo">
+          <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+            <defs>
+              <linearGradient id="wb-mark-grad-f" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#5EF2FF"/>
+                <stop offset="55%" stop-color="#A78BFA"/>
+                <stop offset="100%" stop-color="#5EF2FF"/>
+              </linearGradient>
+            </defs>
+            <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                  fill="none" stroke="url(#wb-mark-grad-f)" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>WildBreeze</span>
+        </a>
+        <p class="blurb">Quiet automation infrastructure for operations run by humans.</p>
+      </div>
+      <div class="meta">
+        <div class="col">
+          <h5>Build</h5>
+          <a href="/#services">Custom MCP servers</a>
+          <a href="/#services">Scheduled agents</a>
+          <a href="/#services">Weekly reports</a>
+        </div>
+        <div class="col">
+          <h5>Learn</h5>
+          <a href="/field-guide/">Field Guide</a>
+          <a href="/glossary/">Glossary</a>
+          <a href="/calculator/">Cost calculator</a>
+          <a href="/11pm-audit/">11pm Audit</a>
+          <a href="/vs/ai-agent-vs-virtual-assistant/">Agent vs VA</a>
+          <a href="/about/">About</a>
+        </div>
+        <div class="col">
+          <h5>Contact</h5>
+          <a href="/contact/">Contact form</a>
+          <a href="mailto:hello@wildbreeze.io">hello@wildbreeze.io</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      <div>© 2026 WildBreeze. All systems quiet.</div>
+      <div>Built by <a href="https://www.napier.me" class="link" target="_blank" rel="noopener">napier.me</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ====== Calculator state + URL persistence ======
+  const $ = (id) => document.getElementById(id);
+  const inputs = ['hours','cycles','rate','errors'].map($);
+  const fmt = (n, currency = '€') => currency + Math.round(n).toLocaleString();
+  const fmtK = (n, currency = '€') => {
+    if (Math.abs(n) >= 1000) return currency + (n/1000).toFixed(n >= 10000 ? 0 : 1) + 'k';
+    return fmt(n, currency);
+  };
+
+  function readURL() {
+    const params = new URLSearchParams(location.search);
+    if (params.has('h')) $('hours').value = params.get('h');
+    if (params.has('c')) $('cycles').value = params.get('c');
+    if (params.has('r')) $('rate').value = params.get('r');
+    if (params.has('e')) $('errors').value = params.get('e');
+  }
+
+  function update() {
+    const h = parseFloat($('hours').value) || 0;
+    const c = parseFloat($('cycles').value) || 0;
+    const r = parseFloat($('rate').value) || 0;
+    const e = parseFloat($('errors').value) || 0;
+    const errMult = 1 + (e / 100);
+    const annual = h * c * r * errMult;
+    const time = h * c * errMult;
+    const agentBuild = 8000;
+    const agentAnnualAPI = 500;
+    const agentYr1 = agentBuild + agentAnnualAPI;
+    const yr1Net = annual - agentYr1;
+    const yr3Cumulative = (annual * 3) - (agentBuild + agentAnnualAPI * 3);
+
+    $('r-annual').textContent = fmt(annual);
+    $('r-annual-detail').textContent = `${h.toFixed(1)} hrs × ${c} cycles × €${r}/hr × ${errMult.toFixed(2)} (re-work)`;
+    $('r-time').textContent = `${Math.round(time)} hrs`;
+    $('r-time-detail').textContent = `≈ ${(time / 40).toFixed(1)} working weeks of one person's time`;
+    $('r-agent').textContent = fmt(agentYr1);
+    $('r-net').textContent = (yr1Net >= 0 ? '' : '–') + fmt(Math.abs(yr1Net));
+    $('r-three').textContent = fmt(yr3Cumulative);
+    $('i-three-yr').textContent = fmtK(yr3Cumulative);
+
+    let verdict;
+    if (yr1Net > 5000) {
+      verdict = `<strong>Strong candidate.</strong> At this scale, automating this task pays back in well under a year and saves <span>${fmtK(yr3Cumulative)}</span> over three years. Worth scoping properly.`;
+    } else if (yr1Net > 0) {
+      verdict = `<strong>Worth a look.</strong> Pays back inside year one, with <span>${fmtK(yr3Cumulative)}</span> in cumulative savings by year three. Talk to us about whether a 3-week build makes sense.`;
+    } else if (yr1Net > -3000) {
+      verdict = `<strong>Marginal on its own.</strong> Year-1 net is roughly break-even. Worth bundling with one or two other tasks of the same shape into a single project to make the build cost amortize.`;
+    } else {
+      verdict = `<strong>Probably too small.</strong> The build cost outpaces the manual cost. Better fit: bundle several of these together, or look for a higher-volume task first.`;
+    }
+    $('interpretation').innerHTML = verdict;
+
+    // Update URL without reload (for share)
+    const params = new URLSearchParams({ h, c, r, e });
+    history.replaceState(null, '', '?' + params.toString());
+  }
+
+  inputs.forEach(el => el.addEventListener('input', update));
+  readURL();
+  update();
+
+  // Share link copy
+  document.getElementById('share-link').addEventListener('click', async (e) => {
+    e.preventDefault();
+    try {
+      await navigator.clipboard.writeText(location.href);
+      e.target.textContent = '✓ Copied';
+      e.target.classList.add('copied');
+      setTimeout(() => { e.target.textContent = 'Copy share link'; e.target.classList.remove('copied'); }, 2400);
+    } catch (err) {
+      alert('Copy failed. URL: ' + location.href);
+    }
+  });
+</script>
+
+</body>
+</html>
