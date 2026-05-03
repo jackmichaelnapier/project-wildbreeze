@@ -1,19 +1,17 @@
 #!/usr/bin/env python3
 """
-Auto-publish a fresh WildBreeze Field Guide briefing.
+Auto-publish a fresh WildBreeze Field Guide briefing — English + Spanish.
 
 Runs from a GitHub Action every 2 days. Steps:
-  1. Asks Claude (with web search enabled) to identify a currently-trending
-     question that small/mid-size business owners are asking about AI
-     adoption — specifically things that haven't already been covered by
-     existing field-guide articles in this repo.
-  2. Asks Claude to write the briefing in the WildBreeze house style.
-  3. Slugifies, generates the HTML, writes it to field-guide/<slug>/index.html.
-  4. Updates the field-guide/index.html article list (inserts new card at top).
-  5. Updates sitemap.xml.
-  6. The workflow commits + pushes everything.
+  1. English: Claude identifies a trending small-business AI topic (web search),
+     writes a briefing, returns structured JSON.
+  2. English: render HTML, write to field-guide/<slug>/, update index, sitemap.
+  3. Spanish: Claude translates and localizes the same article to native
+     Castilian Spanish, returns structured JSON.
+  4. Spanish: render HTML, write to es/guia-de-campo/<spanish-slug>/, update
+     Spanish index, sitemap.
 
-Requires ANTHROPIC_API_KEY in env (from GitHub Actions secret).
+Requires ANTHROPIC_API_KEY in env (GitHub Actions secret).
 """
 import json
 import os
@@ -26,24 +24,34 @@ from anthropic import Anthropic
 
 ROOT = Path(__file__).resolve().parents[2]
 FG = ROOT / "field-guide"
+ES_FG = ROOT / "es" / "guia-de-campo"
 SITEMAP = ROOT / "sitemap.xml"
 
-MODEL = "claude-sonnet-4-5"   # cheap, fast, plenty good for blog posts
-client = Anthropic()  # picks up ANTHROPIC_API_KEY from env
+MODEL = "claude-sonnet-4-5"
+client = Anthropic()
 
 
 # ============================================================
-# Step 1+2: research the trending topic AND write the briefing
-# in a single Claude call, with web search as a tool.
+# Helpers
 # ============================================================
 
-def existing_slugs():
-    return [p.name for p in FG.iterdir() if p.is_dir() and (p / "index.html").exists()]
+def slugify(s):
+    s = s.lower().strip()
+    s = re.sub(r"[áàä]", "a", s)
+    s = re.sub(r"[éèë]", "e", s)
+    s = re.sub(r"[íìï]", "i", s)
+    s = re.sub(r"[óòö]", "o", s)
+    s = re.sub(r"[úùü]", "u", s)
+    s = re.sub(r"[ñ]", "n", s)
+    s = re.sub(r"[^a-z0-9]+", "-", s).strip("-")
+    return s[:60]
 
 
-def existing_titles():
+def existing_titles(directory):
     titles = []
-    for p in FG.iterdir():
+    if not directory.exists():
+        return titles
+    for p in directory.iterdir():
         if not p.is_dir():
             continue
         idx = p / "index.html"
@@ -51,80 +59,99 @@ def existing_titles():
             continue
         m = re.search(r"<title>([^<]+)</title>", idx.read_text())
         if m:
-            titles.append(m.group(1).replace(" — WildBreeze", ""))
+            t = m.group(1).replace(" — WildBreeze", "").replace(" · WildBreeze", "")
+            titles.append(t)
     return titles
 
 
-SYSTEM_PROMPT = """You are the editor-in-chief of WildBreeze's Field Guide — a section of \
+def extract_json_from_response(resp):
+    """Extract JSON from Claude response, robust to narration text."""
+    text_blocks = []
+    for b in resp.content:
+        t = getattr(b, "text", None)
+        if isinstance(t, str) and t.strip():
+            text_blocks.append(t)
+    if not text_blocks:
+        block_types = [getattr(b, "type", type(b).__name__) for b in resp.content]
+        raise RuntimeError(f"No text blocks. Block types: {block_types}")
+    full_text = "\n".join(text_blocks).strip()
+
+    # Try fenced
+    fenced = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", full_text, re.DOTALL)
+    if fenced:
+        return json.loads(fenced.group(1))
+
+    # Walk braces to find first balanced JSON object
+    for start in [m.start() for m in re.finditer(r"\{", full_text)]:
+        depth = 0
+        for i in range(start, len(full_text)):
+            c = full_text[i]
+            if c == "{":
+                depth += 1
+            elif c == "}":
+                depth -= 1
+                if depth == 0:
+                    chunk = full_text[start:i+1]
+                    try:
+                        return json.loads(chunk)
+                    except json.JSONDecodeError:
+                        break
+
+    print("ERR: could not extract JSON. Raw response:", file=sys.stderr)
+    print(full_text[:4000], file=sys.stderr)
+    raise RuntimeError("No parsable JSON in Claude response")
+
+
+# ============================================================
+# Step 1: English article generation (web search)
+# ============================================================
+
+EN_SYSTEM = """You are the editor-in-chief of WildBreeze's Field Guide — a section of \
 www.wildbreeze.io that publishes plain-English briefings for non-technical small and \
 mid-size business owners about how to adopt AI in their operations safely and \
 profitably.
 
 Voice and style:
-- Short, declarative, slightly understated. No hype words ("revolutionary",
-  "transformative", "game-changing", "leverage", "synergy", "next-gen").
+- Short, declarative, slightly understated. No hype words.
 - Concrete over abstract. "The spreadsheet someone is maintaining at 11pm" beats
   "operational pain points."
 - Past tense for actions completed; present tense for current advice.
-- Numbers in JetBrains Mono in display contexts (we'll handle styling — you
-  just write content).
 - No emoji in headlines or body copy.
-- Headlines split into two clauses, e.g. "Plain title. <em>Italic accent
-  clause.</em>" Use a period or em-dash to split them.
+- Headlines split into two clauses with a period, second clause is the
+  italic accent.
+- AVOID em-dashes (—) entirely. Use periods, commas, parentheses, or colons.
+- Avoid AI-tells: "delve into", "leverage", "robust", "transformative",
+  "revolutionary", "navigate the complexities", "in today's world", etc.
 
-Audience:
-- Non-technical small-business operators (10-50 person companies).
-- They run real operations, not technology companies. They want pragmatic
-  advice, not vendor cheerleading.
-
-Output discipline:
-- Every article 700-1100 words.
-- Use <h2> for major sections, <h3> for subsections.
-- Use <ul>, <ol>, <code>, <pre>, <blockquote>, <strong> as appropriate.
-- Always include 1-2 cross-links to existing field-guide articles where
-  natural (you'll be told which exist).
-- End with a brief "What we build" mention that links to /contact/.
-
-Today's topic-selection criteria:
-- It must be a question or topic that non-technical SMB owners are actually
-  searching for or asking about RIGHT NOW (use web search to verify trending).
-- It must NOT duplicate any existing article in the Field Guide (you'll be
-  given the list).
-- It must be specific enough to write a 700-1100 word answer, not so broad
-  that the answer is "it depends."
-- It must be operations-relevant (not a pure tech-enthusiast topic).
-"""
+Audience: non-technical small-business operators (10-50 person companies)."""
 
 
-def call_claude(existing_titles_str, today_iso):
-    """Single call that does research + writes the article + returns JSON."""
+def generate_en_article(today_iso):
+    titles = existing_titles(FG)
+    titles_str = "\n".join(f"  - {t}" for t in titles)
+    print(f"Existing EN articles:\n{titles_str}\n", file=sys.stderr)
 
-    user_prompt = f"""Today is {today_iso}.
+    prompt = f"""Today is {today_iso}.
 
 The Field Guide already has these articles (DO NOT duplicate):
-{existing_titles_str}
-
-Use web search to identify ONE trending question or topic that small/mid-size
-business owners are currently searching for around adopting AI in their
-operations. Then write a complete briefing on it.
+{titles_str}
 
 Process:
-1. Use web search 1-4 times to identify a trending topic.
-2. Once you have your topic, write the article.
+1. Use web search 1-4 times to identify a trending question or topic that
+   small/mid-size business owners are currently asking about adopting AI in
+   their operations. Verify recency by checking dates of search results.
+2. Once you have your topic, write a complete briefing.
 3. Output ONLY the JSON object below — no preamble, no commentary, no
-   markdown fences, no "here's the article" text. Your entire final
-   response must be a single parseable JSON object and nothing else.
-   The script that consumes this response will fail if there is any
-   text before the opening brace or after the closing brace.
+   markdown fences, no "here's the article" text.
 
-Return your output as a single JSON object with this exact shape:
+Return as a single JSON object:
 
 {{
-  "slug": "kebab-case-url-slug-no-special-chars",
+  "slug": "kebab-case-url-slug",
   "title": "The plain-text title",
-  "title_html": "The headline split into a plain clause + a <span class=\\"accent\\">italic accent clause</span>",
-  "description": "150-160 char meta description for SEO and link previews",
-  "lede": "1-3 sentence opening paragraph that hooks the reader",
+  "title_html": "Plain clause. <span class=\\"accent\\">Italic accent clause.</span>",
+  "description": "150-160 char meta description for SEO",
+  "lede": "1-3 sentence opening paragraph",
   "kicker": "BRIEFING NNN",
   "section": "Briefing",
   "date_iso": "{today_iso}",
@@ -134,160 +161,187 @@ Return your output as a single JSON object with this exact shape:
   "body": "<p>...full HTML article body, 700-1100 words, with h2/h3/ul/ol/code as appropriate. End with a horizontal rule and a 'Related' line linking to 1-2 existing articles by their /field-guide/<slug>/ paths...</p>"
 }}
 
-The "body" must be valid HTML, escaped properly inside the JSON string. Do not
-include the <h1> title in the body — that's rendered separately. Do start with
-a <p> opening paragraph that picks up where the lede left off.
-
-Pick a "BRIEFING NNN" number that's higher than any in the existing-article list
-(currently the highest is 003)."""
+Pick a "BRIEFING NNN" higher than any existing. The "body" must be valid HTML
+escaped properly inside the JSON string. AVOID em-dashes."""
 
     resp = client.messages.create(
         model=MODEL,
         max_tokens=8000,
-        system=SYSTEM_PROMPT,
-        tools=[{
-            "type": "web_search_20250305",
-            "name": "web_search",
-            "max_uses": 5,
-        }],
-        messages=[{"role": "user", "content": user_prompt}],
+        system=EN_SYSTEM,
+        tools=[{"type": "web_search_20250305", "name": "web_search", "max_uses": 5}],
+        messages=[{"role": "user", "content": prompt}],
     )
-
-    # Extract all text content (skipping tool_use / tool_result blocks).
-    # When web_search is used, Claude often interleaves narration with the
-    # final JSON. Some block types (server_tool_use, web_search_tool_result)
-    # may have a `.text` attribute that is None — filter those out by type
-    # check, not just hasattr.
-    text_blocks = []
-    for b in resp.content:
-        t = getattr(b, "text", None)
-        if isinstance(t, str) and t.strip():
-            text_blocks.append(t)
-    if not text_blocks:
-        # Surface what we did get so we can debug
-        block_types = [getattr(b, "type", type(b).__name__) for b in resp.content]
-        raise RuntimeError(f"No text blocks in Claude response. Block types: {block_types}")
-    full_text = "\n".join(text_blocks).strip()
-
-    # Strip ``` fences anywhere in the text (model may wrap json in fences).
-    fenced = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", full_text, re.DOTALL)
-    if fenced:
-        candidate = fenced.group(1)
-    else:
-        # No fences — find the first balanced JSON object in the text by
-        # walking braces. Naive approach: locate first `{` that begins a
-        # parsable object. Try progressively larger spans until json.loads
-        # succeeds, starting from each `{` position.
-        candidate = None
-        for start in [m.start() for m in re.finditer(r"\{", full_text)]:
-            # Track brace depth starting from this `{`
-            depth = 0
-            for i in range(start, len(full_text)):
-                c = full_text[i]
-                if c == "{":
-                    depth += 1
-                elif c == "}":
-                    depth -= 1
-                    if depth == 0:
-                        chunk = full_text[start:i+1]
-                        try:
-                            json.loads(chunk)
-                            candidate = chunk
-                            break
-                        except json.JSONDecodeError:
-                            break  # this `{` didn't start a valid object — try the next one
-            if candidate:
-                break
-
-    if not candidate:
-        # Last resort: dump the raw text to stderr so the workflow run
-        # surfaces what Claude actually returned, then re-raise.
-        print("ERR: could not extract JSON from Claude response.", file=sys.stderr)
-        print("=== RAW RESPONSE START ===", file=sys.stderr)
-        print(full_text[:4000], file=sys.stderr)
-        print("=== RAW RESPONSE END ===", file=sys.stderr)
-        raise RuntimeError("No parsable JSON found in Claude response")
-
-    return json.loads(candidate)
+    return extract_json_from_response(resp)
 
 
 # ============================================================
-# Step 3+4+5: render HTML + update index + sitemap
+# Step 2: Spanish translation/localization (no web search)
 # ============================================================
 
-def slugify(s):
-    s = s.lower().strip()
-    s = re.sub(r"[^a-z0-9]+", "-", s).strip("-")
-    return s[:60]
+ES_SYSTEM = """Eres el editor en jefe de la edición en español de la Guía de Campo \
+de WildBreeze (www.wildbreeze.io/es/), publicaciones para dueños de pequeños y \
+medianos negocios no técnicos sobre cómo adoptar IA en sus operaciones.
+
+Voz y estilo:
+- Cortos, declarativos, ligeramente moderados. Sin palabras de hype.
+- Concreto sobre abstracto. "La hoja de cálculo que alguien mantiene a las 23h"
+  gana a "puntos de dolor operativos".
+- Tutea al lector ("tú", "te", "tu") en lugar de usar "usted".
+- Sin emojis en titulares ni en cuerpo.
+- Titulares partidos en dos cláusulas con punto, la segunda es el acento itálico.
+- EVITA las rayas largas (—) por completo. Usa puntos, comas, paréntesis o dos puntos.
+- Castellano de España (no español neutro), pero comprensible para hispanohablantes
+  de Latinoamérica.
+
+Audiencia: operadores no técnicos de empresas pequeñas (10 a 50 personas) en
+España y América Latina."""
 
 
-def render_article_html(slug, data):
-    """Inline mini-template — kept self-contained so the workflow doesn't
-    depend on importing _gen_article.py from the repo root."""
+def translate_to_es(en_article):
+    """Translate the English article to native-Spanish for a Spanish SMB audience."""
+    titles = existing_titles(ES_FG)
+    titles_str = "\n".join(f"  - {t}" for t in titles)
+    print(f"Existing ES articles:\n{titles_str}\n", file=sys.stderr)
+
+    en_json = json.dumps(en_article, ensure_ascii=False)
+
+    prompt = f"""Aquí va el artículo en inglés que acabamos de publicar:
+
+{en_json}
+
+Tradúcelo a español castellano nativo, NO traducción literal. Debe sonar
+escrito por un hablante nativo, no traducido. Adapta los ejemplos donde tenga
+sentido (€ en lugar de $, ejemplos europeos cuando aplique). Conserva la
+estructura HTML del cuerpo, pero traduce el texto. Mantén el "kicker" en formato
+"INFORME NNN" (no "BRIEFING").
+
+Devuelve SOLO el objeto JSON con esta forma exacta. No añadas preámbulo ni
+comentario. La respuesta entera debe ser un único JSON parseable.
+
+{{
+  "slug": "slug-en-espanol-sin-acentos",
+  "title": "Titulo en espanol (sin entidades HTML)",
+  "title_html": "Clausula plana. <span class=\\"accent\\">Clausula acento.</span>",
+  "description": "Descripcion meta 150-160 caracteres",
+  "lede": "Lede en espanol",
+  "kicker": "INFORME NNN",
+  "section": "Informe",
+  "date_iso": "{en_article['date_iso']}",
+  "date_human": "{en_article['date_human']}",
+  "read_time": "X min de lectura",
+  "tags": ["tags", "en", "espanol", "kebab-case"],
+  "body": "<p>... cuerpo HTML traducido. Cambia rutas /field-guide/ por /es/guia-de-campo/ en los enlaces 'Related' al final ...</p>"
+}}
+
+Los slugs existentes en español son:
+{titles_str}
+
+NO dupliques uno. EVITA las rayas largas (—) en el cuerpo."""
+
+    resp = client.messages.create(
+        model=MODEL,
+        max_tokens=8000,
+        system=ES_SYSTEM,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    return extract_json_from_response(resp)
+
+
+# ============================================================
+# Render templates
+# ============================================================
+
+def render_article(slug, data, lang):
+    is_es = (lang == "es")
+    base = "/es/guia-de-campo" if is_es else "/field-guide"
+    other_base = "/field-guide" if is_es else "/es/guia-de-campo"
+    site_base = "https://www.wildbreeze.io"
+    article_url = f"{site_base}{base}/{slug}/"
+    other_url = f"{site_base}{other_base}/{slug}/"  # may not exist on other side, but link is best-effort
+    home = "/es/" if is_es else "/"
+
     tags = data.get("tags", [])
     tag_meta = "\n".join(f'<meta property="article:tag" content="{t}" />' for t in tags)
-    keywords = ", ".join(tags)
 
-    # Pick 2 related articles (most recent that aren't this one)
+    nav_links = (
+        '<a href="/es/#servicios">Servicios</a><a href="/es/guia-de-campo/">Guía de campo</a><a href="/es/sobre/">Sobre</a><a href="/es/contacto/" class="cta">Contacto</a>'
+        if is_es else
+        '<a href="/#services">Services</a><a href="/field-guide/">Field Guide</a><a href="/about/">About</a><a href="/contact/" class="cta">Contact</a>'
+    )
+    keep_reading = "Más de la Guía" if is_es else "More from the Field Guide"
+    keep_reading_kicker = "Sigue leyendo" if is_es else "Keep reading"
+    blurb = "Infraestructura de automatización silenciosa para operaciones humanas." if is_es else "Quiet automation infrastructure for operations run by humans."
+    legal = "© 2026 WildBreeze. Todos los sistemas en silencio." if is_es else "© 2026 WildBreeze. All systems quiet."
+    builtby = "Hecho por" if is_es else "Built by"
+
+    # Footer columns
+    footer_cols_es = '''<div class="col"><h5>Construir</h5><a href="/es/#servicios">Servidores MCP</a><a href="/es/#servicios">Agentes programados</a><a href="/es/#servicios">Informes semanales</a></div>
+        <div class="col"><h5>Aprender</h5><a href="/es/guia-de-campo/">Guía de campo</a><a href="/es/glosario/">Glosario</a><a href="/es/calculadora/">Calculadora</a><a href="/es/sobre/">Sobre</a></div>
+        <div class="col"><h5>Contacto</h5><a href="/es/contacto/">Formulario</a><a href="mailto:hello@wildbreeze.io">hello@wildbreeze.io</a></div>'''
+    footer_cols_en = '''<div class="col"><h5>Build</h5><a href="/#services">Custom MCP servers</a><a href="/#services">Scheduled agents</a><a href="/#services">Weekly reports</a></div>
+        <div class="col"><h5>Learn</h5><a href="/field-guide/">Field Guide</a><a href="/glossary/">Glossary</a><a href="/calculator/">Cost calculator</a><a href="/about/">About</a></div>
+        <div class="col"><h5>Contact</h5><a href="/contact/">Contact form</a><a href="mailto:hello@wildbreeze.io">hello@wildbreeze.io</a></div>'''
+    footer_cols = footer_cols_es if is_es else footer_cols_en
+
+    # Pick 2 related articles
+    fg_dir = ES_FG if is_es else FG
     related = []
-    for p in sorted(FG.iterdir(), key=lambda x: x.stat().st_mtime, reverse=True):
-        if not p.is_dir() or p.name == slug:
-            continue
-        idx = p / "index.html"
-        if not idx.exists():
-            continue
-        h = idx.read_text()
-        title = re.search(r"<title>([^<]+) — WildBreeze</title>", h)
-        desc = re.search(r'name="description" content="([^"]+)"', h)
-        date = re.search(r'<time datetime="([^"]+)">', h)
-        kicker = re.search(r'class="kicker"[^>]*>([^<]+)<', h)
-        if title and desc:
-            related.append({
-                "slug": p.name,
-                "title": title.group(1),
-                "description": desc.group(1),
-                "date_iso": date.group(1) if date else "",
-                "kicker": kicker.group(1).strip() if kicker else "Field Guide",
-            })
-        if len(related) >= 2:
-            break
+    if fg_dir.exists():
+        for p in sorted(fg_dir.iterdir(), key=lambda x: x.stat().st_mtime, reverse=True):
+            if not p.is_dir() or p.name == slug:
+                continue
+            idx = p / "index.html"
+            if not idx.exists():
+                continue
+            h = idx.read_text()
+            t = re.search(r"<title>([^<]+) (?:—|·) WildBreeze</title>", h)
+            d = re.search(r'name="description" content="([^"]+)"', h)
+            dt = re.search(r'<time datetime="([^"]+)">', h)
+            kk = re.search(r'class="kicker"[^>]*>([^<]+)<', h)
+            if t and d:
+                related.append({
+                    "slug": p.name,
+                    "title": t.group(1),
+                    "description": d.group(1),
+                    "date_iso": dt.group(1) if dt else "",
+                    "kicker": kk.group(1).strip() if kk else "",
+                })
+            if len(related) >= 2:
+                break
 
     related_html = ""
     for r in related:
-        related_html += f"""      <a class="article-card" href="/field-guide/{r['slug']}/">
-        <div class="meta">
-          <span class="date">{r['date_iso']}</span>
-          <span>{r['kicker']}</span>
-        </div>
-        <div class="body">
-          <h3>{r['title']}</h3>
-          <p>{r['description']}</p>
-          <span class="read-more">READ →</span>
-        </div>
+        read_label = "LEER →" if is_es else "READ →"
+        related_html += f'''      <a class="article-card" href="{base}/{r["slug"]}/">
+        <div class="meta"><span class="date">{r["date_iso"]}</span><span>{r["kicker"]}</span></div>
+        <div class="body"><h3>{r["title"]}</h3><p>{r["description"]}</p><span class="read-more">{read_label}</span></div>
       </a>
-"""
+'''
 
     return f"""<!doctype html>
-<html lang="en">
+<html lang="{lang}">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>{data['title']} — WildBreeze</title>
+<title>{data['title']} {('·' if is_es else '—')} WildBreeze</title>
 <meta name="description" content="{data['description']}" />
-<link rel="canonical" href="https://www.wildbreeze.io/field-guide/{slug}/" />
+<link rel="canonical" href="{article_url}" />
 <meta name="theme-color" content="#06080F" />
 <meta property="og:title" content="{data['title']}" />
 <meta property="og:description" content="{data['description']}" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.wildbreeze.io/field-guide/{slug}/" />
-<meta property="og:image" content="https://www.wildbreeze.io/og-preview.png" />
+<meta property="og:url" content="{article_url}" />
+<meta property="og:image" content="{site_base}/og-preview.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+{('<meta property="og:locale" content="es_ES" />' if is_es else '')}
 <meta property="article:published_time" content="{data['date_iso']}" />
-<meta property="article:section" content="{data.get('section','Briefing')}" />
+<meta property="article:section" content="{data.get('section','Field Guide' if not is_es else 'Guía de campo')}" />
 {tag_meta}
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://www.wildbreeze.io/og-preview.png" />
+<meta name="twitter:image" content="{site_base}/og-preview.png" />
+<link rel="alternate" hreflang="{'es' if is_es else 'en'}" href="{article_url}" />
+<link rel="alternate" hreflang="{'en' if is_es else 'es'}" href="{other_url}" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
@@ -295,6 +349,12 @@ def render_article_html(slug, data):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/wb-style.css" />
+<style>
+  .lang-toggle {{ font-family: var(--mono); font-size: 12px; color: var(--ink-3); letter-spacing: 0.08em; margin-left: 16px; }}
+  .lang-toggle a {{ color: var(--cyan); padding: 0 4px; }}
+  .lang-toggle .sep {{ color: var(--line-2); }}
+  .lang-toggle .active {{ color: var(--ink); }}
+</style>
 <script type="application/ld+json">
 {{
   "@context": "https://schema.org",
@@ -303,11 +363,12 @@ def render_article_html(slug, data):
   "description": {json.dumps(data['description'])},
   "datePublished": "{data['date_iso']}",
   "dateModified": "{data['date_iso']}",
+  "inLanguage": "{lang}",
   "author": {{ "@type": "Organization", "name": "WildBreeze", "url": "https://www.wildbreeze.io/" }},
   "publisher": {{ "@type": "Organization", "name": "WildBreeze", "url": "https://www.wildbreeze.io/", "logo": {{ "@type": "ImageObject", "url": "https://www.wildbreeze.io/favicon-512.png" }} }},
   "image": "https://www.wildbreeze.io/og-preview.png",
-  "mainEntityOfPage": {{ "@type": "WebPage", "@id": "https://www.wildbreeze.io/field-guide/{slug}/" }},
-  "keywords": {json.dumps(keywords)}
+  "mainEntityOfPage": {{ "@type": "WebPage", "@id": "{article_url}" }},
+  "keywords": {json.dumps(", ".join(tags))}
 }}
 </script>
 </head>
@@ -318,21 +379,16 @@ def render_article_html(slug, data):
 
 <header class="nav">
   <div class="wrap row">
-    <a href="/" class="logo">
+    <a href="{home}" class="logo">
       <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
-        <defs><linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#5EF2FF"/><stop offset="55%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#5EF2FF"/>
-        </linearGradient></defs>
-        <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
-              fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
-              stroke-linecap="round" stroke-linejoin="round"/>
+        <defs><linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#5EF2FF"/><stop offset="55%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#5EF2FF"/></linearGradient></defs>
+        <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0" fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <span>WildBreeze</span>
     </a>
     <nav class="main">
-      <a href="/#services">Services</a>
-      <a href="/field-guide/">Field Guide</a>
-      <a href="/contact/" class="cta">Contact</a>
+      {nav_links}
+      <span class="lang-toggle">{('<a href="' + other_url + '" hreflang="en">EN</a><span class="sep">·</span><span class="active">ES</span>') if is_es else ('<span class="active">EN</span><span class="sep">·</span><a href="' + other_url + '" hreflang="es">ES</a>')}</span>
     </nav>
   </div>
 </header>
@@ -345,7 +401,7 @@ def render_article_html(slug, data):
       <p class="lede">{data['lede']}</p>
       <div class="article-meta">
         <span><time datetime="{data['date_iso']}">{data['date_human']}</time></span>
-        <span>{data.get('read_time', '7 min read')}</span>
+        <span>{data.get('read_time', '7 min read' if not is_es else '7 min de lectura')}</span>
         {' '.join(f'<span class="tag">#{t}</span>' for t in tags)}
       </div>
     </div>
@@ -361,12 +417,11 @@ def render_article_html(slug, data):
 <section class="section" style="border-top: 1px solid var(--line);">
   <div class="wrap prose">
     <div class="section-head">
-      <div class="kicker">Keep reading</div>
-      <h2 style="font-size: 28px;">More from the Field Guide</h2>
+      <div class="kicker">{keep_reading_kicker}</div>
+      <h2 style="font-size: 28px;">{keep_reading}</h2>
     </div>
     <div class="articles">
-{related_html}
-    </div>
+{related_html}    </div>
   </div>
 </section>
 
@@ -374,28 +429,22 @@ def render_article_html(slug, data):
   <div class="wrap">
     <div class="row">
       <div>
-        <a href="/" class="logo">
+        <a href="{home}" class="logo">
           <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
-            <defs><linearGradient id="wb-mark-grad-f" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#5EF2FF"/><stop offset="55%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#5EF2FF"/>
-            </linearGradient></defs>
-            <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
-                  fill="none" stroke="url(#wb-mark-grad-f)" stroke-width="1.8"
-                  stroke-linecap="round" stroke-linejoin="round"/>
+            <defs><linearGradient id="wb-mark-grad-f" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#5EF2FF"/><stop offset="55%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#5EF2FF"/></linearGradient></defs>
+            <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0" fill="none" stroke="url(#wb-mark-grad-f)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <span>WildBreeze</span>
         </a>
-        <p class="blurb">Quiet automation infrastructure for operations run by humans.</p>
+        <p class="blurb">{blurb}</p>
       </div>
       <div class="meta">
-        <div class="col"><h5>Build</h5><a href="/#services">Custom MCP servers</a><a href="/#services">Scheduled agents</a><a href="/#services">Weekly reports</a></div>
-        <div class="col"><h5>Learn</h5><a href="/field-guide/agents/">What is an agent?</a><a href="/field-guide/mcp-servers/">What is an MCP server?</a><a href="/field-guide/#articles">All briefings</a></div>
-        <div class="col"><h5>Contact</h5><a href="/contact/">Contact form</a><a href="mailto:hello@wildbreeze.io">hello@wildbreeze.io</a></div>
+        {footer_cols}
       </div>
     </div>
     <div class="legal">
-      <div>© 2026 WildBreeze. All systems quiet.</div>
-      <div>Built by <a href="https://www.napier.me" class="link" target="_blank" rel="noopener">napier.me</a></div>
+      <div>{legal}</div>
+      <div>{builtby} <a href="https://www.napier.me" class="link" target="_blank" rel="noopener">napier.me</a></div>
     </div>
   </div>
 </footer>
@@ -405,89 +454,110 @@ def render_article_html(slug, data):
 """
 
 
-def update_field_guide_index(slug, data):
-    """Insert a new article card into field-guide/index.html article list."""
-    idx_path = FG / "index.html"
+# ============================================================
+# Update field-guide index page (insert new card at top)
+# ============================================================
+
+def update_index(slug, data, lang):
+    is_es = (lang == "es")
+    fg_dir = ES_FG if is_es else FG
+    idx_path = fg_dir / "index.html"
+    if not idx_path.exists():
+        print(f"  warn: {idx_path} doesn't exist, can't update", file=sys.stderr)
+        return
     html = idx_path.read_text()
 
-    new_card = f"""      <a class="article-card reveal" href="/field-guide/{slug}/">
+    base = "/es/guia-de-campo" if is_es else "/field-guide"
+    read_label = "LEER →" if is_es else "READ →"
+    read_time = data.get("read_time", "7 min read" if not is_es else "7 min de lectura")
+
+    new_card = f'''      <a class="article-card" href="{base}/{slug}/">
         <div class="meta">
           <span class="date">{data['date_iso']}</span>
           <span>{data['kicker']}</span>
-          <span>{data.get('read_time', '7 min read')}</span>
+          <span>{read_time}</span>
         </div>
         <div class="body">
           <h3>{data['title']}</h3>
           <p>{data['description']}</p>
-          <span class="read-more">READ →</span>
+          <span class="read-more">{read_label}</span>
         </div>
       </a>
 
-"""
-
-    # Insert after the marker comment
+'''
     marker = "<!-- AUTO-GENERATED ARTICLES INSERTED ABOVE THIS LINE BY THE WORKFLOW -->"
-    if marker not in html:
-        # Fallback: insert at start of #article-list
-        html = html.replace('<div class="articles" id="article-list">',
-                            f'<div class="articles" id="article-list">\n{new_card}',
-                            1)
-    else:
-        # Insert ABOVE the marker (which sits ABOVE the existing cards), so newest is on top
+    if marker in html:
         html = html.replace(marker, f"{new_card}      {marker}", 1)
-
+    else:
+        html = html.replace('<div class="articles" id="article-list">',
+                            f'<div class="articles" id="article-list">\n{new_card}', 1)
     idx_path.write_text(html)
-    print(f"OK updated {idx_path.relative_to(ROOT)}")
+    print(f"  updated {idx_path.relative_to(ROOT)}")
 
 
-def update_sitemap(slug, data):
-    """Add new article URL to sitemap.xml."""
+# ============================================================
+# Update sitemap.xml
+# ============================================================
+
+def update_sitemap(slug, data, lang):
+    is_es = (lang == "es")
+    base = "/es/guia-de-campo" if is_es else "/field-guide"
     text = SITEMAP.read_text()
-    entry = f"""  <url>
-    <loc>https://www.wildbreeze.io/field-guide/{slug}/</loc>
+    url = f"https://www.wildbreeze.io{base}/{slug}/"
+    if url in text:
+        return
+    entry = f'''  <url>
+    <loc>{url}</loc>
     <lastmod>{data['date_iso']}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-"""
-    if f"/field-guide/{slug}/" in text:
-        print(f"info: {slug} already in sitemap, skipping")
-        return
+'''
     text = text.replace("</urlset>", f"{entry}</urlset>")
     SITEMAP.write_text(text)
-    print(f"OK updated sitemap.xml")
+    print(f"  updated sitemap.xml ({lang})")
 
 
 # ============================================================
 # main
 # ============================================================
 
-def main():
-    today_iso = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    titles = existing_titles()
-    titles_str = "\n".join(f"  - {t}" for t in titles)
-    print(f"Existing articles:\n{titles_str}\n")
-
-    print("Calling Claude with web search…")
-    data = call_claude(titles_str, today_iso)
-
+def write_article(data, lang):
     slug = slugify(data.get("slug", "") or data["title"])
     if not slug:
-        print("ERR: empty slug from Claude", file=sys.stderr)
-        sys.exit(1)
+        raise RuntimeError(f"empty slug for {lang}")
 
-    target_dir = FG / slug
-    if target_dir.exists():
-        print(f"info: {slug} already exists — Claude picked a duplicate. Skipping.")
-        return
+    fg_dir = ES_FG if lang == "es" else FG
+    target = fg_dir / slug
+    if target.exists():
+        print(f"  info: {lang}/{slug} already exists, skipping write")
+        return slug
 
-    target_dir.mkdir(parents=True)
-    target = target_dir / "index.html"
-    target.write_text(render_article_html(slug, data))
-    print(f"OK wrote {target.relative_to(ROOT)}")
+    target.mkdir(parents=True)
+    (target / "index.html").write_text(render_article(slug, data, lang))
+    print(f"  wrote {target.relative_to(ROOT)}/index.html")
+    update_index(slug, data, lang)
+    update_sitemap(slug, data, lang)
+    return slug
 
-    update_field_guide_index(slug, data)
-    update_sitemap(slug, data)
+
+def main():
+    today_iso = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    # 1. English article
+    print("=== EN: generating with web search ===", file=sys.stderr)
+    en = generate_en_article(today_iso)
+    en_slug = write_article(en, "en")
+    print(f"OK EN: {en_slug}\n", file=sys.stderr)
+
+    # 2. Spanish translation/localization
+    print("=== ES: translating ===", file=sys.stderr)
+    es = translate_to_es(en)
+    # Force Spanish date_iso to match
+    es["date_iso"] = en["date_iso"]
+    es["date_human"] = en["date_human"]
+    es_slug = write_article(es, "es")
+    print(f"OK ES: {es_slug}\n", file=sys.stderr)
 
 
 if __name__ == "__main__":
