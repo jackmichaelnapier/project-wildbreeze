@@ -88,4 +88,16 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.wildbreeze.io/contact/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.wildbreeze.io/es/contacto/"/>
   </url>
+  <url>
+    <loc>https://www.wildbreeze.io/field-guide/when-your-team-wont-touch-the-ai-tools-you-bought/</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.wildbreeze.io/es/guia-de-campo/cuando-tu-equipo-no-toca-las-herramientas-ia-que-compraste/</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
