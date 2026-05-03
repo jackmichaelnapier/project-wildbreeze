@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Contact — WildBreeze</title>
+<meta name="description" content="Tell us about your operation. We'll get back inside 48 hours." />
+<link rel="canonical" href="https://www.wildbreeze.io/contact/" />
+<meta name="theme-color" content="#06080F" />
+<meta property="og:title" content="Contact — WildBreeze" />
+<meta property="og:description" content="Tell us about your operation. We'll get back inside 48 hours." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.wildbreeze.io/contact/" />
+<meta property="og:image" content="https://www.wildbreeze.io/og-preview.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.wildbreeze.io/og-preview.png" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/wb-style.css" />
+</head>
+<body>
+
+<div class="field" aria-hidden="true"></div>
+<div class="grid" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap row">
+    <a href="/" class="logo">
+      <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+        <defs>
+          <linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#5EF2FF"/>
+            <stop offset="55%" stop-color="#A78BFA"/>
+            <stop offset="100%" stop-color="#5EF2FF"/>
+          </linearGradient>
+        </defs>
+        <g class="wave">
+          <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+      <span>WildBreeze</span>
+    </a>
+    <nav class="main">
+      <a href="/#services">Services</a>
+      <a href="/field-guide/">Field Guide</a>
+      <a href="/contact/" class="cta" aria-current="page">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap prose">
+    <div class="kicker">005 — Contact</div>
+    <h1 class="page-title">Tell us about your operation. <span class="accent">We'll get back inside 48 hours.</span></h1>
+    <p class="lede">
+      30 minutes, no slides, no commitments. Bring the spreadsheet someone is maintaining at 11pm —
+      we'll tell you whether WildBreeze is the right fix or honestly point you elsewhere.
+    </p>
+
+    <!--
+      The form posts to Formspree (https://formspree.io). Free tier covers 50 submissions/month.
+      To activate:
+        1. Go to https://formspree.io and sign up with jack@napier.me
+        2. Create a new form, copy its endpoint (looks like https://formspree.io/f/xxxxxxxx)
+        3. Replace YOUR_FORMSPREE_ID below with the actual ID
+        4. First submission requires email verification — Formspree will email jack@napier.me
+      Until then, the mailto: fallback link still works.
+    -->
+    <form class="contact-form"
+          action="https://formspree.io/f/YOUR_FORMSPREE_ID"
+          method="POST">
+      <input type="hidden" name="_subject" value="WildBreeze — new contact form submission">
+      <input type="hidden" name="_replyto" value="">
+
+      <div>
+        <label for="cf-name">Your name</label>
+        <input id="cf-name" name="name" type="text" required autocomplete="name" placeholder="Alex Operator">
+      </div>
+
+      <div>
+        <label for="cf-email">Email</label>
+        <input id="cf-email" name="email" type="email" required autocomplete="email" placeholder="alex@yourcompany.com">
+      </div>
+
+      <div>
+        <label for="cf-company">Company / operation</label>
+        <input id="cf-company" name="company" type="text" autocomplete="organization" placeholder="Your Co.">
+      </div>
+
+      <div>
+        <label for="cf-message">What's the spreadsheet someone is maintaining at 11pm?</label>
+        <textarea id="cf-message" name="message" required placeholder="Tell us about the manual work you're hoping to automate, the data sources you'd want connected, and roughly how big your team is."></textarea>
+      </div>
+
+      <!-- Honeypot for bots -->
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:8px;">
+        <button class="btn primary" type="submit">Send <span class="arrow">→</span></button>
+        <a class="btn" href="mailto:jack@napier.me?subject=WildBreeze%20enquiry">Or just email jack@napier.me</a>
+      </div>
+    </form>
+
+    <div class="built-by">
+      <div class="who">
+        Built by <strong>napier.me</strong> — quiet automation infrastructure for operations run by humans.
+      </div>
+      <a href="https://www.napier.me" target="_blank" rel="noopener">napier.me →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <a href="/" class="logo">
+          <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+            <defs>
+              <linearGradient id="wb-mark-grad-f" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#5EF2FF"/>
+                <stop offset="55%" stop-color="#A78BFA"/>
+                <stop offset="100%" stop-color="#5EF2FF"/>
+              </linearGradient>
+            </defs>
+            <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                  fill="none" stroke="url(#wb-mark-grad-f)" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>WildBreeze</span>
+        </a>
+        <p class="blurb">Quiet automation infrastructure for operations run by humans. Built one operator at a time.</p>
+      </div>
+      <div class="meta">
+        <div class="col">
+          <h5>Build</h5>
+          <a href="/#services">Custom MCP servers</a>
+          <a href="/#services">Scheduled agents</a>
+          <a href="/#services">Weekly reports</a>
+        </div>
+        <div class="col">
+          <h5>Learn</h5>
+          <a href="/field-guide/">Field Guide</a>
+          <a href="/field-guide/agents/">What is an agent?</a>
+          <a href="/field-guide/mcp-servers/">What is an MCP server?</a>
+        </div>
+        <div class="col">
+          <h5>Contact</h5>
+          <a href="/contact/">Contact form</a>
+          <a href="mailto:jack@napier.me">jack@napier.me</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      <div>© 2026 WildBreeze. All systems quiet.</div>
+      <div>Built by <a href="https://www.napier.me" class="link" target="_blank" rel="noopener">napier.me</a></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
