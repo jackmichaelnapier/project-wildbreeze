@@ -155,10 +155,18 @@ Pick a "BRIEFING NNN" number that's higher than any in the existing-article list
 
     # Extract all text content (skipping tool_use / tool_result blocks).
     # When web_search is used, Claude often interleaves narration with the
-    # final JSON. We need to find the JSON wherever it appears.
-    text_blocks = [b.text for b in resp.content if hasattr(b, "text")]
+    # final JSON. Some block types (server_tool_use, web_search_tool_result)
+    # may have a `.text` attribute that is None — filter those out by type
+    # check, not just hasattr.
+    text_blocks = []
+    for b in resp.content:
+        t = getattr(b, "text", None)
+        if isinstance(t, str) and t.strip():
+            text_blocks.append(t)
     if not text_blocks:
-        raise RuntimeError("No text blocks in Claude response")
+        # Surface what we did get so we can debug
+        block_types = [getattr(b, "type", type(b).__name__) for b in resp.content]
+        raise RuntimeError(f"No text blocks in Claude response. Block types: {block_types}")
     full_text = "\n".join(text_blocks).strip()
 
     # Strip ``` fences anywhere in the text (model may wrap json in fences).
