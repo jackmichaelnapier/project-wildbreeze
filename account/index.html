@@ -242,7 +242,7 @@
   <script>
   /* Encrypted records: PBKDF2 input is "<email>|<access_key>" (lowercased email).
      Each record decrypts to a relative HTML path (e.g. "preview/index.html"). */
-  var RECORDS = [{"s": "edefb925533ceb90ea0459bcb592a08a", "iv": "fd3e45ade04847cf5b3a9e5e", "ct": "2f47dd501214755864d02fed55c703ceabfab94dac218b13406fea42b17cfc65b28b"}];
+  var RECORDS = [{"s": "40453c1fbfeaff0bf0d1b94a0dc183f2", "iv": "622b62cd1c0a0669775a8bcd", "ct": "fdf413724d3d51d194f010e92d698775ad1647c49ab4af5b5b39002b48655764db00"}, {"s": "b4f5a99b48a1b39a14d6a2628639bb16", "iv": "b60302c7d4bb40191e3d5b69", "ct": "dc83e94af657d2055e514ae7ea9605d63d5fa2839b1603da1c5b13fe712db1ffb2a53c1eec73a6700863a171ac7fe5de0463ef526e93"}];
 
   function hexToBytes(hex){
     var b = new Uint8Array(hex.length/2);
@@ -308,13 +308,11 @@
     try { keyEl.select(); } catch(_){}
   }
   btn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); attemptOpen(); });
-  // Enter-to-submit from either input
   [emailEl, keyEl].forEach(function(el){
     el.addEventListener('keydown', function(e){
       if (e.key === 'Enter'){ e.preventDefault(); attemptOpen(); }
     });
   });
-  // belt-and-suspenders: if anything still submits the form, swallow it
   form.addEventListener('submit', function(e){ e.preventDefault(); e.stopPropagation(); attemptOpen(); return false; });
   </script>
 </body>
