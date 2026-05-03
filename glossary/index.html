@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI glossary for small business owners · WildBreeze</title>
+<meta name="description" content="Plain-English definitions of the AI terms small-business owners actually run into. Agent, MCP, RAG, fine-tuning, prompt, context window, and more." />
+<link rel="canonical" href="https://www.wildbreeze.io/glossary/" />
+<meta name="theme-color" content="#06080F" />
+<meta property="og:title" content="AI glossary for small business owners · WildBreeze" />
+<meta property="og:description" content="Plain-English definitions of the AI terms small-business owners actually run into." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.wildbreeze.io/glossary/" />
+<meta property="og:image" content="https://www.wildbreeze.io/og-preview.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.wildbreeze.io/og-preview.png" />
+<link rel="alternate" hreflang="en" href="https://www.wildbreeze.io/glossary/" />
+<link rel="alternate" hreflang="es" href="https://www.wildbreeze.io/es/glosario/" />
+<link rel="alternate" hreflang="x-default" href="https://www.wildbreeze.io/glossary/" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/wb-style.css" />
+<style>
+  .gloss-grid { display: grid; gap: 28px; }
+  .gloss-entry { padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .gloss-entry:last-child { border-bottom: none; }
+  .gloss-entry .term {
+    font-family: var(--serif); font-weight: 600; font-size: 22px;
+    letter-spacing: -0.015em; margin: 0 0 6px;
+    display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+  }
+  .gloss-entry .term .alias {
+    font-family: var(--mono); font-size: 12px; font-weight: 400;
+    color: var(--ink-3); letter-spacing: 0.06em;
+  }
+  .gloss-entry .def { color: var(--ink-2); font-size: 16px; line-height: 1.6; margin: 0 0 10px; }
+  .gloss-entry .ex {
+    font-family: var(--mono); font-size: 13px; line-height: 1.6;
+    color: var(--ink-3); padding-left: 14px; border-left: 2px solid var(--line);
+    margin: 8px 0 0;
+  }
+  .toc {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    padding: 14px 0; margin-bottom: 32px;
+    border-bottom: 1px solid var(--line);
+  }
+  .toc a {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--cyan); letter-spacing: 0.08em;
+    padding: 4px 10px; border: 1px solid var(--line);
+    border-radius: 999px; transition: all 180ms ease;
+  }
+  .toc a:hover { border-color: var(--cyan); background: rgba(94,242,255,0.06); }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  "name": "WildBreeze AI glossary",
+  "description": "Plain-English definitions of the AI terms small-business owners actually run into.",
+  "url": "https://www.wildbreeze.io/glossary/"
+}
+</script>
+</head>
+<body>
+
+<div class="field" aria-hidden="true"></div>
+<div class="grid" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap row">
+    <a href="/" class="logo">
+      <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+        <defs>
+          <linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#5EF2FF"/>
+            <stop offset="55%" stop-color="#A78BFA"/>
+            <stop offset="100%" stop-color="#5EF2FF"/>
+          </linearGradient>
+        </defs>
+        <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+              fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>WildBreeze</span>
+    </a>
+    <nav class="main">
+      <a href="/#services">Services</a>
+      <a href="/field-guide/">Field Guide</a>
+      <a href="/about/">About</a>
+      <a href="/contact/" class="cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap prose">
+    <div class="kicker">Glossary</div>
+    <h1 class="page-title">AI for small business, <span class="accent">defined in plain English.</span></h1>
+    <p class="lede">
+      Every term a small-business owner actually runs into when looking at AI for their operation.
+      No jargon, no hand-waving. Each entry has a one-sentence definition, a longer plain-English explainer, and a real-world example.
+    </p>
+  </div>
+</section>
+
+<section class="prose-body">
+  <div class="wrap prose">
+    <div class="toc">
+      <a href="#agent">Agent</a>
+      <a href="#api">API</a>
+      <a href="#chatbot">Chatbot</a>
+      <a href="#context-window">Context window</a>
+      <a href="#embedding">Embedding</a>
+      <a href="#fine-tuning">Fine-tuning</a>
+      <a href="#hallucination">Hallucination</a>
+      <a href="#llm">LLM</a>
+      <a href="#mcp">MCP</a>
+      <a href="#prompt">Prompt</a>
+      <a href="#rag">RAG</a>
+      <a href="#token">Token</a>
+      <a href="#tool-use">Tool use</a>
+      <a href="#vector-database">Vector database</a>
+    </div>
+
+    <div class="gloss-grid">
+
+      <div class="gloss-entry" id="agent">
+        <h3 class="term">Agent <span class="alias">a.k.a. AI agent</span></h3>
+        <p class="def">An AI assistant that does work on its own. It has a job, a schedule, and access to your tools. Not a chatbot.</p>
+        <p class="ex">Example: an agent that pulls last week's revenue from QuickBooks every Monday at 7am, formats it as a report, and posts it to a Slack channel before the leadership meeting starts.</p>
+        <p style="margin-top:10px;"><a class="link" href="/field-guide/agents/">Full explainer →</a></p>
+      </div>
+
+      <div class="gloss-entry" id="api">
+        <h3 class="term">API <span class="alias">application programming interface</span></h3>
+        <p class="def">A standardized way for software to talk to other software. The phone number a program uses to call another program.</p>
+        <p class="ex">Example: when your Shopify store sends order data to your accounting tool automatically, that's an API call. APIs are how every modern integration works under the hood.</p>
+      </div>
+
+      <div class="gloss-entry" id="chatbot">
+        <h3 class="term">Chatbot</h3>
+        <p class="def">An AI that waits in a chat window for you to ask it something, answers, then forgets. The thing most people mean when they say "AI" in 2026. Useful, but the floor of what AI can do for an operation, not the ceiling.</p>
+        <p class="ex">Example: ChatGPT, Claude, Gemini in their default chat mode. You type a question, it answers. Compare this to an agent, which acts without being asked.</p>
+      </div>
+
+      <div class="gloss-entry" id="context-window">
+        <h3 class="term">Context window</h3>
+        <p class="def">How much information an AI can hold in its working memory during a single conversation. Measured in tokens (roughly, words). When the context window fills up, the model starts forgetting earlier parts of the conversation.</p>
+        <p class="ex">Example: a 200,000-token context window is large enough to read a full novel in one go. Small operations rarely hit context window limits. The exception: long technical documents or full codebases.</p>
+      </div>
+
+      <div class="gloss-entry" id="embedding">
+        <h3 class="term">Embedding</h3>
+        <p class="def">A mathematical representation of a piece of text that lets a computer find similar pieces of text. The technology behind "semantic search" — finding things by meaning, not by exact keyword match.</p>
+        <p class="ex">Example: an embedding-powered search lets a customer ask "do you ship to Italy?" and find a help article titled "European delivery policies" even though those words never overlap.</p>
+      </div>
+
+      <div class="gloss-entry" id="fine-tuning">
+        <h3 class="term">Fine-tuning</h3>
+        <p class="def">Taking an existing AI model and training it further on your specific data so it picks up your style, your terminology, your domain. Expensive. Rarely the right answer for a small operation. Usually a custom MCP server gets you 90% of the result for 1% of the cost.</p>
+        <p class="ex">Example: a law firm fine-tuning a model on its past briefs so it writes drafts in their voice. Real use case, real cost (often $20k+ per fine-tuning run, repeated as the underlying model evolves).</p>
+      </div>
+
+      <div class="gloss-entry" id="hallucination">
+        <h3 class="term">Hallucination</h3>
+        <p class="def">When an AI confidently states something that is not true. Not a malfunction, a feature of how language models work. The reason every AI output that touches business data needs a verification step or a human review before action.</p>
+        <p class="ex">Example: asking an AI for "the title of the Q3 earnings call PDF" and getting a plausible-sounding filename that doesn't actually exist. The defense: ground the AI in real data via MCP servers and RAG, not freeform recall.</p>
+      </div>
+
+      <div class="gloss-entry" id="llm">
+        <h3 class="term">LLM <span class="alias">large language model</span></h3>
+        <p class="def">The kind of AI that powers ChatGPT, Claude, Gemini. Trained to predict the next word given a context, scaled up until it can do useful work. The engine. Everything else (agents, chatbots, RAG) is built on top.</p>
+        <p class="ex">Example: GPT-5, Claude Opus 4.6, Gemini 2.5 Ultra. Each has different strengths; small operations rarely need the absolute frontier model.</p>
+      </div>
+
+      <div class="gloss-entry" id="mcp">
+        <h3 class="term">MCP <span class="alias">Model Context Protocol</span></h3>
+        <p class="def">An open standard that lets AI assistants talk to your tools. The bridge between Claude or ChatGPT and your CRM, Slack, database, or internal API. USB for AI. Designed by Anthropic in 2024, now adopted everywhere.</p>
+        <p class="ex">Example: an MCP server for ClickUp lets an AI agent read your tasks, post comments, and update statuses. The same server works whether the agent is run by Claude, ChatGPT, or any other AI client.</p>
+        <p style="margin-top:10px;"><a class="link" href="/field-guide/mcp-servers/">Full explainer →</a></p>
+      </div>
+
+      <div class="gloss-entry" id="prompt">
+        <h3 class="term">Prompt</h3>
+        <p class="def">The instruction you give an AI. Can be a single sentence ("summarize this email") or a multi-page system prompt with detailed rules. Quality of prompt matters less than people think; quality of input data matters more.</p>
+        <p class="ex">Example: "Read this customer email and draft a reply in our usual tone" is a prompt. "Read these 10,000 emails and tell me what people are complaining about" is also a prompt. Different requirements.</p>
+      </div>
+
+      <div class="gloss-entry" id="rag">
+        <h3 class="term">RAG <span class="alias">retrieval-augmented generation</span></h3>
+        <p class="def">A pattern where the AI looks up relevant information from your documents before answering. Used to make AI answers grounded in your actual data instead of the model's training data. The right answer for "I want AI to answer questions about our internal documentation."</p>
+        <p class="ex">Example: a customer service AI that looks up the relevant section of your help center before drafting a reply. The same pattern works for legal contracts, internal wikis, product manuals.</p>
+      </div>
+
+      <div class="gloss-entry" id="token">
+        <h3 class="term">Token</h3>
+        <p class="def">The unit AI providers bill in. Roughly: 1 token = 0.75 words in English. A typical email is 100-300 tokens. Pricing is usually per million tokens, with input and output billed separately.</p>
+        <p class="ex">Example: at current pricing (Claude Sonnet 4.5), a 1,000-word email reply costs about $0.005 in input + output combined. Useful to know when sizing whether an automation is economically viable.</p>
+      </div>
+
+      <div class="gloss-entry" id="tool-use">
+        <h3 class="term">Tool use <span class="alias">function calling</span></h3>
+        <p class="def">When an AI calls an MCP server, an API, or a piece of code to get information or take an action, instead of just generating text. The mechanism that turns a language model into something useful for an operation.</p>
+        <p class="ex">Example: an AI agent uses tool use to call your weather API, get the current forecast, then write a friendly reply to a customer asking if their delivery will arrive on time.</p>
+      </div>
+
+      <div class="gloss-entry" id="vector-database">
+        <h3 class="term">Vector database</h3>
+        <p class="def">A specialized database that stores embeddings (see above) and lets you search them quickly. The infrastructure under most RAG systems. Most small operations don't need to know the brand name; they just need to know one is involved when an AI assistant searches their documents.</p>
+        <p class="ex">Example: Pinecone, Weaviate, pgvector (Postgres extension). Choice rarely matters for small operations; off-the-shelf options work fine up to several million documents.</p>
+      </div>
+
+    </div>
+
+    <hr>
+
+    <p>Don't see a term? <a class="link" href="/contact/">Tell us</a> and we'll add it.</p>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <a href="/" class="logo">
+          <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+            <defs>
+              <linearGradient id="wb-mark-grad-f" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#5EF2FF"/>
+                <stop offset="55%" stop-color="#A78BFA"/>
+                <stop offset="100%" stop-color="#5EF2FF"/>
+              </linearGradient>
+            </defs>
+            <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                  fill="none" stroke="url(#wb-mark-grad-f)" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>WildBreeze</span>
+        </a>
+        <p class="blurb">Quiet automation infrastructure for operations run by humans.</p>
+      </div>
+      <div class="meta">
+        <div class="col">
+          <h5>Build</h5>
+          <a href="/#services">Custom MCP servers</a>
+          <a href="/#services">Scheduled agents</a>
+          <a href="/#services">Weekly reports</a>
+        </div>
+        <div class="col">
+          <h5>Learn</h5>
+          <a href="/field-guide/">Field Guide</a>
+          <a href="/glossary/">Glossary</a>
+          <a href="/calculator/">Cost calculator</a>
+          <a href="/11pm-audit/">11pm Audit</a>
+          <a href="/vs/ai-agent-vs-virtual-assistant/">Agent vs VA</a>
+          <a href="/about/">About</a>
+        </div>
+        <div class="col">
+          <h5>Contact</h5>
+          <a href="/contact/">Contact form</a>
+          <a href="mailto:hello@wildbreeze.io">hello@wildbreeze.io</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      <div>© 2026 WildBreeze. All systems quiet.</div>
+      <div>Built by <a href="https://www.napier.me" class="link" target="_blank" rel="noopener">napier.me</a></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
