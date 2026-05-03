@@ -15,6 +15,12 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    env:
+      # Opt into Node.js 24 runtime for JS-based actions
+      # (checkout@v4 and setup-python@v5 still ship as Node 20 actions
+      # as of May 2026 — this flag forces them onto Node 24 ahead of
+      # the June 2nd, 2026 default flip.)
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
