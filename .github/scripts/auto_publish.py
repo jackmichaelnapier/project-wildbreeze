@@ -338,7 +338,7 @@ def render_article_html(slug, data):
       <div class="meta">
         <div class="col"><h5>Build</h5><a href="/#services">Custom MCP servers</a><a href="/#services">Scheduled agents</a><a href="/#services">Weekly reports</a></div>
         <div class="col"><h5>Learn</h5><a href="/field-guide/agents/">What is an agent?</a><a href="/field-guide/mcp-servers/">What is an MCP server?</a><a href="/field-guide/#articles">All briefings</a></div>
-        <div class="col"><h5>Contact</h5><a href="/contact/">Contact form</a><a href="mailto:jack@napier.me">jack@napier.me</a></div>
+        <div class="col"><h5>Contact</h5><a href="/contact/">Contact form</a><a href="mailto:hello@wildbreeze.io">hello@wildbreeze.io</a></div>
       </div>
     </div>
     <div class="legal">
