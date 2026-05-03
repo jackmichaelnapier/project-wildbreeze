@@ -967,8 +967,10 @@
         <span class="ring-glow" aria-hidden="true"></span>
         <span class="ring-rotor" aria-hidden="true"></span>
         <video id="intro-video"
-               autoplay muted loop playsinline preload="metadata"
-               poster="/og-preview.png"
+               autoplay muted loop playsinline preload="auto"
+               webkit-playsinline="true"
+               x5-playsinline="true"
+               poster="/media/intro-poster.jpg"
                aria-label="WildBreeze intro video. Click to play with sound.">
           <source src="/media/intro.mp4" type="video/mp4">
         </video>
@@ -1593,13 +1595,44 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   // so the loop point never fires this — exactly what we want.)
   video.addEventListener('ended', returnToAmbient);
 
-  // Some mobile browsers refuse autoplay until visible; nudge it.
+  // ===== Autoplay coaxing for stubborn mobile browsers =====
+  // iOS Safari (especially in Low Power Mode) and some Android browsers
+  // block autoplay even on muted video until they see a real user gesture.
+  // We try multiple paths to get the video playing.
+
+  function tryPlay() {
+    if (!video.paused) return;
+    const p = video.play();
+    if (p && typeof p.then === 'function') p.catch(() => {});
+  }
+
+  // 1. As soon as enough metadata loads, try.
+  if (video.readyState >= 2) tryPlay();
+  else video.addEventListener('loadeddata', tryPlay, { once: true });
+
+  // 2. When the video scrolls into view, try.
   const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting && video.paused) video.play().catch(() => {});
-    });
+    entries.forEach(e => { if (e.isIntersecting) tryPlay(); });
   }, { threshold: 0.1 });
   io.observe(video);
+
+  // 3. On the FIRST user interaction anywhere on the page (touch, scroll,
+  //    keypress), try. This is the bulletproof escape hatch.
+  let kicked = false;
+  function kickOnce() {
+    if (kicked) return;
+    kicked = true;
+    tryPlay();
+    ['touchstart','pointerdown','scroll','keydown','click'].forEach(ev =>
+      document.removeEventListener(ev, kickOnce, true));
+  }
+  ['touchstart','pointerdown','scroll','keydown','click'].forEach(ev =>
+    document.addEventListener(ev, kickOnce, { capture: true, passive: true }));
+
+  // 4. When the page becomes visible (tab switch, etc.), try.
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') tryPlay();
+  });
 
   paintIcon();
 })();
