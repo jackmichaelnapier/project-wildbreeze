@@ -412,23 +412,3 @@ footer.site .legal {
   .page-hero { padding: 60px 0 40px; }
   .section { padding: 60px 0; }
 }
-
-/* ===== Client area pill (footer .legal) ===== */
-.client-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-family: var(--mono); font-size: 11px;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--ink-2);
-  border: 1px solid var(--line-2);
-  border-radius: 999px;
-  padding: 6px 14px;
-  text-decoration: none;
-  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
-}
-.client-link:hover {
-  color: var(--cyan);
-  border-color: rgba(94, 242, 255, 0.5);
-  background: rgba(94, 242, 255, 0.04);
-}
-.client-link .arrow { color: var(--cyan); transition: transform 180ms ease; }
-.client-link:hover .arrow { transform: translateX(3px); }
