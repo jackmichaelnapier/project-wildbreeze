@@ -251,13 +251,17 @@ NO dupliques uno. EVITA las rayas largas (—) en el cuerpo."""
 # Render templates
 # ============================================================
 
-def render_article(slug, data, lang):
+def render_article(slug, data, lang, other_slug=None):
     is_es = (lang == "es")
     base = "/es/guia-de-campo" if is_es else "/field-guide"
     other_base = "/field-guide" if is_es else "/es/guia-de-campo"
     site_base = "https://www.wildbreeze.io"
     article_url = f"{site_base}{base}/{slug}/"
-    other_url = f"{site_base}{other_base}/{slug}/"  # may not exist on other side, but link is best-effort
+    # If we know the OTHER language's slug, use it for the cross-language URL.
+    # Falling back to same slug only happens when render is called for one
+    # language without the other (legacy / future single-lang call).
+    cross_slug = other_slug if other_slug else slug
+    other_url = f"{site_base}{other_base}/{cross_slug}/"
     home = "/es/" if is_es else "/"
 
     tags = data.get("tags", [])
@@ -522,7 +526,7 @@ def update_sitemap(slug, data, lang):
 # main
 # ============================================================
 
-def write_article(data, lang):
+def write_article(data, lang, other_slug=None):
     slug = slugify(data.get("slug", "") or data["title"])
     if not slug:
         raise RuntimeError(f"empty slug for {lang}")
@@ -534,7 +538,7 @@ def write_article(data, lang):
         return slug
 
     target.mkdir(parents=True)
-    (target / "index.html").write_text(render_article(slug, data, lang))
+    (target / "index.html").write_text(render_article(slug, data, lang, other_slug))
     print(f"  wrote {target.relative_to(ROOT)}/index.html")
     update_index(slug, data, lang)
     update_sitemap(slug, data, lang)
@@ -547,8 +551,7 @@ def main():
     # 1. English article
     print("=== EN: generating with web search ===", file=sys.stderr)
     en = generate_en_article(today_iso)
-    en_slug = write_article(en, "en")
-    print(f"OK EN: {en_slug}\n", file=sys.stderr)
+    en_slug = slugify(en.get("slug", "") or en["title"])
 
     # 2. Spanish translation/localization
     print("=== ES: translating ===", file=sys.stderr)
@@ -556,8 +559,14 @@ def main():
     # Force Spanish date_iso to match
     es["date_iso"] = en["date_iso"]
     es["date_human"] = en["date_human"]
-    es_slug = write_article(es, "es")
-    print(f"OK ES: {es_slug}\n", file=sys.stderr)
+    es_slug = slugify(es.get("slug", "") or es["title"])
+
+    # 3. Now write BOTH, passing each other's slug for correct cross-language hreflang
+    print(f"=== writing both: en={en_slug}  es={es_slug} ===", file=sys.stderr)
+    en_slug = write_article(en, "en", other_slug=es_slug)
+    print(f"OK EN: {en_slug}", file=sys.stderr)
+    es_slug = write_article(es, "es", other_slug=en_slug)
+    print(f"OK ES: {es_slug}", file=sys.stderr)
 
 
 if __name__ == "__main__":
