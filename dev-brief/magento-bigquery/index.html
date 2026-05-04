@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Developer brief — Magento 1 → BigQuery sales mirror. WildBreeze</title>
+<meta name="description" content="Internal developer brief: mirror Magento 1 + BoostmyShop sales tables into BigQuery for analytics and reporting." />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#06080F" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/wb-style.css" />
+<style>
+  /* WB-CLIENT-CSS-START */
+  /* Client area pill (footer .legal) — managed by _inject_client_link.py */
+  .client-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-2);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    padding: 6px 14px;
+    text-decoration: none;
+    transition: all 180ms ease;
+  }
+  .client-link:hover {
+    color: var(--cyan);
+    border-color: rgba(94, 242, 255, 0.5);
+    background: rgba(94, 242, 255, 0.04);
+  }
+  .client-link .arrow { color: var(--cyan); transition: transform 180ms ease; }
+  .client-link:hover .arrow { transform: translateX(3px); }
+  /* WB-CLIENT-CSS-END */
+
+  /* Brief-specific tweaks */
+  .goal-card {
+    margin-top: 28px;
+    padding: 26px 28px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(94, 242, 255, 0.04), rgba(167, 139, 250, 0.02));
+  }
+  .goal-card .goal-label {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--cyan); margin-bottom: 10px;
+  }
+  .goal-card p { margin: 0; font-size: 17px; line-height: 1.55; color: var(--ink); }
+
+  .step-num {
+    display: inline-block; font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.14em; color: var(--cyan); margin-bottom: 8px;
+  }
+
+  .prose-body table {
+    width: 100%; border-collapse: collapse; margin: 18px 0 26px;
+    font-family: var(--sans); font-size: 14.5px;
+  }
+  .prose-body table th,
+  .prose-body table td {
+    text-align: left; vertical-align: top;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .prose-body table th {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 500;
+    border-bottom: 1px solid var(--line-2);
+  }
+  .prose-body table td code {
+    font-size: 12.5px;
+  }
+
+  .checklist { list-style: none !important; padding-left: 0 !important; }
+  .checklist li {
+    position: relative; padding-left: 26px; margin-bottom: 10px; line-height: 1.6;
+  }
+  .checklist li::before {
+    content: ""; position: absolute; left: 6px; top: 9px;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--cyan); box-shadow: 0 0 8px rgba(94,242,255,0.55);
+  }
+
+  .stamp {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-3);
+    margin-top: 22px;
+  }
+  .stamp .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--phos); box-shadow: 0 0 8px var(--phos);
+  }
+</style>
+<!-- WB-TAGS-START -->
+<!-- Google tag (gtag.js) — GA4 G-4S960N841V -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4S960N841V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4S960N841V');
+</script>
+<!-- WB-TAGS-END -->
+</head>
+<body>
+
+<div class="field" aria-hidden="true"></div>
+<div class="grid" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap row">
+    <a href="/" class="logo">
+      <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+        <defs>
+          <linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#5EF2FF"/>
+            <stop offset="55%" stop-color="#A78BFA"/>
+            <stop offset="100%" stop-color="#5EF2FF"/>
+          </linearGradient>
+        </defs>
+        <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+              fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>WildBreeze</span>
+    </a>
+  </div>
+</header>
+
+<article>
+  <section class="page-hero">
+    <div class="wrap prose">
+      <div class="kicker">DEV BRIEF</div>
+      <h1 class="page-title">Magento 1 → BigQuery <span class="accent">sales mirror.</span></h1>
+
+      <div class="goal-card">
+        <div class="goal-label">Goal</div>
+        <p>Mirror sales-relevant tables from our Magento 1 + BoostmyShop store into BigQuery so the data is queryable alongside our other analytics, ready for dashboards and automated reporting. Nightly sync, no real-time required.</p>
+      </div>
+
+      <div class="stamp"><span class="dot"></span> Internal · share with developers only</div>
+    </div>
+  </section>
+
+  <section class="prose-body">
+    <div class="wrap prose">
+
+      <p>The steps below are everything the dev needs to scope and execute. Anything marked TBD comes back from you.</p>
+
+      <span class="step-num">STEP 01 — ACCESS</span>
+      <h2>Access we need from you</h2>
+      <ul class="checklist">
+        <li>A read-only MySQL user scoped to the tables in the next section.</li>
+        <li>Strongly preferred: a <strong>read replica</strong>, not prod. Magento 1 prod DBs do not tolerate analytical queries well.</li>
+        <li>Connection details: host, port, database name, credentials.</li>
+        <li>VPN / IP allowlist instructions for whichever runtime executes the extractor.</li>
+      </ul>
+
+      <span class="step-num">STEP 02 — TABLES IN SCOPE</span>
+      <h2>What to mirror</h2>
+      <table>
+        <thead>
+          <tr><th>Purpose</th><th>Tables</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Orders</td>
+            <td><code>sales_flat_order</code>, <code>sales_flat_order_item</code>, <code>sales_flat_order_address</code></td>
+          </tr>
+          <tr>
+            <td>Finance</td>
+            <td><code>sales_flat_invoice</code>, <code>sales_flat_creditmemo</code>, <code>sales_flat_creditmemo_item</code></td>
+          </tr>
+          <tr>
+            <td>Products</td>
+            <td><code>catalog_product_entity</code> + <code>catalog_product_entity_varchar/int/decimal/text</code> (or <code>catalog_product_flat_&lt;storeId&gt;</code> if enabled)</td>
+          </tr>
+          <tr>
+            <td>Categories</td>
+            <td><code>catalog_category_entity</code>, <code>catalog_category_product</code></td>
+          </tr>
+          <tr>
+            <td>Customers</td>
+            <td><code>customer_entity</code>, <code>customer_address_entity</code></td>
+          </tr>
+          <tr>
+            <td>BoostmyShop</td>
+            <td><code>erp_purchase_order</code>, <code>erp_purchase_order_item</code>, <code>erp_supplier</code>, <code>bms_stock</code>, <code>bms_inventory</code> — exact names vary by BMS version, run <code>SHOW TABLES LIKE 'erp_%'</code> and <code>'bms_%'</code> to confirm.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <span class="step-num">STEP 03 — DESTINATION</span>
+      <h2>Where it lands</h2>
+      <ul class="checklist">
+        <li>GCP project: <code>welzyn</code></li>
+        <li>New dataset: <code>welzyn.Magento_&lt;storeslug&gt;</code> in the <strong>same region</strong> as our existing reporting datasets (required for cross-dataset joins).</li>
+        <li>One BigQuery table per source table.</li>
+        <li>Partition order tables by <code>DATE(created_at)</code>; cluster by <code>store_id</code> where applicable.</li>
+        <li>Service account scoped with <code>roles/bigquery.dataEditor</code> on the new dataset only.</li>
+      </ul>
+
+      <span class="step-num">STEP 04 — DELIVERABLES</span>
+      <h2>What to build</h2>
+
+      <h3>Backfill</h3>
+      <p>One-shot historical load from store inception (or an agreed cutoff date) into the BigQuery dataset.</p>
+
+      <h3>Nightly incremental</h3>
+      <p>Scheduled run at 03:00 Europe/Madrid (must complete before reporting jobs at ~07:00):</p>
+      <ul>
+        <li>Filter each table by <code>updated_at &gt; &lt;last watermark&gt;</code>; fall back to <code>created_at</code> where <code>updated_at</code> is absent.</li>
+        <li><code>MERGE</code> into BigQuery on the table's primary key (<code>entity_id</code> for sales/catalog tables).</li>
+        <li>Persist watermark per table (Cloud Storage object or a small <code>_sync_state</code> table in BigQuery — your call).</li>
+      </ul>
+
+      <h3>Schema tolerance</h3>
+      <p>Handle new source columns without breaking. Fail loudly on type changes — those need our review.</p>
+
+      <h3>Reconciliation</h3>
+      <p>Automated check at the end of each run: yesterday's completed-order count and <code>SUM(base_grand_total)</code> in BigQuery should match Magento admin → Sales → Orders within rounding. Alert on mismatch.</p>
+
+      <span class="step-num">STEP 05 — GOTCHAS</span>
+      <h2>Magento 1 quirks to handle</h2>
+      <ul>
+        <li><strong>Currency.</strong> Use the <code>base_*</code> money columns (<code>base_grand_total</code>, <code>base_subtotal</code>, <code>base_tax_amount</code>, <code>base_shipping_amount</code>). Never the non-<code>base_</code> versions — those are in each order's display currency. Our reporting standard is EUR throughout.</li>
+        <li><strong>Order state filter.</strong> "Real" revenue is <code>state IN ('complete','closed','processing')</code>. Load <code>canceled</code> and <code>holded</code> too, but tag them. Don't drop at extract time — let analytics decide.</li>
+        <li><strong>Refunds</strong> live in <code>sales_flat_creditmemo*</code>, not as negative orders.</li>
+        <li><strong>Time zone.</strong> Magento 1 default for <code>created_at</code> is UTC, but confirm via <code>core_config_data</code> (<code>general/locale/timezone</code>). Store the UTC value in BigQuery; convert at query time.</li>
+        <li><strong>Configurable products.</strong> <code>sales_flat_order_item</code> carries one row for the configurable parent and one for the simple child. Keep both rows; expose <code>parent_item_id</code> so analyses can pick the right one.</li>
+        <li><strong>EAV joins.</strong> Product attributes (name, SKU, price) require joins through the <code>catalog_product_entity_*</code> tables unless flat catalog is enabled. If flat is on, prefer it.</li>
+        <li><strong>Soft deletes.</strong> Magento 1 doesn't really soft-delete — cancelled and holded orders persist with state changes. Do not filter them at extract time.</li>
+      </ul>
+
+      <span class="step-num">STEP 06 — STACK</span>
+      <h2>Suggested stack (pick anything equivalent)</h2>
+      <ul class="checklist">
+        <li>Python with <code>PyMySQL</code> + <code>google-cloud-bigquery</code>.</li>
+        <li>Cloud Run Job + Cloud Scheduler, or cron on an existing host — whichever is simpler for you.</li>
+        <li>MySQL credentials in Secret Manager.</li>
+        <li>Avoid Airbyte / Fivetran — overkill for this scope and adds a managed-service line item.</li>
+      </ul>
+
+      <span class="step-num">STEP 07 — OUT OF SCOPE</span>
+      <h2>Explicitly not in v1</h2>
+      <ul>
+        <li>Real-time / streaming sync. Daily is enough.</li>
+        <li>Writing back to Magento.</li>
+        <li>Any frontend dashboard. Data is consumed downstream from BigQuery.</li>
+      </ul>
+
+      <span class="step-num">STEP 08 — ACCEPTANCE</span>
+      <h2>Acceptance criteria</h2>
+      <ul class="checklist">
+        <li>All listed tables present in <code>welzyn.Magento_&lt;storeslug&gt;</code>; row counts within 0.1% of source after backfill.</li>
+        <li>Nightly job runs green for 7 consecutive days.</li>
+        <li>Reconciliation check on yesterday's revenue passes within rounding.</li>
+        <li>Short runbook in the repo: how to re-run a failed sync, how to backfill a single table, how to add a new table.</li>
+      </ul>
+
+      <span class="step-num">STEP 09 — CONFIRM BACK</span>
+      <h2>Please reply with</h2>
+      <ol>
+        <li>Read replica or prod?</li>
+        <li>Approximate row count of <code>sales_flat_order</code>.</li>
+        <li>Preferred runtime — Cloud Run Job, GKE cron, or an existing host.</li>
+        <li>Any existing service-account / project conventions we should reuse.</li>
+      </ol>
+
+      <hr>
+      <p style="font-family: var(--mono); font-size: 12px; color: var(--ink-3); letter-spacing: 0.04em;">v1 · internal share · not linked from the public site</p>
+
+    </div>
+  </section>
+</article>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <a href="/" class="logo">
+          <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+            <defs>
+              <linearGradient id="wb-mark-grad-f" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#5EF2FF"/>
+                <stop offset="55%" stop-color="#A78BFA"/>
+                <stop offset="100%" stop-color="#5EF2FF"/>
+              </linearGradient>
+            </defs>
+            <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                  fill="none" stroke="url(#wb-mark-grad-f)" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>WildBreeze</span>
+        </a>
+        <p class="blurb">Quiet automation infrastructure for operations run by humans.</p>
+      </div>
+    </div>
+    <div class="legal">
+      <div>© 2026 WildBreeze. All systems quiet.</div>
+      <!-- WB-CLIENT-HTML-START --><a class="client-link" href="/account/">Client area <span class="arrow">→</span></a><!-- WB-CLIENT-HTML-END -->
+      <div>Built by <a href="https://www.napier.me" class="link" target="_blank" rel="noopener">napier.me</a></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
