@@ -1,0 +1,1037 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Modules — WildBreeze</title>
+<meta name="description" content="WildBreeze modules: drop-in pieces of quiet automation infrastructure. Daily briefings, weekly reports, MCP connectors, scheduled agents — each with a fixed shape, each running in your cloud." />
+<meta name="theme-color" content="#06080F" />
+<link rel="canonical" href="https://www.wildbreeze.io/products/" />
+<link rel="alternate" hreflang="en" href="https://www.wildbreeze.io/products/" />
+<link rel="alternate" hreflang="x-default" href="https://www.wildbreeze.io/products/" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+<meta property="og:title" content="WildBreeze — Modules" />
+<meta property="og:description" content="Drop-in pieces of quiet automation infrastructure. Each module has a fixed shape, runs in your cloud, and stays out of the way." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.wildbreeze.io/products/" />
+<meta property="og:image" content="https://www.wildbreeze.io/og-preview.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="WildBreeze" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="WildBreeze — Modules" />
+<meta name="twitter:description" content="Drop-in pieces of quiet automation infrastructure." />
+<meta name="twitter:image" content="https://www.wildbreeze.io/og-preview.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg-0: #06080F;
+    --bg-1: #0A0E1A;
+    --bg-2: #10172A;
+    --ink: #F2F4FA;
+    --ink-2: #B6BDD0;
+    --ink-3: #6F7793;
+    --line: rgba(255,255,255,0.08);
+    --line-2: rgba(255,255,255,0.14);
+    --cyan: #5EF2FF;
+    --cyan-soft: rgba(94, 242, 255, 0.16);
+    --violet: #A78BFA;
+    --phos: #B8FF6E;
+    --warn: #FFB46B;
+    --serif: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+    --sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+    --rad: 14px;
+    --maxw: 1180px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html {
+    background: var(--bg-0);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    background: transparent;
+    position: relative;
+    z-index: 0;
+    min-height: 100vh;
+    line-height: 1.55;
+  }
+  ::selection { background: rgba(94, 242, 255, 0.25); color: var(--ink); }
+
+  a { color: inherit; text-decoration: none; }
+  img, svg { display: block; max-width: 100%; }
+
+  /* ------------------------------------------------------------
+     Background stack — gradient mesh, flow-field, drifting grid
+     ------------------------------------------------------------ */
+  .field {
+    position: fixed; inset: 0; z-index: -3;
+    background:
+      radial-gradient(1200px 800px at 78% -10%, rgba(94, 242, 255, 0.18), transparent 60%),
+      radial-gradient(900px 600px at 12% 5%, rgba(167, 139, 250, 0.18), transparent 60%),
+      radial-gradient(1000px 700px at 50% 110%, rgba(94, 242, 255, 0.10), transparent 60%),
+      linear-gradient(180deg, #06080F 0%, #080B17 50%, #06080F 100%);
+  }
+  #flow {
+    position: fixed; inset: 0; z-index: -2;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    opacity: 0.85;
+    mix-blend-mode: screen;
+  }
+  .grid {
+    position: fixed; inset: 0; z-index: -1;
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black 30%, transparent 80%);
+    opacity: 0.55;
+    pointer-events: none;
+    animation: gridDrift 60s linear infinite;
+  }
+  @keyframes gridDrift {
+    0%   { background-position: 0 0, 0 0; }
+    100% { background-position: 64px 64px, 64px 64px; }
+  }
+
+  /* ------------------------------------------------------------
+     HUD chrome
+     ------------------------------------------------------------ */
+  .hud-corners { position: fixed; inset: 18px; z-index: 40; pointer-events: none; }
+  .hud-corners::before, .hud-corners::after,
+  .hud-corners > i, .hud-corners > b {
+    content: ""; position: absolute;
+    width: 22px; height: 22px;
+    border: 1px solid rgba(94, 242, 255, 0.55);
+    box-shadow: 0 0 14px rgba(94, 242, 255, 0.25);
+  }
+  .hud-corners::before { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+  .hud-corners::after  { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+  .hud-corners > i     { bottom: 0; left: 0; border-right: 0; border-top: 0; font-style: normal; }
+  .hud-corners > b     { bottom: 0; right: 0; border-left: 0; border-top: 0; font-weight: normal; }
+
+  .telemetry, .coords {
+    position: fixed; bottom: 22px; z-index: 41;
+    font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: 0.08em; color: var(--ink-3);
+    pointer-events: none;
+  }
+  .telemetry { left: 30px; display: flex; align-items: center; gap: 10px; }
+  .coords    { right: 30px; }
+  .telemetry .live {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--phos); box-shadow: 0 0 10px var(--phos);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  .telemetry .sep { color: rgba(255,255,255,0.18); }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+  @media (max-width: 720px) {
+    .hud-corners, .telemetry, .coords { display: none; }
+  }
+
+  /* ------------------------------------------------------------
+     Layout primitives
+     ------------------------------------------------------------ */
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; position: relative; }
+
+  header.nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    background: rgba(6, 8, 15, 0.55);
+    border-bottom: 1px solid var(--line);
+  }
+  header.nav .row { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--serif); font-weight: 600;
+    letter-spacing: -0.01em; font-size: 17px;
+    color: var(--ink);
+  }
+  .logo .mark {
+    width: 36px; height: 18px;
+    display: inline-block; overflow: visible;
+    filter: drop-shadow(0 0 6px rgba(94, 242, 255, 0.55))
+            drop-shadow(0 0 14px rgba(167, 139, 250, 0.30));
+  }
+  .logo .mark .wave { animation: waveFlow 3.4s linear infinite; }
+  @keyframes waveFlow {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-8px); }
+  }
+
+  nav.main {
+    display: flex; align-items: center; gap: 28px;
+    font-family: var(--sans); font-size: 14px; color: var(--ink-2);
+  }
+  nav.main a { position: relative; transition: color 180ms ease; }
+  nav.main a:hover { color: var(--ink); }
+  nav.main a.is-active { color: var(--ink); }
+  nav.main a:not(.cta)::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -6px;
+    height: 1px; background: var(--cyan);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 220ms ease;
+  }
+  nav.main a:not(.cta):hover::after,
+  nav.main a.is-active::after { transform: scaleX(1); }
+  nav.main .cta {
+    color: var(--ink);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-family: var(--sans);
+    transition: all 180ms ease;
+  }
+  nav.main .cta:hover { border-color: rgba(94, 242, 255, 0.5); background: rgba(94, 242, 255, 0.05); }
+  .lang-toggle { font-family: var(--mono); font-size: 12px; color: var(--ink-3); letter-spacing: 0.08em; margin-left: 16px; }
+  .lang-toggle a { color: var(--cyan); padding: 0 4px; }
+  .lang-toggle .sep { color: var(--line-2); }
+  .lang-toggle .active { color: var(--ink); }
+
+  /* ------------------------------------------------------------
+     Hero
+     ------------------------------------------------------------ */
+  .hero { padding: 110px 0 90px; position: relative; }
+  .hero .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 11.5px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-3);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 14px;
+    margin-bottom: 28px;
+    background: rgba(255,255,255,0.02);
+  }
+  .hero .eyebrow .live {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--phos); box-shadow: 0 0 8px var(--phos);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(40px, 7vw, 84px);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    font-weight: 500;
+    margin: 0 0 24px;
+    max-width: 14ch;
+  }
+  .hero h1 .accent {
+    background: linear-gradient(110deg, var(--cyan) 20%, var(--violet) 80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-style: italic;
+    font-weight: 400;
+    display: inline;
+  }
+  .hero .lede {
+    font-size: clamp(17px, 1.5vw, 19px);
+    color: var(--ink-2);
+    line-height: 1.6;
+    max-width: 60ch;
+    margin: 0 0 32px;
+  }
+  .hero .meta-strip {
+    display: flex; flex-wrap: wrap; gap: 28px; margin-top: 56px;
+    font-family: var(--mono); font-size: 11.5px;
+    letter-spacing: 0.08em; color: var(--ink-3);
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+  }
+  .hero .meta-strip strong { color: var(--ink); font-weight: 500; }
+
+  /* ------------------------------------------------------------
+     Section structure
+     ------------------------------------------------------------ */
+  .section { padding: 90px 0; position: relative; }
+  .section + .section { border-top: 1px solid var(--line); }
+  .section-head { display: flex; flex-direction: column; gap: 14px; margin-bottom: 56px; max-width: 760px; }
+  .kicker {
+    font-family: var(--mono); font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--cyan);
+  }
+  .section-head h2 {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4.4vw, 52px);
+    letter-spacing: -0.025em;
+    line-height: 1.04;
+    font-weight: 500;
+    margin: 0;
+  }
+  .section-head h2 .accent {
+    background: linear-gradient(110deg, var(--cyan) 20%, var(--violet) 80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-style: italic;
+    font-weight: 400;
+  }
+  .section-head .sub {
+    font-size: 17px; color: var(--ink-2);
+    max-width: 60ch; margin: 0;
+  }
+
+  /* ------------------------------------------------------------
+     Modules grid — the page's main thing
+     ------------------------------------------------------------ */
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .module {
+    position: relative;
+    padding: 30px 28px 26px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+    transition: border-color 220ms ease, transform 220ms ease;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .module::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(420px 220px at 50% 0%, rgba(94, 242, 255, 0.10), transparent 60%);
+    opacity: 0; transition: opacity 250ms ease; pointer-events: none;
+  }
+  .module:hover { border-color: var(--line-2); transform: translateY(-2px); }
+  .module:hover::before { opacity: 1; }
+  .module .top-row {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .module .num {
+    font-family: var(--mono); font-size: 11px; color: var(--ink-3);
+    letter-spacing: 0.08em;
+  }
+  .module .glyph {
+    width: 40px; height: 40px; margin-bottom: 22px;
+    color: var(--cyan);
+    opacity: 0.95;
+  }
+  .module h3 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 24px; letter-spacing: -0.01em;
+    margin: 0 0 4px; color: var(--ink);
+  }
+  .module .tagline {
+    font-family: var(--sans); font-size: 14.5px;
+    color: var(--cyan); margin: 0 0 14px;
+    font-weight: 500;
+  }
+  .module p.body {
+    font-family: var(--sans); font-size: 14.5px;
+    color: var(--ink-2); line-height: 1.6;
+    margin: 0 0 22px;
+  }
+  .module ul {
+    list-style: none; padding: 18px 0 0; margin: 0 0 18px;
+    display: grid; gap: 8px;
+    border-top: 1px solid var(--line);
+  }
+  .module li {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-2); display: flex; align-items: center; gap: 10px;
+    letter-spacing: 0.02em;
+  }
+  .module li::before {
+    content: ""; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--cyan); box-shadow: 0 0 6px var(--cyan); flex-shrink: 0;
+  }
+  .module .footer-row {
+    margin-top: auto;
+    padding-top: 14px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.08em; color: var(--ink-3);
+  }
+  .module .deploy { text-transform: uppercase; }
+
+  /* Status pills */
+  .status {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 5px 11px; border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.02);
+    color: var(--ink-3);
+    white-space: nowrap;
+  }
+  .status::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--ink-3);
+  }
+  .status.available {
+    color: var(--cyan);
+    border-color: rgba(94, 242, 255, 0.35);
+    background: rgba(94, 242, 255, 0.06);
+  }
+  .status.available::before {
+    background: var(--cyan); box-shadow: 0 0 8px var(--cyan);
+  }
+  .status.pilot {
+    color: var(--phos);
+    border-color: rgba(184, 255, 110, 0.35);
+    background: rgba(184, 255, 110, 0.05);
+  }
+  .status.pilot::before {
+    background: var(--phos); box-shadow: 0 0 8px var(--phos);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  .status.planned {
+    color: var(--ink-3);
+    border-color: var(--line);
+  }
+
+  /* ------------------------------------------------------------
+     Operating note row
+     ------------------------------------------------------------ */
+  .op-note {
+    margin-top: 56px;
+    padding: 26px 28px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
+    display: grid; grid-template-columns: auto 1fr; gap: 22px;
+    align-items: start;
+  }
+  .op-note .label {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--cyan);
+    padding-top: 4px;
+  }
+  .op-note p { margin: 0; font-size: 14.5px; color: var(--ink-2); line-height: 1.65; }
+  .op-note p + p { margin-top: 10px; }
+
+  /* ------------------------------------------------------------
+     CTA block
+     ------------------------------------------------------------ */
+  .cta-block {
+    position: relative;
+    padding: 64px 56px;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+    overflow: hidden;
+    text-align: center;
+  }
+  .cta-block::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(500px 300px at 80% 0%, rgba(94, 242, 255, 0.14), transparent 60%),
+      radial-gradient(500px 300px at 20% 100%, rgba(167, 139, 250, 0.14), transparent 60%);
+    pointer-events: none;
+  }
+  .cta-block::after {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 80%);
+    opacity: 0.4; pointer-events: none;
+  }
+  .cta-block > * { position: relative; z-index: 1; }
+  .cta-block h2 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(28px, 3.8vw, 44px);
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin: 0 0 16px;
+    max-width: 22ch; margin-left: auto; margin-right: auto;
+  }
+  .cta-block h2 .accent {
+    background: linear-gradient(110deg, var(--cyan) 20%, var(--violet) 80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-style: italic;
+    font-weight: 400;
+  }
+  .cta-block p {
+    color: var(--ink-2); font-size: 17px;
+    margin: 0 auto 32px; max-width: 52ch;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 18px; border-radius: 999px;
+    border: 1px solid var(--line-2);
+    background: rgba(255,255,255,0.02);
+    color: var(--ink);
+    font-family: var(--sans); font-size: 14px; font-weight: 500;
+    transition: all 180ms ease;
+    cursor: pointer;
+  }
+  .btn:hover { border-color: rgba(94, 242, 255, 0.5); background: rgba(94, 242, 255, 0.05); }
+  .btn.primary {
+    background: linear-gradient(180deg, rgba(94, 242, 255, 0.95), rgba(94, 242, 255, 0.7));
+    color: #001318; border-color: transparent;
+    box-shadow: 0 8px 24px -8px rgba(94, 242, 255, 0.6),
+                inset 0 0 0 1px rgba(255,255,255,0.4);
+    font-weight: 600;
+  }
+  .btn.primary:hover { transform: translateY(-1px); }
+  .btn .arrow { transition: transform 180ms ease; }
+  .btn:hover .arrow { transform: translateX(3px); }
+
+  /* ------------------------------------------------------------
+     Footer
+     ------------------------------------------------------------ */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 70px 0 40px;
+    color: var(--ink-3);
+  }
+  footer .row {
+    display: grid; grid-template-columns: 1.2fr 2fr; gap: 60px;
+    margin-bottom: 50px;
+  }
+  footer .blurb {
+    margin-top: 18px; max-width: 36ch;
+    font-size: 14.5px; color: var(--ink-2); line-height: 1.6;
+  }
+  footer .meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+  footer h5 {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 14px; font-weight: 500;
+  }
+  footer .col a {
+    display: block; padding: 4px 0;
+    font-size: 14px; color: var(--ink-2);
+    transition: color 180ms ease;
+  }
+  footer .col a:hover { color: var(--cyan); }
+  footer .legal {
+    display: flex; flex-wrap: wrap; align-items: center;
+    justify-content: space-between; gap: 16px;
+    padding-top: 28px; border-top: 1px solid var(--line);
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.08em; color: var(--ink-3);
+  }
+
+    /* WB-CLIENT-CSS-START */
+  /* Client area pill (footer .legal) — managed by _inject_client_link.py */
+  .client-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-2);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    padding: 6px 14px;
+    text-decoration: none;
+    transition: all 180ms ease;
+  }
+  .client-link:hover {
+    color: var(--cyan);
+    border-color: rgba(94, 242, 255, 0.5);
+    background: rgba(94, 242, 255, 0.04);
+  }
+  .client-link .arrow { color: var(--cyan); transition: transform 180ms ease; }
+  .client-link:hover .arrow { transform: translateX(3px); }
+  /* WB-CLIENT-CSS-END */
+
+  /* ------------------------------------------------------------
+     Reveal-on-scroll
+     ------------------------------------------------------------ */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity 700ms ease, transform 700ms ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ------------------------------------------------------------
+     Responsive
+     ------------------------------------------------------------ */
+  @media (max-width: 880px) {
+    nav.main { display: none; }
+    .modules-grid { grid-template-columns: 1fr; }
+    .hero { padding: 70px 0 70px; }
+    .section { padding: 70px 0; }
+    .cta-block { padding: 44px 24px; border-radius: 18px; }
+    footer .row { grid-template-columns: 1fr; gap: 40px; }
+    footer .meta { grid-template-columns: 1fr 1fr; }
+    .op-note { grid-template-columns: 1fr; gap: 12px; }
+  }
+</style>
+<!-- WB-TAGS-START -->
+<!-- Google tag (gtag.js) — GA4 G-4S960N841V -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4S960N841V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4S960N841V');
+</script>
+<!-- WB-TAGS-END -->
+</head>
+<body id="top">
+
+<!-- Background stack -->
+<div class="field" aria-hidden="true"></div>
+<canvas id="flow" aria-hidden="true"></canvas>
+<div class="grid" aria-hidden="true"></div>
+
+<!-- HUD chrome -->
+<div class="hud-corners" aria-hidden="true"><i></i><b></b></div>
+<div class="telemetry" aria-hidden="true">
+  <span class="live"></span> WB · NODE 01 <span class="sep">/</span> MODULES 8 <span class="sep">/</span> RUNTIME <span id="rt">42.3s</span>
+</div>
+<div class="coords" aria-hidden="true">N 38.7902&nbsp;&nbsp;E 0.1664</div>
+
+<!-- Header -->
+<header class="nav">
+  <div class="wrap row">
+    <a href="/" class="logo">
+      <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+        <defs>
+          <linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#5EF2FF"/>
+            <stop offset="55%" stop-color="#A78BFA"/>
+            <stop offset="100%" stop-color="#5EF2FF"/>
+          </linearGradient>
+        </defs>
+        <g class="wave">
+          <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+      <span>WildBreeze</span>
+    </a>
+    <nav class="main">
+      <a class="is-active" href="/products/">Modules</a>
+      <a href="/field-guide/">Field Guide</a>
+      <a href="/about/">About</a>
+      <a class="cta" href="/contact/">Contact</a>
+      <span class="lang-toggle"><span class="active">EN</span></span>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="wrap reveal">
+    <div class="eyebrow"><span class="live"></span>// MODULES — V1</div>
+    <h1>The same plumbing, <span class="accent">in named, drop-in shapes.</span></h1>
+    <p class="lede">
+      Every WildBreeze engagement ends as a piece of infrastructure running quietly in the customer's cloud. Over time, the same shapes appear: a daily briefing, a Monday report, a watch list of stock that's about to expire. We've named them. Each one has a fixed shape, a fixed scope, and the same rule — it lives in your cloud, it stays out of your way.
+    </p>
+    <div class="meta-strip">
+      <span><strong>8</strong> modules</span>
+      <span><strong>3</strong> shipping</span>
+      <span><strong>3</strong> in pilot</span>
+      <span><strong>2</strong> on the roadmap</span>
+      <span>YOUR CLOUD · YOUR DATA · NO LOCK-IN</span>
+    </div>
+  </div>
+</section>
+
+<!-- Modules section -->
+<section class="section" id="modules">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">001 — The catalog</div>
+      <h2>Eight pieces of quiet plumbing. <span class="accent">Pick the one that fits.</span></h2>
+      <p class="sub">Each module is a fixed shape, not a custom build. We deploy it into your cloud, hand over the keys, and step out of the room. The list grows slowly — only when a shape has been built three times for three different operators.</p>
+    </div>
+
+    <div class="modules-grid">
+
+      <!-- 01 — Pulse -->
+      <article class="module reveal">
+        <div class="top-row">
+          <div class="num">// 01</div>
+          <span class="status pilot">In pilot</span>
+        </div>
+        <svg class="glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2 20 L11 20 L14 8 L20 32 L23 16 L26 24 L29 20 L38 20"/>
+        </svg>
+        <h3>Pulse</h3>
+        <p class="tagline">Yesterday in one message.</p>
+        <p class="body">A single morning post in Slack or email. Yesterday's revenue, ad spend, one anomaly worth your attention. The thing the operator checks before coffee.</p>
+        <ul>
+          <li>Slack or email delivery</li>
+          <li>Same-day-last-year deltas</li>
+          <li>Anomaly flag with context</li>
+        </ul>
+        <div class="footer-row">
+          <span class="deploy">Runs daily · Your cloud</span>
+        </div>
+      </article>
+
+      <!-- 02 — Almanac -->
+      <article class="module reveal">
+        <div class="top-row">
+          <div class="num">// 02</div>
+          <span class="status available">Available</span>
+        </div>
+        <svg class="glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="6" y="8" width="12" height="24" rx="1"/>
+          <rect x="22" y="8" width="12" height="24" rx="1"/>
+          <path d="M10 14 H14 M10 18 H14 M26 14 H30 M26 18 H30"/>
+        </svg>
+        <h3>Almanac</h3>
+        <p class="tagline">The Monday morning report.</p>
+        <p class="body">A self-contained, password-gated HTML report delivered every Monday. KPIs, trend charts, year-over-year. No dashboard login, no third-party plane — the same URL every week.</p>
+        <ul>
+          <li>Encrypted at rest</li>
+          <li>Branded client portal</li>
+          <li>Posted to Slack or ClickUp</li>
+        </ul>
+        <div class="footer-row">
+          <span class="deploy">Runs weekly · Your cloud</span>
+        </div>
+      </article>
+
+      <!-- 03 — Watchtower -->
+      <article class="module reveal">
+        <div class="top-row">
+          <div class="num">// 03</div>
+          <span class="status pilot">In pilot</span>
+        </div>
+        <svg class="glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 6 L26 6 L24 14 L16 14 Z"/>
+          <path d="M16 14 L16 34 M24 14 L24 34"/>
+          <path d="M12 34 L28 34"/>
+          <path d="M20 6 L20 2"/>
+        </svg>
+        <h3>Watchtower</h3>
+        <p class="tagline">Compliance and inventory, watched.</p>
+        <p class="body">Best-before-date alerts, supplier doc tracking, purchase-order reconciliation, idle-stock watchlists. Built for regulated retail in the EU — where missing a date is the kind of error that costs more than a margin point.</p>
+        <ul>
+          <li>BBD and expiry feed</li>
+          <li>PO compliance digest</li>
+          <li>Idle-stock watchlist</li>
+        </ul>
+        <div class="footer-row">
+          <span class="deploy">Runs daily · Your cloud</span>
+        </div>
+      </article>
+
+      <!-- 04 — Stack -->
+      <article class="module reveal">
+        <div class="top-row">
+          <div class="num">// 04</div>
+          <span class="status available">Available</span>
+        </div>
+        <svg class="glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="6" y="8" width="28" height="6" rx="1"/>
+          <rect x="6" y="17" width="28" height="6" rx="1"/>
+          <rect x="6" y="26" width="28" height="6" rx="1"/>
+          <circle cx="11" cy="11" r="0.8" fill="currentColor"/>
+          <circle cx="11" cy="20" r="0.8" fill="currentColor"/>
+          <circle cx="11" cy="29" r="0.8" fill="currentColor"/>
+        </svg>
+        <h3>Stack</h3>
+        <p class="tagline">MCP servers, ready to install.</p>
+        <p class="body">A growing catalog of pre-built MCP connectors — ClickUp, Slack, BigQuery, Postgres, Shopify, Magento, Klaviyo, Meta Ads. One install command. They run on your infrastructure; nothing routes through us.</p>
+        <ul>
+          <li>One-command install</li>
+          <li>Customer-cloud only</li>
+          <li>Versioned and signed</li>
+        </ul>
+        <div class="footer-row">
+          <span class="deploy">Always on · Your cloud</span>
+        </div>
+      </article>
+
+      <!-- 05 — Field Office -->
+      <article class="module reveal">
+        <div class="top-row">
+          <div class="num">// 05</div>
+          <span class="status planned">Planned</span>
+        </div>
+        <svg class="glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="20" cy="20" r="13"/>
+          <path d="M20 11 L20 20 L26 24"/>
+          <path d="M20 4 L20 7 M20 33 L20 36 M4 20 L7 20 M33 20 L36 20"/>
+        </svg>
+        <h3>Field Office</h3>
+        <p class="tagline">Hosted scheduled agents.</p>
+        <p class="body">Pick from a recipe library, connect your data sources, point at your own AI key. Cron-driven workers running in your cloud, no glue code on your side. Logs and runs visible in your account.</p>
+        <ul>
+          <li>Recipe library</li>
+          <li>OAuth-connected sources</li>
+          <li>Logs in your account</li>
+        </ul>
+        <div class="footer-row">
+          <span class="deploy">Coming · Your cloud</span>
+        </div>
+      </article>
+
+      <!-- 06 — Atlas -->
+      <article class="module reveal">
+        <div class="top-row">
+          <div class="num">// 06</div>
+          <span class="status planned">Planned</span>
+        </div>
+        <svg class="glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="20" cy="20" r="14"/>
+          <ellipse cx="20" cy="20" rx="6" ry="14"/>
+          <path d="M6 20 H34"/>
+          <path d="M20 6 V34"/>
+        </svg>
+        <h3>Atlas</h3>
+        <p class="tagline">White-label client portal.</p>
+        <p class="body">The same encrypted gate and per-client report shells we use, packaged for agencies and consultants delivering reports to their own customers. Your domain, your brand, the same at-rest encryption.</p>
+        <ul>
+          <li>Per-client credentials</li>
+          <li>At-rest encryption</li>
+          <li>Your domain, your brand</li>
+        </ul>
+        <div class="footer-row">
+          <span class="deploy">Coming · Your cloud</span>
+        </div>
+      </article>
+
+      <!-- 07 — Compass -->
+      <article class="module reveal">
+        <div class="top-row">
+          <div class="num">// 07</div>
+          <span class="status available">Available</span>
+        </div>
+        <svg class="glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="20" cy="20" r="14"/>
+          <path d="M20 9 L23 20 L20 31 L17 20 Z" fill="currentColor" fill-opacity="0.15"/>
+          <circle cx="20" cy="20" r="1.5" fill="currentColor"/>
+        </svg>
+        <h3>Compass</h3>
+        <p class="tagline">The thirty-minute audit.</p>
+        <p class="body">A free, printable one-page diagnostic that finds the strongest candidate for an AI agent in your operation. The honest starting point — before any plumbing gets laid.</p>
+        <ul>
+          <li>Self-serve, printable</li>
+          <li>No data leaves your laptop</li>
+          <li>Outputs a single shortlist</li>
+        </ul>
+        <div class="footer-row">
+          <span class="deploy">On demand · Your laptop</span>
+        </div>
+      </article>
+
+      <!-- 08 — Library -->
+      <article class="module reveal">
+        <div class="top-row">
+          <div class="num">// 08</div>
+          <span class="status planned">Planned</span>
+        </div>
+        <svg class="glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="6" y="6" width="5" height="28" rx="0.6"/>
+          <rect x="13" y="6" width="5" height="28" rx="0.6"/>
+          <rect x="20" y="9" width="5" height="25" rx="0.6"/>
+          <rect x="27" y="11" width="5" height="23" rx="0.6"/>
+          <path d="M8.5 12 H8.5 M15.5 12 H15.5"/>
+        </svg>
+        <h3>Library</h3>
+        <p class="tagline">Templates, playbooks, recipes.</p>
+        <p class="body">Self-serve building blocks for operators wiring it themselves. Report shells, query templates, agent recipes, prompt patterns. The opposite end of the spectrum from a custom engagement.</p>
+        <ul>
+          <li>HTML report shells</li>
+          <li>SQL query templates</li>
+          <li>Agent recipes and patterns</li>
+        </ul>
+        <div class="footer-row">
+          <span class="deploy">Coming · Your laptop</span>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="op-note reveal">
+      <div class="label">// Operating note</div>
+      <div>
+        <p>Every module shipped here started as a one-off engagement. A module joins the catalog only after we've built the same shape three times for three different operators — that's the point at which the bespoke parts have collapsed into config and the work can be handed over cleanly.</p>
+        <p>If your situation doesn't match a module, that's still the right answer — the engagement is custom and the module list grows on the back of it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="cta-block reveal">
+      <h2>Tell us what you're maintaining at 11pm. <span class="accent">We'll tell you which module fits.</span></h2>
+      <p>A 30-minute call. No deck, no demo — just the work. If a module fits, we name it. If it doesn't, we say so.</p>
+      <a class="btn primary" href="/contact/">Book a call <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <a href="/" class="logo">
+          <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+            <defs>
+              <linearGradient id="wb-mark-grad-f" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#5EF2FF"/>
+                <stop offset="55%" stop-color="#A78BFA"/>
+                <stop offset="100%" stop-color="#5EF2FF"/>
+              </linearGradient>
+            </defs>
+            <g class="wave">
+              <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                    fill="none" stroke="url(#wb-mark-grad-f)" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+          </svg>
+          <span>WildBreeze</span>
+        </a>
+        <p class="blurb">Quiet automation infrastructure for operations run by humans. Built one operator at a time.</p>
+      </div>
+      <div class="meta">
+        <div class="col">
+          <h5>Modules</h5>
+          <a href="/products/#modules">Pulse</a>
+          <a href="/products/#modules">Almanac</a>
+          <a href="/products/#modules">Watchtower</a>
+          <a href="/products/#modules">Stack</a>
+        </div>
+        <div class="col">
+          <h5>Learn</h5>
+          <a href="/field-guide/">Field Guide</a>
+          <a href="/glossary/">Glossary</a>
+          <a href="/calculator/">Cost calculator</a>
+          <a href="/11pm-audit/">11pm Audit</a>
+          <a href="/about/">About</a>
+        </div>
+        <div class="col">
+          <h5>Contact</h5>
+          <a href="/contact/">Contact form</a>
+          <a href="mailto:hello@wildbreeze.io">hello@wildbreeze.io</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      <div>© 2026 WildBreeze. All systems quiet.</div>
+      <!-- WB-CLIENT-HTML-START --><a class="client-link" href="/account/">Client area <span class="arrow">→</span></a><!-- WB-CLIENT-HTML-END -->
+      <div>v2.0 · Made in the wind</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   Flow-field canvas — drifting cyan/violet particles
+   ============================================================ */
+(function(){
+  const canvas = document.getElementById('flow');
+  if (!canvas || !canvas.getContext) return;
+  const ctx = canvas.getContext('2d');
+  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const SPEED = reduced ? 0.25 : 1.0;
+  const TRAIL = reduced ? 0.06 : 0.10;
+  const CAP = reduced ? 70 : 160;
+  let DPR = Math.min(window.devicePixelRatio || 1, 2);
+  let W = 0, H = 0, particles = [];
+
+  function resize(){
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = W * DPR; canvas.height = H * DPR;
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    const target = Math.min(CAP, Math.floor((W*H)/14000));
+    particles = new Array(target).fill(0).map(spawn);
+  }
+  function spawn(){
+    return {
+      x: Math.random()*W,
+      y: Math.random()*H,
+      vx: 0, vy: 0,
+      life: 60 + Math.random()*120,
+      hue: Math.random() < 0.55 ? 'cyan' : 'violet'
+    };
+  }
+  function noise(x, y, t){
+    return (Math.sin((x*0.0042)+(y*0.0031)+t*0.18)
+          + Math.sin((x*0.0017)-(y*0.0024)+t*0.11)) * 0.5;
+  }
+  let t0 = 0;
+  function tick(ts){
+    if (!t0) t0 = ts;
+    const t = (ts - t0) * 0.001;
+    ctx.fillStyle = 'rgba(6,8,15,' + TRAIL + ')';
+    ctx.fillRect(0, 0, W, H);
+    for (let i = 0; i < particles.length; i++){
+      const p = particles[i];
+      const a = noise(p.x, p.y, t) * Math.PI * 2;
+      p.vx = p.vx*0.92 + Math.cos(a) * 0.6 * SPEED;
+      p.vy = p.vy*0.92 + Math.sin(a) * 0.6 * SPEED;
+      p.x += p.vx; p.y += p.vy; p.life -= 1;
+      if (p.x < -10 || p.x > W+10 || p.y < -10 || p.y > H+10 || p.life <= 0){
+        particles[i] = spawn();
+        continue;
+      }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 0.9, 0, Math.PI*2);
+      ctx.fillStyle = p.hue === 'cyan' ? 'rgba(94,242,255,0.85)' : 'rgba(167,139,250,0.75)';
+      ctx.fill();
+    }
+    requestAnimationFrame(tick);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  requestAnimationFrame(tick);
+})();
+
+/* ============================================================
+   Reveal-on-scroll
+   ============================================================ */
+(function(){
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)){
+    els.forEach(e => e.classList.add('in'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(el => io.observe(el));
+})();
+
+/* ============================================================
+   Telemetry runtime drift — gentle ambient texture
+   ============================================================ */
+(function(){
+  const rt = document.getElementById('rt');
+  if (!rt) return;
+  let v = 42.3;
+  setInterval(() => {
+    v = Math.max(8, Math.min(180, v + (Math.random()-0.5)*4.0));
+    rt.textContent = v.toFixed(1) + 's';
+  }, 2400);
+})();
+</script>
+
+</body>
+</html>
