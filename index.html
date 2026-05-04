@@ -891,7 +891,7 @@
   .lang-toggle a { color: var(--cyan); padding: 0 4px; }
   .lang-toggle .sep { color: var(--line-2); }
   .lang-toggle .active { color: var(--ink); }
-                        /* WB-CLIENT-CSS-START */
+                          /* WB-CLIENT-CSS-START */
   /* Client area pill (footer .legal) — managed by _inject_client_link.py */
   .client-link {
     display: inline-flex; align-items: center; gap: 6px;
@@ -945,9 +945,10 @@
 <div class="coords" aria-hidden="true"><span id="coords">N 46.2044  E 6.1432</span></div>
 
 <!-- Header -->
+<!-- WB-HEADER-START -->
 <header class="nav">
   <div class="wrap row">
-    <a href="#top" class="logo">
+    <a href="/" class="logo">
       <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
         <defs>
           <linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
@@ -968,11 +969,12 @@
       <a href="/products/">Modules</a>
       <a href="/field-guide/">Field Guide</a>
       <a href="/about/">About</a>
-      <a class="cta" href="/contact/">Contact</a>
+      <a href="/contact/" class="cta">Contact</a>
       <span class="lang-toggle"><span class="active">EN</span><span class="sep">·</span><a href="/es/" hreflang="es">ES</a></span>
     </nav>
   </div>
 </header>
+<!-- WB-HEADER-END -->
 
 <!-- Hero -->
 <section class="hero" id="top">
