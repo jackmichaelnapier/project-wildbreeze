@@ -24,6 +24,46 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.wildbreeze.io/products/"/>
   </url>
   <url>
+    <loc>https://www.wildbreeze.io/products/pulse/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.wildbreeze.io/products/almanac/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.wildbreeze.io/products/watchtower/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.wildbreeze.io/products/stack/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.wildbreeze.io/products/field-office/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.wildbreeze.io/products/atlas/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.wildbreeze.io/products/compass/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.wildbreeze.io/products/library/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.wildbreeze.io/field-guide/</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
