@@ -51,7 +51,7 @@
   .calc-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
   .share-line { margin-top: 16px; font-family: var(--mono); font-size: 12px; color: var(--ink-3); letter-spacing: 0.06em; }
   .share-line a { color: var(--cyan); cursor: pointer; } .share-line a.copied { color: var(--phos); }
-                        /* WB-CLIENT-CSS-START */
+                          /* WB-CLIENT-CSS-START */
   /* Client area pill (footer .legal) — managed by _inject_client_link.py */
   .client-link {
     display: inline-flex; align-items: center; gap: 6px;
@@ -90,17 +90,28 @@
 <div class="field" aria-hidden="true"></div>
 <div class="grid" aria-hidden="true"></div>
 
+<!-- WB-HEADER-START -->
 <header class="nav">
   <div class="wrap row">
     <a href="/es/" class="logo">
       <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
-        <defs><linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#5EF2FF"/><stop offset="55%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#5EF2FF"/></linearGradient></defs>
-        <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0" fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <defs>
+          <linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#5EF2FF"/>
+            <stop offset="55%" stop-color="#A78BFA"/>
+            <stop offset="100%" stop-color="#5EF2FF"/>
+          </linearGradient>
+        </defs>
+        <g class="wave">
+          <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
       </svg>
       <span>WildBreeze</span>
     </a>
     <nav class="main">
-      <a href="/es/#servicios">Servicios</a>
+      <a href="/es/#servicios">Módulos</a>
       <a href="/es/guia-de-campo/">Guía de campo</a>
       <a href="/es/sobre/">Sobre</a>
       <a href="/es/contacto/" class="cta">Contacto</a>
@@ -108,6 +119,7 @@
     </nav>
   </div>
 </header>
+<!-- WB-HEADER-END -->
 <section class="page-hero">
   <div class="wrap">
     <div class="kicker">Calculadora · 30 segundos</div>
