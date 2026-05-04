@@ -268,9 +268,9 @@ def render_article(slug, data, lang, other_slug=None):
     tag_meta = "\n".join(f'<meta property="article:tag" content="{t}" />' for t in tags)
 
     nav_links = (
-        '<a href="/es/#servicios">Servicios</a><a href="/es/guia-de-campo/">Guía de campo</a><a href="/es/sobre/">Sobre</a><a href="/es/contacto/" class="cta">Contacto</a>'
+        '<a href="/es/#servicios">Módulos</a><a href="/es/guia-de-campo/">Guía de campo</a><a href="/es/sobre/">Sobre</a><a href="/es/contacto/" class="cta">Contacto</a>'
         if is_es else
-        '<a href="/#services">Services</a><a href="/field-guide/">Field Guide</a><a href="/about/">About</a><a href="/contact/" class="cta">Contact</a>'
+        '<a href="/products/">Modules</a><a href="/field-guide/">Field Guide</a><a href="/about/">About</a><a href="/contact/" class="cta">Contact</a>'
     )
     keep_reading = "Más de la Guía" if is_es else "More from the Field Guide"
     keep_reading_kicker = "Sigue leyendo" if is_es else "Keep reading"
@@ -417,7 +417,7 @@ def render_article(slug, data, lang, other_slug=None):
     <a href="{home}" class="logo">
       <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
         <defs><linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#5EF2FF"/><stop offset="55%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#5EF2FF"/></linearGradient></defs>
-        <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0" fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <g class="wave"><path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0" fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
       </svg>
       <span>WildBreeze</span>
     </a>
