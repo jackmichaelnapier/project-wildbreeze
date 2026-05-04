@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Pricemart Finance · WildBreeze</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-0:#06080F; --bg-1:#0A0E1A; --bg-2:#10172A;
+  --ink:#F2F4FA; --ink-2:#B6BDD0; --ink-3:#6F7793;
+  --line:rgba(255,255,255,0.08); --line-2:rgba(255,255,255,0.14);
+  --cyan:#5EF2FF; --violet:#A78BFA;
+  --serif:"Space Grotesk", system-ui, sans-serif;
+  --sans:"Inter", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg-0);overflow-x:hidden;min-height:100vh}
+body{
+  background:transparent;color:var(--ink);font-family:var(--sans);
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:40px 20px;-webkit-font-smoothing:antialiased;
+}
+.field{position:fixed;inset:0;z-index:-3;
+  background:
+    radial-gradient(1100px 700px at 78% -10%, rgba(94,242,255,0.18), transparent 60%),
+    radial-gradient(900px 600px at 12% 5%, rgba(167,139,250,0.18), transparent 60%),
+    radial-gradient(1000px 700px at 50% 110%, rgba(94,242,255,0.10), transparent 60%),
+    linear-gradient(180deg,#06080F 0%,#080B17 50%,#06080F 100%);
+}
+.grid{position:fixed;inset:0;z-index:-1;
+  background-image:
+    linear-gradient(to right,var(--line) 1px,transparent 1px),
+    linear-gradient(to bottom,var(--line) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 30%, black 30%, transparent 80%);
+  opacity:.55;pointer-events:none;
+}
+
+#gate{display:none;width:100%;max-width:440px}
+#gate.shown{display:block}
+.kicker{
+  font-family:var(--mono);font-size:11px;text-transform:uppercase;
+  letter-spacing:0.14em;color:var(--cyan);margin-bottom:14px;
+}
+.title{
+  font-family:var(--serif);font-size:34px;font-weight:500;
+  letter-spacing:-0.02em;line-height:1.1;color:var(--ink);
+  margin-bottom:14px;
+}
+.title .accent{
+  background:linear-gradient(110deg,var(--cyan) 20%,var(--violet) 80%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  font-style:italic;font-weight:400;
+}
+.lede{color:var(--ink-2);font-size:15px;line-height:1.55;margin-bottom:32px}
+.gate-card{
+  border:1px solid var(--line);border-radius:14px;
+  background:rgba(255,255,255,0.025);
+  padding:32px 30px;
+}
+.field-label{
+  display:block;font-family:var(--mono);font-size:10.5px;
+  text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-3);
+  margin-bottom:8px;margin-top:18px;
+}
+.field-label:first-child{margin-top:0}
+.gate-input{
+  width:100%;background:transparent;border:none;
+  border-bottom:1px solid rgba(255,255,255,0.22);
+  padding:8px 0 10px;font-family:var(--sans);font-size:16px;
+  color:var(--ink);outline:none;transition:border-color 180ms ease;
+}
+.gate-input:focus{border-bottom-color:var(--cyan)}
+.gate-input.err{border-bottom-color:#ff6b6b;animation:flash 0.6s}
+@keyframes flash{0%,100%{border-bottom-color:#ff6b6b}50%{border-bottom-color:rgba(255,255,255,0.22)}}
+.gate-button{
+  width:100%;margin-top:28px;padding:13px;
+  background:transparent;color:var(--ink);
+  border:1px solid var(--line-2);border-radius:8px;
+  font-family:var(--mono);font-size:12px;
+  text-transform:uppercase;letter-spacing:0.12em;
+  cursor:pointer;transition:all 180ms ease;
+}
+.gate-button:hover{
+  border-color:var(--cyan);color:var(--cyan);
+  background:rgba(94,242,255,0.04);
+}
+.gate-button:disabled{opacity:0.5;cursor:wait}
+.msg{
+  margin-top:14px;font-family:var(--mono);font-size:11.5px;
+  letter-spacing:0.04em;color:var(--ink-3);min-height:1em;
+}
+.msg.err{color:#ff8a8a}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-8px)}
+  40%{transform:translateX(8px)}
+  60%{transform:translateX(-6px)}
+  80%{transform:translateX(6px)}
+}
+.gate-card.shake{animation:shake 0.4s}
+.foot{
+  margin-top:22px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:0.06em;color:var(--ink-3);text-align:center;
+}
+.foot a{color:var(--ink-3);text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.1)}
+.foot a:hover{color:var(--cyan)}
+  /* WB-CLIENT-CSS-START */
+  /* Client area pill (footer .legal) — managed by _inject_client_link.py */
+  .client-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-2);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    padding: 6px 14px;
+    text-decoration: none;
+    transition: all 180ms ease;
+  }
+  .client-link:hover {
+    color: var(--cyan);
+    border-color: rgba(94, 242, 255, 0.5);
+    background: rgba(94, 242, 255, 0.04);
+  }
+  .client-link .arrow { color: var(--cyan); transition: transform 180ms ease; }
+  .client-link:hover .arrow { transform: translateX(3px); }
+  /* WB-CLIENT-CSS-END */
+</style>
+<!-- WB-TAGS-START -->
+<!-- Google tag (gtag.js) — GA4 G-4S960N841V -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4S960N841V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4S960N841V');
+</script>
+<!-- WB-TAGS-END -->
+</head>
+<body>
+
+<div class="field" aria-hidden="true"></div>
+<div class="grid" aria-hidden="true"></div>
+
+<div id="gate" role="main">
+  <div class="kicker">Encrypted</div>
+  <h1 class="title">Sign in to <span class="accent">view this page.</span></h1>
+  <p class="lede">This content is encrypted at rest. Enter the email and access key we sent you to decrypt it in your browser. Nothing is sent over the network — verification happens locally.</p>
+  <form id="gate-form" class="gate-card" autocomplete="off" novalidate>
+    <label class="field-label" for="g-email">Email</label>
+    <input id="g-email" class="gate-input" type="email" autocomplete="email" required>
+    <label class="field-label" for="g-key">Access key</label>
+    <input id="g-key" class="gate-input" type="password" autocomplete="current-password" required>
+    <button id="g-submit" class="gate-button" type="submit">Decrypt</button>
+    <div id="g-msg" class="msg" aria-live="polite"></div>
+  </form>
+  <p class="foot">WildBreeze · client area</p>
+</div>
+
+<script>
+(function(){
+  var BLOB = {"s": "601aaa11b26f00d7d7e693584115a40b", "iv": "4020f852219d4e2d3538bded", "ct": "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"};
+  var ITERS = 200000;
+
+  function hexToBytes(hex){
+    var out = new Uint8Array(hex.length/2);
+    for (var i=0;i<out.length;i++) out[i] = parseInt(hex.substr(i*2,2),16);
+    return out;
+  }
+  function b64ToBytes(b64){
+    var bin = atob(b64);
+    var out = new Uint8Array(bin.length);
+    for (var i=0;i<bin.length;i++) out[i] = bin.charCodeAt(i);
+    return out;
+  }
+
+  async function decrypt(email, accessKey){
+    var pwd = (email.toLowerCase().trim() + "|" + accessKey.trim());
+    var baseKey = await crypto.subtle.importKey(
+      "raw", new TextEncoder().encode(pwd),
+      { name: "PBKDF2" }, false, ["deriveKey"]);
+    var aesKey = await crypto.subtle.deriveKey(
+      { name: "PBKDF2", salt: hexToBytes(BLOB.s), iterations: ITERS, hash: "SHA-256" },
+      baseKey,
+      { name: "AES-GCM", length: 256 },
+      false,
+      ["decrypt"]);
+    var pt = await crypto.subtle.decrypt(
+      { name: "AES-GCM", iv: hexToBytes(BLOB.iv) },
+      aesKey,
+      b64ToBytes(BLOB.ct));
+    return new TextDecoder().decode(pt);
+  }
+
+  function render(html){
+    document.open();
+    document.write(html);
+    document.close();
+  }
+
+  async function tryUnlock(email, accessKey){
+    try {
+      var html = await decrypt(email, accessKey);
+      try {
+        sessionStorage.setItem("wb_auth", JSON.stringify({ e: email, k: accessKey }));
+      } catch(_) { /* private mode etc. — fine, just no caching */ }
+      render(html);
+      return true;
+    } catch(e) {
+      return false;
+    }
+  }
+
+  function showGate(){
+    var g = document.getElementById("gate");
+    if (g) g.classList.add("shown");
+    var em = document.getElementById("g-email");
+    if (em) em.focus();
+  }
+
+  function shake(){
+    var card = document.querySelector(".gate-card");
+    if (!card) return;
+    card.classList.remove("shake");
+    void card.offsetWidth;  // restart animation
+    card.classList.add("shake");
+  }
+
+  function setMsg(text, isErr){
+    var m = document.getElementById("g-msg");
+    if (!m) return;
+    m.textContent = text || "";
+    m.className = "msg" + (isErr ? " err" : "");
+  }
+
+  // Wire up the form
+  function attachForm(){
+    var form = document.getElementById("gate-form");
+    form.addEventListener("submit", async function(ev){
+      ev.preventDefault();
+      var email = document.getElementById("g-email").value;
+      var key   = document.getElementById("g-key").value;
+      var btn   = document.getElementById("g-submit");
+      btn.disabled = true;
+      setMsg("Decrypting…");
+      var ok = await tryUnlock(email, key);
+      if (!ok) {
+        btn.disabled = false;
+        setMsg("Access denied. Check your email and access key.", true);
+        shake();
+        document.getElementById("g-key").classList.add("err");
+        setTimeout(function(){
+          document.getElementById("g-key").classList.remove("err");
+        }, 1000);
+      }
+    });
+  }
+
+  // On load: try silent unlock from sessionStorage
+  (async function(){
+    var cached = null;
+    try {
+      cached = JSON.parse(sessionStorage.getItem("wb_auth") || "null");
+    } catch(_) {}
+    if (cached && cached.e && cached.k) {
+      var ok = await tryUnlock(cached.e, cached.k);
+      if (ok) return;  // rendered
+    }
+    // Cold load — show gate
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", function(){
+        attachForm();
+        showGate();
+      });
+    } else {
+      attachForm();
+      showGate();
+    }
+  })();
+})();
+</script>
+</body>
+</html>
