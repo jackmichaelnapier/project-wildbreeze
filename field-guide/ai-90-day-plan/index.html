@@ -54,7 +54,7 @@
   .lang-toggle a { color: var(--cyan); padding: 0 4px; }
   .lang-toggle .sep { color: var(--line-2); }
   .lang-toggle .active { color: var(--ink); }
-                        /* WB-CLIENT-CSS-START */
+                          /* WB-CLIENT-CSS-START */
   /* Client area pill (footer .legal) — managed by _inject_client_link.py */
   .client-link {
     display: inline-flex; align-items: center; gap: 6px;
@@ -92,6 +92,7 @@
 <div class="field" aria-hidden="true"></div>
 <div class="grid" aria-hidden="true"></div>
 
+<!-- WB-HEADER-START -->
 <header class="nav">
   <div class="wrap row">
     <a href="/" class="logo">
@@ -103,21 +104,24 @@
             <stop offset="100%" stop-color="#5EF2FF"/>
           </linearGradient>
         </defs>
-        <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
-              fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
-              stroke-linecap="round" stroke-linejoin="round"/>
+        <g class="wave">
+          <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
       </svg>
       <span>WildBreeze</span>
     </a>
     <nav class="main">
-      <a href="/#services">Services</a>
+      <a href="/products/">Modules</a>
       <a href="/field-guide/">Field Guide</a>
       <a href="/about/">About</a>
       <a href="/contact/" class="cta">Contact</a>
-          <span class="lang-toggle"><span class="active">EN</span><span class="sep">·</span><a href="/es/guia-de-campo/plan-90-dias-ia/" hreflang="es">ES</a></span>
+      <span class="lang-toggle"><span class="active">EN</span><span class="sep">·</span><a href="/es/guia-de-campo/plan-90-dias-ia/" hreflang="es">ES</a></span>
     </nav>
   </div>
 </header>
+<!-- WB-HEADER-END -->
 
 <article>
   <section class="page-hero">
