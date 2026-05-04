@@ -451,7 +451,7 @@
     padding-top: 28px; border-top: 1px solid var(--line);
     font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--ink-3);
   }
-    /* WB-CLIENT-CSS-START */
+      /* WB-CLIENT-CSS-START */
   /* Client area pill (footer .legal) — managed by _inject_client_link.py */
   .client-link {
     display: inline-flex; align-items: center; gap: 6px;
@@ -523,6 +523,7 @@
 <div class="coords" aria-hidden="true">N 38.7902&nbsp;&nbsp;E 0.1664</div>
 
 <!-- Header -->
+<!-- WB-HEADER-START -->
 <header class="nav">
   <div class="wrap row">
     <a href="/" class="logo">
@@ -543,13 +544,15 @@
       <span>WildBreeze</span>
     </a>
     <nav class="main">
-      <a class="is-active" href="/products/">Modules</a>
+      <a href="/products/">Modules</a>
       <a href="/field-guide/">Field Guide</a>
       <a href="/about/">About</a>
-      <a class="cta" href="/contact/">Contact</a>
+      <a href="/contact/" class="cta">Contact</a>
+      <span class="lang-toggle"><span class="active">EN</span><span class="sep">·</span><a href="/es/" hreflang="es">ES</a></span>
     </nav>
   </div>
 </header>
+<!-- WB-HEADER-END -->
 
 <!-- Hero -->
 <section class="hero">
