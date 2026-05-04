@@ -319,6 +319,55 @@ h3 {
 }
 .article-meta .tag { color: var(--cyan); }
 
+/* ===== Client-area reports list (per-client landings) ===== */
+/* Canonical source. Inline copies in older client scaffolds will be
+   superseded by these rules — both produce the same render. Used by
+   _clients.py scaffolds and the publishers in _wb_landing.py. */
+.reports-list { display: grid; gap: 14px; margin-top: 24px; }
+.report-row {
+  display: grid; grid-template-columns: 140px 1fr auto;
+  gap: 24px; align-items: baseline;
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--rad);
+  background: rgba(255,255,255,0.02);
+  transition: all 180ms ease;
+  text-decoration: none;
+}
+.report-row:hover { border-color: rgba(94,242,255,0.4); transform: translateY(-1px); background: rgba(94,242,255,0.03); }
+.report-row .when {
+  font-family: var(--mono); font-size: 11.5px;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--ink-3);
+}
+.report-row .what {
+  font-family: var(--serif); font-size: 17px;
+  color: var(--ink); letter-spacing: -0.01em;
+}
+.report-row .arrow { color: var(--cyan); font-family: var(--mono); font-size: 14px; }
+.report-row.placeholder {
+  color: var(--ink-3); font-style: italic;
+  border-style: dashed;
+}
+.report-row.placeholder:hover { transform: none; cursor: default; }
+
+.meta-strip {
+  margin-top: 32px; padding-top: 22px;
+  border-top: 1px solid var(--line);
+  display: flex; gap: 24px; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--ink-3); letter-spacing: 0.06em;
+}
+.meta-strip .k { color: var(--ink-3); }
+.meta-strip .v { color: var(--ink-2); }
+
+.logout-row {
+  margin-top: 12px;
+  font-family: var(--mono); font-size: 11.5px;
+  letter-spacing: 0.06em;
+}
+.logout-row a { color: var(--cyan); }
+
 /* ===== Form (contact page) ===== */
 .contact-form {
   display: grid; gap: 20px;
