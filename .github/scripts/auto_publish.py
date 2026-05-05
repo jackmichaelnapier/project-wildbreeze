@@ -64,8 +64,8 @@ def existing_titles(directory):
     return titles
 
 
-def extract_json_from_response(resp):
-    """Extract JSON from Claude response, robust to narration text."""
+def _response_text(resp):
+    """Concatenate all text blocks from a Claude response."""
     text_blocks = []
     for b in resp.content:
         t = getattr(b, "text", None)
@@ -74,32 +74,100 @@ def extract_json_from_response(resp):
     if not text_blocks:
         block_types = [getattr(b, "type", type(b).__name__) for b in resp.content]
         raise RuntimeError(f"No text blocks. Block types: {block_types}")
-    full_text = "\n".join(text_blocks).strip()
+    return "\n".join(text_blocks).strip()
 
-    # Try fenced
-    fenced = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", full_text, re.DOTALL)
-    if fenced:
-        return json.loads(fenced.group(1))
 
-    # Walk braces to find first balanced JSON object
+def _try_parse_candidates(full_text):
+    """Try every candidate JSON chunk in full_text, return the first that parses.
+    Returns the parsed dict, or None if nothing parses."""
+    candidates = []
+
+    # 1. Fenced ```json ... ``` block
+    for m in re.finditer(r"```(?:json)?\s*(\{.*?\})\s*```", full_text, re.DOTALL):
+        candidates.append(m.group(1))
+
+    # 2. Every balanced top-level brace pair (handles fence-less responses,
+    #    or cases where the fence regex failed because of nested fences)
     for start in [m.start() for m in re.finditer(r"\{", full_text)]:
         depth = 0
+        in_str = False
+        esc = False
         for i in range(start, len(full_text)):
             c = full_text[i]
+            if esc:
+                esc = False
+                continue
+            if c == "\\" and in_str:
+                esc = True
+                continue
+            if c == '"':
+                in_str = not in_str
+                continue
+            if in_str:
+                continue
             if c == "{":
                 depth += 1
             elif c == "}":
                 depth -= 1
                 if depth == 0:
-                    chunk = full_text[start:i+1]
-                    try:
-                        return json.loads(chunk)
-                    except json.JSONDecodeError:
-                        break
+                    candidates.append(full_text[start:i+1])
+                    break
 
-    print("ERR: could not extract JSON. Raw response:", file=sys.stderr)
-    print(full_text[:4000], file=sys.stderr)
-    raise RuntimeError("No parsable JSON in Claude response")
+    for chunk in candidates:
+        try:
+            return json.loads(chunk)
+        except json.JSONDecodeError:
+            continue
+    return None
+
+
+def _repair_json_via_claude(full_text, error_hint=""):
+    """Last-resort: ask Claude to re-emit the same content as valid JSON.
+    Used when extract_json_from_response can't parse the original response.
+    Returns parsed dict or raises."""
+    repair_prompt = f"""The following response contains a JSON object that failed to parse{(' (' + error_hint + ')') if error_hint else ''}.
+Re-emit the SAME content as a single, strictly-valid JSON object. Do not change any
+field values' meaning. Make sure all double-quotes inside string values are properly
+escaped as \\". Do not include any markdown fences, no commentary, no preamble — just
+the raw JSON object starting with {{ and ending with }}.
+
+ORIGINAL RESPONSE:
+{full_text}"""
+    repair_resp = client.messages.create(
+        model=MODEL,
+        max_tokens=8000,
+        messages=[{"role": "user", "content": repair_prompt}],
+    )
+    repair_text = _response_text(repair_resp)
+    parsed = _try_parse_candidates(repair_text)
+    if parsed is None:
+        # Strict-load the entire trimmed body as a final attempt
+        return json.loads(repair_text.strip().strip("`").strip())
+    return parsed
+
+
+def extract_json_from_response(resp):
+    """Extract JSON from Claude response, robust to narration text and small
+    JSON corruptions. Falls back through:
+      1. fenced ```json blocks
+      2. balanced top-level brace walks (string-aware)
+      3. Claude-driven repair pass (one extra API call)
+    """
+    full_text = _response_text(resp)
+
+    parsed = _try_parse_candidates(full_text)
+    if parsed is not None:
+        return parsed
+
+    print("WARN: primary JSON parse failed, attempting Claude-driven repair pass.", file=sys.stderr)
+    try:
+        return _repair_json_via_claude(full_text)
+    except Exception as e:
+        print("ERR: repair pass also failed.", file=sys.stderr)
+        print(f"     repair error: {e}", file=sys.stderr)
+        print("ERR: raw response (first 4000 chars):", file=sys.stderr)
+        print(full_text[:4000], file=sys.stderr)
+        raise RuntimeError("No parsable JSON in Claude response (after repair pass)")
 
 
 # ============================================================
