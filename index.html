@@ -517,6 +517,39 @@
     max-width: 60ch; margin: 0;
   }
 
+  /* ===== Modules teaser strip ===== */
+  .modules-strip {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px 28px;
+    margin-bottom: 36px;
+  }
+  .modules-strip .ms-row {
+    padding: 22px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+    display: flex; align-items: baseline; gap: 12px;
+    transition: border-color 220ms ease;
+  }
+  .modules-strip .ms-row:hover { border-color: var(--line-2); }
+  .modules-strip .ms-name {
+    font-family: var(--serif); font-size: 19px; font-weight: 500;
+    letter-spacing: -0.01em; color: var(--ink);
+  }
+  .modules-strip .ms-sep { color: var(--line-2); }
+  .modules-strip .ms-tag { font-size: 14.5px; color: var(--ink-2); }
+  .modules-more {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 12.5px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--cyan);
+    border-bottom: 1px solid rgba(94, 242, 255, 0.35);
+    padding-bottom: 4px;
+  }
+  .modules-more:hover { border-bottom-color: var(--cyan); }
+  .modules-more .arrow { transition: transform 180ms ease; }
+  .modules-more:hover .arrow { transform: translateX(4px); }
+  @media (max-width: 720px) { .modules-strip { grid-template-columns: 1fr; } }
+
   /* ===== Pillars ===== */
   .pillars {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
@@ -891,7 +924,7 @@
   .lang-toggle a { color: var(--cyan); padding: 0 4px; }
   .lang-toggle .sep { color: var(--line-2); }
   .lang-toggle .active { color: var(--ink); }
-                          /* WB-CLIENT-CSS-START */
+                            /* WB-CLIENT-CSS-START */
   /* Client area pill (footer .legal) — managed by _inject_client_link.py */
   .client-link {
     display: inline-flex; align-items: center; gap: 6px;
@@ -972,8 +1005,136 @@
       <a href="/contact/" class="cta">Contact</a>
       <span class="lang-toggle"><span class="active">EN</span><span class="sep">·</span><a href="/es/" hreflang="es">ES</a></span>
     </nav>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="wb-mobile-nav">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <line class="bar top"    x1="4" y1="9"  x2="20" y2="9"  stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        <line class="bar bottom" x1="4" y1="15" x2="20" y2="15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </button>
   </div>
 </header>
+<div class="nav-sheet" id="wb-mobile-nav" hidden>
+  <div class="nav-sheet-inner">
+    <div class="nav-sheet-kicker">// NAVIGATION</div>
+    <nav class="nav-sheet-links">
+      <a href="/products/">Modules</a>
+      <a href="/field-guide/">Field Guide</a>
+      <a href="/about/">About</a>
+    </nav>
+    <div class="nav-sheet-foot">
+      <span class="lang-toggle"><span class="active">EN</span><span class="sep">·</span><a href="/es/" hreflang="es">ES</a></span>
+      <a class="nav-sheet-cta" href="/contact/">Contact <span class="arrow">→</span></a>
+    </div>
+  </div>
+</div>
+<style id="wb-nav-styles">
+  .nav-toggle {
+    display: none;
+    background: transparent; border: 1px solid var(--line-2);
+    border-radius: 999px; padding: 6px; color: var(--ink); cursor: pointer;
+    transition: border-color 180ms ease, background 180ms ease;
+  }
+  .nav-toggle svg { width: 22px; height: 22px; display: block; }
+  .nav-toggle .bar { transition: transform 220ms ease, opacity 180ms ease; transform-origin: 12px 12px; }
+  .nav-toggle:hover { border-color: rgba(94, 242, 255, 0.5); background: rgba(94, 242, 255, 0.05); }
+  .nav-toggle[aria-expanded="true"] .bar.top    { transform: rotate(45deg)  translate(0, 4.24px); }
+  .nav-toggle[aria-expanded="true"] .bar.bottom { transform: rotate(-45deg) translate(0, -4.24px); }
+
+  .nav-sheet {
+    position: fixed; inset: 0; z-index: 60;
+    background: rgba(6, 8, 15, 0.92);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    opacity: 0; transition: opacity 220ms ease;
+  }
+  .nav-sheet[hidden] { display: none; }
+  html.nav-open .nav-sheet { opacity: 1; }
+  html.nav-open { overflow: hidden; }
+
+  .nav-sheet-inner {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: 88px 28px 32px;
+    height: 100%; display: flex; flex-direction: column;
+    transform: translateY(-12px); transition: transform 240ms ease;
+  }
+  html.nav-open .nav-sheet-inner { transform: translateY(0); }
+
+  .nav-sheet-kicker {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.14em; color: var(--cyan); margin-bottom: 24px;
+  }
+  .nav-sheet-links { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+  .nav-sheet-links a {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 28px; letter-spacing: -0.015em; color: var(--ink);
+    padding: 22px 0; border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    transition: color 180ms ease;
+  }
+  .nav-sheet-links a:active, .nav-sheet-links a:hover { color: var(--cyan); }
+
+  .nav-sheet-foot {
+    margin-top: auto; padding-top: 28px;
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .nav-sheet-foot .lang-toggle { margin: 0; align-self: flex-start; font-size: 13px; }
+  .nav-sheet-cta {
+    width: 100%; justify-content: center; padding: 14px 18px;
+    display: inline-flex; align-items: center; gap: 8px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(94, 242, 255, 0.95), rgba(94, 242, 255, 0.7));
+    color: #001318; border: 1px solid transparent;
+    font-family: var(--sans); font-size: 14px; font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 8px 24px -8px rgba(94, 242, 255, 0.6),
+                inset 0 0 0 1px rgba(255,255,255,0.4);
+  }
+  .nav-sheet-cta .arrow { transition: transform 180ms ease; }
+  .nav-sheet-cta:hover .arrow { transform: translateX(3px); }
+
+  @media (max-width: 880px) {
+    .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+    header.nav nav.main { display: none; }
+  }
+  @media (min-width: 881px) { .nav-sheet { display: none !important; } }
+  @media (prefers-reduced-motion: reduce) {
+    .nav-sheet, .nav-sheet-inner, .nav-toggle .bar { transition: opacity 0.01ms; transform: none !important; }
+  }
+</style>
+<script id="wb-nav-script">
+(function(){
+  var toggle = document.querySelector('.nav-toggle');
+  var sheet  = document.getElementById('wb-mobile-nav');
+  if (!toggle || !sheet) return;
+  var html = document.documentElement, lastFocus = null;
+  function open(){
+    lastFocus = document.activeElement;
+    sheet.hidden = false;
+    requestAnimationFrame(function(){
+      html.classList.add('nav-open');
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Close menu');
+      var first = sheet.querySelector('a, button'); if (first) first.focus();
+    });
+  }
+  function close(){
+    html.classList.remove('nav-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open menu');
+    setTimeout(function(){ sheet.hidden = true; }, 250);
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  toggle.addEventListener('click', function(){
+    toggle.getAttribute('aria-expanded') === 'true' ? close() : open();
+  });
+  sheet.addEventListener('click', function(e){ if (e.target === sheet) close(); });
+  sheet.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') close();
+  });
+  var mq = window.matchMedia('(min-width: 881px)');
+  if (mq.addEventListener) mq.addEventListener('change', function(e){ if (e.matches) close(); });
+})();
+</script>
 <!-- WB-HEADER-END -->
 
 <!-- Hero -->
@@ -1122,11 +1283,29 @@
   </div>
 </section>
 
+<!-- Modules teaser -->
+<section class="section" id="modules">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">002 · The shapes</div>
+      <h2>The work that keeps coming back, <span class="accent">named and packaged.</span></h2>
+      <p class="sub">When the same job shows up across three different operators, we give it a name and a fixed shape. Eight so far. Each one runs on its own schedule in your cloud, with no dashboard to log into.</p>
+    </div>
+    <div class="modules-strip reveal">
+      <div class="ms-row"><span class="ms-name">Pulse</span><span class="ms-sep">·</span><span class="ms-tag">Yesterday in one message.</span></div>
+      <div class="ms-row"><span class="ms-name">Almanac</span><span class="ms-sep">·</span><span class="ms-tag">The Monday morning report.</span></div>
+      <div class="ms-row"><span class="ms-name">Watchtower</span><span class="ms-sep">·</span><span class="ms-tag">Compliance and inventory, watched.</span></div>
+      <div class="ms-row"><span class="ms-name">Stack</span><span class="ms-sep">·</span><span class="ms-tag">MCP servers, ready to install.</span></div>
+    </div>
+    <a class="modules-more reveal" href="/products/">See all eight modules <span class="arrow">→</span></a>
+  </div>
+</section>
+
 <!-- Process -->
 <section class="section" id="process">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="kicker">002 · How it works</div>
+      <div class="kicker">003 · How it works</div>
       <h2>Three weeks. Three deliverables.<br/>One quiet system.</h2>
       <p class="sub">No discovery deck. No agency churn. We sit with your operation, plumb the parts that should already be talking, and leave you with something that runs without us.</p>
     </div>
@@ -1158,7 +1337,7 @@
 <section class="section" id="why">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="kicker">003 · Why WildBreeze</div>
+      <div class="kicker">004 · Why WildBreeze</div>
       <h2>Built for operators,<br/>not buyers of dashboards.</h2>
       <p class="sub">We picked these constraints on purpose. They're why we can ship in three weeks and why your CFO doesn't have to sign a vendor risk review.</p>
     </div>
@@ -1192,7 +1371,7 @@
 <section class="section" id="field-guide">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="kicker">004 · Field Guide</div>
+      <div class="kicker">005 · Field Guide</div>
       <h2>Plain-English answers for the AI questions<br/>your team is actually asking.</h2>
       <p class="sub">Two core concepts, what is an agent, what is an MCP server, and a stream of fresh briefings on how small operations are using AI to retire the work nobody wants. Updated every two days.</p>
     </div>
@@ -1249,7 +1428,7 @@
   <div class="wrap">
     <div class="cta-block reveal">
       <span class="cb tl"></span><span class="cb tr"></span><span class="cb bl"></span><span class="cb br"></span>
-      <div class="kicker" style="margin-bottom: 12px; justify-content: center;">005 · Let's talk</div>
+      <div class="kicker" style="margin-bottom: 12px; justify-content: center;">006 · Let's talk</div>
       <h2>Find out what your operation looks like<br/>when the plumbing just works.</h2>
       <p>30 minutes, no slides, no commitments. Bring the spreadsheet someone is maintaining at 11pm, we'll tell you whether WildBreeze is the right fix or honestly point you elsewhere.</p>
       <div class="hero-cta">
