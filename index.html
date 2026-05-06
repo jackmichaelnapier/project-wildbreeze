@@ -527,10 +527,16 @@
     border: 1px solid var(--line);
     border-radius: 14px;
     background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
-    display: flex; align-items: baseline; gap: 12px;
+    display: flex; align-items: center; gap: 14px;
     transition: border-color 220ms ease;
   }
   .modules-strip .ms-row:hover { border-color: var(--line-2); }
+  .modules-strip .ms-icon {
+    width: 24px; height: 24px;
+    flex-shrink: 0;
+    color: var(--cyan);
+    filter: drop-shadow(0 0 6px rgba(94, 242, 255, 0.35));
+  }
   .modules-strip .ms-name {
     font-family: var(--serif); font-size: 19px; font-weight: 500;
     letter-spacing: -0.01em; color: var(--ink);
@@ -924,7 +930,7 @@
   .lang-toggle a { color: var(--cyan); padding: 0 4px; }
   .lang-toggle .sep { color: var(--line-2); }
   .lang-toggle .active { color: var(--ink); }
-                              /* WB-CLIENT-CSS-START */
+                                /* WB-CLIENT-CSS-START */
   /* Client area pill (footer .legal) — managed by _inject_client_link.py */
   .client-link {
     display: inline-flex; align-items: center; gap: 6px;
@@ -1292,10 +1298,40 @@
       <p class="sub">When the same job shows up across three different operators, we give it a name and a fixed shape. Eight so far. Each one runs on its own schedule in your cloud, with no dashboard to log into.</p>
     </div>
     <div class="modules-strip reveal">
-      <div class="ms-row"><span class="ms-name">Pulse</span><span class="ms-sep">·</span><span class="ms-tag">Yesterday in one message.</span></div>
-      <div class="ms-row"><span class="ms-name">Almanac</span><span class="ms-sep">·</span><span class="ms-tag">The Monday morning report.</span></div>
-      <div class="ms-row"><span class="ms-name">Watchtower</span><span class="ms-sep">·</span><span class="ms-tag">Compliance and inventory, watched.</span></div>
-      <div class="ms-row"><span class="ms-name">Stack</span><span class="ms-sep">·</span><span class="ms-tag">MCP servers, ready to install.</span></div>
+      <div class="ms-row">
+        <svg class="ms-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2 20 L11 20 L14 8 L20 32 L23 16 L26 24 L29 20 L38 20"/>
+        </svg>
+        <span class="ms-name">Pulse</span><span class="ms-sep">·</span><span class="ms-tag">Yesterday in one message.</span>
+      </div>
+      <div class="ms-row">
+        <svg class="ms-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="6" y="8" width="12" height="24" rx="1"/>
+          <rect x="22" y="8" width="12" height="24" rx="1"/>
+          <path d="M10 14 H14 M10 18 H14 M26 14 H30 M26 18 H30"/>
+        </svg>
+        <span class="ms-name">Almanac</span><span class="ms-sep">·</span><span class="ms-tag">The Monday morning report.</span>
+      </div>
+      <div class="ms-row">
+        <svg class="ms-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 6 L26 6 L24 14 L16 14 Z"/>
+          <path d="M16 14 L16 34 M24 14 L24 34"/>
+          <path d="M12 34 L28 34"/>
+          <path d="M20 6 L20 2"/>
+        </svg>
+        <span class="ms-name">Watchtower</span><span class="ms-sep">·</span><span class="ms-tag">Compliance and inventory, watched.</span>
+      </div>
+      <div class="ms-row">
+        <svg class="ms-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="6" y="8" width="28" height="6" rx="1"/>
+          <rect x="6" y="17" width="28" height="6" rx="1"/>
+          <rect x="6" y="26" width="28" height="6" rx="1"/>
+          <circle cx="11" cy="11" r="0.8" fill="currentColor"/>
+          <circle cx="11" cy="20" r="0.8" fill="currentColor"/>
+          <circle cx="11" cy="29" r="0.8" fill="currentColor"/>
+        </svg>
+        <span class="ms-name">Stack</span><span class="ms-sep">·</span><span class="ms-tag">MCP servers, ready to install.</span>
+      </div>
     </div>
     <a class="modules-more reveal" href="/products/">See all eight modules <span class="arrow">→</span></a>
   </div>
