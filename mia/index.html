@@ -4,705 +4,362 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
-<title>For Mia — WildBreeze</title>
-<meta name="description" content="Ten compliments, pulled from two years of your customer-service work.">
+<title>For Mia — A Folio of Letters, 2024 – 2026</title>
+<meta name="description" content="Ten letters from the past two years. Privately compiled.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --bg-0: #06080F;
-  --bg-1: #0A0E1A;
-  --bg-2: #10172A;
-  --ink:   #F2F4FA;
-  --ink-2: #B6BDD0;
-  --ink-3: #6F7793;
-  --line:   rgba(255,255,255,0.08);
-  --line-2: rgba(255,255,255,0.14);
-  --cyan:   #5EF2FF;
-  --violet: #A78BFA;
-  --phos:   #B8FF6E;
-  --warn:   #FFB46B;
-  --serif: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --sans:  "Inter", ui-sans-serif, system-ui, sans-serif;
-  --mono:  "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --maxw: 1180px;
+  --paper:    #f5ecd7;          /* warm aged cream */
+  --paper-2:  #f1e6cc;          /* slightly deeper crease */
+  --paper-3:  #ece0bf;          /* the deeper paper */
+  --ink:      #2a2118;          /* deep brown-black, never pure black */
+  --ink-2:    #4a3d2c;          /* secondary type */
+  --ink-3:    #7a6a4f;          /* small type, captions */
+  --sepia:    #8a5a2c;          /* drop caps, ornament accents */
+  --sepia-2:  #a87340;          /* lighter sepia */
+  --rule:     rgba(60, 45, 25, 0.18);
+  --rule-2:   rgba(60, 45, 25, 0.34);
+  --serif:    "EB Garamond", "Garamond", Georgia, serif;
+  --display:  "Cormorant Garamond", "EB Garamond", "Garamond", Georgia, serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html {
-  background: var(--bg-0);
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-}
-
-body {
-  background: transparent;
-  position: relative;
-  z-index: 0;
-  font-family: var(--sans);
+html, body {
+  background: var(--paper);
   color: var(--ink);
-  line-height: 1.55;
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "onum" 1;
 }
 
-/* Background stack */
-.field {
-  position: fixed; inset: 0; z-index: -3;
-  background:
-    radial-gradient(1200px 800px at 78% -10%, rgba(94, 242, 255, 0.18), transparent 60%),
-    radial-gradient(900px 600px at 12% 5%, rgba(167, 139, 250, 0.18), transparent 60%),
-    radial-gradient(1000px 700px at 50% 110%, rgba(94, 242, 255, 0.10), transparent 60%),
-    linear-gradient(180deg, #06080F 0%, #080B17 50%, #06080F 100%);
-}
-#flow {
-  position: fixed; inset: 0; z-index: -2;
-  width: 100%; height: 100%;
-  pointer-events: none;
-  opacity: 0.85;
-  mix-blend-mode: screen;
-}
-.grid {
-  position: fixed; inset: 0; z-index: -1;
+/* Subtle paper texture: layered radial gradients give the cream a softly
+   uneven, hand-pressed feel without external images. */
+body {
   background-image:
-    linear-gradient(to right, var(--line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black 30%, transparent 80%);
-  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black 30%, transparent 80%);
-  opacity: 0.55;
-  pointer-events: none;
-  animation: gridDrift 60s linear infinite;
-}
-@keyframes gridDrift {
-  0%   { background-position: 0 0, 0 0; }
-  100% { background-position: 64px 64px, 64px 64px; }
+    radial-gradient(circle at 18% 12%, rgba(120, 90, 50, 0.05) 0%, transparent 32%),
+    radial-gradient(circle at 82% 8%, rgba(120, 90, 50, 0.04) 0%, transparent 30%),
+    radial-gradient(circle at 8% 62%, rgba(140, 105, 60, 0.045) 0%, transparent 36%),
+    radial-gradient(circle at 92% 78%, rgba(120, 90, 50, 0.05) 0%, transparent 34%),
+    radial-gradient(circle at 50% 100%, rgba(160, 120, 70, 0.04) 0%, transparent 50%);
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 
-/* HUD chrome */
-.hud-corners { position: fixed; inset: 18px; z-index: 40; pointer-events: none; }
-.hud-corners::before, .hud-corners::after,
-.hud-corners > i, .hud-corners > b {
-  content: ""; position: absolute;
-  width: 22px; height: 22px;
-  border: 1px solid rgba(94, 242, 255, 0.55);
-  box-shadow: 0 0 14px rgba(94, 242, 255, 0.25);
-}
-.hud-corners::before { top: 0; left: 0; border-right: 0; border-bottom: 0; }
-.hud-corners::after  { top: 0; right: 0; border-left: 0; border-bottom: 0; }
-.hud-corners > i     { bottom: 0; left: 0; border-right: 0; border-top: 0; }
-.hud-corners > b     { bottom: 0; right: 0; border-left: 0; border-top: 0; }
-
-.telemetry, .coords {
-  position: fixed; bottom: 22px; z-index: 41;
-  font-family: var(--mono); font-size: 10.5px;
-  letter-spacing: 0.08em; color: var(--ink-3);
-  pointer-events: none;
-}
-.telemetry { left: 30px; display: flex; align-items: center; gap: 10px; }
-.coords    { right: 30px; }
-.telemetry .live {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--phos); box-shadow: 0 0 10px var(--phos);
-  animation: pulse 1.6s ease-in-out infinite;
-}
-.telemetry .sep { color: rgba(255,255,255,0.18); }
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.45; } }
-
-@media (max-width: 720px) {
-  .hud-corners, .telemetry, .coords { display: none; }
+/* The folio: a single bound column, generous margins, page feel. */
+.folio {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 88px 36px 120px;
 }
 
-/* Layout */
-.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; position: relative; }
-
-/* Header */
-header.nav {
-  position: sticky; top: 0; z-index: 50;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  background: rgba(6, 8, 15, 0.55);
-  border-bottom: 1px solid var(--line);
+/* ===== TITLE PAGE ===== */
+.title-page {
+  text-align: center;
+  padding: 70px 0 60px;
+  border-bottom: 1px solid var(--rule);
 }
-header.nav .row {
-  display: flex; align-items: center; justify-content: space-between;
-  height: 64px;
+.title-page .ornament-top {
+  font-family: var(--display);
+  font-size: 22px;
+  color: var(--sepia);
+  letter-spacing: 0.4em;
+  margin-bottom: 56px;
+  font-style: italic;
 }
-.logo {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-family: var(--serif); font-weight: 600;
-  letter-spacing: -0.01em; font-size: 17px;
-  color: var(--ink); text-decoration: none;
+.title-page h1 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(54px, 9vw, 86px);
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  margin-bottom: 28px;
+  color: var(--ink);
 }
-.logo .mark {
-  width: 36px; height: 18px;
-  display: inline-block; overflow: visible;
-  filter: drop-shadow(0 0 6px rgba(94, 242, 255, 0.55))
-          drop-shadow(0 0 14px rgba(167, 139, 250, 0.30));
+.title-page h1 em {
+  font-style: italic;
+  color: var(--sepia);
+  font-weight: 400;
 }
-.logo .mark .wave { animation: waveFlow 3.4s linear infinite; }
-@keyframes waveFlow {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-8px); }
-}
-.header-meta {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  color: var(--ink-3);
-  text-transform: uppercase;
-}
-.header-meta .live-dot {
-  display: inline-block;
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--phos); box-shadow: 0 0 8px var(--phos);
-  margin-right: 8px; vertical-align: middle;
-  animation: pulse 1.6s ease-in-out infinite;
-}
-
-/* Hero */
-.hero {
-  padding: 130px 0 80px;
-  position: relative;
-}
-.hero .eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 7px 14px;
-  border: 1px solid var(--line-2);
-  border-radius: 999px;
-  background: rgba(255,255,255,0.02);
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+.title-page .subtitle {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(20px, 2.4vw, 26px);
   color: var(--ink-2);
+  font-weight: 400;
+  margin-bottom: 70px;
+  letter-spacing: 0.005em;
+}
+.title-page .ornament {
+  color: var(--sepia);
+  font-size: 26px;
+  letter-spacing: 0.6em;
+  margin: 30px 0;
+}
+.title-page .imprint {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink-3);
+  line-height: 1.6;
+  font-feature-settings: "kern" 1, "liga" 1, "smcp" 1;
+}
+.title-page .imprint .roman {
+  font-style: normal;
+  font-variant: small-caps;
+  letter-spacing: 0.18em;
+}
+
+/* ===== PREFACE ===== */
+.preface {
+  padding: 80px 0 56px;
+  border-bottom: 1px solid var(--rule);
+}
+.preface-label {
+  font-family: var(--display);
+  font-style: italic;
+  font-variant: small-caps;
+  font-size: 14px;
+  letter-spacing: 0.28em;
+  color: var(--sepia);
+  text-align: center;
   margin-bottom: 36px;
 }
-.hero .eyebrow .dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--cyan); box-shadow: 0 0 8px var(--cyan);
-}
-.hero h1 {
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: clamp(48px, 9vw, 108px);
-  line-height: 0.98;
-  letter-spacing: -0.04em;
-  margin-bottom: 28px;
-}
-.hero h1 .accent {
-  background: linear-gradient(110deg, var(--cyan) 20%, var(--violet) 80%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  font-style: italic;
-  font-weight: 400;
-}
-.hero .lede {
-  font-size: clamp(17px, 1.5vw, 19px);
-  color: var(--ink-2);
-  line-height: 1.6;
-  max-width: 60ch;
-  margin-bottom: 40px;
-}
-.hero-meta {
-  display: flex; flex-wrap: wrap; gap: 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  padding: 22px 0;
-  margin-top: 60px;
-}
-.hero-meta .cell {
-  flex: 1; min-width: 180px;
-  padding: 0 24px;
-  border-right: 1px solid var(--line);
-}
-.hero-meta .cell:first-child { padding-left: 0; }
-.hero-meta .cell:last-child { border-right: 0; padding-right: 0; }
-.hero-meta .cell .k {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  margin-bottom: 8px;
-}
-.hero-meta .cell .v {
-  font-family: var(--serif);
-  font-size: 22px;
-  font-weight: 500;
+.preface p {
+  font-size: 19px;
+  line-height: 1.75;
   color: var(--ink);
-  letter-spacing: -0.01em;
+  margin-bottom: 1.1em;
+  text-align: justify;
+  hyphens: auto;
 }
-.hero-meta .cell .v .unit {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--ink-3);
-  letter-spacing: 0.08em;
-  margin-left: 6px;
-  text-transform: uppercase;
+.preface p + p { text-indent: 1.6em; }
+.preface p:first-of-type::first-letter {
+  font-family: var(--display);
+  float: left;
+  font-size: 4.6em;
+  line-height: 0.86;
+  padding: 0.05em 0.08em 0 0;
+  color: var(--sepia);
+  font-weight: 500;
 }
 
-/* Compliments section */
-.section { padding: 80px 0 120px; position: relative; border-top: 1px solid var(--line); }
-.section-head { display: flex; flex-direction: column; gap: 14px; margin-bottom: 56px; max-width: 760px; }
-.kicker {
-  font-family: var(--mono);
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--cyan);
-}
-.section-head h2 {
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: clamp(30px, 4vw, 46px);
-  letter-spacing: -0.025em;
-  line-height: 1.05;
-}
-.section-head h2 .accent {
-  background: linear-gradient(110deg, var(--cyan) 20%, var(--violet) 80%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  font-style: italic;
-  font-weight: 400;
-}
-.section-head .sub {
-  font-size: 16px;
-  color: var(--ink-2);
-  max-width: 60ch;
-}
+/* ===== PASSAGES ===== */
+.passages { padding: 70px 0 0; }
 
-/* Compliment cards */
-.compliments {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
+.passage {
+  padding: 56px 0 60px;
+  border-bottom: 1px solid var(--rule);
 }
-.card {
-  position: relative;
-  padding: 36px 36px 32px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
-  transition: all 220ms ease;
-  overflow: hidden;
-}
-.card::before {
-  content: ""; position: absolute; inset: 0;
-  background: radial-gradient(500px 220px at 80% 0%, rgba(94, 242, 255, 0.08), transparent 60%);
-  opacity: 0;
-  transition: opacity 350ms ease;
-  pointer-events: none;
-}
-.card:hover { border-color: var(--line-2); transform: translateY(-1px); }
-.card:hover::before { opacity: 1; }
-.card-head {
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 12px;
-  margin-bottom: 24px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid var(--line);
-}
-.card-head .num {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--ink-3);
-  letter-spacing: 0.1em;
-}
-.card-head .meta {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--ink-3);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  display: flex; gap: 14px; align-items: center;
-}
-.card-head .meta .name {
-  color: var(--cyan);
+.passage:last-of-type { border-bottom: 0; }
+
+.passage .roman {
+  font-family: var(--display);
   font-weight: 500;
-}
-.card-head .meta .star {
-  color: var(--phos);
-  font-size: 12px;
-}
-.quote-da {
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: clamp(19px, 2vw, 24px);
-  line-height: 1.45;
-  color: var(--ink);
-  letter-spacing: -0.005em;
-  white-space: pre-line;
+  font-style: italic;
+  font-size: 44px;
+  text-align: center;
+  color: var(--sepia);
+  letter-spacing: 0.04em;
   margin-bottom: 22px;
 }
-.quote-da::before {
-  content: "“";
-  font-size: 1.5em;
-  color: var(--cyan);
-  margin-right: 4px;
-  vertical-align: -0.15em;
+.passage .byline {
+  font-family: var(--serif);
   font-style: italic;
-  opacity: 0.7;
-}
-.quote-da::after {
-  content: "”";
-  font-size: 1.5em;
-  color: var(--cyan);
-  margin-left: 4px;
-  vertical-align: -0.15em;
-  font-style: italic;
-  opacity: 0.7;
-}
-.quote-en {
-  font-family: var(--sans);
-  font-size: 14.5px;
-  line-height: 1.55;
+  font-variant: small-caps;
+  font-size: 13.5px;
+  letter-spacing: 0.24em;
+  text-align: center;
   color: var(--ink-3);
-  border-top: 1px dashed var(--line);
-  padding-top: 18px;
-  margin-top: 4px;
-  font-style: italic;
+  margin-bottom: 44px;
 }
-.quote-en .label {
-  font-family: var(--mono);
-  font-style: normal;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  opacity: 0.7;
-  margin-right: 10px;
+.passage .byline .name {
+  color: var(--ink-2);
+  font-weight: 500;
+}
+.passage .byline .sep {
+  margin: 0 12px;
+  color: var(--sepia-2);
 }
 
-/* Closing */
-.closing {
-  margin-top: 64px;
-  padding: 44px 36px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background:
-    radial-gradient(600px 240px at 80% 0%, rgba(94, 242, 255, 0.08), transparent 60%),
-    radial-gradient(500px 220px at 10% 100%, rgba(167, 139, 250, 0.08), transparent 60%),
-    rgba(255,255,255,0.015);
+/* The Danish original — set as the body text, with a drop cap on the first letter */
+.passage .original {
+  font-size: 19px;
+  line-height: 1.72;
+  color: var(--ink);
+  margin-bottom: 44px;
+  white-space: pre-line;
+}
+.passage .original .dropcap {
+  font-family: var(--display);
+  float: left;
+  font-size: 4.4em;
+  line-height: 0.84;
+  padding: 0.06em 0.1em 0 0;
+  color: var(--sepia);
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* The English rendering — smaller, italic, set off with an asterism */
+.passage .rendering {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: var(--ink-2);
+  padding: 18px 28px 0;
+  border-top: 1px solid var(--rule);
+  margin: 0 14px;
+  position: relative;
+}
+.passage .rendering::before {
+  content: "⁂";
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--paper);
+  padding: 0 14px;
+  color: var(--sepia);
+  font-size: 18px;
+  font-style: normal;
+  letter-spacing: 0.1em;
+}
+.passage .rendering .label {
+  font-family: var(--display);
+  font-style: italic;
+  font-variant: small-caps;
+  font-size: 11.5px;
+  letter-spacing: 0.24em;
+  color: var(--sepia);
+  margin-right: 12px;
+  font-weight: 500;
+}
+
+/* ===== CLOSING ===== */
+.colophon {
+  margin-top: 90px;
+  padding: 56px 0 0;
+  border-top: 2px double var(--rule-2);
   text-align: center;
 }
-.closing h3 {
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: clamp(22px, 2.6vw, 30px);
-  letter-spacing: -0.02em;
-  margin-bottom: 14px;
-  line-height: 1.25;
+.colophon .ornament {
+  font-family: var(--display);
+  color: var(--sepia);
+  font-size: 22px;
+  letter-spacing: 0.5em;
+  margin-bottom: 36px;
 }
-.closing h3 .accent {
-  background: linear-gradient(110deg, var(--cyan) 20%, var(--violet) 80%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  font-style: italic;
+.colophon h3 {
+  font-family: var(--display);
   font-weight: 400;
+  font-style: italic;
+  font-size: clamp(22px, 2.6vw, 28px);
+  line-height: 1.4;
+  color: var(--ink);
+  margin-bottom: 22px;
+  max-width: 22em;
+  margin-left: auto;
+  margin-right: auto;
 }
-.closing p {
-  font-size: 15px;
+.colophon p {
+  font-family: var(--serif);
+  font-size: 16px;
+  line-height: 1.7;
   color: var(--ink-2);
-  max-width: 56ch;
-  margin: 0 auto;
-  line-height: 1.6;
+  font-style: italic;
+  max-width: 28em;
+  margin: 0 auto 1em;
 }
-
-/* Footer */
-footer {
-  border-top: 1px solid var(--line);
-  padding: 48px 0 32px;
-  margin-top: 80px;
-}
-footer .row {
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 16px;
-}
-footer .signoff {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
+.colophon .signature {
+  margin-top: 48px;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 15px;
   color: var(--ink-3);
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
-.reveal { opacity: 0; transform: translateY(14px); transition: opacity 700ms ease, transform 700ms ease; }
-.reveal.in { opacity: 1; transform: none; }
+.colophon .signature .roman {
+  font-style: normal;
+  font-variant: small-caps;
+  letter-spacing: 0.22em;
+  display: block;
+  margin-top: 8px;
+}
 
-@media (max-width: 880px) {
-  .hero { padding: 90px 0 60px; }
-  .hero-meta { flex-direction: column; }
-  .hero-meta .cell { padding: 16px 0; border-right: 0; border-bottom: 1px solid var(--line); }
-  .hero-meta .cell:last-child { border-bottom: 0; }
-  .section { padding: 60px 0 90px; }
-  .card { padding: 28px 24px 26px; }
-  .closing { padding: 36px 22px; }
+/* Page number-like running foot */
+.folio-foot {
+  text-align: center;
+  margin-top: 70px;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink-3);
+  letter-spacing: 0.18em;
 }
-  /* WB-CLIENT-CSS-START */
-  /* Client area pill (footer .legal) — managed by _inject_client_link.py */
-  .client-link {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-family: var(--mono); font-size: 11px;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--ink-2);
-    border: 1px solid var(--line-2);
-    border-radius: 999px;
-    padding: 6px 14px;
-    text-decoration: none;
-    transition: all 180ms ease;
-  }
-  .client-link:hover {
-    color: var(--cyan);
-    border-color: rgba(94, 242, 255, 0.5);
-    background: rgba(94, 242, 255, 0.04);
-  }
-  .client-link .arrow { color: var(--cyan); transition: transform 180ms ease; }
-  .client-link:hover .arrow { transform: translateX(3px); }
-  /* WB-CLIENT-CSS-END */
+
+@media (max-width: 720px) {
+  html, body { font-size: 18px; }
+  .folio { padding: 50px 22px 80px; }
+  .title-page { padding: 30px 0 40px; }
+  .preface { padding: 60px 0 40px; }
+  .passage { padding: 44px 0 50px; }
+  .passage .roman { font-size: 38px; }
+  .passage .rendering { padding: 18px 14px 0; margin: 0 0; }
+  .passage .original .dropcap, .preface p:first-of-type::first-letter { font-size: 3.8em; }
+  .colophon { margin-top: 60px; padding-top: 40px; }
+}
+
+/* Print: behave like a real folio */
+@media print {
+  body { background: white; }
+  .passage { page-break-inside: avoid; }
+  .title-page, .preface, .colophon { page-break-after: always; }
+}
 </style>
-<!-- WB-TAGS-START -->
-<!-- Google tag (gtag.js) — GA4 G-4S960N841V -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4S960N841V"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-4S960N841V');
-</script>
-<!-- WB-TAGS-END -->
 </head>
 <body>
 
-<!-- Background stack -->
-<div class="field" aria-hidden="true"></div>
-<canvas id="flow" aria-hidden="true"></canvas>
-<div class="grid" aria-hidden="true"></div>
+<main class="folio">
 
-<!-- HUD chrome -->
-<div class="hud-corners" aria-hidden="true"><i></i><b></b></div>
-<div class="telemetry" aria-hidden="true">
-  <span class="live"></span> WB · ARCHIVE 02 <span class="sep">/</span> WINDOW 2024-05 → 2026-05 <span class="sep">/</span> RECIPIENT MIA
-</div>
-<div class="coords" aria-hidden="true">N 38.7945&nbsp;&nbsp;E 0.1659</div>
+  <!-- ===== TITLE PAGE ===== -->
+  <section class="title-page">
+    <div class="ornament-top">· · ·</div>
+    <h1>For <em>Mia.</em></h1>
+    <p class="subtitle">A folio of letters from the past two years.</p>
+    <div class="ornament">⁂</div>
+    <p class="imprint">
+      Privately compiled<br>
+      <span class="roman">the sixth of may</span><br>
+      <span class="roman">mmxxvi</span>
+    </p>
+  </section>
 
-<!-- Header -->
-<!-- WB-HEADER-START -->
-<header class="nav">
-  <div class="wrap row">
-    <a href="/" class="logo">
-      <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
-        <defs>
-          <linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#5EF2FF"/>
-            <stop offset="55%" stop-color="#A78BFA"/>
-            <stop offset="100%" stop-color="#5EF2FF"/>
-          </linearGradient>
-        </defs>
-        <g class="wave">
-          <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
-                fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
-                stroke-linecap="round" stroke-linejoin="round"/>
-        </g>
-      </svg>
-      <span>WildBreeze</span>
-    </a>
-    <nav class="main">
-      <a href="/products/">Modules</a>
-      <a href="/field-guide/">Field Guide</a>
-      <a href="/about/">About</a>
-      <a href="/contact/" class="cta">Contact</a>
-      <span class="lang-toggle"><span class="active">EN</span><span class="sep">·</span><a href="/es/" hreflang="es">ES</a></span>
-    </nav>
-    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="wb-mobile-nav">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <line class="bar top"    x1="4" y1="9"  x2="20" y2="9"  stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-        <line class="bar bottom" x1="4" y1="15" x2="20" y2="15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-      </svg>
-    </button>
-  </div>
-</header>
-<div class="nav-sheet" id="wb-mobile-nav" hidden>
-  <div class="nav-sheet-inner">
-    <div class="nav-sheet-kicker">// NAVIGATION</div>
-    <nav class="nav-sheet-links">
-      <a href="/products/">Modules</a>
-      <a href="/field-guide/">Field Guide</a>
-      <a href="/about/">About</a>
-    </nav>
-    <div class="nav-sheet-foot">
-      <span class="lang-toggle"><span class="active">EN</span><span class="sep">·</span><a href="/es/" hreflang="es">ES</a></span>
-      <a class="nav-sheet-cta" href="/contact/">Contact <span class="arrow">→</span></a>
-    </div>
-  </div>
-</div>
-<style id="wb-nav-styles">
-  .nav-toggle {
-    display: none;
-    background: transparent; border: 1px solid var(--line-2);
-    border-radius: 999px; padding: 6px; color: var(--ink); cursor: pointer;
-    transition: border-color 180ms ease, background 180ms ease;
-  }
-  .nav-toggle svg { width: 22px; height: 22px; display: block; }
-  .nav-toggle .bar { transition: transform 220ms ease, opacity 180ms ease; transform-origin: 12px 12px; }
-  .nav-toggle:hover { border-color: rgba(94, 242, 255, 0.5); background: rgba(94, 242, 255, 0.05); }
-  .nav-toggle[aria-expanded="true"] .bar.top    { transform: rotate(45deg)  translate(0, 4.24px); }
-  .nav-toggle[aria-expanded="true"] .bar.bottom { transform: rotate(-45deg) translate(0, -4.24px); }
+  <!-- ===== PREFACE ===== -->
+  <section class="preface">
+    <div class="preface-label">Preface</div>
+    <p>What follows is a small anthology, gathered from two years of customer-service correspondence — the kind of letters that arrive after a problem has been solved kindly, when the writer pauses for an extra minute to put the gratitude into words. Most people, having had their parcel found or their order replaced, simply close the tab. These are the ones who didn't.</p>
+    <p>Ten passages have been selected from many hundreds. They are reproduced verbatim, in the language each was written in — most in Danish, the working tongue of the correspondence — followed by a quiet rendering into English, set in italic. The author of each letter is named only by their first name, and dated to the day it was sent.</p>
+    <p>The shared subject of all ten is the same: a kindness done by a woman named Mia, on an ordinary day, that the writer felt was worth recording.</p>
+  </section>
 
-  .nav-sheet {
-    position: fixed; inset: 0; z-index: 60;
-    background: rgba(6, 8, 15, 0.92);
-    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-    opacity: 0; transition: opacity 220ms ease;
-  }
-  .nav-sheet[hidden] { display: none; }
-  html.nav-open .nav-sheet { opacity: 1; }
-  html.nav-open { overflow: hidden; }
+  <!-- ===== THE TEN PASSAGES ===== -->
+  <section class="passages">
 
-  .nav-sheet-inner {
-    max-width: var(--maxw); margin: 0 auto;
-    padding: 88px 28px 32px;
-    height: 100%; display: flex; flex-direction: column;
-    transform: translateY(-12px); transition: transform 240ms ease;
-  }
-  html.nav-open .nav-sheet-inner { transform: translateY(0); }
-
-  .nav-sheet-kicker {
-    font-family: var(--mono); font-size: 11px;
-    letter-spacing: 0.14em; color: var(--cyan); margin-bottom: 24px;
-  }
-  .nav-sheet-links { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
-  .nav-sheet-links a {
-    font-family: var(--serif); font-weight: 500;
-    font-size: 28px; letter-spacing: -0.015em; color: var(--ink);
-    padding: 22px 0; border-bottom: 1px solid var(--line);
-    text-decoration: none;
-    transition: color 180ms ease;
-  }
-  .nav-sheet-links a:active, .nav-sheet-links a:hover { color: var(--cyan); }
-
-  .nav-sheet-foot {
-    margin-top: auto; padding-top: 28px;
-    display: flex; flex-direction: column; gap: 18px;
-  }
-  .nav-sheet-foot .lang-toggle { margin: 0; align-self: flex-start; font-size: 13px; }
-  .nav-sheet-cta {
-    width: 100%; justify-content: center; padding: 14px 18px;
-    display: inline-flex; align-items: center; gap: 8px;
-    border-radius: 999px;
-    background: linear-gradient(180deg, rgba(94, 242, 255, 0.95), rgba(94, 242, 255, 0.7));
-    color: #001318; border: 1px solid transparent;
-    font-family: var(--sans); font-size: 14px; font-weight: 600;
-    text-decoration: none;
-    box-shadow: 0 8px 24px -8px rgba(94, 242, 255, 0.6),
-                inset 0 0 0 1px rgba(255,255,255,0.4);
-  }
-  .nav-sheet-cta .arrow { transition: transform 180ms ease; }
-  .nav-sheet-cta:hover .arrow { transform: translateX(3px); }
-
-  @media (max-width: 880px) {
-    .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
-    header.nav nav.main { display: none; }
-  }
-  @media (min-width: 881px) { .nav-sheet { display: none !important; } }
-  @media (prefers-reduced-motion: reduce) {
-    .nav-sheet, .nav-sheet-inner, .nav-toggle .bar { transition: opacity 0.01ms; transform: none !important; }
-  }
-</style>
-<script id="wb-nav-script">
-(function(){
-  var toggle = document.querySelector('.nav-toggle');
-  var sheet  = document.getElementById('wb-mobile-nav');
-  if (!toggle || !sheet) return;
-  var html = document.documentElement, lastFocus = null;
-  function open(){
-    lastFocus = document.activeElement;
-    sheet.hidden = false;
-    requestAnimationFrame(function(){
-      html.classList.add('nav-open');
-      toggle.setAttribute('aria-expanded', 'true');
-      toggle.setAttribute('aria-label', 'Close menu');
-      var first = sheet.querySelector('a, button'); if (first) first.focus();
-    });
-  }
-  function close(){
-    html.classList.remove('nav-open');
-    toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-label', 'Open menu');
-    setTimeout(function(){ sheet.hidden = true; }, 250);
-    if (lastFocus && lastFocus.focus) lastFocus.focus();
-  }
-  toggle.addEventListener('click', function(){
-    toggle.getAttribute('aria-expanded') === 'true' ? close() : open();
-  });
-  sheet.addEventListener('click', function(e){ if (e.target === sheet) close(); });
-  sheet.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
-  document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') close();
-  });
-  var mq = window.matchMedia('(min-width: 881px)');
-  if (mq.addEventListener) mq.addEventListener('change', function(e){ if (e.matches) close(); });
-})();
-</script>
-<!-- WB-HEADER-END -->
-
-<!-- Hero -->
-<section class="hero">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="eyebrow"><span class="dot"></span>A Private Note · 2024 — 2026</div>
-      <h1>For Mia. <span class="accent">Ten things people said.</span></h1>
-      <p class="lede">Two years of customer-service replies, read end to end. Ten of the warmest things people wrote back to you — verbatim, in the language they sent them in. The compliments that made strangers stop and write a thank-you note instead of just clicking close.</p>
-    </div>
-
-    <div class="hero-meta reveal">
-      <div class="cell">
-        <div class="k">Window</div>
-        <div class="v">730 <span class="unit">days</span></div>
-      </div>
-      <div class="cell">
-        <div class="k">Replies signed “Mia”</div>
-        <div class="v">~28,000</div>
-      </div>
-      <div class="cell">
-        <div class="k">Languages</div>
-        <div class="v">DA · SV · EN</div>
-      </div>
-      <div class="cell">
-        <div class="k">Method</div>
-        <div class="v">Hand-picked</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Compliments -->
-<section class="section">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="kicker">001 — The Top Ten</div>
-      <h2>The compliments, <span class="accent">in their own words.</span></h2>
-      <p class="sub">Roughly ranked by warmth. The first one is the one we kept coming back to.</p>
-    </div>
-
-    <div class="compliments">
-
-      <!-- 01 -->
-      <article class="card reveal">
-        <div class="card-head">
-          <div class="num">// 01</div>
-          <div class="meta">
-            <span class="name">Maria</span>
-            <span>29 April 2026</span>
-          </div>
-        </div>
-        <div class="quote-da">Kære Mia,
+    <!-- I -->
+    <article class="passage">
+      <div class="roman">I.</div>
+      <div class="byline"><span class="name">Maria</span><span class="sep">·</span> the twenty-ninth of april, mmxxvi</div>
+      <div class="original"><span class="dropcap">K</span>ære Mia,
 
 Min ros til jer er 100 % velfortjent. Jeg er meget taknemmelig for rabatkoden men det er alt alt for meget. Det burde være en selvfølge at rose et menneske når der leveres et super godt stykke arbejde.
 
@@ -711,19 +368,14 @@ Min ros til jer er 100 % velfortjent. Jeg er meget taknemmelig for rabatkoden me
 God dag kære Mia.
 
 Kh Maria.</div>
-        <div class="quote-en"><span class="label">EN</span>Dear Mia, my praise for you is 100% deserved. I'm grateful for the discount code but it's far, far too much. It should go without saying that you praise a person when they deliver such a good piece of work. 1000 THANKS for your enormous kindness — I won't forget it 🙏❣️. Have a good day, dear Mia. Hugs, Maria.</div>
-      </article>
+      <div class="rendering"><span class="label">Rendering</span>Dear Mia, my praise for you is one hundred per cent deserved. I am very grateful for the discount code but it is far, far too much. It should go without saying that one praises a person when they deliver such a truly good piece of work. A thousand thanks for your enormous kindness — I shall not forget it. Good day, dear Mia. — With love, Maria.</div>
+    </article>
 
-      <!-- 02 -->
-      <article class="card reveal">
-        <div class="card-head">
-          <div class="num">// 02</div>
-          <div class="meta">
-            <span class="name">Oskar</span>
-            <span>21 October 2024</span>
-          </div>
-        </div>
-        <div class="quote-da">Hej Mia!
+    <!-- II -->
+    <article class="passage">
+      <div class="roman">II.</div>
+      <div class="byline"><span class="name">Oskar</span><span class="sep">·</span> the twenty-first of october, mmxxiv</div>
+      <div class="original"><span class="dropcap">H</span>ej Mia!
 
 Tusind tak for det, det var en rart at komme afsted!🌞
 
@@ -734,39 +386,28 @@ Jeg vender helt sikkert tilbage næste gang jeg skal ha noget til min træning, 
 Rigitg god mandag!
 
 Vh Oskar</div>
-        <div class="quote-en"><span class="label">EN</span>Hi Mia! Thank you so much, it was lovely to get away on the trip 🌞. And a huge thank you for your help — this is hands down the very best customer service I have ever experienced! Massive thanks 🙏. I'll absolutely come back next time I need something for my training, and I'll be giving you a huge recommendation to friends and family! Have a really good Monday! Best, Oskar</div>
-      </article>
+      <div class="rendering"><span class="label">Rendering</span>Hi Mia! Thank you so much — it was lovely to be able to get away. And a thousand thanks for your help — this is, without question, the very best customer service I have ever experienced. Huge thanks for that. I will absolutely come back the next time I need anything for my training, and I will give you a huge recommendation to friends and family. Have a really good Monday. — Best, Oskar.</div>
+    </article>
 
-      <!-- 03 -->
-      <article class="card reveal">
-        <div class="card-head">
-          <div class="num">// 03</div>
-          <div class="meta">
-            <span class="name">Sabine</span>
-            <span>11 December 2025</span>
-          </div>
-        </div>
-        <div class="quote-da">Hej Mia
+    <!-- III -->
+    <article class="passage">
+      <div class="roman">III.</div>
+      <div class="byline"><span class="name">Sabine</span><span class="sep">·</span> the eleventh of december, mmxxv</div>
+      <div class="original"><span class="dropcap">H</span>ej Mia,
 
 Ejjj tusind tak Mia, du er dagens stjerne ⭐️⭐️.
 
 Det er jeg så glad for, tusind tusind tak 🫶🏼.
 
 De bedste hilsner Sabine</div>
-        <div class="quote-en"><span class="label">EN</span>Hi Mia — oh, a thousand thanks Mia, you are the star of the day ⭐️⭐️. I'm so happy about this, thank you a thousand times 🫶🏼. Best wishes, Sabine</div>
-      </article>
+      <div class="rendering"><span class="label">Rendering</span>Hi Mia — oh, a thousand thanks Mia, you are the star of the day. I am so happy about this; thank you a thousand times over. — Best wishes, Sabine.</div>
+    </article>
 
-      <!-- 04 -->
-      <article class="card reveal">
-        <div class="card-head">
-          <div class="num">// 04</div>
-          <div class="meta">
-            <span class="name">Jonathan</span>
-            <span>17 April 2025</span>
-            <span class="star">★★★★★</span>
-          </div>
-        </div>
-        <div class="quote-da">Hej igen Mia,
+    <!-- IV -->
+    <article class="passage">
+      <div class="roman">IV.</div>
+      <div class="byline"><span class="name">Jonathan</span><span class="sep">·</span> the seventeenth of april, mmxxv</div>
+      <div class="original"><span class="dropcap">H</span>ej igen Mia,
 
 Det er lige netop sådan en her respons og personlig besked der adskiller jer for resten 🙏
 
@@ -774,20 +415,14 @@ Tusind tak igen. Du har gjort min dag rigtig god 😊 God påske.
 
 Mvh
 Jonathan</div>
-        <div class="quote-en"><span class="label">EN</span>Hi again Mia — this is exactly the kind of response and personal message that sets you apart from the rest 🙏. Thank you so much again. You have made my day really good 😊. Happy Easter. Best, Jonathan</div>
-      </article>
+      <div class="rendering"><span class="label">Rendering</span>Hello again Mia — this is exactly the sort of response and personal message that sets you apart from all the rest. A thousand thanks again. You have made my day truly good. Happy Easter. — Best, Jonathan.</div>
+    </article>
 
-      <!-- 05 -->
-      <article class="card reveal">
-        <div class="card-head">
-          <div class="num">// 05</div>
-          <div class="meta">
-            <span class="name">Anette</span>
-            <span>14 January 2025</span>
-            <span class="star">★★★★★</span>
-          </div>
-        </div>
-        <div class="quote-da">Hej Mia
+    <!-- V -->
+    <article class="passage">
+      <div class="roman">V.</div>
+      <div class="byline"><span class="name">Anette</span><span class="sep">·</span> the fourteenth of january, mmxxv</div>
+      <div class="original"><span class="dropcap">H</span>ej Mia,
 
 Du er fantastisk 🤩
 
@@ -797,40 +432,28 @@ Mange tak 🌸🌸🌸🌸🌸
 
 De bedste hilsner
 Anette 😃</div>
-        <div class="quote-en"><span class="label">EN</span>Hi Mia — you're fantastic 🤩. Many thanks 🌸🌸🌸🌸🌸. And I'd happily take the fourth package off your hands too 😉 if I can transfer 20 kr more? Best wishes, Anette 😃</div>
-      </article>
+      <div class="rendering"><span class="label">Rendering</span>Hi Mia — you are fantastic. Many thanks. And the fourth package, I would happily take that off your hands too, if I can transfer twenty kroner more? — Best wishes, Anette.</div>
+    </article>
 
-      <!-- 06 -->
-      <article class="card reveal">
-        <div class="card-head">
-          <div class="num">// 06</div>
-          <div class="meta">
-            <span class="name">Julius</span>
-            <span>2 January 2025</span>
-            <span class="star">★★★★★</span>
-          </div>
-        </div>
-        <div class="quote-da">Hej Mia
+    <!-- VI -->
+    <article class="passage">
+      <div class="roman">VI.</div>
+      <div class="byline"><span class="name">Julius</span><span class="sep">·</span> the second of january, mmxxv</div>
+      <div class="original"><span class="dropcap">H</span>ej Mia,
 
 Jeg ønsker blot en ny ordre at det samme, som jeg ellers havde bestilt og lidt ekstra ville være rart og værdsat efter omstændighederne :)
 
 Og tak for den gode service Mia! Du er skøn… Jeg håber, at du får et rigtig godt 2025 🙌🏼⭐️
 
 Venlig hilsen Julius</div>
-        <div class="quote-en"><span class="label">EN</span>Hi Mia — I'd just like a new order with the same as I had originally, and a little extra would be nice and appreciated given the circumstances :). And thank you for the good service, Mia! You are lovely… I hope you have a really good 2025 🙌🏼⭐️. Best wishes, Julius</div>
-      </article>
+      <div class="rendering"><span class="label">Rendering</span>Hi Mia — I would simply like a new order with the same as I had originally, and a little extra would be welcome and appreciated under the circumstances. And thank you for the lovely service, Mia. You are wonderful… I hope you have a really good 2025. — Best wishes, Julius.</div>
+    </article>
 
-      <!-- 07 -->
-      <article class="card reveal">
-        <div class="card-head">
-          <div class="num">// 07</div>
-          <div class="meta">
-            <span class="name">Jamal</span>
-            <span>24 February 2026</span>
-            <span class="star">★★★★★</span>
-          </div>
-        </div>
-        <div class="quote-da">Hej Mia,
+    <!-- VII -->
+    <article class="passage">
+      <div class="roman">VII.</div>
+      <div class="byline"><span class="name">Jamal</span><span class="sep">·</span> the twenty-fourth of february, mmxxvi</div>
+      <div class="original"><span class="dropcap">H</span>ej Mia,
 
 Tusind tak for din virkelig gode service, det sætter jeg stor pris på ✨
 
@@ -842,176 +465,64 @@ Håber du får en rigtig dejlig dag.
 
 De bedste hilsner
 Jamal</div>
-        <div class="quote-en"><span class="label">EN</span>Hi Mia — thank you so much for your really good service, I appreciate it deeply ✨. And many thanks for the code and for pointing out the gift card to me — that's truly good customer service, and it means a lot. I'm looking forward to getting the parcel. Hope you have a really lovely day. Best wishes, Jamal</div>
-      </article>
+      <div class="rendering"><span class="label">Rendering</span>Hi Mia — thank you so much for your truly fine service; I appreciate it greatly. And many thanks for the code, and for drawing my attention to the gift card. That is really good customer service, and it means a great deal. I look forward to receiving the parcel. I hope you have a really lovely day. — Best wishes, Jamal.</div>
+    </article>
 
-      <!-- 08 -->
-      <article class="card reveal">
-        <div class="card-head">
-          <div class="num">// 08</div>
-          <div class="meta">
-            <span class="name">Julie</span>
-            <span>20 November 2024</span>
-          </div>
-        </div>
-        <div class="quote-da">Hej igen Mia.
+    <!-- VIII -->
+    <article class="passage">
+      <div class="roman">VIII.</div>
+      <div class="byline"><span class="name">Julie</span><span class="sep">·</span> the twentieth of november, mmxxiv</div>
+      <div class="original"><span class="dropcap">H</span>ej igen Mia,
 
 Tusind tak for hjælpen! Det er bare fantastisk kundeservice 🤩
 
 Igen kæmpe tak!
 
 Hilsen Julie</div>
-        <div class="quote-en"><span class="label">EN</span>Hi again Mia — thank you so much for your help! That is just fantastic customer service 🤩. Again, huge thanks! Greetings, Julie</div>
-      </article>
+      <div class="rendering"><span class="label">Rendering</span>Hello again Mia — a thousand thanks for the help. That is simply fantastic customer service. Again, my huge thanks. — Greetings, Julie.</div>
+    </article>
 
-      <!-- 09 -->
-      <article class="card reveal">
-        <div class="card-head">
-          <div class="num">// 09</div>
-          <div class="meta">
-            <span class="name">Flemming</span>
-            <span>7 August 2025</span>
-          </div>
-        </div>
-        <div class="quote-da">Åhh TAK Mia, du er en stjerne 🌟
+    <!-- IX -->
+    <article class="passage">
+      <div class="roman">IX.</div>
+      <div class="byline"><span class="name">Flemming</span><span class="sep">·</span> the seventh of august, mmxxv</div>
+      <div class="original"><span class="dropcap">Å</span>hh TAK Mia, du er en stjerne 🌟
 
 Jeg vender tilbage og holder mig til protein pulver næste gang. Tak igen.
 
 Vh Flemming</div>
-        <div class="quote-en"><span class="label">EN</span>Oh, THANK YOU Mia — you are a star 🌟. I'll be back, and I'll stick to protein powder next time. Thanks again. Best, Flemming</div>
-      </article>
+      <div class="rendering"><span class="label">Rendering</span>Oh, THANK YOU Mia — you are a star. I shall come back, and I will stick to protein powder next time. Thanks again. — Best, Flemming.</div>
+    </article>
 
-      <!-- 10 -->
-      <article class="card reveal">
-        <div class="card-head">
-          <div class="num">// 10</div>
-          <div class="meta">
-            <span class="name">Troels</span>
-            <span>20 February 2026</span>
-          </div>
-        </div>
-        <div class="quote-da">Tusind tak Mia du er en stjerne! 😊
+    <!-- X -->
+    <article class="passage">
+      <div class="roman">X.</div>
+      <div class="byline"><span class="name">Troels</span><span class="sep">·</span> the twentieth of february, mmxxvi</div>
+      <div class="original"><span class="dropcap">T</span>usind tak Mia du er en stjerne! 😊
 
 Jeg håber også du får en dejlig weekend 😊
 
 Mvh.
 Troels</div>
-        <div class="quote-en"><span class="label">EN</span>Thank you so much Mia — you are a star! 😊. I hope you also have a lovely weekend 😊. Best, Troels</div>
-      </article>
+      <div class="rendering"><span class="label">Rendering</span>A thousand thanks Mia — you are a star. I hope you also have a lovely weekend. — Best, Troels.</div>
+    </article>
 
+  </section>
+
+  <!-- ===== COLOPHON ===== -->
+  <section class="colophon">
+    <div class="ornament">⁂</div>
+    <h3>Two years. Thousands of small kindnesses. All quietly your work.</h3>
+    <p>Ten is the small visible part. The full archive holds many more — the one-line thanks, the smileys at the end of long days, the people who wrote back simply to say thank you. This folio is for the ones who took an extra minute to set it down in words.</p>
+    <div class="signature">
+      Set in EB Garamond &amp; Cormorant Garamond.<br>
+      <span class="roman">a private folio · for mia · with thanks</span>
     </div>
+  </section>
 
-    <!-- Closing note -->
-    <div class="closing reveal">
-      <h3>Two years. Thousands of small kindnesses. <span class="accent">All quietly your work.</span></h3>
-      <p>Ten is the small visible part. The full archive is full of one-line "tak Mia"s, smileys after long days, and customers who wrote back just to say thank you. This page is for the ones who took an extra minute to put it into words.</p>
-    </div>
-  </div>
-</section>
+  <div class="folio-foot">— finis —</div>
 
-<!-- Footer -->
-<footer>
-  <div class="wrap">
-    <div class="row">
-      <div class="signoff">Built quietly · WildBreeze · 2026-05-06</div>
-      <div class="signoff">For Mia · with thanks</div>
-    </div>
-  </div>
-</footer>
-
-<script>
-// Flow-field canvas
-(function(){
-  const canvas = document.getElementById('flow');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const DPR = Math.min(window.devicePixelRatio || 1, 2);
-
-  let w, h, particles;
-  const SPEED = reduced ? 0.25 : 0.6;
-  const TRAIL = reduced ? 0.06 : 0.10;
-  const CAP = reduced ? 70 : 160;
-
-  function resize() {
-    w = canvas.width = window.innerWidth * DPR;
-    h = canvas.height = window.innerHeight * DPR;
-    canvas.style.width = window.innerWidth + 'px';
-    canvas.style.height = window.innerHeight + 'px';
-    const target = Math.min(CAP, Math.floor((window.innerWidth * window.innerHeight) / 14000));
-    particles = new Array(target).fill(0).map(() => ({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      vx: 0,
-      vy: 0,
-      hue: Math.random() < 0.55 ? 'cyan' : 'violet',
-      life: Math.random() * 200
-    }));
-  }
-
-  function noise(x, y, t) {
-    return Math.sin(x * 0.0014 + t * 0.00012) +
-           Math.sin(y * 0.0019 - t * 0.00009) +
-           Math.sin((x + y) * 0.0008 + t * 0.00007);
-  }
-
-  function tick(t) {
-    ctx.fillStyle = 'rgba(6,8,15,' + TRAIL + ')';
-    ctx.fillRect(0, 0, w, h);
-    for (const p of particles) {
-      const n = noise(p.x, p.y, t);
-      const angle = n * Math.PI;
-      p.vx = Math.cos(angle) * SPEED * DPR;
-      p.vy = Math.sin(angle) * SPEED * DPR;
-      p.x += p.vx;
-      p.y += p.vy;
-      p.life++;
-      if (p.life > 600 || p.x < 0 || p.x > w || p.y < 0 || p.y > h) {
-        p.x = Math.random() * w;
-        p.y = Math.random() * h;
-        p.life = 0;
-      }
-      ctx.fillStyle = p.hue === 'cyan'
-        ? 'rgba(94, 242, 255, 0.45)'
-        : 'rgba(167, 139, 250, 0.40)';
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, 1.2 * DPR, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    requestAnimationFrame(tick);
-  }
-
-  window.addEventListener('resize', resize);
-  resize();
-  requestAnimationFrame(tick);
-})();
-
-// Reveal observer
-(function(){
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-})();
-
-// Telemetry drift (gentle)
-(function(){
-  const t = document.querySelector('.telemetry');
-  const c = document.querySelector('.coords');
-  if (!t || !c) return;
-  let lat = 38.7945, lng = 0.1659;
-  setInterval(() => {
-    lat += (Math.random() - 0.5) * 0.0006;
-    lng += (Math.random() - 0.5) * 0.0006;
-    c.textContent = 'N ' + lat.toFixed(4) + '  E ' + lng.toFixed(4);
-  }, 2400);
-})();
-</script>
+</main>
 
 </body>
 </html>
