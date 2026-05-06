@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Catalog analysis — 28-day product snapshot. WildBreeze</title>
+<meta name="description" content="Internal product catalog analysis: top movers, manufacturer breakdown, private-label vs third-party, accelerators, faders, dead capital, BBD watchlist." />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#06080F" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/wb-style.css" />
+<style>
+  /* WB-CLIENT-CSS-START */
+  .client-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-2);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    padding: 6px 14px;
+    text-decoration: none;
+    transition: all 180ms ease;
+  }
+  .client-link:hover {
+    color: var(--cyan);
+    border-color: rgba(94, 242, 255, 0.5);
+    background: rgba(94, 242, 255, 0.04);
+  }
+  .client-link .arrow { color: var(--cyan); transition: transform 180ms ease; }
+  .client-link:hover .arrow { transform: translateX(3px); }
+  /* WB-CLIENT-CSS-END */
+
+  /* analysis-specific tweaks */
+  .lede-card {
+    margin-top: 28px;
+    padding: 26px 28px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(94, 242, 255, 0.04), rgba(167, 139, 250, 0.02));
+  }
+  .lede-card .label {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--cyan); margin-bottom: 10px;
+  }
+  .lede-card p { margin: 0; font-size: 17px; line-height: 1.55; color: var(--ink); }
+
+  .stamp {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-3);
+    margin-top: 22px;
+  }
+  .stamp .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--phos); box-shadow: 0 0 8px var(--phos);
+  }
+
+  .kpi-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    margin: 32px 0 8px;
+  }
+  @media (max-width: 880px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+  .kpi {
+    padding: 22px 22px 20px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+  }
+  .kpi .k-label {
+    font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .kpi .k-value {
+    font-family: var(--serif); font-size: 30px; line-height: 1.05;
+    color: var(--ink); margin-top: 8px;
+    font-feature-settings: "tnum" 1;
+  }
+  .kpi .k-sub {
+    font-family: var(--mono); font-size: 11px; color: var(--ink-3);
+    margin-top: 6px; letter-spacing: 0.04em;
+  }
+
+  .step-num {
+    display: inline-block; font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.14em; color: var(--cyan); margin-bottom: 8px;
+  }
+
+  .prose-body table {
+    width: 100%; border-collapse: collapse; margin: 18px 0 26px;
+    font-family: var(--sans); font-size: 14.5px;
+    font-feature-settings: "tnum" 1;
+  }
+  .prose-body table th,
+  .prose-body table td {
+    text-align: left; vertical-align: top;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .prose-body table th {
+    font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 500;
+    border-bottom: 1px solid var(--line-2);
+  }
+  .prose-body table td.num { text-align: right; white-space: nowrap; }
+  .prose-body table th.num { text-align: right; }
+  .prose-body table td.mfr {
+    font-family: var(--mono); font-size: 11.5px; color: var(--ink-2);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .pos { color: var(--phos); }
+  .neg { color: var(--warn); }
+  .own-brand-tag {
+    display: inline-block;
+    font-family: var(--mono); font-size: 9.5px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--cyan);
+    border: 1px solid rgba(94,242,255,0.4);
+    border-radius: 999px;
+    padding: 1px 7px;
+    margin-left: 6px;
+    vertical-align: 2px;
+  }
+
+  .insight {
+    margin: 32px 0;
+    padding: 22px 26px;
+    border-left: 2px solid var(--cyan);
+    background: linear-gradient(90deg, rgba(94,242,255,0.06), transparent 80%);
+    border-radius: 0 14px 14px 0;
+  }
+  .insight .label {
+    font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--cyan); margin-bottom: 6px;
+  }
+  .insight p { margin: 4px 0 0; font-size: 16px; color: var(--ink-2); }
+  .insight strong { color: var(--ink); }
+
+  .meta-line {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-3); letter-spacing: 0.04em;
+    margin-top: 4px;
+  }
+</style>
+<!-- WB-TAGS-START -->
+<!-- Google tag (gtag.js) — GA4 G-4S960N841V -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4S960N841V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4S960N841V');
+</script>
+<!-- WB-TAGS-END -->
+</head>
+<body>
+
+<div class="field" aria-hidden="true"></div>
+<div class="grid" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap row">
+    <a href="/" class="logo">
+      <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+        <defs>
+          <linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#5EF2FF"/>
+            <stop offset="55%" stop-color="#A78BFA"/>
+            <stop offset="100%" stop-color="#5EF2FF"/>
+          </linearGradient>
+        </defs>
+        <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+              fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>WildBreeze</span>
+    </a>
+  </div>
+</header>
+
+<article>
+  <section class="page-hero">
+    <div class="wrap prose">
+      <div class="kicker">CATALOG ANALYSIS · 28-DAY SNAPSHOT</div>
+      <h1 class="page-title">Product catalog — <span class="accent">what's actually happening.</span></h1>
+
+      <div class="lede-card">
+        <div class="label">Goal</div>
+        <p>A defensible read of the product catalog over the last 28 days — top movers, manufacturer share, private-label vs third-party, products gaining and losing pace, dead capital, expiry risk. Built off real order data, not the catalog snapshot's contaminated rollups.</p>
+      </div>
+
+      <div class="stamp"><span class="dot"></span> Internal · last refresh 2026-05-04 · window: rolling 28d ending yesterday</div>
+    </div>
+  </section>
+
+  <section class="prose-body">
+    <div class="wrap prose">
+
+      <h2>Headline numbers</h2>
+
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="k-label">Revenue 28d</div>
+          <div class="k-value">358.374 €</div>
+          <div class="k-sub">incl-VAT · 286.699 € ex-VAT</div>
+        </div>
+        <div class="kpi">
+          <div class="k-label">Gross margin 28d</div>
+          <div class="k-value">85.468 €</div>
+          <div class="k-sub">29,8% margin · ex-VAT</div>
+        </div>
+        <div class="kpi">
+          <div class="k-label">Units sold 28d</div>
+          <div class="k-value">119.131</div>
+          <div class="k-sub">across 20.174 order lines</div>
+        </div>
+        <div class="kpi">
+          <div class="k-label">Active SKUs</div>
+          <div class="k-value">903</div>
+          <div class="k-sub">of 3.402 in catalog · ~27%</div>
+        </div>
+      </div>
+
+      <p class="meta-line">// totals exclude configurable parents (display-only listings) and shipping-method "products".</p>
+
+      <span class="step-num">01 — TOP MOVERS</span>
+      <h2>Top 12 SKUs by revenue</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Mfr</th>
+            <th class="num">Units 28d</th>
+            <th class="num">Rev incl-VAT</th>
+            <th class="num">Margin ex-VAT</th>
+            <th class="num">Mgn %</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Kreatin (400 g)<span class="own-brand-tag">own</span></td><td class="mfr">Fitnessnord</td><td class="num">1.336</td><td class="num">16.187 €</td><td class="num">7.061 €</td><td class="num pos">54,5%</td></tr>
+          <tr><td>Whey Protein (3 × 330 g) — Vanilla</td><td class="mfr">Tilbud</td><td class="num">721</td><td class="num">11.511 €</td><td class="num">3.125 €</td><td class="num">33,9%</td></tr>
+          <tr><td>Multipower Protein Power Layer Bar — Cookies & Cream</td><td class="mfr">Multipower</td><td class="num">13.435</td><td class="num">9.703 €</td><td class="num">2.487 €</td><td class="num">32,0%</td></tr>
+          <tr><td>Ragnarok Protein 1 kg — Chocolate<span class="own-brand-tag">own</span></td><td class="mfr">Ragnarok</td><td class="num">407</td><td class="num">8.140 €</td><td class="num">1.768 €</td><td class="num">27,1%</td></tr>
+          <tr><td>Fitnessnord Whey Isolate 1 kg — Chocolate<span class="own-brand-tag">own</span></td><td class="mfr">Fitnessnord</td><td class="num">178</td><td class="num">6.460 €</td><td class="num">1.287 €</td><td class="num">24,9%</td></tr>
+          <tr><td>Barebells Protein Bar — White Salty Peanut</td><td class="mfr">Barebells</td><td class="num">7.066</td><td class="num">5.643 €</td><td class="num">1.707 €</td><td class="num">37,8%</td></tr>
+          <tr><td>Valle & Kasein 500 g — Chocolate</td><td class="mfr">Tilbud</td><td class="num">589</td><td class="num">5.080 €</td><td class="num">1.561 €</td><td class="num">38,4%</td></tr>
+          <tr><td>AK-47 Blaze PWO 600 g — Fruit Punch</td><td class="mfr">AK47 Labs</td><td class="num">187</td><td class="num">4.986 €</td><td class="num">2.078 €</td><td class="num pos">52,1%</td></tr>
+          <tr><td>Multipower 53% Protein Boost Bar — Berry Yoghurt</td><td class="mfr">Multipower</td><td class="num">8.932</td><td class="num">4.823 €</td><td class="num">1.786 €</td><td class="num">46,3%</td></tr>
+          <tr><td>Barebells Protein Bar — Caramel Cashew</td><td class="mfr">Barebells</td><td class="num">1.500</td><td class="num">4.536 €</td><td class="num">1.470 €</td><td class="num">40,5%</td></tr>
+          <tr><td>Ragnarok Creatine 400 g — Strawberry Kiwi<span class="own-brand-tag">own</span></td><td class="mfr">Ragnarok</td><td class="num">164</td><td class="num">3.903 €</td><td class="num">2.166 €</td><td class="num pos">69,4%</td></tr>
+          <tr><td>Valle & Kasein 500 g — Vanilla</td><td class="mfr">Tilbud</td><td class="num">459</td><td class="num">3.885 €</td><td class="num">1.157 €</td><td class="num">37,2%</td></tr>
+        </tbody>
+      </table>
+
+      <div class="insight">
+        <div class="label">Note</div>
+        <p><strong>Fitnessnord Kreatin 400g is the single highest-revenue and highest-margin SKU in the catalog</strong> — 16.187 € on 54,5% margin. The Ragnarok Creatine variant runs the same playbook at 69,4% margin. <strong>Own-brand creatine is doing the profitability work</strong>; flavoured wheys are bringing volume but at much thinner margin.</p>
+      </div>
+
+      <span class="step-num">02 — MANUFACTURER SHARE</span>
+      <h2>Top 10 manufacturers by revenue</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Manufacturer</th>
+            <th class="num">SKUs</th>
+            <th class="num">Units 28d</th>
+            <th class="num">Rev incl-VAT</th>
+            <th class="num">Margin ex-VAT</th>
+            <th class="num">Mgn %</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Fitnessnord<span class="own-brand-tag">own</span></td><td class="num">433</td><td class="num">28.977</td><td class="num">102.458 €</td><td class="num">19.587 €</td><td class="num">23,9%</td></tr>
+          <tr><td>Ragnarok<span class="own-brand-tag">own</span></td><td class="num">49</td><td class="num">6.856</td><td class="num">65.927 €</td><td class="num">18.333 €</td><td class="num">34,8%</td></tr>
+          <tr><td>Tilbud</td><td class="num">313</td><td class="num">24.959</td><td class="num">45.895 €</td><td class="num">13.523 €</td><td class="num">36,8%</td></tr>
+          <tr><td>AK47 Labs</td><td class="num">74</td><td class="num">10.592</td><td class="num">24.355 €</td><td class="num">1.141 €</td><td class="num neg">5,9%</td></tr>
+          <tr><td>Multipower</td><td class="num">6</td><td class="num">22.367</td><td class="num">14.526 €</td><td class="num">4.273 €</td><td class="num">36,8%</td></tr>
+          <tr><td>Barebells</td><td class="num">2</td><td class="num">8.566</td><td class="num">10.179 €</td><td class="num">3.177 €</td><td class="num">39,0%</td></tr>
+          <tr><td>MUTANT</td><td class="num">53</td><td class="num">84</td><td class="num">7.818 €</td><td class="num">3.575 €</td><td class="num pos">57,2%</td></tr>
+          <tr><td>Dymatize</td><td class="num">40</td><td class="num">107</td><td class="num">6.756 €</td><td class="num">2.709 €</td><td class="num pos">50,1%</td></tr>
+          <tr><td>JNX Sports</td><td class="num">28</td><td class="num">186</td><td class="num">5.635 €</td><td class="num">1.163 €</td><td class="num">25,8%</td></tr>
+          <tr><td>Vitamins</td><td class="num">270</td><td class="num">656</td><td class="num">5.405 €</td><td class="num">1.979 €</td><td class="num">45,8%</td></tr>
+        </tbody>
+      </table>
+
+      <div class="insight">
+        <div class="label">Watch</div>
+        <p><strong>AK47 Labs 5,9% margin is striking</strong> — 24k € of revenue contributing only 1,1k € of margin. Either heavy promotion is suppressing margin temporarily, or the cost basis on the AK47 line needs review. Worth a per-SKU pass before the next purchase order.</p>
+      </div>
+
+      <span class="step-num">03 — OWN-BRAND VS THIRD-PARTY</span>
+      <h2>The corrected picture</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Cohort</th>
+            <th class="num">SKUs (active / total)</th>
+            <th class="num">Units 28d</th>
+            <th class="num">Rev incl-VAT</th>
+            <th class="num">Margin ex-VAT</th>
+            <th class="num">Mgn %</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Private label<span class="own-brand-tag">own</span></td><td class="num">210 / 529</td><td class="num">46.425</td><td class="num">195.604 €</td><td class="num">39.390 €</td><td class="num">25,2%</td></tr>
+          <tr><td>Third party</td><td class="num">693 / 2.873</td><td class="num">72.706</td><td class="num">162.771 €</td><td class="num">46.078 €</td><td class="num pos">35,4%</td></tr>
+        </tbody>
+      </table>
+
+      <div class="insight">
+        <div class="label">Important reversal</div>
+        <p>Private label drives <strong>more revenue (195k vs 162k)</strong> from <strong>fewer active SKUs (210 vs 693)</strong> — but at a <strong>lower margin %</strong> (25,2% vs 35,4%). The story is "own-brand wins on volume per SKU and brand strength, but is currently priced to compete with third-party at lower take-rate". The two creatines (Fitnessnord 54,5%, Ragnarok 69,4%) prove the catalog can support much higher margin where positioning is right — most of the rest of the own-brand line isn't yet capturing that.</p>
+      </div>
+
+      <span class="step-num">04 — MOMENTUM</span>
+      <h2>Accelerating (7-day pace ≥ 1,6× the 28-day baseline)</h2>
+
+      <table>
+        <thead>
+          <tr><th>Product</th><th>Mfr</th><th class="num">Units 7d</th><th class="num">Units 28d</th><th class="num">RR ratio</th><th class="num">Rev 28d</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Multipower Cookies & Cream bar</td><td class="mfr">Multipower</td><td class="num">5.560</td><td class="num">13.435</td><td class="num pos">1,66</td><td class="num">9.703 €</td></tr>
+          <tr><td>Valle & Kasein 500 g — Chocolate</td><td class="mfr">Tilbud</td><td class="num">300</td><td class="num">589</td><td class="num pos">2,04</td><td class="num">5.080 €</td></tr>
+          <tr><td>Valle & Kasein 500 g — Vanilla</td><td class="mfr">Tilbud</td><td class="num">290</td><td class="num">459</td><td class="num pos">2,53</td><td class="num">3.885 €</td></tr>
+          <tr><td>Ragnarok Protein 1 kg — Vanilla<span class="own-brand-tag">own</span></td><td class="mfr">Ragnarok</td><td class="num">75</td><td class="num">148</td><td class="num pos">2,03</td><td class="num">2.961 €</td></tr>
+          <tr><td>AK-47 Braindead PWO 120 — Brain Juice Punch</td><td class="mfr">AK47 Labs</td><td class="num">87</td><td class="num">105</td><td class="num pos">3,31</td><td class="num">2.667 €</td></tr>
+          <tr><td>Layenberger 3K Proteinbar — Pistachio</td><td class="mfr">Layenberger</td><td class="num">93</td><td class="num">153</td><td class="num pos">2,43</td><td class="num">2.281 €</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Fading (7-day pace ≤ 0,4× the 28-day baseline)</h2>
+
+      <table>
+        <thead>
+          <tr><th>Product</th><th>Mfr</th><th class="num">Units 7d</th><th class="num">Units 28d</th><th class="num">RR ratio</th><th class="num">Rev 28d</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Barebells Protein Bar — Caramel Cashew</td><td class="mfr">Barebells</td><td class="num">12</td><td class="num">1.500</td><td class="num neg">0,03</td><td class="num">4.536 €</td></tr>
+          <tr><td>Bar 25g protein peanut karamel</td><td class="mfr">Tilbud</td><td class="num">0</td><td class="num">3.155</td><td class="num neg">0,00</td><td class="num">2.714 €</td></tr>
+          <tr><td>Chiefs proteinshakes — Caramel City (BBD 28/05)</td><td class="mfr">Chiefs</td><td class="num">0</td><td class="num">162</td><td class="num neg">0,00</td><td class="num">1.369 €</td></tr>
+          <tr><td>Glukosamin 1.400 mg (90 tabletter)</td><td class="mfr">Vitamins</td><td class="num">0</td><td class="num">124</td><td class="num neg">0,00</td><td class="num">1.306 €</td></tr>
+          <tr><td>Oksefedt af Marvben (500 ml)<span class="own-brand-tag">own</span></td><td class="mfr">Fitnessnord</td><td class="num">18</td><td class="num">302</td><td class="num neg">0,24</td><td class="num">1.178 €</td></tr>
+          <tr><td>Fitnessnord Exceed BCAA — Pineapple<span class="own-brand-tag">own</span></td><td class="mfr">Fitnessnord</td><td class="num">0</td><td class="num">31</td><td class="num neg">0,00</td><td class="num">1.113 €</td></tr>
+        </tbody>
+      </table>
+
+      <div class="insight">
+        <div class="label">Triage</div>
+        <p>The Barebells Caramel Cashew collapse (1.500 → 12) and the Tilbud peanut-karamel bar (3.155 → 0) are the two biggest single-SKU drops to investigate. Both represent ~3-4k € of recent monthly run rate that's gone in the last week. Likely explanations: stock-out, listing change, or a promo ending. The two Fitnessnord own-brand items in the fading list (BCAA Pineapple, Oksefedt) are smaller but worth a stock-vs-listing check.</p>
+      </div>
+
+      <span class="step-num">05 — DEAD CAPITAL</span>
+      <h2>Stocked but no sales in 56 days</h2>
+
+      <p>Top tied-up capital (cost ex-VAT × stock):</p>
+
+      <table>
+        <thead>
+          <tr><th>Product</th><th>Mfr</th><th class="num">Tied-up €</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Nutrend Carnitine drink (750 ml) — Coconut & Blueberry</td><td class="mfr">Nutrend</td><td class="num">2.230 €</td></tr>
+          <tr><td>Fitnessnord Block Long Sleeve White — XXXL<span class="own-brand-tag">own</span></td><td class="mfr">Fitnessnord</td><td class="num">69 €</td></tr>
+          <tr><td>C-vitamin (20 brusetabletter)</td><td class="mfr">Vitamins</td><td class="num">61 €</td></tr>
+          <tr><td>Arginin (210 g) — Natural</td><td class="mfr">Vitamins</td><td class="num">44 €</td></tr>
+          <tr><td>Fitnessnord Raglan Tee White/Black — XXL<span class="own-brand-tag">own</span></td><td class="mfr">Fitnessnord</td><td class="num">43 €</td></tr>
+          <tr><td>Fitnessnord Prague Tank Top Black — S<span class="own-brand-tag">own</span></td><td class="mfr">Fitnessnord</td><td class="num">41 €</td></tr>
+        </tbody>
+      </table>
+
+      <p class="meta-line">Note: dead-capital totals here are <em>candidates</em> only — backorderable simples and bundle components have not yet been excluded (backorder flag pending dev fix). Validate against Magento before any clear-out decision.</p>
+
+      <hr>
+
+      <h2>Methodology &amp; data sources</h2>
+
+      <p>This analysis is built on the <code>welzyn.FitnessNord_Catalog.product_360</code> view, which joins:</p>
+
+      <ul>
+        <li><strong>Actual sales</strong> (units, orders, revenue, margin) from <code>welzyn.FitnessNord.prod_revenue</code> — the daily order-fact table. EUR ex-VAT in storage; gross-up to incl-VAT applied at query time (DK 25%).</li>
+        <li><strong>Current attributes</strong> (price, cost, stock, manufacturer, type, visibility) from the BoostmyShop BBD report endpoint, snapshot loaded 2026-05-04.</li>
+        <li><strong>Parent linkage</strong> via <code>parent_child_map</code> (derived from <code>prod_revenue.parent_product</code> — covers 97–98% of bundles and configurables).</li>
+      </ul>
+
+      <p>Filters applied throughout:</p>
+      <ul>
+        <li><code>product_type_id IN ('simple', 'bundle', 'virtual')</code> — configurables are display-only listings, never sold directly.</li>
+        <li><code>manufacturer != 'Test manufacturer'</code> and <code>product_form != 'Special categories'</code> — excludes shipping methods that appear as catalog products in the raw BBD export.</li>
+      </ul>
+
+      <p>Sanity-checked against order-level totals (DK + SE rolling 28d): catalog filter total 373.956 € vs order-level 373.043 € — 0,24% delta, within rounding.</p>
+
+      <p class="meta-line">// Headline 358.374 € figure on this page is slightly lower because the test-manufacturer / shipping-method rows have been excluded here.</p>
+
+      <hr>
+
+      <p style="font-family: var(--mono); font-size: 12px; color: var(--ink-3); letter-spacing: 0.04em;">v1 · internal · share with operators only · numbers will refresh on the next catalog reload</p>
+
+    </div>
+  </section>
+</article>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <a href="/" class="logo">
+          <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+            <defs>
+              <linearGradient id="wb-mark-grad-f" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#5EF2FF"/>
+                <stop offset="55%" stop-color="#A78BFA"/>
+                <stop offset="100%" stop-color="#5EF2FF"/>
+              </linearGradient>
+            </defs>
+            <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                  fill="none" stroke="url(#wb-mark-grad-f)" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>WildBreeze</span>
+        </a>
+        <p class="blurb">Quiet automation infrastructure for operations run by humans.</p>
+      </div>
+    </div>
+    <div class="legal">
+      <div>© 2026 WildBreeze. All systems quiet.</div>
+      <!-- WB-CLIENT-HTML-START --><a class="client-link" href="/account/">Client area <span class="arrow">→</span></a><!-- WB-CLIENT-HTML-END -->
+      <div>Built by <a href="https://www.napier.me" class="link" target="_blank" rel="noopener">napier.me</a></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
