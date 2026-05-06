@@ -2,276 +2,392 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
-<title>For Mia — A Folio of Letters, 2024 – 2026</title>
+<title>For Mia — A Folio of Letters</title>
 <meta name="description" content="Ten letters from the past two years. Privately compiled.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --paper:    #f5ecd7;          /* warm aged cream */
-  --paper-2:  #f1e6cc;          /* slightly deeper crease */
-  --paper-3:  #ece0bf;          /* the deeper paper */
-  --ink:      #2a2118;          /* deep brown-black, never pure black */
-  --ink-2:    #4a3d2c;          /* secondary type */
-  --ink-3:    #7a6a4f;          /* small type, captions */
-  --sepia:    #8a5a2c;          /* drop caps, ornament accents */
-  --sepia-2:  #a87340;          /* lighter sepia */
+  /* Paper */
+  --paper:    #f3e8cc;
+  --paper-2:  #ecdeb8;
+  --paper-3:  #e3d3a4;
+  --ink:      #2a2118;
+  --ink-2:    #4a3d2c;
+  --ink-3:    #7a6a4f;
+
+  /* Gold and sepia */
+  --gold:     #c9a04a;
+  --gold-2:   #e6c880;
+  --gold-3:   #8a6a2a;
+  --sepia:    #8a5a2c;
+
   --rule:     rgba(60, 45, 25, 0.18);
   --rule-2:   rgba(60, 45, 25, 0.34);
-  --serif:    "EB Garamond", "Garamond", Georgia, serif;
-  --display:  "Cormorant Garamond", "EB Garamond", "Garamond", Georgia, serif;
+
+  /* Stage */
+  --stage-1:  #1a0c05;
+  --stage-2:  #2c170a;
+  --stage-3:  #0a0402;
+
+  --serif:   "EB Garamond", "Garamond", Georgia, serif;
+  --display: "Cormorant Garamond", "EB Garamond", Georgia, serif;
+  --caps:    "Cinzel", "EB Garamond", Georgia, serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
-  background: var(--paper);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0a0402;
   color: var(--ink);
   font-family: var(--serif);
-  font-size: 19px;
-  line-height: 1.7;
+  font-size: 18px;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  font-feature-settings: "kern" 1, "liga" 1, "onum" 1;
 }
 
-/* Subtle paper texture: layered radial gradients give the cream a softly
-   uneven, hand-pressed feel without external images. */
-body {
+/* ===== STAGE ===== */
+.stage {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 2400px;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 50%, #2c170a 0%, #1a0c05 45%, #0a0402 90%),
+    linear-gradient(180deg, #1a0c05 0%, #0a0402 100%);
+}
+
+/* Subtle grain on the wooden desk */
+.stage::before {
+  content: "";
+  position: absolute; inset: 0;
   background-image:
-    radial-gradient(circle at 18% 12%, rgba(120, 90, 50, 0.05) 0%, transparent 32%),
-    radial-gradient(circle at 82% 8%, rgba(120, 90, 50, 0.04) 0%, transparent 30%),
-    radial-gradient(circle at 8% 62%, rgba(140, 105, 60, 0.045) 0%, transparent 36%),
-    radial-gradient(circle at 92% 78%, rgba(120, 90, 50, 0.05) 0%, transparent 34%),
+    radial-gradient(circle at 23% 18%, rgba(80, 40, 15, 0.15) 0%, transparent 18%),
+    radial-gradient(circle at 78% 82%, rgba(80, 40, 15, 0.12) 0%, transparent 22%),
+    radial-gradient(circle at 8% 92%, rgba(60, 30, 12, 0.18) 0%, transparent 25%);
+  pointer-events: none;
+}
+
+/* Vignette */
+.stage::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 110% 110% at 50% 50%, transparent 50%, rgba(0,0,0,0.55) 100%);
+  pointer-events: none;
+}
+
+/* Gold dust */
+.dust {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+.mote {
+  position: absolute;
+  width: 2px; height: 2px;
+  border-radius: 50%;
+  background: rgba(230, 200, 128, 0.9);
+  box-shadow: 0 0 6px rgba(230, 200, 128, 0.7);
+  opacity: 0;
+  animation: drift linear infinite;
+}
+@keyframes drift {
+  0%   { transform: translate3d(0, 0, 0) scale(0.8); opacity: 0; }
+  10%  { opacity: 0.7; }
+  50%  { opacity: 0.9; }
+  90%  { opacity: 0.6; }
+  100% { transform: translate3d(var(--dx, 60px), -100vh, 0) scale(1.1); opacity: 0; }
+}
+
+/* ===== BOOK ===== */
+.book {
+  position: relative;
+  width: clamp(320px, 92vw, 680px);
+  height: clamp(560px, 88vh, 880px);
+  z-index: 2;
+  filter: drop-shadow(0 50px 80px rgba(0,0,0,0.55))
+          drop-shadow(0 18px 30px rgba(0,0,0,0.5));
+}
+
+/* The leather binding bed visible at edges */
+.book::before {
+  content: "";
+  position: absolute;
+  inset: -22px -16px -22px -28px;
+  background:
+    linear-gradient(135deg, #3a1d0a 0%, #271206 50%, #1a0a04 100%);
+  border-radius: 6px 14px 14px 6px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 200, 130, 0.15),
+    inset 0 0 30px rgba(0,0,0,0.6),
+    0 1px 0 rgba(255, 200, 130, 0.08);
+}
+
+/* Spine highlight */
+.book::after {
+  content: "";
+  position: absolute;
+  left: -28px; top: -22px; bottom: -22px; width: 26px;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, rgba(255,200,130,0.1) 100%);
+  border-radius: 6px 0 0 6px;
+  pointer-events: none;
+}
+
+/* Page stack — perspective container */
+.page-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+/* Each leaf */
+.page {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+  background-attachment: local;
+  border-radius: 3px 6px 6px 3px;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform 1.25s cubic-bezier(0.5, 0.0, 0.25, 1.0),
+              box-shadow 1.25s ease;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  visibility: hidden;
+  box-shadow:
+    inset 0 0 0 1px rgba(180, 145, 90, 0.15),
+    inset 8px 0 18px rgba(120, 80, 30, 0.12),
+    inset -2px 0 4px rgba(180, 145, 90, 0.08);
+}
+
+/* Paper texture: layered radial gradients */
+.page-paper-tex {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 18% 12%, rgba(120, 90, 50, 0.06) 0%, transparent 32%),
+    radial-gradient(circle at 82% 8%, rgba(120, 90, 50, 0.05) 0%, transparent 30%),
+    radial-gradient(circle at 8% 62%, rgba(140, 105, 60, 0.05) 0%, transparent 36%),
+    radial-gradient(circle at 92% 78%, rgba(120, 90, 50, 0.06) 0%, transparent 34%),
     radial-gradient(circle at 50% 100%, rgba(160, 120, 70, 0.04) 0%, transparent 50%);
-  background-attachment: fixed;
-  min-height: 100vh;
+  mix-blend-mode: multiply;
+  opacity: 0.85;
 }
 
-/* The folio: a single bound column, generous margins, page feel. */
-.folio {
-  max-width: 660px;
-  margin: 0 auto;
-  padding: 88px 36px 120px;
+/* Gilt edge along the right of pages */
+.page::before {
+  content: "";
+  position: absolute;
+  top: 0; right: 0; bottom: 0; width: 6px;
+  background: linear-gradient(180deg,
+    rgba(230, 200, 128, 0.85) 0%,
+    rgba(180, 130, 60, 0.6) 30%,
+    rgba(230, 200, 128, 0.75) 50%,
+    rgba(180, 130, 60, 0.6) 70%,
+    rgba(230, 200, 128, 0.85) 100%);
+  box-shadow:
+    inset 0 0 1px rgba(255, 220, 160, 0.6),
+    -2px 0 6px rgba(120, 80, 20, 0.18);
+  pointer-events: none;
 }
 
-/* ===== TITLE PAGE ===== */
-.title-page {
+/* Gilt edge along bottom */
+.page::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0; height: 4px;
+  background: linear-gradient(90deg,
+    rgba(180, 130, 60, 0.6),
+    rgba(230, 200, 128, 0.85),
+    rgba(180, 130, 60, 0.6));
+  pointer-events: none;
+}
+
+.page.current { visibility: visible; z-index: 10; }
+.page.behind  { visibility: visible; z-index: 5; }
+
+.page.flipping-forward {
+  transform: rotateY(-180deg);
+  box-shadow:
+    -16px 0 40px rgba(0,0,0,0.45),
+    inset 0 0 0 1px rgba(180, 145, 90, 0.15);
+}
+
+.page.flipping-back {
+  transform: rotateY(0deg);
+  box-shadow:
+    16px 0 40px rgba(0,0,0,0.45),
+    inset 0 0 0 1px rgba(180, 145, 90, 0.15);
+}
+
+/* Page interior padding/typography */
+.page-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: clamp(36px, 7vh, 78px) clamp(34px, 6vw, 72px) clamp(48px, 7vh, 84px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-num {
+  position: absolute;
+  bottom: 26px;
+  left: 0; right: 0;
   text-align: center;
-  padding: 70px 0 60px;
-  border-bottom: 1px solid var(--rule);
+  font-family: var(--display);
+  font-style: italic;
+  font-variant: small-caps;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--ink-3);
+  pointer-events: none;
 }
-.title-page .ornament-top {
+.page-num::before, .page-num::after {
+  content: "·";
+  margin: 0 8px;
+  color: var(--gold-3);
+}
+
+/* ===== TYPOGRAPHY INSIDE PAGES ===== */
+
+/* TITLE PAGE */
+.page.is-title .page-inner {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.page.is-title .ornament-top,
+.page.is-title .ornament-bottom {
   font-family: var(--display);
   font-size: 22px;
-  color: var(--sepia);
-  letter-spacing: 0.4em;
-  margin-bottom: 56px;
+  color: var(--gold-3);
+  letter-spacing: 0.45em;
   font-style: italic;
 }
-.title-page h1 {
+.page.is-title .ornament-top { margin-bottom: 56px; }
+.page.is-title .ornament-bottom { margin-top: 30px; }
+.page.is-title .grand-title {
   font-family: var(--display);
   font-weight: 500;
-  font-size: clamp(54px, 9vw, 86px);
+  font-size: clamp(54px, 10vw, 92px);
   line-height: 1.0;
   letter-spacing: -0.01em;
   margin-bottom: 28px;
   color: var(--ink);
 }
-.title-page h1 em {
+.page.is-title .grand-title em {
   font-style: italic;
   color: var(--sepia);
   font-weight: 400;
+  text-shadow: 0 0 24px rgba(201, 160, 74, 0.25);
 }
-.title-page .subtitle {
+.page.is-title .subtitle {
   font-family: var(--display);
   font-style: italic;
-  font-size: clamp(20px, 2.4vw, 26px);
+  font-size: clamp(18px, 2.4vw, 24px);
   color: var(--ink-2);
   font-weight: 400;
   margin-bottom: 70px;
   letter-spacing: 0.005em;
+  max-width: 22em;
 }
-.title-page .ornament {
-  color: var(--sepia);
-  font-size: 26px;
+.page.is-title .glyph {
+  font-family: var(--display);
+  color: var(--gold-3);
+  font-size: 30px;
   letter-spacing: 0.6em;
   margin: 30px 0;
 }
-.title-page .imprint {
+.page.is-title .imprint {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 16px;
+  font-size: 15px;
   color: var(--ink-3);
-  line-height: 1.6;
-  font-feature-settings: "kern" 1, "liga" 1, "smcp" 1;
+  line-height: 1.7;
+  margin-top: 46px;
 }
-.title-page .imprint .roman {
+.page.is-title .imprint .roman {
+  font-family: var(--caps);
   font-style: normal;
-  font-variant: small-caps;
-  letter-spacing: 0.18em;
+  font-size: 11.5px;
+  letter-spacing: 0.32em;
+  display: block;
+  margin-top: 6px;
 }
 
-/* ===== PREFACE ===== */
-.preface {
-  padding: 80px 0 56px;
-  border-bottom: 1px solid var(--rule);
-}
-.preface-label {
-  font-family: var(--display);
-  font-style: italic;
-  font-variant: small-caps;
-  font-size: 14px;
-  letter-spacing: 0.28em;
-  color: var(--sepia);
+/* PREFACE & COLOPHON */
+.page.is-preface .page-label,
+.page.is-colophon .page-label {
+  font-family: var(--caps);
+  font-size: 11.5px;
+  letter-spacing: 0.34em;
+  color: var(--gold-3);
   text-align: center;
-  margin-bottom: 36px;
+  margin-bottom: 32px;
+  text-transform: uppercase;
 }
-.preface p {
-  font-size: 19px;
-  line-height: 1.75;
+.page.is-preface p {
+  font-size: 17.5px;
+  line-height: 1.74;
   color: var(--ink);
-  margin-bottom: 1.1em;
+  margin-bottom: 1em;
   text-align: justify;
   hyphens: auto;
 }
-.preface p + p { text-indent: 1.6em; }
-.preface p:first-of-type::first-letter {
-  font-family: var(--display);
-  float: left;
-  font-size: 4.6em;
-  line-height: 0.86;
-  padding: 0.05em 0.08em 0 0;
-  color: var(--sepia);
-  font-weight: 500;
-}
-
-/* ===== PASSAGES ===== */
-.passages { padding: 70px 0 0; }
-
-.passage {
-  padding: 56px 0 60px;
-  border-bottom: 1px solid var(--rule);
-}
-.passage:last-of-type { border-bottom: 0; }
-
-.passage .roman {
-  font-family: var(--display);
-  font-weight: 500;
-  font-style: italic;
-  font-size: 44px;
-  text-align: center;
-  color: var(--sepia);
-  letter-spacing: 0.04em;
-  margin-bottom: 22px;
-}
-.passage .byline {
-  font-family: var(--serif);
-  font-style: italic;
-  font-variant: small-caps;
-  font-size: 13.5px;
-  letter-spacing: 0.24em;
-  text-align: center;
-  color: var(--ink-3);
-  margin-bottom: 44px;
-}
-.passage .byline .name {
-  color: var(--ink-2);
-  font-weight: 500;
-}
-.passage .byline .sep {
-  margin: 0 12px;
-  color: var(--sepia-2);
-}
-
-/* The Danish original — set as the body text, with a drop cap on the first letter */
-.passage .original {
-  font-size: 19px;
-  line-height: 1.72;
-  color: var(--ink);
-  margin-bottom: 44px;
-  white-space: pre-line;
-}
-.passage .original .dropcap {
+.page.is-preface p + p { text-indent: 1.6em; }
+.page.is-preface p:first-of-type::first-letter {
   font-family: var(--display);
   float: left;
   font-size: 4.4em;
-  line-height: 0.84;
-  padding: 0.06em 0.1em 0 0;
+  line-height: 0.85;
+  padding: 0.05em 0.1em 0 0;
   color: var(--sepia);
   font-weight: 500;
-  font-style: normal;
+  text-shadow: 0 0 18px rgba(201, 160, 74, 0.35);
 }
 
-/* The English rendering — smaller, italic, set off with an asterism */
-.passage .rendering {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 16.5px;
-  line-height: 1.65;
-  color: var(--ink-2);
-  padding: 18px 28px 0;
-  border-top: 1px solid var(--rule);
-  margin: 0 14px;
-  position: relative;
-}
-.passage .rendering::before {
-  content: "⁂";
-  position: absolute;
-  top: -16px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--paper);
-  padding: 0 14px;
-  color: var(--sepia);
-  font-size: 18px;
-  font-style: normal;
-  letter-spacing: 0.1em;
-}
-.passage .rendering .label {
+.page.is-colophon .page-inner { justify-content: center; text-align: center; }
+.page.is-colophon .glyph {
   font-family: var(--display);
-  font-style: italic;
-  font-variant: small-caps;
-  font-size: 11.5px;
-  letter-spacing: 0.24em;
-  color: var(--sepia);
-  margin-right: 12px;
-  font-weight: 500;
-}
-
-/* ===== CLOSING ===== */
-.colophon {
-  margin-top: 90px;
-  padding: 56px 0 0;
-  border-top: 2px double var(--rule-2);
-  text-align: center;
-}
-.colophon .ornament {
-  font-family: var(--display);
-  color: var(--sepia);
-  font-size: 22px;
+  color: var(--gold-3);
+  font-size: 26px;
   letter-spacing: 0.5em;
-  margin-bottom: 36px;
+  margin-bottom: 32px;
 }
-.colophon h3 {
+.page.is-colophon h3 {
   font-family: var(--display);
   font-weight: 400;
   font-style: italic;
-  font-size: clamp(22px, 2.6vw, 28px);
+  font-size: clamp(22px, 2.8vw, 30px);
   line-height: 1.4;
   color: var(--ink);
-  margin-bottom: 22px;
+  margin-bottom: 26px;
   max-width: 22em;
   margin-left: auto;
   margin-right: auto;
 }
-.colophon p {
+.page.is-colophon p {
   font-family: var(--serif);
   font-size: 16px;
   line-height: 1.7;
@@ -280,86 +396,283 @@ body {
   max-width: 28em;
   margin: 0 auto 1em;
 }
-.colophon .signature {
+.page.is-colophon .signature {
   margin-top: 48px;
+  font-family: var(--caps);
+  font-size: 11px;
+  letter-spacing: 0.34em;
+  color: var(--gold-3);
+}
+.page.is-colophon .finis {
+  margin-top: 28px;
   font-family: var(--display);
   font-style: italic;
-  font-size: 15px;
+  font-size: 14px;
   color: var(--ink-3);
-  letter-spacing: 0.06em;
-}
-.colophon .signature .roman {
-  font-style: normal;
-  font-variant: small-caps;
-  letter-spacing: 0.22em;
-  display: block;
-  margin-top: 8px;
+  letter-spacing: 0.3em;
 }
 
-/* Page number-like running foot */
-.folio-foot {
+/* PASSAGES */
+.page.is-passage .page-inner { gap: 0; }
+.page.is-passage .roman {
+  font-family: var(--display);
+  font-weight: 500;
+  font-style: italic;
+  font-size: clamp(40px, 5.5vw, 54px);
   text-align: center;
-  margin-top: 70px;
+  color: var(--sepia);
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+  text-shadow: 0 0 18px rgba(201, 160, 74, 0.25);
+}
+.page.is-passage .byline {
+  font-family: var(--caps);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-align: center;
+  color: var(--ink-3);
+  margin-bottom: 28px;
+  text-transform: uppercase;
+}
+.page.is-passage .byline .name { color: var(--gold-3); }
+.page.is-passage .byline .sep { margin: 0 10px; color: var(--gold-3); }
+
+/* Decorative thin gold rule */
+.page.is-passage .rule {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-3), transparent);
+  margin: 0 auto 28px;
+}
+
+.page.is-passage .original {
+  font-size: 17.5px;
+  line-height: 1.72;
+  color: var(--ink);
+  margin-bottom: 28px;
+  white-space: pre-line;
+  flex: 0 0 auto;
+}
+.page.is-passage .original .dropcap {
+  font-family: var(--display);
+  float: left;
+  font-size: 4em;
+  line-height: 0.86;
+  padding: 0.06em 0.12em 0 0;
+  color: var(--sepia);
+  font-weight: 500;
+  font-style: normal;
+  text-shadow: 0 0 16px rgba(201, 160, 74, 0.4);
+}
+
+.page.is-passage .rendering {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14.8px;
+  line-height: 1.62;
+  color: var(--ink-2);
+  padding: 16px 22px 0;
+  border-top: 1px solid var(--rule);
+  margin: auto 8px 0;
+  position: relative;
+  flex: 0 0 auto;
+}
+.page.is-passage .rendering::before {
+  content: "⁂";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--paper);
+  padding: 0 12px;
+  color: var(--gold-3);
+  font-size: 16px;
+  font-style: normal;
+  letter-spacing: 0.1em;
+}
+.page.is-passage .rendering .label {
+  font-family: var(--caps);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  color: var(--gold-3);
+  margin-right: 10px;
+  text-transform: uppercase;
+}
+
+/* ===== CONTROLS ===== */
+.controls {
+  position: fixed;
+  bottom: 22px;
+  left: 0; right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+  z-index: 20;
+  pointer-events: none;
+}
+.nav {
+  pointer-events: auto;
+  background: rgba(40, 22, 8, 0.55);
+  border: 1px solid rgba(201, 160, 74, 0.4);
+  color: var(--gold-2);
+  font-family: var(--display);
+  font-size: 22px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  transition: all 200ms ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.nav:hover {
+  background: rgba(60, 32, 14, 0.7);
+  border-color: var(--gold-2);
+  color: #fff3d4;
+  box-shadow: 0 0 18px rgba(230, 200, 128, 0.35);
+}
+.nav:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.indicator {
+  pointer-events: auto;
+  font-family: var(--caps);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: rgba(230, 200, 128, 0.7);
+  text-transform: uppercase;
+  min-width: 110px;
+  text-align: center;
+}
+
+/* Edge click hotspots (invisible) */
+.hotspot {
+  position: fixed;
+  top: 0; bottom: 0;
+  width: 18%;
+  cursor: pointer;
+  z-index: 15;
+  transition: background 200ms ease;
+}
+.hotspot.left  { left: 0; }
+.hotspot.right { right: 0; }
+.hotspot:hover {
+  background: linear-gradient(90deg, rgba(230, 200, 128, 0.04), transparent);
+}
+.hotspot.right:hover {
+  background: linear-gradient(270deg, rgba(230, 200, 128, 0.04), transparent);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 720px) {
+  html, body { font-size: 16px; }
+  .book { width: calc(100vw - 36px); height: calc(100vh - 110px); }
+  .page-inner { padding: 36px 26px 56px; }
+  .page.is-title .grand-title { font-size: clamp(44px, 13vw, 68px); }
+  .page.is-passage .original { font-size: 16px; }
+  .page.is-passage .rendering { font-size: 13.5px; padding: 14px 12px 0; margin: auto 0 0; }
+  .page.is-passage .original .dropcap,
+  .page.is-preface p:first-of-type::first-letter { font-size: 3.4em; }
+  .controls { bottom: 14px; gap: 14px; }
+  .nav { width: 40px; height: 40px; font-size: 20px; }
+  .indicator { font-size: 10px; min-width: 90px; }
+  .hotspot { width: 30%; }
+}
+
+@media (max-height: 620px) {
+  .page-inner { padding: 24px 30px 42px; }
+  .page.is-passage .original { font-size: 15.5px; line-height: 1.55; }
+  .page.is-passage .rendering { font-size: 13px; line-height: 1.5; }
+  .page.is-passage .roman { font-size: 36px; margin-bottom: 6px; }
+  .page.is-passage .byline { margin-bottom: 16px; }
+  .page.is-passage .rule { margin-bottom: 18px; }
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  .page { transition: opacity 0.4s ease; }
+  .page.flipping-forward, .page.flipping-back { transform: none; opacity: 0; }
+  .mote { display: none; }
+}
+
+/* Cover the no-script case */
+.no-js-fallback {
+  position: fixed; inset: 0;
+  display: none;
+  align-items: center; justify-content: center;
+  color: var(--paper);
   font-family: var(--display);
   font-style: italic;
-  font-size: 13px;
-  color: var(--ink-3);
-  letter-spacing: 0.18em;
-}
-
-@media (max-width: 720px) {
-  html, body { font-size: 18px; }
-  .folio { padding: 50px 22px 80px; }
-  .title-page { padding: 30px 0 40px; }
-  .preface { padding: 60px 0 40px; }
-  .passage { padding: 44px 0 50px; }
-  .passage .roman { font-size: 38px; }
-  .passage .rendering { padding: 18px 14px 0; margin: 0 0; }
-  .passage .original .dropcap, .preface p:first-of-type::first-letter { font-size: 3.8em; }
-  .colophon { margin-top: 60px; padding-top: 40px; }
-}
-
-/* Print: behave like a real folio */
-@media print {
-  body { background: white; }
-  .passage { page-break-inside: avoid; }
-  .title-page, .preface, .colophon { page-break-after: always; }
+  text-align: center;
+  padding: 40px;
+  z-index: 100;
 }
 </style>
 </head>
 <body>
 
-<main class="folio">
+<div class="stage" id="stage">
 
-  <!-- ===== TITLE PAGE ===== -->
-  <section class="title-page">
-    <div class="ornament-top">· · ·</div>
-    <h1>For <em>Mia.</em></h1>
-    <p class="subtitle">A folio of letters from the past two years.</p>
-    <div class="ornament">⁂</div>
-    <p class="imprint">
-      Privately compiled<br>
-      <span class="roman">the sixth of may</span><br>
-      <span class="roman">mmxxvi</span>
-    </p>
-  </section>
+  <!-- Gold dust motes -->
+  <div class="dust" aria-hidden="true">
+    <span class="mote" style="left: 12%; --dx: 80px; animation-duration: 26s; animation-delay: 0s;"></span>
+    <span class="mote" style="left: 28%; --dx: -60px; animation-duration: 32s; animation-delay: 4s;"></span>
+    <span class="mote" style="left: 44%; --dx: 50px; animation-duration: 30s; animation-delay: 8s;"></span>
+    <span class="mote" style="left: 58%; --dx: -90px; animation-duration: 36s; animation-delay: 2s;"></span>
+    <span class="mote" style="left: 72%; --dx: 70px; animation-duration: 28s; animation-delay: 12s;"></span>
+    <span class="mote" style="left: 88%; --dx: -40px; animation-duration: 34s; animation-delay: 6s;"></span>
+    <span class="mote" style="left: 18%; --dx: 30px; animation-duration: 40s; animation-delay: 16s;"></span>
+    <span class="mote" style="left: 36%; --dx: -110px; animation-duration: 24s; animation-delay: 10s;"></span>
+    <span class="mote" style="left: 52%; --dx: 95px; animation-duration: 38s; animation-delay: 14s;"></span>
+    <span class="mote" style="left: 66%; --dx: -55px; animation-duration: 30s; animation-delay: 18s;"></span>
+    <span class="mote" style="left: 80%; --dx: 75px; animation-duration: 26s; animation-delay: 20s;"></span>
+    <span class="mote" style="left: 94%; --dx: -35px; animation-duration: 32s; animation-delay: 11s;"></span>
+  </div>
 
-  <!-- ===== PREFACE ===== -->
-  <section class="preface">
-    <div class="preface-label">Preface</div>
-    <p>What follows is a small anthology, gathered from two years of customer-service correspondence — the kind of letters that arrive after a problem has been solved kindly, when the writer pauses for an extra minute to put the gratitude into words. Most people, having had their parcel found or their order replaced, simply close the tab. These are the ones who didn't.</p>
-    <p>Ten passages have been selected from many hundreds. They are reproduced verbatim, in the language each was written in — most in Danish, the working tongue of the correspondence — followed by a quiet rendering into English, set in italic. The author of each letter is named only by their first name, and dated to the day it was sent.</p>
-    <p>The shared subject of all ten is the same: a kindness done by a woman named Mia, on an ordinary day, that the writer felt was worth recording.</p>
-  </section>
+  <!-- The book -->
+  <div class="book" id="book">
+    <div class="page-stack" id="stack">
 
-  <!-- ===== THE TEN PASSAGES ===== -->
-  <section class="passages">
+      <!-- 1. TITLE -->
+      <div class="page is-title" data-i="0">
+        <div class="page-paper-tex"></div>
+        <div class="page-inner">
+          <div class="ornament-top">· · ·</div>
+          <h1 class="grand-title">For <em>Mia.</em></h1>
+          <p class="subtitle">A folio of letters from the past two years.</p>
+          <div class="glyph">⁂</div>
+          <p class="imprint">
+            Privately compiled<br>
+            <span class="roman">the sixth of may · mmxxvi</span>
+          </p>
+          <div class="ornament-bottom">· · ·</div>
+        </div>
+      </div>
 
-    <!-- I -->
-    <article class="passage">
-      <div class="roman">I.</div>
-      <div class="byline"><span class="name">Maria</span><span class="sep">·</span> the twenty-ninth of april, mmxxvi</div>
-      <div class="original"><span class="dropcap">K</span>ære Mia,
+      <!-- 2. PREFACE -->
+      <div class="page is-preface" data-i="1">
+        <div class="page-paper-tex"></div>
+        <div class="page-inner">
+          <div class="page-label">Preface</div>
+          <p>What follows is a small anthology, gathered from two years of customer-service correspondence — the kind of letters that arrive after a problem has been solved kindly, when the writer pauses for an extra minute to put the gratitude into words. Most people, having had their parcel found or their order replaced, simply close the tab. These are the ones who didn't.</p>
+          <p>Ten passages have been selected from many hundreds. They are reproduced verbatim, in the language each was written in — most in Danish, the working tongue of the correspondence — followed by a quiet rendering into English, set in italic.</p>
+          <p>The shared subject of all ten is the same: a kindness done by a woman named Mia, on an ordinary day, that the writer felt was worth recording.</p>
+        </div>
+        <div class="page-num">i</div>
+      </div>
+
+      <!-- 3. PASSAGE I — Maria -->
+      <div class="page is-passage" data-i="2">
+        <div class="page-paper-tex"></div>
+        <div class="page-inner">
+          <div class="roman">I.</div>
+          <div class="byline"><span class="name">Maria</span><span class="sep">·</span> 29 April 2026</div>
+          <div class="rule"></div>
+          <div class="original"><span class="dropcap">K</span>ære Mia,
 
 Min ros til jer er 100 % velfortjent. Jeg er meget taknemmelig for rabatkoden men det er alt alt for meget. Det burde være en selvfølge at rose et menneske når der leveres et super godt stykke arbejde.
 
@@ -368,14 +681,19 @@ Min ros til jer er 100 % velfortjent. Jeg er meget taknemmelig for rabatkoden me
 God dag kære Mia.
 
 Kh Maria.</div>
-      <div class="rendering"><span class="label">Rendering</span>Dear Mia, my praise for you is one hundred per cent deserved. I am very grateful for the discount code but it is far, far too much. It should go without saying that one praises a person when they deliver such a truly good piece of work. A thousand thanks for your enormous kindness — I shall not forget it. Good day, dear Mia. — With love, Maria.</div>
-    </article>
+          <div class="rendering"><span class="label">Rendering</span>Dear Mia, my praise for you is one hundred per cent deserved. I am very grateful for the discount code but it is far, far too much. It should go without saying that one praises a person when they deliver such a good piece of work. A thousand thanks for your enormous kindness — I shall not forget it. Good day, dear Mia. — With love, Maria.</div>
+        </div>
+        <div class="page-num">ii</div>
+      </div>
 
-    <!-- II -->
-    <article class="passage">
-      <div class="roman">II.</div>
-      <div class="byline"><span class="name">Oskar</span><span class="sep">·</span> the twenty-first of october, mmxxiv</div>
-      <div class="original"><span class="dropcap">H</span>ej Mia!
+      <!-- 4. PASSAGE II — Oskar -->
+      <div class="page is-passage" data-i="3">
+        <div class="page-paper-tex"></div>
+        <div class="page-inner">
+          <div class="roman">II.</div>
+          <div class="byline"><span class="name">Oskar</span><span class="sep">·</span> 21 October 2024</div>
+          <div class="rule"></div>
+          <div class="original"><span class="dropcap">H</span>ej Mia!
 
 Tusind tak for det, det var en rart at komme afsted!🌞
 
@@ -386,28 +704,38 @@ Jeg vender helt sikkert tilbage næste gang jeg skal ha noget til min træning, 
 Rigitg god mandag!
 
 Vh Oskar</div>
-      <div class="rendering"><span class="label">Rendering</span>Hi Mia! Thank you so much — it was lovely to be able to get away. And a thousand thanks for your help — this is, without question, the very best customer service I have ever experienced. Huge thanks for that. I will absolutely come back the next time I need anything for my training, and I will give you a huge recommendation to friends and family. Have a really good Monday. — Best, Oskar.</div>
-    </article>
+          <div class="rendering"><span class="label">Rendering</span>Hi Mia! Thank you so much — it was lovely to be able to get away. And a thousand thanks for your help — this is, without question, the very best customer service I have ever experienced. Huge thanks for that. I will absolutely come back the next time I need anything for my training, and I will give you a huge recommendation to friends and family. Have a really good Monday. — Best, Oskar.</div>
+        </div>
+        <div class="page-num">iii</div>
+      </div>
 
-    <!-- III -->
-    <article class="passage">
-      <div class="roman">III.</div>
-      <div class="byline"><span class="name">Sabine</span><span class="sep">·</span> the eleventh of december, mmxxv</div>
-      <div class="original"><span class="dropcap">H</span>ej Mia,
+      <!-- 5. PASSAGE III — Sabine -->
+      <div class="page is-passage" data-i="4">
+        <div class="page-paper-tex"></div>
+        <div class="page-inner">
+          <div class="roman">III.</div>
+          <div class="byline"><span class="name">Sabine</span><span class="sep">·</span> 11 December 2025</div>
+          <div class="rule"></div>
+          <div class="original"><span class="dropcap">H</span>ej Mia,
 
 Ejjj tusind tak Mia, du er dagens stjerne ⭐️⭐️.
 
 Det er jeg så glad for, tusind tusind tak 🫶🏼.
 
 De bedste hilsner Sabine</div>
-      <div class="rendering"><span class="label">Rendering</span>Hi Mia — oh, a thousand thanks Mia, you are the star of the day. I am so happy about this; thank you a thousand times over. — Best wishes, Sabine.</div>
-    </article>
+          <div class="rendering"><span class="label">Rendering</span>Hi Mia — oh, a thousand thanks Mia, you are the star of the day. I am so happy about this; thank you a thousand times over. — Best wishes, Sabine.</div>
+        </div>
+        <div class="page-num">iv</div>
+      </div>
 
-    <!-- IV -->
-    <article class="passage">
-      <div class="roman">IV.</div>
-      <div class="byline"><span class="name">Jonathan</span><span class="sep">·</span> the seventeenth of april, mmxxv</div>
-      <div class="original"><span class="dropcap">H</span>ej igen Mia,
+      <!-- 6. PASSAGE IV — Jonathan -->
+      <div class="page is-passage" data-i="5">
+        <div class="page-paper-tex"></div>
+        <div class="page-inner">
+          <div class="roman">IV.</div>
+          <div class="byline"><span class="name">Jonathan</span><span class="sep">·</span> 17 April 2025</div>
+          <div class="rule"></div>
+          <div class="original"><span class="dropcap">H</span>ej igen Mia,
 
 Det er lige netop sådan en her respons og personlig besked der adskiller jer for resten 🙏
 
@@ -415,14 +743,19 @@ Tusind tak igen. Du har gjort min dag rigtig god 😊 God påske.
 
 Mvh
 Jonathan</div>
-      <div class="rendering"><span class="label">Rendering</span>Hello again Mia — this is exactly the sort of response and personal message that sets you apart from all the rest. A thousand thanks again. You have made my day truly good. Happy Easter. — Best, Jonathan.</div>
-    </article>
+          <div class="rendering"><span class="label">Rendering</span>Hello again Mia — this is exactly the sort of response and personal message that sets you apart from all the rest. A thousand thanks again. You have made my day truly good. Happy Easter. — Best, Jonathan.</div>
+        </div>
+        <div class="page-num">v</div>
+      </div>
 
-    <!-- V -->
-    <article class="passage">
-      <div class="roman">V.</div>
-      <div class="byline"><span class="name">Anette</span><span class="sep">·</span> the fourteenth of january, mmxxv</div>
-      <div class="original"><span class="dropcap">H</span>ej Mia,
+      <!-- 7. PASSAGE V — Anette -->
+      <div class="page is-passage" data-i="6">
+        <div class="page-paper-tex"></div>
+        <div class="page-inner">
+          <div class="roman">V.</div>
+          <div class="byline"><span class="name">Anette</span><span class="sep">·</span> 14 January 2025</div>
+          <div class="rule"></div>
+          <div class="original"><span class="dropcap">H</span>ej Mia,
 
 Du er fantastisk 🤩
 
@@ -432,28 +765,38 @@ Mange tak 🌸🌸🌸🌸🌸
 
 De bedste hilsner
 Anette 😃</div>
-      <div class="rendering"><span class="label">Rendering</span>Hi Mia — you are fantastic. Many thanks. And the fourth package, I would happily take that off your hands too, if I can transfer twenty kroner more? — Best wishes, Anette.</div>
-    </article>
+          <div class="rendering"><span class="label">Rendering</span>Hi Mia — you are fantastic. Many thanks. And the fourth package, I would happily take that off your hands too, if I can transfer twenty kroner more? — Best wishes, Anette.</div>
+        </div>
+        <div class="page-num">vi</div>
+      </div>
 
-    <!-- VI -->
-    <article class="passage">
-      <div class="roman">VI.</div>
-      <div class="byline"><span class="name">Julius</span><span class="sep">·</span> the second of january, mmxxv</div>
-      <div class="original"><span class="dropcap">H</span>ej Mia,
+      <!-- 8. PASSAGE VI — Julius -->
+      <div class="page is-passage" data-i="7">
+        <div class="page-paper-tex"></div>
+        <div class="page-inner">
+          <div class="roman">VI.</div>
+          <div class="byline"><span class="name">Julius</span><span class="sep">·</span> 2 January 2025</div>
+          <div class="rule"></div>
+          <div class="original"><span class="dropcap">H</span>ej Mia,
 
 Jeg ønsker blot en ny ordre at det samme, som jeg ellers havde bestilt og lidt ekstra ville være rart og værdsat efter omstændighederne :)
 
 Og tak for den gode service Mia! Du er skøn… Jeg håber, at du får et rigtig godt 2025 🙌🏼⭐️
 
 Venlig hilsen Julius</div>
-      <div class="rendering"><span class="label">Rendering</span>Hi Mia — I would simply like a new order with the same as I had originally, and a little extra would be welcome and appreciated under the circumstances. And thank you for the lovely service, Mia. You are wonderful… I hope you have a really good 2025. — Best wishes, Julius.</div>
-    </article>
+          <div class="rendering"><span class="label">Rendering</span>Hi Mia — I would simply like a new order with the same as I had originally, and a little extra would be welcome and appreciated under the circumstances. And thank you for the lovely service, Mia. You are wonderful… I hope you have a really good 2025. — Best wishes, Julius.</div>
+        </div>
+        <div class="page-num">vii</div>
+      </div>
 
-    <!-- VII -->
-    <article class="passage">
-      <div class="roman">VII.</div>
-      <div class="byline"><span class="name">Jamal</span><span class="sep">·</span> the twenty-fourth of february, mmxxvi</div>
-      <div class="original"><span class="dropcap">H</span>ej Mia,
+      <!-- 9. PASSAGE VII — Jamal -->
+      <div class="page is-passage" data-i="8">
+        <div class="page-paper-tex"></div>
+        <div class="page-inner">
+          <div class="roman">VII.</div>
+          <div class="byline"><span class="name">Jamal</span><span class="sep">·</span> 24 February 2026</div>
+          <div class="rule"></div>
+          <div class="original"><span class="dropcap">H</span>ej Mia,
 
 Tusind tak for din virkelig gode service, det sætter jeg stor pris på ✨
 
@@ -465,64 +808,211 @@ Håber du får en rigtig dejlig dag.
 
 De bedste hilsner
 Jamal</div>
-      <div class="rendering"><span class="label">Rendering</span>Hi Mia — thank you so much for your truly fine service; I appreciate it greatly. And many thanks for the code, and for drawing my attention to the gift card. That is really good customer service, and it means a great deal. I look forward to receiving the parcel. I hope you have a really lovely day. — Best wishes, Jamal.</div>
-    </article>
+          <div class="rendering"><span class="label">Rendering</span>Hi Mia — thank you so much for your truly fine service; I appreciate it greatly. And many thanks for the code, and for drawing my attention to the gift card. That is really good customer service, and it means a great deal. I look forward to getting the parcel. I hope you have a really lovely day. — Best wishes, Jamal.</div>
+        </div>
+        <div class="page-num">viii</div>
+      </div>
 
-    <!-- VIII -->
-    <article class="passage">
-      <div class="roman">VIII.</div>
-      <div class="byline"><span class="name">Julie</span><span class="sep">·</span> the twentieth of november, mmxxiv</div>
-      <div class="original"><span class="dropcap">H</span>ej igen Mia,
+      <!-- 10. PASSAGE VIII — Julie -->
+      <div class="page is-passage" data-i="9">
+        <div class="page-paper-tex"></div>
+        <div class="page-inner">
+          <div class="roman">VIII.</div>
+          <div class="byline"><span class="name">Julie</span><span class="sep">·</span> 20 November 2024</div>
+          <div class="rule"></div>
+          <div class="original"><span class="dropcap">H</span>ej igen Mia,
 
 Tusind tak for hjælpen! Det er bare fantastisk kundeservice 🤩
 
 Igen kæmpe tak!
 
 Hilsen Julie</div>
-      <div class="rendering"><span class="label">Rendering</span>Hello again Mia — a thousand thanks for the help. That is simply fantastic customer service. Again, my huge thanks. — Greetings, Julie.</div>
-    </article>
+          <div class="rendering"><span class="label">Rendering</span>Hello again Mia — a thousand thanks for the help. That is simply fantastic customer service. Again, my huge thanks. — Greetings, Julie.</div>
+        </div>
+        <div class="page-num">ix</div>
+      </div>
 
-    <!-- IX -->
-    <article class="passage">
-      <div class="roman">IX.</div>
-      <div class="byline"><span class="name">Flemming</span><span class="sep">·</span> the seventh of august, mmxxv</div>
-      <div class="original"><span class="dropcap">Å</span>hh TAK Mia, du er en stjerne 🌟
+      <!-- 11. PASSAGE IX — Flemming -->
+      <div class="page is-passage" data-i="10">
+        <div class="page-paper-tex"></div>
+        <div class="page-inner">
+          <div class="roman">IX.</div>
+          <div class="byline"><span class="name">Flemming</span><span class="sep">·</span> 7 August 2025</div>
+          <div class="rule"></div>
+          <div class="original"><span class="dropcap">Å</span>hh TAK Mia, du er en stjerne 🌟
 
 Jeg vender tilbage og holder mig til protein pulver næste gang. Tak igen.
 
 Vh Flemming</div>
-      <div class="rendering"><span class="label">Rendering</span>Oh, THANK YOU Mia — you are a star. I shall come back, and I will stick to protein powder next time. Thanks again. — Best, Flemming.</div>
-    </article>
+          <div class="rendering"><span class="label">Rendering</span>Oh, THANK YOU Mia — you are a star. I shall come back, and I will stick to protein powder next time. Thanks again. — Best, Flemming.</div>
+        </div>
+        <div class="page-num">x</div>
+      </div>
 
-    <!-- X -->
-    <article class="passage">
-      <div class="roman">X.</div>
-      <div class="byline"><span class="name">Troels</span><span class="sep">·</span> the twentieth of february, mmxxvi</div>
-      <div class="original"><span class="dropcap">T</span>usind tak Mia du er en stjerne! 😊
+      <!-- 12. PASSAGE X — Troels -->
+      <div class="page is-passage" data-i="11">
+        <div class="page-paper-tex"></div>
+        <div class="page-inner">
+          <div class="roman">X.</div>
+          <div class="byline"><span class="name">Troels</span><span class="sep">·</span> 20 February 2026</div>
+          <div class="rule"></div>
+          <div class="original"><span class="dropcap">T</span>usind tak Mia du er en stjerne! 😊
 
 Jeg håber også du får en dejlig weekend 😊
 
 Mvh.
 Troels</div>
-      <div class="rendering"><span class="label">Rendering</span>A thousand thanks Mia — you are a star. I hope you also have a lovely weekend. — Best, Troels.</div>
-    </article>
+          <div class="rendering"><span class="label">Rendering</span>A thousand thanks Mia — you are a star. I hope you also have a lovely weekend. — Best, Troels.</div>
+        </div>
+        <div class="page-num">xi</div>
+      </div>
 
-  </section>
+      <!-- 13. COLOPHON -->
+      <div class="page is-colophon" data-i="12">
+        <div class="page-paper-tex"></div>
+        <div class="page-inner">
+          <div class="page-label">Colophon</div>
+          <div class="glyph">⁂</div>
+          <h3>Two years. Thousands of small kindnesses. All quietly your work.</h3>
+          <p>Ten is the small visible part. The full archive holds many more — the one-line thanks, the smileys at the end of long days, the people who wrote back simply to say thank you.</p>
+          <p>This folio is for the ones who took an extra minute to set it down in words.</p>
+          <div class="signature">a private folio · for mia · with thanks</div>
+          <div class="finis">— finis —</div>
+        </div>
+        <div class="page-num">xii</div>
+      </div>
 
-  <!-- ===== COLOPHON ===== -->
-  <section class="colophon">
-    <div class="ornament">⁂</div>
-    <h3>Two years. Thousands of small kindnesses. All quietly your work.</h3>
-    <p>Ten is the small visible part. The full archive holds many more — the one-line thanks, the smileys at the end of long days, the people who wrote back simply to say thank you. This folio is for the ones who took an extra minute to set it down in words.</p>
-    <div class="signature">
-      Set in EB Garamond &amp; Cormorant Garamond.<br>
-      <span class="roman">a private folio · for mia · with thanks</span>
     </div>
-  </section>
+  </div>
 
-  <div class="folio-foot">— finis —</div>
+  <!-- Edge hotspots: click left third / right third to flip -->
+  <div class="hotspot left"  id="hotLeft"  aria-label="Previous page" role="button" tabindex="0"></div>
+  <div class="hotspot right" id="hotRight" aria-label="Next page" role="button" tabindex="0"></div>
 
-</main>
+  <!-- Bottom controls -->
+  <div class="controls">
+    <button class="nav prev" id="btnPrev" aria-label="Previous page">‹</button>
+    <span class="indicator"><span id="curr">i</span> of xiii</span>
+    <button class="nav next" id="btnNext" aria-label="Next page">›</button>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  const pages = Array.from(document.querySelectorAll('.page'));
+  const total = pages.length;
+  const btnPrev = document.getElementById('btnPrev');
+  const btnNext = document.getElementById('btnNext');
+  const hotLeft = document.getElementById('hotLeft');
+  const hotRight = document.getElementById('hotRight');
+  const currEl = document.getElementById('curr');
+
+  let current = 0;
+  let flipping = false;
+
+  const ROMAN = ['i','ii','iii','iv','v','vi','vii','viii','ix','x','xi','xii','xiii'];
+
+  function setVisuals() {
+    pages.forEach((p, idx) => {
+      p.classList.remove('current', 'behind', 'flipping-forward', 'flipping-back');
+      p.style.transform = '';
+      if (idx === current) {
+        p.classList.add('current');
+      } else if (idx < current) {
+        // already flipped — sit hidden behind everything
+        p.style.transform = 'rotateY(-180deg)';
+        p.style.visibility = 'hidden';
+      } else {
+        // not yet reached — sit behind current
+        p.style.visibility = 'hidden';
+      }
+    });
+    // The page underneath the current must be visible during flip-out:
+    if (current + 1 < total) {
+      pages[current + 1].classList.add('behind');
+      pages[current + 1].style.visibility = 'visible';
+    }
+    // Ensure the previous page is positioned to enter from the left for back-flip
+    if (current - 1 >= 0) {
+      pages[current - 1].style.visibility = 'visible';
+      pages[current - 1].style.transform = 'rotateY(-180deg)';
+      pages[current - 1].classList.add('behind');
+    }
+    currEl.textContent = ROMAN[current] || (current + 1);
+    btnPrev.disabled = current === 0;
+    btnNext.disabled = current === total - 1;
+  }
+
+  function next() {
+    if (flipping || current >= total - 1) return;
+    flipping = true;
+    const leaving = pages[current];
+    const incoming = pages[current + 1];
+    // Make sure incoming is positioned correctly underneath
+    incoming.style.visibility = 'visible';
+    incoming.style.transform = '';
+    incoming.classList.add('behind');
+    // Animate leaving page to flip forward
+    leaving.classList.add('flipping-forward');
+    setTimeout(() => {
+      current++;
+      flipping = false;
+      setVisuals();
+    }, 1250);
+  }
+
+  function prev() {
+    if (flipping || current <= 0) return;
+    flipping = true;
+    const returning = pages[current - 1];
+    const stayBehind = pages[current];
+    // Position returning page on the left, ready to swing back
+    returning.style.visibility = 'visible';
+    returning.style.transform = 'rotateY(-180deg)';
+    returning.classList.remove('behind');
+    // Force a reflow, then animate back to 0
+    void returning.offsetWidth;
+    returning.classList.add('flipping-back');
+    returning.style.transform = 'rotateY(0deg)';
+    setTimeout(() => {
+      current--;
+      flipping = false;
+      setVisuals();
+    }, 1250);
+  }
+
+  btnNext.addEventListener('click', next);
+  btnPrev.addEventListener('click', prev);
+  hotRight.addEventListener('click', next);
+  hotLeft.addEventListener('click', prev);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { next(); e.preventDefault(); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { prev(); e.preventDefault(); }
+    if (e.key === 'Home') { current = 0; setVisuals(); }
+    if (e.key === 'End') { current = total - 1; setVisuals(); }
+  });
+
+  // Touch swipe
+  let tx = null, ty = null;
+  document.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 1) { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }
+  }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    if (tx === null) return;
+    const dx = (e.changedTouches[0].clientX - tx);
+    const dy = (e.changedTouches[0].clientY - ty);
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0) next(); else prev();
+    }
+    tx = ty = null;
+  }, { passive: true });
+
+  // Initial render
+  setVisuals();
+})();
+</script>
 
 </body>
 </html>
