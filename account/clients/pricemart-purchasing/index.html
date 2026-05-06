@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Pricemart Purchasing · WildBreeze</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-0:#06080F; --bg-1:#0A0E1A; --bg-2:#10172A;
+  --ink:#F2F4FA; --ink-2:#B6BDD0; --ink-3:#6F7793;
+  --line:rgba(255,255,255,0.08); --line-2:rgba(255,255,255,0.14);
+  --cyan:#5EF2FF; --violet:#A78BFA;
+  --serif:"Space Grotesk", system-ui, sans-serif;
+  --sans:"Inter", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg-0);overflow-x:hidden;min-height:100vh}
+body{
+  background:transparent;color:var(--ink);font-family:var(--sans);
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:40px 20px;-webkit-font-smoothing:antialiased;
+}
+.field{position:fixed;inset:0;z-index:-3;
+  background:
+    radial-gradient(1100px 700px at 78% -10%, rgba(94,242,255,0.18), transparent 60%),
+    radial-gradient(900px 600px at 12% 5%, rgba(167,139,250,0.18), transparent 60%),
+    radial-gradient(1000px 700px at 50% 110%, rgba(94,242,255,0.10), transparent 60%),
+    linear-gradient(180deg,#06080F 0%,#080B17 50%,#06080F 100%);
+}
+.grid{position:fixed;inset:0;z-index:-1;
+  background-image:
+    linear-gradient(to right,var(--line) 1px,transparent 1px),
+    linear-gradient(to bottom,var(--line) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 30%, black 30%, transparent 80%);
+  opacity:.55;pointer-events:none;
+}
+
+#gate{display:none;width:100%;max-width:440px}
+#gate.shown{display:block}
+.kicker{
+  font-family:var(--mono);font-size:11px;text-transform:uppercase;
+  letter-spacing:0.14em;color:var(--cyan);margin-bottom:14px;
+}
+.title{
+  font-family:var(--serif);font-size:34px;font-weight:500;
+  letter-spacing:-0.02em;line-height:1.1;color:var(--ink);
+  margin-bottom:14px;
+}
+.title .accent{
+  background:linear-gradient(110deg,var(--cyan) 20%,var(--violet) 80%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  font-style:italic;font-weight:400;
+}
+.lede{color:var(--ink-2);font-size:15px;line-height:1.55;margin-bottom:32px}
+.gate-card{
+  border:1px solid var(--line);border-radius:14px;
+  background:rgba(255,255,255,0.025);
+  padding:32px 30px;
+}
+.field-label{
+  display:block;font-family:var(--mono);font-size:10.5px;
+  text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-3);
+  margin-bottom:8px;margin-top:18px;
+}
+.field-label:first-child{margin-top:0}
+.gate-input{
+  width:100%;background:transparent;border:none;
+  border-bottom:1px solid rgba(255,255,255,0.22);
+  padding:8px 0 10px;font-family:var(--sans);font-size:16px;
+  color:var(--ink);outline:none;transition:border-color 180ms ease;
+}
+.gate-input:focus{border-bottom-color:var(--cyan)}
+.gate-input.err{border-bottom-color:#ff6b6b;animation:flash 0.6s}
+@keyframes flash{0%,100%{border-bottom-color:#ff6b6b}50%{border-bottom-color:rgba(255,255,255,0.22)}}
+.gate-button{
+  width:100%;margin-top:28px;padding:13px;
+  background:transparent;color:var(--ink);
+  border:1px solid var(--line-2);border-radius:8px;
+  font-family:var(--mono);font-size:12px;
+  text-transform:uppercase;letter-spacing:0.12em;
+  cursor:pointer;transition:all 180ms ease;
+}
+.gate-button:hover{
+  border-color:var(--cyan);color:var(--cyan);
+  background:rgba(94,242,255,0.04);
+}
+.gate-button:disabled{opacity:0.5;cursor:wait}
+.msg{
+  margin-top:14px;font-family:var(--mono);font-size:11.5px;
+  letter-spacing:0.04em;color:var(--ink-3);min-height:1em;
+}
+.msg.err{color:#ff8a8a}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-8px)}
+  40%{transform:translateX(8px)}
+  60%{transform:translateX(-6px)}
+  80%{transform:translateX(6px)}
+}
+.gate-card.shake{animation:shake 0.4s}
+.foot{
+  margin-top:22px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:0.06em;color:var(--ink-3);text-align:center;
+}
+.foot a{color:var(--ink-3);text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.1)}
+.foot a:hover{color:var(--cyan)}
+  /* WB-CLIENT-CSS-START */
+  /* Client area pill (footer .legal) — managed by _inject_client_link.py */
+  .client-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-2);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    padding: 6px 14px;
+    text-decoration: none;
+    transition: all 180ms ease;
+  }
+  .client-link:hover {
+    color: var(--cyan);
+    border-color: rgba(94, 242, 255, 0.5);
+    background: rgba(94, 242, 255, 0.04);
+  }
+  .client-link .arrow { color: var(--cyan); transition: transform 180ms ease; }
+  .client-link:hover .arrow { transform: translateX(3px); }
+  /* WB-CLIENT-CSS-END */
+</style>
+<!-- WB-TAGS-START -->
+<!-- Google tag (gtag.js) — GA4 G-4S960N841V -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4S960N841V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4S960N841V');
+</script>
+<!-- WB-TAGS-END -->
+</head>
+<body>
+
+<div class="field" aria-hidden="true"></div>
+<div class="grid" aria-hidden="true"></div>
+
+<div id="gate" role="main">
+  <div class="kicker">Encrypted</div>
+  <h1 class="title">Sign in to <span class="accent">view this page.</span></h1>
+  <p class="lede">This content is encrypted at rest. Enter the email and access key we sent you to decrypt it in your browser. Nothing is sent over the network — verification happens locally.</p>
+  <form id="gate-form" class="gate-card" autocomplete="off" novalidate>
+    <label class="field-label" for="g-email">Email</label>
+    <input id="g-email" class="gate-input" type="email" autocomplete="email" required>
+    <label class="field-label" for="g-key">Access key</label>
+    <input id="g-key" class="gate-input" type="password" autocomplete="current-password" required>
+    <button id="g-submit" class="gate-button" type="submit">Decrypt</button>
+    <div id="g-msg" class="msg" aria-live="polite"></div>
+  </form>
+  <p class="foot">WildBreeze · client area</p>
+</div>
+
+<script>
+(function(){
+  var BLOB = {"s": "8da73529d7ba691b367f18998137c4d5", "iv": "f55b44f548872493d29f4fa9", "ct": "/4hrenCBUd/MAkQBw5NsQAbDpukPWW8BB6yOVgIs9jMepYMZrRmtxG088JAoaJlkM9NCGAEKx55ByROxBQm6uL7AloW+1AYHzDkVeoqC+5PeHGcFaFHKlfsvkpN/qyFv13wY+CRuHsRSz0Ys9Xts6D+YmjbKjy81raYbxN5sVSz/f1BKXFqeBGiBFsTnn9yGd1hqRn+UQ0GbSptsobEsX28OIsSI4Xzu+OPjWvmqoQ8ueuTV2N3rFUmIu8NxuBzWPRtgxBgAiNMicTyx62j0zEIrKwq/Qz0+dd8CgavkIRyegbl5aWWpJx6keo8d8tYBjTWLdgv5Sef/w4UXHraONzsAiU0tpCoKOeE+jB3NpUV0RtGpNfo7prSTXMzdD5UEnOU6cumlj2C2XOOL+I7XYV3WRGCpc2GTL8/VAgPsIHJOYZhqxoEhygkVBZfNuVxQoUmETyTP4F8HQkk8qwLh/vHwSB7eZx2OFhWcSr7cegAF10PaBlmMSheMYHPFX2Fl7UGeSiG+iGV+HDvequdk/a3pKixEGxVtqP8/ExdJM9oVqJbqPilj8pmwZZ4VLQiZYZiDLclhqVJCF5pEkCvHoYRlFk6+/B6HiBU7jOIRR3rUrdYtDv4YVYLsnLT0IBuPCRpPtzHohtOxCrKzWEE7xtP7VqBaU6Uq9lpWtoX4xD43wSpLEnNb0DaPu08U+Ta7NEJ31RaSUGWghRSbnECFWncxkcw32QOPyTcuV/sSZejzPq5qXqbZCleD95amGsyRENfU68gVwrXbb8dA8CWEDpklnMOFreZOIuPJAP/j9WQGcbInALQEuUKad3AVe2sGlCPW4yJttRotozCAmB+RLKMWs7nv2ys25ua6/5JHzhZ30lY+9TIq0nwNdcE9v9pBMcjYQmEN38GJF2cP3gTl+BgDLN0QZLcpVUkdTbI6/NdNGJKoYSYIFQcmdgjToeH1OmhtbCXDsPdIehBCcgOMDvsdKTf6eetE3v68rorm98nJIEx98+5sjW9Q/FZzmVZwvMziEjdcCz2Jl0BezcTFwFABtsO8V+zcyJYTPfx60aClA4Qd4r7kgTCk9OPc8h5I6kpCazYKTg+t1hrVL6UxyCiV2Im5+Av3ZqqmEQ33cIuGfsTNTfuBiZOMwZZfnD1lmyOy/jAyPUDDZ32fyRGAvJMnHaVZEhytPyFeY3Hiao/1RiEaZzqz5n/8y5AsBk2gfAoP5d9ukl1HTlJ8Se9dNgJ9+LOZGqMRuNHbqkX4Jek48bEsjxt4kooGeTqJo6oKwGdtL1t5vzIUrP23T/qy/ZfkKbj/g7jFcQWN1Ro4c7WFyoKOWPnI/3nQPf2+Meqyg/Y4KIOpDfDU37K54A5t5Pb7kpd1C69+5JUM7nEzCIDEuXqv1wpyx4O0YKTN80TWGs5o7LtokEIYuZcURtkOY1VNbgAaMgHEeXRQDcKCIC72eInMKHC7GI4+kG1WM7s2TT9VjfFtGS0Qg1u9QsEuLje1dC64UIIoPbLN8hlbd5ur8jSrHipmWTaf/77amDvPZtl7jzBZXagkWbfPy2PqIGxuiS0hGlp0p39ENDDIrAPxennJqJGFOwwSvEDz9Hno+OiW06hfXU3t1wdOjf3oUyxtdPMBpCi/zxjwQ8uZD1Nd0P+j8IwMj130u15svr5DWGP9c1qmp9HNd9Ok43Mx6/ydAI1VMBUoQW0iCx66kA11hBGn5Wm9L5SDcotJvgZ5rHfEAva5H0deLY6vqMcZkn14ng0S84orcMGLzpFKTBSdR8TlKhhSLFWYzouwXgqRImi0lwOZ29mtUvX6OdXH2kjSai/5x+rN8DtuWLWrWDSK6VTFuhmJrr5i8ArqY7O4uBjVsVcnNkJtgeSsanNdff4LLfR30LOrdBoUAjlOnBEvHThj2GQsdhiZ1VWosCB3XBkuHDe//8b7LyId6aouBNjQz2GXnxV+KYeBLknGaYGiHYUU/qs+Bc54/AtPQoXcxiuWcE5hS0xLC/TlBmrJGlVr9WrnD13ZEpptmwvRI8yDST1/aBJO96wYUKvAHAZV8k2MrZZmon4SOAKoRpAQL0xotrEyknGIEscy1Z98gslLMmz7S03IgCcIRJ0SmX/va5Y2N82WajNy/NMdD2M07OnOFzbDm9KOwiDS3HTF30M36nArCE1Xj7apKtzEsJ0eNUgeJMxcb5iUQunDSMvA+4RuFkBX7TH4VRBThYm7k4Rp7gbH7YQqr6tc2Td38sR17X5viK5y0TyHxVkfY0k9qsiy0sbpp+FnCKdTnvuL8416EcZ/D17KT4mjJqPsDcJQAVzOyW/vQhGJKfIUs75gRParuibuP0QZTmOmjGMWg1A4njP/mJR0E1S9hZNFOTip5kdYZgytAqzKlybubplD5WvJHXdhr7X8n6UdtreT5S+h6HtLP/5LeBfaJ0GL5AMUZfO3qqBuUawdCt8cyyIRG0qOG4X+gDI6pptpCM+1y3N1hHMOiJ7hNErWpcRHneuN53Jq9gpECae6ZfQ469x4R4Fqup38MVOInLaXMN2yWULO2CpT99/3FxCTXrXIXjMt7TfYKxyMGb4CvE5Qqrqmsf6tlflKJy8dJzpRK5jwsntxG7Hhfcyk2ZKG/D5Anq0e1DbAWPpU9YhkgLxIIbdPMG95rFBFUSBvopqnQH4OjzQhbdwqHD6t9OXjH48FkPvfsW4MTZAnUtliMf2Z05KFDJygFVNPjlBQiRE619uD3o4GLAdJksvmhLWg7vzfgYB5g4t4xJwuM/NyvgtUDN2mpCHlw7O4ZbmGzsN434L801eUC61DjS3rHo7eu7KItaLtARtd6j5Hc8WF1f7J/cv+fz0APk5JTtNt4GR8Cr79BFysP4ys2XdJodm43ZJ1C+Ri76MvCjmRE5RltJ0Fde0rRqI0mjW0u2DTDKJ+KlENCN+9CsynJkjbKbscig/sN2Z+gN3nMhDDIRL+MCeM/TMzs/0StKthpcoB4GC+EbER9Otqqhh1d5R8IV/C1eePqdpavgxiHWAuEPBPJfhM7y8MV5qaSc5BiISFvSLRKbV5DVBWiq76EXw1Pp1QOA6CEbAKp1R2dvgg3xPQfTTDaCrMMp8etfVQBSo4aLcN8SfPLGd8DIR6qhi42PBf00rbxOemy88rroZQeruO1PUmJ90XwsE+YGxlawp388Fy5oWR5WNyr+AbisL8uqlUU5G5AXcNt2lzuXMygstw19FZhH9yDwZ7KkHjwE6nKZJw3X4ltsz1C3tXDe0QpLxMy1Ezk8bYGXLuouyVipegNg8bhpof9CllG58+jAIvJs1rfYLYGVgjeOLs469Q87TmdcDSxhMxOHVU2qtbP2EoyTMR0dQKrx/p+L8AkJKGZfB1Qi8dZUuUoFIycwYdvvjppH/8vbgH8WVcdjkHDdXbVufPdLa2tp/Ax1jZ7kpEcWv3RF+gHUltihKo+HM8KB8eHxIEPQpUIKfAoUMDJVti2TOQ6g4Qv9ZE93UDF8dfMMXAXcY7whbyY4P9tPP2SyPSdr0LO1jBqiJkjsvIKks7eWSzwCCOSL8RLjslW2RWdJEdXo0jtrja9536FCx8oaYkZDjlvIkA7v1zvQpS1SBAQZLEWnrGRmPMoN6Uw9MuoGUSsZ7tUiBHJh5mMoTHY5GvgPa7jO+wcpOwQI+ehXbpzMJT4+q11Q93PQU+x/B3tlaOuHegMiMr0gg86KZXMqi6Zk4dBwt/7B2o/j7Jc6PrQXgFcH4pB/aCp844mzM9H5V0e+wD1KrTA5eOLHPIKnEyMX4PKHotpet+st9TT2cQDFQ9FhSODai3kP+AB4QJ68nf6IZqUCi7/SiThYRoziXZL1ga5Pwk78V1hWWr3TG2Nfa+HRhD+P8/n8bcgTVyeWQgUOrEJooL4m1O+9O7cBLoDlUZ2MeU89z4x8IpWfo03v8GNrJQs/ApgkIUXjPjIEVN6F1zDtHKr4RgvPFw0HD0BDdWnbIKPy5L84eQCKLTXdvdVfeBaaH4o1Y+XFKMqnR8ebpilEEFwSLYakC0JLjJkPhVJlJCRTEuyE8d0M+SBv3LrS5Y2BZwW4xnkdWMERgnPdRvPs8E9wj+MqHSzN4sWmBlVIZqGKAKrXQtQkismX1MY+9yh6YekZzox0VPxEf3fx/K3vaSWE579ciy8dhstf9bdaFP3hZl5fL3WBi7xHZXYu8N9O2vBLEb0OTD/1z29Hz88v5vvfJ1I8IRmfdxdXVqBRjcLN6gACwUINsM4JxAnDLgFkZEP03S1inXM32UPG2VTMoZBqVIXnYJBbj6dkwjJv0KEMkhTpSMNqk/WYj/fnyAgeObdULzMf+l5j/GFrG82AmSQwPckkt+opPWBiwyHmvcnMsG5l8TASCc9atbJF6heJwijNdgMKbsLpQEmno1KDTFp4BUiTQ6yR+6BVaRP2Xj6aQpZjN100izwV/sJ10L44nQplSpbKoFh1Fp176vO5Kx1YW/O/TgMU5eRun0NnawjFx8r9vlBqMHbNTJuu4ay/v8YSHFFOgjg7awChVzuVi1NmRWsAONZBr33Gmj3yLZznfY/Z9duAYKh03htIcw"};
+  var ITERS = 200000;
+
+  function hexToBytes(hex){
+    var out = new Uint8Array(hex.length/2);
+    for (var i=0;i<out.length;i++) out[i] = parseInt(hex.substr(i*2,2),16);
+    return out;
+  }
+  function b64ToBytes(b64){
+    var bin = atob(b64);
+    var out = new Uint8Array(bin.length);
+    for (var i=0;i<bin.length;i++) out[i] = bin.charCodeAt(i);
+    return out;
+  }
+
+  async function decrypt(email, accessKey){
+    var pwd = (email.toLowerCase().trim() + "|" + accessKey.trim());
+    var baseKey = await crypto.subtle.importKey(
+      "raw", new TextEncoder().encode(pwd),
+      { name: "PBKDF2" }, false, ["deriveKey"]);
+    var aesKey = await crypto.subtle.deriveKey(
+      { name: "PBKDF2", salt: hexToBytes(BLOB.s), iterations: ITERS, hash: "SHA-256" },
+      baseKey,
+      { name: "AES-GCM", length: 256 },
+      false,
+      ["decrypt"]);
+    var pt = await crypto.subtle.decrypt(
+      { name: "AES-GCM", iv: hexToBytes(BLOB.iv) },
+      aesKey,
+      b64ToBytes(BLOB.ct));
+    return new TextDecoder().decode(pt);
+  }
+
+  function render(html){
+    document.open();
+    document.write(html);
+    document.close();
+  }
+
+  async function tryUnlock(email, accessKey){
+    try {
+      var html = await decrypt(email, accessKey);
+      try {
+        sessionStorage.setItem("wb_auth", JSON.stringify({ e: email, k: accessKey }));
+      } catch(_) { /* private mode etc. — fine, just no caching */ }
+      render(html);
+      return true;
+    } catch(e) {
+      return false;
+    }
+  }
+
+  function showGate(){
+    var g = document.getElementById("gate");
+    if (g) g.classList.add("shown");
+    var em = document.getElementById("g-email");
+    if (em) em.focus();
+  }
+
+  function shake(){
+    var card = document.querySelector(".gate-card");
+    if (!card) return;
+    card.classList.remove("shake");
+    void card.offsetWidth;  // restart animation
+    card.classList.add("shake");
+  }
+
+  function setMsg(text, isErr){
+    var m = document.getElementById("g-msg");
+    if (!m) return;
+    m.textContent = text || "";
+    m.className = "msg" + (isErr ? " err" : "");
+  }
+
+  // Wire up the form
+  function attachForm(){
+    var form = document.getElementById("gate-form");
+    form.addEventListener("submit", async function(ev){
+      ev.preventDefault();
+      var email = document.getElementById("g-email").value;
+      var key   = document.getElementById("g-key").value;
+      var btn   = document.getElementById("g-submit");
+      btn.disabled = true;
+      setMsg("Decrypting…");
+      var ok = await tryUnlock(email, key);
+      if (!ok) {
+        btn.disabled = false;
+        setMsg("Access denied. Check your email and access key.", true);
+        shake();
+        document.getElementById("g-key").classList.add("err");
+        setTimeout(function(){
+          document.getElementById("g-key").classList.remove("err");
+        }, 1000);
+      }
+    });
+  }
+
+  // On load: try silent unlock from sessionStorage
+  (async function(){
+    var cached = null;
+    try {
+      cached = JSON.parse(sessionStorage.getItem("wb_auth") || "null");
+    } catch(_) {}
+    if (cached && cached.e && cached.k) {
+      var ok = await tryUnlock(cached.e, cached.k);
+      if (ok) return;  // rendered
+    }
+    // Cold load — show gate
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", function(){
+        attachForm();
+        showGate();
+      });
+    } else {
+      attachForm();
+      showGate();
+    }
+  })();
+})();
+</script>
+</body>
+</html>
