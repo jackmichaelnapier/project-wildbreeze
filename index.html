@@ -392,6 +392,15 @@
     transition: opacity 220ms ease;
   }
   .video-ring:hover .play-hint { opacity: 1; }
+  /* When autoplay is blocked (iOS Low Power, Low Data, etc), JS adds
+     .needs-tap so the affordance is always visible until the user taps. */
+  .video-ring.needs-tap .play-hint { opacity: 1; }
+  /* On touch devices we never get :hover, so always surface the hint
+     when the video isn't yet playing — this is the only signal a mobile
+     user gets that the circle is tappable. */
+  @media (pointer: coarse) {
+    .video-ring:not(.is-playing) .play-hint { opacity: 1; }
+  }
   /* Hide the hint once the video is playing with sound */
   .video-ring.unmuted .play-hint { display: none; }
   .play-hint .label {
@@ -930,7 +939,7 @@
   .lang-toggle a { color: var(--cyan); padding: 0 4px; }
   .lang-toggle .sep { color: var(--line-2); }
   .lang-toggle .active { color: var(--ink); }
-                                        /* WB-CLIENT-CSS-START */
+                                            /* WB-CLIENT-CSS-START */
   /* Client area pill (footer .legal) — managed by _inject_client_link.py */
   .client-link {
     display: inline-flex; align-items: center; gap: 6px;
@@ -1830,10 +1839,18 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     else             returnToAmbient();
   });
 
-  // Clicking the video itself: only engages when currently muted.
-  // Once unmuted, video clicks do nothing (passive watch).
+  // Clicking the video itself:
+  //   · If paused (autoplay was blocked) → start ambient (muted, looping).
+  //     Don't unmute on first tap — sound is opt-in via the speaker button.
+  //   · If playing + muted → engage (unmute, restart with sound).
+  //   · If unmuted → no-op (passive watch).
   video.addEventListener('click', () => {
-    if (video.muted) engage();
+    if (video.paused) {
+      const p = video.play();
+      if (p && typeof p.then === 'function') p.catch(() => {});
+    } else if (video.muted) {
+      engage();
+    }
   });
 
   // When the unmuted single-playthrough finishes, snap back to ambient.
@@ -1849,8 +1866,27 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   function tryPlay() {
     if (!video.paused) return;
     const p = video.play();
-    if (p && typeof p.then === 'function') p.catch(() => {});
+    if (p && typeof p.then === 'function') {
+      p.then(() => {
+        ring.classList.remove('needs-tap');
+      }).catch(() => {
+        // Autoplay blocked (iOS Low Power Mode, Low Data Mode, per-site
+        // Auto-Play=Never, etc.) — surface the play-hint so the user
+        // knows they need to tap.
+        ring.classList.add('needs-tap');
+      });
+    }
   }
+
+  // Reflect the actual playback state on the ring, so CSS hooks
+  // (.is-playing, .needs-tap) stay in sync regardless of who started/stopped.
+  video.addEventListener('playing', () => {
+    ring.classList.add('is-playing');
+    ring.classList.remove('needs-tap');
+  });
+  video.addEventListener('pause', () => {
+    ring.classList.remove('is-playing');
+  });
 
   // 1. As soon as enough metadata loads, try.
   if (video.readyState >= 2) tryPlay();
