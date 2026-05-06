@@ -461,10 +461,16 @@ footer.site .legal {
   border: 1px solid var(--line);
   border-radius: 14px;
   background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
-  display: flex; align-items: baseline; gap: 12px;
+  display: flex; align-items: center; gap: 14px;
   transition: border-color 220ms ease;
 }
 .modules-strip .ms-row:hover { border-color: var(--line-2); }
+.modules-strip .ms-icon {
+  width: 24px; height: 24px;
+  flex-shrink: 0;
+  color: var(--cyan);
+  filter: drop-shadow(0 0 6px rgba(94, 242, 255, 0.35));
+}
 .modules-strip .ms-name {
   font-family: var(--serif); font-size: 19px; font-weight: 500;
   letter-spacing: -0.01em; color: var(--ink);
