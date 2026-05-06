@@ -134,7 +134,7 @@
   }
   .miniback a { color: var(--ink-2); border-bottom: 1px solid var(--line-2); padding-bottom: 1px; }
   .miniback a:hover { color: var(--cyan); border-color: var(--cyan); }
-                            /* WB-CLIENT-CSS-START */
+                              /* WB-CLIENT-CSS-START */
   /* Client area pill (footer .legal) — managed by _inject_client_link.py */
   .client-link {
     display: inline-flex; align-items: center; gap: 6px;
@@ -242,7 +242,7 @@
   <script>
   /* Encrypted records: PBKDF2 input is "<email>|<access_key>" (lowercased email).
      Each record decrypts to a relative HTML path (e.g. "preview/index.html"). */
-  var RECORDS = [{"s": "b60f3812054d6d82416928b677d7e13d", "iv": "d8cefa7f2d530bfc323e6093", "ct": "6fd58b872d8ddc4f5cdbc3eff653a6eecf61d4b74a4afb358edc0ec3917c52595d5e"}, {"s": "debdb7e81b142a13f1056bce8186656a", "iv": "821c98fff8a3443c56c5b459", "ct": "c68abaa514cfe49cbd695c42664668fa7fc873e04d8e4677752cb234da09ed3bc14e36620300738fc899e513a0e98830ef0446d6babe72c125ab11cf4060dd"}, {"s": "28f659c0cf2da252568d4a5c02c8923f", "iv": "221b72fe30d30c714932c0a6", "ct": "c422237a98d04e8aaf85da6667eb7324edb6b056beb02851a931b126df08aae6a9f34a1533d27eaf325429303f5859f1dcdea63d"}];
+  var RECORDS = [{"s": "efe37714de612f285697c9343fbbc077", "iv": "0f8aca7b184102e8195a224c", "ct": "c4ff8332550c90ca84f30c077c011615510713f0367b90232790dd6bf0e2662ba0ca"}, {"s": "8bcc4f6914cf69433489eb7d43aa0134", "iv": "d1ce3a5534cc3005b070786c", "ct": "612f18414758092bfa80130352f89135c7b28d737aaee6d23b82979af8de967aa75949ca56304dc4f3297cc4ba21c9a9b03ebec10432eef6f1f3b8951c1e48"}, {"s": "2ff26dc2c502c236596f2bee18004a6f", "iv": "5b4523560a153a0954ab3aae", "ct": "6dc0575bdee30d86b79725138a8ca861d66b045d3034c926f5e395fc0a722e96ce5767f07dfd0d074dba9ba39856672c02e4036c"}, {"s": "ba99bdfc6878206e5b8a1a841da0a50b", "iv": "7257eb1f4470f2b503ce2005", "ct": "1d0a0c13e6b0da60fa4b90cbc342e3e8790912febc8c80304ea416ea192353487695f65f483a755e6013bbfdf618b4e83a364cd32e35c8"}];
 
   function hexToBytes(hex){
     var b = new Uint8Array(hex.length/2);
