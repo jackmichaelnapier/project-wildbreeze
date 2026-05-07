@@ -135,4 +135,16 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.wildbreeze.io/contact/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.wildbreeze.io/es/contacto/"/>
   </url>
+  <url>
+    <loc>https://www.wildbreeze.io/field-guide/do-small-businesses-need-to-comply-with-ai-regulations/</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.wildbreeze.io/es/guia-de-campo/deben-las-pequenas-empresas-cumplir-con-las-regulaciones-de-/</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
