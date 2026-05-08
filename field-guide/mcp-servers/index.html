@@ -75,6 +75,142 @@
   .client-link .arrow { color: var(--cyan); transition: transform 180ms ease; }
   .client-link:hover .arrow { transform: translateX(3px); }
   /* WB-CLIENT-CSS-END */
+
+  /* ===== Field-guide explainer video (circular ring, same family as homepage hero) ===== */
+  .fg-hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .fg-hero-content { min-width: 0; }
+  .fg-hero-content .article-meta { margin-bottom: 0; }
+  .fg-video-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    justify-self: center;
+    position: relative;
+  }
+  @media (max-width: 880px) {
+    .fg-hero-grid { grid-template-columns: 1fr; gap: 32px; }
+    .fg-video-block { order: -1; }
+  }
+  .fg-video-ring {
+    position: relative;
+    width: 320px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    isolation: isolate;
+    filter: drop-shadow(0 0 28px rgba(94, 242, 255, 0.45))
+            drop-shadow(0 0 60px rgba(167, 139, 250, 0.30));
+  }
+  .fg-video-ring .ring-rotor {
+    position: absolute; inset: -3px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg,
+      rgba(94, 242, 255, 0.95) 0deg,
+      rgba(167, 139, 250, 0.85) 90deg,
+      rgba(94, 242, 255, 0.20) 180deg,
+      rgba(167, 139, 250, 0.85) 270deg,
+      rgba(94, 242, 255, 0.95) 360deg);
+    animation: fgRingRotate 14s linear infinite;
+    z-index: -1;
+  }
+  .fg-video-ring .ring-glow {
+    position: absolute; inset: -16px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(94, 242, 255, 0.18), rgba(167, 139, 250, 0.10) 60%, transparent 80%);
+    animation: fgRingPulse 4.6s ease-in-out infinite;
+    z-index: -2;
+    pointer-events: none;
+  }
+  @keyframes fgRingRotate { to { transform: rotate(360deg); } }
+  @keyframes fgRingPulse {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50%      { opacity: 1.0;  transform: scale(1.04); }
+  }
+  .fg-video-ring video {
+    position: relative;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 5px solid var(--bg-0);
+    background: var(--bg-0);
+    z-index: 1;
+    cursor: pointer;
+  }
+  .fg-video-ring .play-hint {
+    position: absolute;
+    inset: 5px;
+    border-radius: 50%;
+    z-index: 4;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(closest-side, rgba(6, 8, 15, 0.55), transparent 75%);
+    opacity: 0;
+    transition: opacity 220ms ease;
+  }
+  .fg-video-ring:hover .play-hint { opacity: 1; }
+  .fg-video-ring.needs-tap .play-hint { opacity: 1; }
+  @media (pointer: coarse) {
+    .fg-video-ring:not(.is-playing) .play-hint { opacity: 1; }
+  }
+  .fg-video-ring.unmuted .play-hint { display: none; }
+  .fg-video-ring .play-hint .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink);
+    background: rgba(6, 8, 15, 0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(94, 242, 255, 0.4);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .fg-video-ring .play-hint .label svg { width: 12px; height: 12px; color: var(--cyan); }
+  .fg-video-ring .mute-toggle {
+    position: absolute;
+    right: 6%; bottom: 6%;
+    z-index: 5;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--line-2);
+    background: rgba(6, 8, 15, 0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: var(--ink);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 180ms ease;
+  }
+  .fg-video-ring .mute-toggle:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-1px); }
+  .fg-video-ring .mute-toggle svg { width: 16px; height: 16px; }
+  .fg-video-tag {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .fg-video-tag .tag-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--phos);
+    box-shadow: 0 0 8px var(--phos);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fg-video-ring .ring-rotor { animation: none; }
+    .fg-video-ring .ring-glow { animation: none; }
+  }
 </style>
 <!-- WB-TAGS-START -->
 <!-- Google tag (gtag.js) — GA4 G-4S960N841V -->
@@ -253,14 +389,43 @@
 
 <article>
   <section class="page-hero">
-    <div class="wrap prose">
-      <div class="kicker">CORE CONCEPT 02</div>
-      <h1 class="page-title">What is an MCP server? <span class="accent">The bridge between AI and your stack.</span></h1>
-      <p class="lede">MCP. Model Context Protocol, is the part of the AI stack that small-business owners hear about and assume is too technical to care about. It's actually the most important piece. Here's why.</p>
-      <div class="article-meta">
-        <span><time datetime="2026-04-22">22 April 2026</time></span>
-        <span>8 min read</span>
-        <span class="tag">#mcp</span> <span class="tag">#ai-basics</span> <span class="tag">#operations</span> <span class="tag">#integrations</span>
+    <div class="wrap fg-hero-grid">
+      <div class="fg-hero-content">
+        <div class="kicker">CORE CONCEPT 02</div>
+        <h1 class="page-title">What is an MCP server? <span class="accent">The bridge between AI and your stack.</span></h1>
+        <p class="lede">MCP. Model Context Protocol, is the part of the AI stack that small-business owners hear about and assume is too technical to care about. It's actually the most important piece. Here's why.</p>
+        <div class="article-meta">
+          <span><time datetime="2026-04-22">22 April 2026</time></span>
+          <span>8 min read</span>
+          <span class="tag">#mcp</span> <span class="tag">#ai-basics</span> <span class="tag">#operations</span> <span class="tag">#integrations</span>
+        </div>
+      </div>
+
+      <div class="fg-video-block">
+        <div class="fg-video-ring" id="fg-video-ring">
+          <span class="ring-glow" aria-hidden="true"></span>
+          <span class="ring-rotor" aria-hidden="true"></span>
+          <video id="fg-intro-video"
+                 autoplay muted loop playsinline preload="auto"
+                 webkit-playsinline="true"
+                 x5-playsinline="true"
+                 aria-label="Brief explainer: what is an MCP server? Click to play with sound.">
+            <source src="/media/field-guide-mcp-servers.mp4" type="video/mp4">
+          </video>
+          <div class="play-hint" aria-hidden="true">
+            <span class="label">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              Play with sound
+            </span>
+          </div>
+          <button class="mute-toggle" type="button" aria-label="Unmute video and restart" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path class="icon-muted"   d="M11 5L6 9H2v6h4l5 4V5z M23 9l-6 6 M17 9l6 6"/>
+              <path class="icon-unmuted" d="M11 5L6 9H2v6h4l5 4V5z M15.54 8.46a5 5 0 010 7.07 M19.07 4.93a10 10 0 010 14.14" style="display:none"/>
+            </svg>
+          </button>
+        </div>
+        <div class="fg-video-tag"><span class="tag-dot"></span>WB · FIELD GUIDE · MCP SERVERS</div>
       </div>
     </div>
   </section>
@@ -346,6 +511,108 @@
     </div>
   </section>
 </article>
+
+<script>
+/* Field-guide explainer video — same two-state model as the homepage hero:
+   AMBIENT (muted, looping) ↔ ENGAGED (unmuted, single playthrough). */
+(() => {
+  const video  = document.getElementById('fg-intro-video');
+  const ring   = document.getElementById('fg-video-ring');
+  if (!video || !ring) return;
+  const button = ring.querySelector('.mute-toggle');
+  if (!button) return;
+
+  const iconMuted   = button.querySelector('.icon-muted');
+  const iconUnmuted = button.querySelector('.icon-unmuted');
+
+  function paintIcon() {
+    const muted = video.muted;
+    button.setAttribute('aria-pressed', String(!muted));
+    button.setAttribute('aria-label', muted ? 'Play with sound from the start' : 'Mute video');
+    if (iconMuted)   iconMuted.style.display   = muted ? '' : 'none';
+    if (iconUnmuted) iconUnmuted.style.display = muted ? 'none' : '';
+    ring.classList.toggle('unmuted', !muted);
+  }
+
+  function engage(e) {
+    if (e) e.stopPropagation();
+    video.loop = false;
+    video.currentTime = 0;
+    video.muted = false;
+    video.play().catch((err) => {
+      console.warn('Unmute play failed:', err);
+      returnToAmbient();
+    });
+    paintIcon();
+  }
+
+  function returnToAmbient() {
+    video.loop = true;
+    video.muted = true;
+    video.currentTime = 0;
+    if (video.paused) video.play().catch(() => {});
+    paintIcon();
+  }
+
+  button.addEventListener('click', (e) => {
+    if (video.muted) engage(e);
+    else             returnToAmbient();
+  });
+
+  video.addEventListener('click', () => {
+    if (video.paused) {
+      const p = video.play();
+      if (p && typeof p.then === 'function') p.catch(() => {});
+    } else if (video.muted) {
+      engage();
+    }
+  });
+
+  video.addEventListener('ended', returnToAmbient);
+
+  function tryPlay() {
+    if (!video.paused) return;
+    const p = video.play();
+    if (p && typeof p.then === 'function') {
+      p.then(() => { ring.classList.remove('needs-tap'); })
+       .catch(() => { ring.classList.add('needs-tap'); });
+    }
+  }
+
+  video.addEventListener('playing', () => {
+    ring.classList.add('is-playing');
+    ring.classList.remove('needs-tap');
+  });
+  video.addEventListener('pause', () => {
+    ring.classList.remove('is-playing');
+  });
+
+  if (video.readyState >= 2) tryPlay();
+  else video.addEventListener('loadeddata', tryPlay, { once: true });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) tryPlay(); });
+  }, { threshold: 0.1 });
+  io.observe(video);
+
+  let kicked = false;
+  function kickOnce() {
+    if (kicked) return;
+    kicked = true;
+    tryPlay();
+    ['touchstart','pointerdown','scroll','keydown','click'].forEach(ev =>
+      document.removeEventListener(ev, kickOnce, true));
+  }
+  ['touchstart','pointerdown','scroll','keydown','click'].forEach(ev =>
+    document.addEventListener(ev, kickOnce, { capture: true, passive: true }));
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') tryPlay();
+  });
+
+  paintIcon();
+})();
+</script>
 
 <section class="section" style="border-top: 1px solid var(--line);">
   <div class="wrap prose">
