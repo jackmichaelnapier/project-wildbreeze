@@ -37,7 +37,7 @@
   "headline": "What is an AI agent? A plain-English explainer for operators",
   "description": "An agent is an AI assistant with a job, a schedule, and access to your tools. Here's what that actually means for a 10-50 person operation.",
   "datePublished": "2026-04-15",
-  "dateModified": "2026-04-15",
+  "dateModified": "2026-05-08",
   "author": { "@type": "Organization", "name": "WildBreeze", "url": "https://www.wildbreeze.io/" },
   "publisher": { "@type": "Organization", "name": "WildBreeze", "url": "https://www.wildbreeze.io/", "logo": { "@type": "ImageObject", "url": "https://www.wildbreeze.io/favicon-512.png" } },
   "image": "https://www.wildbreeze.io/og-preview.png",
@@ -395,7 +395,7 @@
         <p class="lede">If you've heard "AI agent" thrown around in 2026 and quietly nodded along, this is the page that catches you up. No jargon, no hype, just what the term actually means and what it changes for the way you run an operation.</p>
         <div class="article-meta">
           <span><time datetime="2026-04-15">15 April 2026</time></span>
-          <span>6 min read</span>
+          <span>8 min read</span>
           <span class="tag">#agents</span> <span class="tag">#ai-basics</span> <span class="tag">#operations</span>
         </div>
       </div>
@@ -453,6 +453,26 @@
       <h3>3. Access to your tools</h3>
       <p>This is the part that's actually new. A chatbot in 2023 could only talk. An agent in 2026 can read your BigQuery warehouse, post to your Slack, edit a Google Doc, file a ticket in your project management tool. It does this through <strong>MCP servers</strong>, small bridges between the AI and your stack. <a href="/field-guide/mcp-servers/">There's a separate explainer for those</a>.</p>
       <p>The shift from "can answer questions about my data" to "can act on my data" is the big one. Five years ago, the human did the action and the AI helped them write a prettier version of it. Now the AI does the action and the human reviews the result.</p>
+
+      <h2>What separates a real agent from a demo</h2>
+
+      <p>The three above are what make something <em>an agent</em>. The four below are what make an agent <em>trustworthy enough to leave running unattended</em>. Vendors tend to gloss over these. Don't.</p>
+
+      <h3>Permissions (what it's allowed to touch)</h3>
+      <p>An agent with access to your tools is also an agent that could, in theory, email the wrong list, edit the wrong row, or post in the wrong channel. The fix isn't to avoid agents. It's to scope them tightly. A well-built agent has read access to exactly the data it needs, write access only where it should write, and nothing else.</p>
+      <p>When a vendor describes an agent, ask three questions: what credentials does it use, what's the scope of those credentials, and what's the worst thing it could do if the instructions went wrong. If they shrug, that's your answer.</p>
+
+      <h3>Logs (how you know it actually ran)</h3>
+      <p>Every agent run should leave a trace. What time it started, what data it pulled, what it produced, whether it finished cleanly. Without that trace, you're trusting a black box, and you'll only find out it stopped working when someone notices the Monday report has been missing for three weeks.</p>
+      <p>Logs don't have to be fancy. A row in a Google Sheet or a record in a database is fine, as long as you can answer "did it run, and what did it do" without phoning the person who built it.</p>
+
+      <h3>Human review (when it should pause and ask first)</h3>
+      <p>Some jobs are safe to fully automate. Posting a weekly summary is hard to mess up. Others aren't. Sending an email to a customer, approving a refund, paying an invoice. For those, a good agent doesn't act on its own. It drafts, queues, or asks. A human approves, then the agent finishes the job.</p>
+      <p>This isn't a workaround, it's the right pattern for anything customer-facing or financial. The agent does the boring 90%: gathering data, drafting the message, picking the recipient. The human does the 10% that requires judgment. Operators usually get the most leverage with the least risk in exactly that split.</p>
+
+      <h3>A failure plan (what happens when it breaks)</h3>
+      <p>It will break eventually. The data source will go down, a column will be renamed, an API key will expire. A serious agent has an answer for that: a notification when something goes wrong, a clear owner who gets pinged, and ideally a fallback. A stub message that says "yesterday's data isn't ready, will retry tomorrow" is much better than an empty report, or worse, a confidently wrong one.</p>
+      <p>The day an agent silently fails is the day people stop trusting it. That's harder to recover from than the failure itself.</p>
 
       <h2>What an agent is NOT</h2>
 
