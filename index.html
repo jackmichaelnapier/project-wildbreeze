@@ -387,7 +387,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: radial-gradient(closest-side, rgba(6, 8, 15, 0.55), transparent 75%);
+    /* Full dim + light blur so the poster (logo + wordmark) recedes cleanly
+       behind the play affordance — otherwise wave-mark fragments peek out
+       around the pill and read as visual noise. */
+    background: rgba(6, 8, 15, 0.72);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     opacity: 0;
     transition: opacity 220ms ease;
   }
