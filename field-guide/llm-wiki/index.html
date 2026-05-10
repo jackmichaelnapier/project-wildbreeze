@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The wiki your LLM maintains. WildBreeze</title>
+<meta name="description" content="A pattern for personal and team knowledge bases that actually compound. The LLM does the bookkeeping, the human does the curation, and the knowledge accumulates instead of going stale. Build it yourself in an evening." />
+<link rel="canonical" href="https://www.wildbreeze.io/field-guide/llm-wiki/" />
+<meta name="theme-color" content="#06080F" />
+<meta property="og:title" content="The wiki your LLM maintains" />
+<meta property="og:description" content="A pattern for personal and team knowledge bases that actually compound. The LLM does the bookkeeping, the human does the curation, and the knowledge accumulates instead of going stale." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.wildbreeze.io/field-guide/llm-wiki/" />
+<meta property="og:image" content="https://www.wildbreeze.io/og-preview.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="article:published_time" content="2026-05-10" />
+<meta property="article:section" content="Toolkit" />
+<meta property="article:tag" content="knowledge-management" />
+<meta property="article:tag" content="ai-patterns" />
+<meta property="article:tag" content="automation" />
+<meta property="article:tag" content="claude-code" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="The wiki your LLM maintains" />
+<meta name="twitter:description" content="A pattern for personal and team knowledge bases that actually compound. The LLM does the bookkeeping, the human does the curation." />
+<meta name="twitter:image" content="https://www.wildbreeze.io/og-preview.png" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/wb-style.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The wiki your LLM maintains",
+  "description": "A pattern for personal and team knowledge bases that actually compound. The LLM does the bookkeeping, the human does the curation, and the knowledge accumulates instead of going stale.",
+  "datePublished": "2026-05-10",
+  "dateModified": "2026-05-10",
+  "author": { "@type": "Organization", "name": "WildBreeze", "url": "https://www.wildbreeze.io/" },
+  "publisher": { "@type": "Organization", "name": "WildBreeze", "url": "https://www.wildbreeze.io/", "logo": { "@type": "ImageObject", "url": "https://www.wildbreeze.io/favicon-512.png" } },
+  "image": "https://www.wildbreeze.io/og-preview.png",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.wildbreeze.io/field-guide/llm-wiki/" },
+  "keywords": "knowledge-management, ai-patterns, automation, claude-code"
+}
+</script>
+<link rel="alternate" hreflang="en" href="https://www.wildbreeze.io/field-guide/llm-wiki/" />
+<link rel="alternate" hreflang="x-default" href="https://www.wildbreeze.io/field-guide/llm-wiki/" />
+<style>
+  .lang-toggle { font-family: var(--mono); font-size: 12px; color: var(--ink-3); letter-spacing: 0.08em; margin-left: 16px; }
+  .lang-toggle a { color: var(--cyan); padding: 0 4px; }
+  .lang-toggle .sep { color: var(--line-2); }
+  .lang-toggle .active { color: var(--ink); }
+
+  /* Toolkit-specific tweaks: code block treatment + callouts */
+  .prose-body pre {
+    background: rgba(94, 242, 255, 0.04);
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+    padding: 18px 20px;
+    overflow-x: auto;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--ink-2);
+    margin: 22px 0;
+  }
+  .prose-body pre code {
+    background: transparent;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+  }
+  .prose-body code {
+    font-family: var(--mono);
+    font-size: 0.9em;
+    background: rgba(167, 139, 250, 0.08);
+    color: var(--ink);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+  .prose-body .copyhint {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    margin-top: 28px;
+    margin-bottom: -8px;
+    display: block;
+  }
+  .prose-body .callout {
+    border-left: 2px solid var(--cyan);
+    background: rgba(94, 242, 255, 0.04);
+    padding: 14px 18px;
+    margin: 22px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 16px;
+    color: var(--ink-2);
+  }
+  .prose-body .callout strong { color: var(--ink); }
+
+  /* Toolkit kicker accent */
+  .kicker.toolkit {
+    color: var(--violet);
+  }
+
+                                                          /* WB-CLIENT-CSS-START */
+  /* Client area pill (footer .legal) — managed by _inject_client_link.py */
+  .client-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-2);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    padding: 6px 14px;
+    text-decoration: none;
+    transition: all 180ms ease;
+  }
+  .client-link:hover {
+    color: var(--cyan);
+    border-color: rgba(94, 242, 255, 0.5);
+    background: rgba(94, 242, 255, 0.04);
+  }
+  .client-link .arrow { color: var(--cyan); transition: transform 180ms ease; }
+  .client-link:hover .arrow { transform: translateX(3px); }
+  /* WB-CLIENT-CSS-END */
+</style>
+<!-- WB-TAGS-START -->
+<!-- Google tag (gtag.js) — GA4 G-4S960N841V -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4S960N841V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4S960N841V');
+</script>
+<!-- WB-TAGS-END -->
+</head>
+<body>
+
+<div class="field" aria-hidden="true"></div>
+<div class="grid" aria-hidden="true"></div>
+
+<!-- WB-HEADER-START -->
+<header class="nav">
+  <div class="wrap row">
+    <a href="/" class="logo">
+      <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+        <defs>
+          <linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#5EF2FF"/>
+            <stop offset="55%" stop-color="#A78BFA"/>
+            <stop offset="100%" stop-color="#5EF2FF"/>
+          </linearGradient>
+        </defs>
+        <g class="wave">
+          <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+      <span>WildBreeze</span>
+    </a>
+    <nav class="main">
+      <a href="/products/">Modules</a>
+      <a href="/field-guide/">Field Guide</a>
+      <a href="/about/">About</a>
+      <a href="/contact/" class="cta">Contact</a>
+      <span class="lang-toggle"><span class="active">EN</span><span class="sep">·</span><a href="/es/" hreflang="es">ES</a></span>
+    </nav>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="wb-mobile-nav">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <line class="bar top"    x1="4" y1="9"  x2="20" y2="9"  stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        <line class="bar bottom" x1="4" y1="15" x2="20" y2="15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+</header>
+<div class="nav-sheet" id="wb-mobile-nav" hidden>
+  <div class="nav-sheet-inner">
+    <div class="nav-sheet-kicker">// NAVIGATION</div>
+    <nav class="nav-sheet-links">
+      <a href="/products/">Modules</a>
+      <a href="/field-guide/">Field Guide</a>
+      <a href="/about/">About</a>
+    </nav>
+    <div class="nav-sheet-foot">
+      <span class="lang-toggle"><span class="active">EN</span><span class="sep">·</span><a href="/es/" hreflang="es">ES</a></span>
+      <a class="nav-sheet-cta" href="/contact/">Contact <span class="arrow">→</span></a>
+    </div>
+  </div>
+</div>
+<style id="wb-nav-styles">
+  .nav-toggle {
+    display: none;
+    background: transparent; border: 1px solid var(--line-2);
+    border-radius: 999px; padding: 6px; color: var(--ink); cursor: pointer;
+    transition: border-color 180ms ease, background 180ms ease;
+  }
+  .nav-toggle svg { width: 22px; height: 22px; display: block; }
+  .nav-toggle .bar { transition: transform 220ms ease, opacity 180ms ease; transform-origin: 12px 12px; }
+  .nav-toggle:hover { border-color: rgba(94, 242, 255, 0.5); background: rgba(94, 242, 255, 0.05); }
+  .nav-toggle[aria-expanded="true"] .bar.top    { transform: rotate(45deg)  translate(0, 4.24px); }
+  .nav-toggle[aria-expanded="true"] .bar.bottom { transform: rotate(-45deg) translate(0, -4.24px); }
+
+  .nav-sheet {
+    position: fixed; inset: 0; z-index: 60;
+    background: rgba(6, 8, 15, 0.92);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    opacity: 0; transition: opacity 220ms ease;
+  }
+  .nav-sheet[hidden] { display: none; }
+  html.nav-open .nav-sheet { opacity: 1; }
+  html.nav-open { overflow: hidden; }
+
+  .nav-sheet-inner {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: 88px 28px 32px;
+    height: 100%; display: flex; flex-direction: column;
+    transform: translateY(-12px); transition: transform 240ms ease;
+  }
+  html.nav-open .nav-sheet-inner { transform: translateY(0); }
+
+  .nav-sheet-kicker {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.14em; color: var(--cyan); margin-bottom: 24px;
+  }
+  .nav-sheet-links { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+  .nav-sheet-links a {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 28px; letter-spacing: -0.015em; color: var(--ink);
+    padding: 22px 0; border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    transition: color 180ms ease;
+  }
+  .nav-sheet-links a:active, .nav-sheet-links a:hover { color: var(--cyan); }
+
+  .nav-sheet-foot {
+    margin-top: auto; padding-top: 28px;
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .nav-sheet-foot .lang-toggle { margin: 0; align-self: flex-start; font-size: 13px; }
+  .nav-sheet-cta {
+    width: 100%; justify-content: center; padding: 14px 18px;
+    display: inline-flex; align-items: center; gap: 8px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(94, 242, 255, 0.95), rgba(94, 242, 255, 0.7));
+    color: #001318; border: 1px solid transparent;
+    font-family: var(--sans); font-size: 14px; font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 8px 24px -8px rgba(94, 242, 255, 0.6),
+                inset 0 0 0 1px rgba(255,255,255,0.4);
+  }
+  .nav-sheet-cta .arrow { transition: transform 180ms ease; }
+  .nav-sheet-cta:hover .arrow { transform: translateX(3px); }
+
+  @media (max-width: 880px) {
+    .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+    header.nav nav.main { display: none; }
+  }
+  @media (min-width: 881px) { .nav-sheet { display: none !important; } }
+  @media (prefers-reduced-motion: reduce) {
+    .nav-sheet, .nav-sheet-inner, .nav-toggle .bar { transition: opacity 0.01ms; transform: none !important; }
+  }
+</style>
+<script id="wb-nav-script">
+(function(){
+  var toggle = document.querySelector('.nav-toggle');
+  var sheet  = document.getElementById('wb-mobile-nav');
+  if (!toggle || !sheet) return;
+  var html = document.documentElement, lastFocus = null;
+  function open(){
+    lastFocus = document.activeElement;
+    sheet.hidden = false;
+    requestAnimationFrame(function(){
+      html.classList.add('nav-open');
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Close menu');
+      var first = sheet.querySelector('a, button'); if (first) first.focus();
+    });
+  }
+  function close(){
+    html.classList.remove('nav-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open menu');
+    setTimeout(function(){ sheet.hidden = true; }, 250);
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  toggle.addEventListener('click', function(){
+    toggle.getAttribute('aria-expanded') === 'true' ? close() : open();
+  });
+  sheet.addEventListener('click', function(e){ if (e.target === sheet) close(); });
+  sheet.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') close();
+  });
+  var mq = window.matchMedia('(min-width: 881px)');
+  if (mq.addEventListener) mq.addEventListener('change', function(e){ if (e.matches) close(); });
+})();
+</script>
+<!-- WB-HEADER-END -->
+
+<article>
+  <section class="page-hero">
+    <div class="wrap prose">
+      <div class="kicker toolkit">TOOLKIT 001</div>
+      <h1 class="page-title">The wiki <span class="accent">your LLM maintains.</span></h1>
+      <p class="lede">Most knowledge bases die because nobody wants to do the bookkeeping. Wikis go stale. Notion graveyards have a wing for every team. RAG resets every conversation. This pattern flips the maintenance economics: the LLM does the bookkeeping, you do the curation, and the knowledge actually compounds. Build it yourself in an evening.</p>
+      <div class="article-meta">
+        <span><time datetime="2026-05-10">10 May 2026</time></span>
+        <span>14 min read</span>
+        <span class="tag">#knowledge-management</span> <span class="tag">#ai-patterns</span> <span class="tag">#automation</span> <span class="tag">#claude-code</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="prose-body">
+    <div class="wrap prose">
+
+      <p>Andrej Karpathy <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">published a gist</a> describing this pattern. We've been running it for a couple of months across two of our own operations and one client. It works. This article is the operator's version: what it is, what it gets you, and the markdown you need to drop in to start using it tonight.</p>
+
+      <h2>The problem, in one paragraph</h2>
+
+      <p>You read three articles, sit through a meeting, and review last quarter's report. Each one teaches you something. By next week you remember roughly two of those things. By next quarter, none. The "knowledge base" your team has, if you have one, is a graveyard of pages from 2023 nobody trusts. RAG over your documents helps a little: ask the AI a question, it pulls relevant chunks, gives you an answer, and forgets everything before the next question. Nothing accumulates. Nothing compounds. Every conversation starts from zero.</p>
+
+      <p>The reason isn't laziness. It's that the <em>tedious</em> part of a knowledge base isn't the reading or thinking. It's the bookkeeping: updating cross-references, keeping summaries current, noting when a new document contradicts an old one, maintaining consistency across dozens of pages. Humans don't have the patience for it. The wiki dies.</p>
+
+      <h2>The pattern</h2>
+
+      <p>Three layers, three operations, two index files. That's it.</p>
+
+      <p><strong>Three layers:</strong></p>
+      <ul>
+        <li><strong>Raw sources.</strong> The documents you've curated. Articles, PDFs, transcripts, reports, exports. The LLM reads them. It never modifies them. They're your source of truth.</li>
+        <li><strong>The wiki.</strong> A folder of LLM-written markdown files. Entity pages (clients, suppliers, products, people). Concept pages (methodologies, recurring patterns, gotchas). Source summaries (one per ingested document). The LLM owns this layer entirely.</li>
+        <li><strong>The schema.</strong> One file telling the LLM how the wiki is structured, what the conventions are, what to do when ingesting new sources. For Claude Code this is a <code>CLAUDE.md</code>; for Codex it's <code>AGENTS.md</code>. This is the configuration that makes the LLM a disciplined wiki maintainer rather than a generic chatbot.</li>
+      </ul>
+
+      <p><strong>Three operations:</strong></p>
+      <ul>
+        <li><strong>Ingest.</strong> You drop a new source in. The LLM reads it, writes a summary page, updates relevant entity and concept pages, refreshes the index, logs the ingest. One source might touch ten or fifteen wiki pages. The synthesis is done once, then kept current.</li>
+        <li><strong>Query.</strong> You ask a question. The LLM reads the index first to find relevant pages, drills into those pages, synthesises an answer with citations. The wiki is read-once-then-answered, not re-derived from scratch.</li>
+        <li><strong>Lint.</strong> Periodically (we run it monthly) the LLM walks the wiki looking for orphan pages, missing cross-references, stale claims, contradictions, and gaps where new ingests would help. It surfaces problems without fixing them, so you stay in the loop on judgment calls.</li>
+      </ul>
+
+      <p><strong>Two index files</strong> at the root of the wiki:</p>
+      <ul>
+        <li><code>index.md</code>: a catalog of every page with a one-line description. Read first by every query. Updated on every ingest.</li>
+        <li>A log file (we use the project's existing <code>NOTES.md</code>, but you can call it anything). Append-only record of what happened: ingests, queries, lint passes. Useful for tracing why a page changed.</li>
+      </ul>
+
+      <h2>Why this works where wikis usually don't</h2>
+
+      <p>The bookkeeping cost goes from <em>"a person, sometimes, when they remember"</em> to <em>"the LLM, every time, automatically."</em> The LLM doesn't get bored. It doesn't forget to update a cross-reference because it was tired. It can touch fifteen files in one pass without losing focus. The wiki stays maintained because the cost of maintenance is near zero.</p>
+
+      <p>You're left with the work that actually requires judgment: deciding what to ingest, asking the right questions, deciding when a contradiction needs resolving, and trusting the synthesis (or not). That's the part you wanted to do anyway.</p>
+
+      <p>The other thing that makes this work: <strong>the wiki is plain markdown in plain folders.</strong> Not a hosted service. Not a graph database. Not a vector store. Files. You can edit them by hand. You can <code>grep</code> them. You can <code>git diff</code> them. If your AI vendor disappears tomorrow, your wiki is still there, fully readable, and another LLM can pick up exactly where the last one stopped.</p>
+
+      <h2>What you can do with it (individual)</h2>
+
+      <p>The personal use cases that have stuck for us:</p>
+
+      <ul>
+        <li><strong>Going deep on a topic.</strong> You're researching something for weeks or months. Books, podcasts, papers, articles. Each one gets ingested. By month two, asking the wiki "what do we know about X" returns a synthesis across forty sources, with citations, instantly. The thesis evolves as you go.</li>
+        <li><strong>Reading a long book.</strong> File each chapter. Build out pages for characters, themes, plot threads. By the end you have a personal companion wiki, the kind communities spend years building on Tolkien Gateway or fan wikis, but for one reader, in one evening per session.</li>
+        <li><strong>Tracking your own goals or health.</strong> Journal entries, articles, podcast notes about a habit you're changing. The wiki builds a structured picture of yourself over time without you re-reading old journals to find what you said last March.</li>
+        <li><strong>Course notes, hobby deep-dives, trip planning, due diligence.</strong> Anything where you're accumulating knowledge over time and want it organized rather than scattered.</li>
+      </ul>
+
+      <h2>What you can do with it (organisation)</h2>
+
+      <p>For a 2 to 50 person operation, the org-shaped uses we've watched work:</p>
+
+      <ul>
+        <li><strong>The team wiki nobody had to assign.</strong> Slack threads, meeting transcripts, customer call recordings, project documents. They get ingested as they happen. Customer entity pages accumulate everything we know about each account: what they bought, what they complained about, who their main contact is, what the last call covered. A new joiner reads three pages and is up to speed.</li>
+        <li><strong>Customer support knowledge that compounds.</strong> Each support analysis (contact reasons, refund patterns, recurring complaints) gets filed. The wiki notices when a complaint pattern is the third one this quarter on the same product. Patterns surface; humans decide.</li>
+        <li><strong>Compliance and incident records.</strong> Every quality complaint, every supplier incident, every recall. Filed once, cross-referenced forever. When a similar incident happens, the wiki already knows the supplier history.</li>
+        <li><strong>Sales conversations that don't get lost.</strong> Read.ai or Fireflies transcripts get ingested into a prospects-and-clients wiki. Across calls, the LLM builds out who said what, when, and how the deal evolved. No more "what did we agree last week" questions.</li>
+        <li><strong>An institutional memory that survives turnover.</strong> The reason a process is set up the way it is. The reason a supplier was switched. The reason a customer is on a custom price. All filed, all cross-referenced, all queryable months or years later.</li>
+      </ul>
+
+      <p>Crucially, no one is assigned to maintain it. The LLM does that. The team just feeds it (sources in) and asks it questions (queries out). Humans review the LLM's edits when they want. The wiki keeps current because there's no human bottleneck.</p>
+
+      <h2>Build your own</h2>
+
+      <p>The whole pattern is markdown in a folder. Here's the minimum viable shape:</p>
+
+<pre><code>your-project/
+  CLAUDE.md            # the schema (or AGENTS.md for Codex)
+  raw/                 # source documents (immutable)
+  wiki/
+    index.md           # catalog of every wiki page
+    README.md          # conventions for this wiki
+    entities/          # one page per real-world thing
+    concepts/          # one page per methodology/pattern
+    sources/           # one summary page per ingested source
+  NOTES.md             # chronological log
+</code></pre>
+
+      <p>The four files below are the minimum you need. Drop them into your project, point an LLM agent at the project folder, and the pattern works from the next conversation onward.</p>
+
+      <span class="copyhint">// 1 OF 4 — CLAUDE.md (the schema)</span>
+<pre><code># &lt;your project name&gt;
+
+This project uses the LLM-wiki pattern. The wiki under `wiki/` is a
+compounding knowledge base maintained by you (the LLM) on my behalf.
+You write the wiki. I read it.
+
+## Layers
+
+- `raw/` is immutable source documents. Read from it; never modify it.
+- `wiki/` is your output. Markdown files. You own this folder entirely.
+- `NOTES.md` is the chronological log. Append entries; do not overwrite.
+
+## Wiki structure
+
+- `wiki/index.md` is the catalog. Every page is listed with a one-line
+  description. Read this first on every query.
+- `wiki/entities/` holds one page per proper-noun thing
+  (clients, suppliers, products, people, places, organisations).
+- `wiki/concepts/` holds one page per methodology, recurring pattern,
+  or framework that comes up repeatedly.
+- `wiki/sources/` holds one dated summary page per ingested source.
+  Naming: `YYYY-MM-DD-short-slug.md`.
+
+## Operations
+
+When I say "ingest this", read the source, write a summary page in
+`wiki/sources/`, update relevant entity and concept pages, refresh
+`wiki/index.md`, and append a `## YYYY-MM-DD ingest` entry to NOTES.md.
+
+When I ask a domain question, read `wiki/index.md` first, drill into
+the relevant pages, synthesise an answer with citations to wiki page
+paths. If a synthesis is substantial, offer to file it back as a
+new concept page.
+
+When I say "lint the wiki", walk every page and surface: orphans
+(no inbound links), missing cross-references (entity slugs mentioned
+but not linked), stale claims (pages whose updates section is months
+behind newer sources), contradictions, gaps. Read-only. I decide what
+to fix.
+
+## What does not go in the wiki
+
+- Live data that changes every week. The wiki captures patterns, not
+  point-in-time numbers.
+- Credentials, tokens, customer PII, or anything I have flagged
+  confidential.
+- Things the source documents already cover. The wiki summarises and
+  cross-references; it does not duplicate.
+
+## Style
+
+Plain markdown. Use `[[wiki-style links]]` for cross-references.
+Add YAML frontmatter to pages with type, dates, and source counts.
+</code></pre>
+
+      <span class="copyhint">// 2 OF 4 — wiki/README.md (local conventions)</span>
+<pre><code># &lt;project&gt; wiki
+
+Compounding knowledge base. The LLM writes; I read.
+
+## What goes where
+
+**Entities.** Proper nouns. Things that exist in the real world.
+Examples for this project: &lt;list 5 to 10 entity types you expect&gt;.
+
+**Concepts.** Methodologies, recurring patterns, gotchas.
+Examples for this project: &lt;list 5 to 10 concept candidates&gt;.
+
+**Sources.** One dated summary per ingested document. Slug format:
+`YYYY-MM-DD-short-slug.md`.
+
+## What does NOT go here
+
+- Live data (use the relevant tool).
+- Personal/business facts not specific to this domain.
+- Credentials.
+- Procedural how-tos (those belong in a skill or runbook).
+
+## Operations
+
+- `/wiki-ingest` files a source. Updates entities, concepts, sources,
+  index, NOTES log.
+- `/wiki-query` answers from the wiki, cited.
+- `/wiki-lint` monthly health check.
+</code></pre>
+
+      <span class="copyhint">// 3 OF 4 — wiki/index.md (starts empty)</span>
+<pre><code># &lt;project&gt; wiki — index
+
+Last updated: &lt;today&gt;. Maintained by ingest and lint passes.
+
+This is the catalog. Every query reads this first. Keep it tight.
+
+## Entities
+
+_(Empty. Populated by ingests.)_
+
+## Concepts
+
+_(Empty.)_
+
+## Sources
+
+_(Empty.)_
+
+## Open questions
+
+_(Empty.)_
+
+## Open contradictions
+
+_(Empty.)_
+</code></pre>
+
+      <span class="copyhint">// 4 OF 4 — NOTES.md (chronological log header)</span>
+<pre><code># &lt;project&gt; — log
+
+Most recent first. Each entry has a `## YYYY-MM-DD &lt;type&gt; — &lt;title&gt;`
+header. Types: `ingest`, `lint`, `session`, `query-synthesis`.
+
+Parseable with: `grep "^## \[" NOTES.md | head -10`
+
+(Entries appended automatically by the operations. Do not hand-edit
+unless correcting a typo.)
+</code></pre>
+
+      <div class="callout"><strong>That's the whole pattern.</strong> Four files. Drop them into a folder, open the folder in Claude Code (or any LLM agent that respects a schema file), and start ingesting. The agent reads <code>CLAUDE.md</code> at the start of every conversation and knows what to do.</div>
+
+      <h2>Manage it (what to do, when)</h2>
+
+      <p>The pattern is self-maintaining if you give it a few hooks:</p>
+
+      <ul>
+        <li><strong>Day one to week two.</strong> Ingest one source per session. Read the resulting wiki pages. Refine the schema (the conventions in your <code>CLAUDE.md</code>) based on what works for your domain. The first ten ingests teach you what entity and concept categories make sense for you.</li>
+        <li><strong>Week two onward.</strong> Ingest happens almost reflexively. Most sessions either ingest or query. The wiki accumulates without effort.</li>
+        <li><strong>Every month.</strong> Run the lint. We schedule it as a monthly cron via Claude Code's scheduled-tasks (other agent platforms have similar primitives). It walks the wiki, surfaces drift, suggests new ingests to close gaps. Read-only by default; you decide what to act on.</li>
+        <li><strong>When the wiki gets large.</strong> Past a hundred or so pages, the index file alone may not be enough. At that point, add a small markdown search tool (we like <a href="https://github.com/tobi/qmd" target="_blank" rel="noopener">qmd</a>, but a 30-line grep wrapper works too) and tell the LLM to use it. You'll know when you need this; until then, the index is fine.</li>
+        <li><strong>When new projects spawn.</strong> Each project gets its own wiki. They don't merge. Cross-project sources can be referenced from both wikis without duplication.</li>
+      </ul>
+
+      <h2>What this isn't</h2>
+
+      <ul>
+        <li><strong>Not search.</strong> It's a synthesised knowledge base. If you want full-text search across raw documents, that's a different tool (use one in addition).</li>
+        <li><strong>Not authentication.</strong> The wiki is a folder of files. It has whatever access controls your filesystem has. For team use, put it in a private git repo.</li>
+        <li><strong>Not compliance-grade.</strong> The wiki captures patterns and synthesis. Compliance records, signed audit trails, and regulated documents stay in the systems that already handle them. The wiki references them; it doesn't replace them.</li>
+        <li><strong>Not a replacement for the underlying LLM tools.</strong> You still query BigQuery for live numbers, still use your CRM for current contact details, still hit your ticketing system for ticket status. The wiki is the synthesis layer, not the data layer.</li>
+        <li><strong>Not opinionated about which agent.</strong> Karpathy's gist works with Claude Code, Codex, OpenCode, and others. The schema file format differs (<code>CLAUDE.md</code>, <code>AGENTS.md</code>); the pattern is the same.</li>
+      </ul>
+
+      <h2>The bigger idea</h2>
+
+      <p>The pattern echoes something Vannevar Bush proposed in 1945 in his "As We May Think" essay: the Memex, a personal, curated knowledge store with associative trails between documents. Bush's vision was always closer to this than to what the public web became. Private, actively curated, with the connections between documents as valuable as the documents themselves. The piece Bush couldn't solve was who does the maintenance. LLMs do.</p>
+
+      <p>For an operator running a 10 to 50 person business, this pattern is the closest thing we've seen to "institutional memory in a box." It's free. It's plain text. It survives vendor changes. And it stops being something you have to remember to maintain.</p>
+
+      <h2>What WildBreeze does with this pattern</h2>
+
+      <p>For most operators, the pattern is a self-serve build. The four files above are everything you need.</p>
+
+      <p>If you want it wired into your existing tools (Slack feeding ingests, transcripts auto-ingesting, the wiki driving your weekly reports, lint passes that trigger on signal rather than calendar), that's a custom engagement. Three to six weeks, fixed price, the wiki ends up living in your environment, and your team feeds and queries it the way they already work. We've built variants for revenue ops, customer support, supplier management, and prospect tracking. <a href="/contact/">Tell us what you're trying to remember.</a></p>
+
+      <hr>
+
+      <p><strong>Reference:</strong> Andrej Karpathy, <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">LLM Wiki</a>, May 2026. The original pattern description.</p>
+
+      <p><strong>Related:</strong> <a href="/field-guide/agents/">What is an AI agent?</a> · <a href="/field-guide/safe-data-access/">Giving AI safe access to your business data</a> · <a href="/field-guide/replacing-the-11pm-spreadsheet/">Replacing the 11pm spreadsheet</a></p>
+
+    </div>
+  </section>
+</article>
+
+<section class="section" style="border-top: 1px solid var(--line);">
+  <div class="wrap prose">
+    <div class="section-head">
+      <div class="kicker">Keep reading</div>
+      <h2 style="font-size: 28px;">More from the Field Guide</h2>
+    </div>
+    <div class="articles">
+      <a class="article-card" href="/field-guide/agents/">
+        <div class="meta">
+          <span class="date">15 April 2026</span>
+          <span>Core Concept</span>
+        </div>
+        <div class="body">
+          <h3>What is an AI agent? A plain-English explainer for operators</h3>
+          <p>An agent is an AI assistant with a job, a schedule, and access to your tools. Here's what that actually means for a 10-50 person operation.</p>
+          <span class="read-more">READ →</span>
+        </div>
+      </a>
+      <a class="article-card" href="/field-guide/mcp-servers/">
+        <div class="meta">
+          <span class="date">22 April 2026</span>
+          <span>Core Concept</span>
+        </div>
+        <div class="body">
+          <h3>What is an MCP server? The bridge between AI and your stack</h3>
+          <p>MCP servers let AI assistants safely talk to your tools. Slack, your CRM, your warehouse, your spreadsheets. Here's what they are, in plain English.</p>
+          <span class="read-more">READ →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <a href="/" class="logo">
+          <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+            <defs>
+              <linearGradient id="wb-mark-grad-f" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#5EF2FF"/>
+                <stop offset="55%" stop-color="#A78BFA"/>
+                <stop offset="100%" stop-color="#5EF2FF"/>
+              </linearGradient>
+            </defs>
+            <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                  fill="none" stroke="url(#wb-mark-grad-f)" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>WildBreeze</span>
+        </a>
+        <p class="blurb">Quiet automation infrastructure for operations run by humans.</p>
+      </div>
+      <div class="meta">
+        <div class="col">
+          <h5>Build</h5>
+          <a href="/#services">Custom MCP servers</a>
+          <a href="/#services">Scheduled agents</a>
+          <a href="/#services">Weekly reports</a>
+        </div>
+        <div class="col">
+          <h5>Learn</h5>
+          <a href="/field-guide/">Field Guide</a>
+          <a href="/glossary/">Glossary</a>
+          <a href="/calculator/">Cost calculator</a>
+          <a href="/11pm-audit/">11pm Audit</a>
+          <a href="/vs/ai-agent-vs-virtual-assistant/">Agent vs VA</a>
+          <a href="/about/">About</a>
+        </div>
+        <div class="col">
+          <h5>Contact</h5>
+          <a href="/contact/">Contact form</a>
+          <a href="mailto:hello@wildbreeze.io">hello@wildbreeze.io</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      <div>© 2026 WildBreeze. All systems quiet.</div>
+      <!-- WB-CLIENT-HTML-START --><a class="client-link" href="/account/">Client area <span class="arrow">→</span></a><!-- WB-CLIENT-HTML-END -->
+      <div>Built by <a href="https://www.napier.me" class="link" target="_blank" rel="noopener">napier.me</a></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
