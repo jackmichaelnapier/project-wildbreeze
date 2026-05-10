@@ -905,6 +905,112 @@
     letter-spacing: 0.04em;
   }
 
+  /* ===== Bastion spotlight (homepage section) ===== */
+  .bastion-spotlight {
+    position: relative;
+    padding: 56px;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+    overflow: hidden;
+  }
+  .bastion-spotlight::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(560px 320px at 8% 0%, rgba(167, 139, 250, 0.16), transparent 60%),
+      radial-gradient(520px 280px at 100% 100%, rgba(94, 242, 255, 0.12), transparent 60%);
+    pointer-events: none;
+  }
+  .bastion-spotlight::after {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+    opacity: 0.35; pointer-events: none;
+  }
+  .bastion-spotlight > * { position: relative; z-index: 1; }
+  .bastion-grid {
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center;
+  }
+  .bastion-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 6px 12px;
+    border: 1px solid rgba(167, 139, 250, 0.35);
+    border-radius: 999px;
+    background: rgba(167, 139, 250, 0.08);
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--violet);
+    margin-bottom: 22px;
+  }
+  .bastion-eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--violet);
+    box-shadow: 0 0 10px var(--violet);
+  }
+  .bastion-spotlight h3 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(30px, 4vw, 44px);
+    letter-spacing: -0.025em; line-height: 1.08;
+    margin: 0 0 20px; color: var(--ink); max-width: 16ch;
+  }
+  .bastion-spotlight h3 .accent {
+    background: linear-gradient(110deg, var(--violet) 10%, var(--cyan) 90%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-style: italic; font-weight: 400;
+  }
+  .bastion-spotlight .lede {
+    font-size: 16px; color: var(--ink-2); line-height: 1.65;
+    margin: 0 0 28px; max-width: 50ch;
+  }
+  .bastion-spotlight .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .bastion-meta {
+    display: flex; flex-wrap: wrap; gap: 12px 22px;
+    margin-top: 28px;
+    font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3);
+  }
+  .bastion-meta span { display: inline-flex; align-items: center; gap: 8px; }
+  .bastion-meta span::before {
+    content: ""; width: 4px; height: 4px; border-radius: 50%;
+    background: var(--violet); box-shadow: 0 0 6px var(--violet);
+  }
+  .bastion-layers {
+    display: grid; grid-template-columns: 1fr; gap: 12px;
+  }
+  .bl-card {
+    padding: 22px 22px;
+    border: 1px solid var(--line); border-radius: 12px;
+    background: rgba(8, 12, 24, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: border-color 220ms ease, transform 220ms ease;
+    display: grid; grid-template-columns: 36px 1fr; gap: 16px; align-items: flex-start;
+  }
+  .bl-card:hover { border-color: rgba(167, 139, 250, 0.45); transform: translateX(2px); }
+  .bl-card .bl-glyph {
+    width: 36px; height: 36px;
+    color: var(--violet);
+    filter: drop-shadow(0 0 6px rgba(167, 139, 250, 0.35));
+  }
+  .bl-card .bl-num {
+    font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: 0.14em; color: var(--ink-3);
+    margin-bottom: 4px;
+  }
+  .bl-card h4 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 17px; letter-spacing: -0.01em;
+    margin: 0 0 6px; color: var(--ink);
+  }
+  .bl-card p {
+    font-size: 13.5px; color: var(--ink-2);
+    line-height: 1.55; margin: 0;
+  }
+
   /* ===== Reveal ===== */
   .reveal { opacity: 0; transform: translateY(14px); transition: opacity 700ms ease, transform 700ms ease; }
   .reveal.in { opacity: 1; transform: none; }
@@ -927,6 +1033,9 @@
     .video-ring { width: 240px; }
     .mute-toggle { width: 38px; height: 38px; }
     .mute-toggle svg { width: 16px; height: 16px; }
+    /* Bastion spotlight stacks */
+    .bastion-spotlight { padding: 36px 24px; border-radius: 18px; }
+    .bastion-grid { grid-template-columns: 1fr; gap: 36px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -1348,11 +1457,83 @@
   </div>
 </section>
 
+<!-- Bastion spotlight -->
+<section class="section" id="bastion">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">003 · Spotlight</div>
+      <h2>And for the bigger thing, <span class="accent">Bastion.</span></h2>
+      <p class="sub">Most operators don't need this. The ones that do, can't get it from anyone else. Sovereign AI for the enterprise, delivered as a turnkey appliance that lives in your server room.</p>
+    </div>
+
+    <div class="bastion-spotlight reveal">
+      <div class="bastion-grid">
+        <div class="bastion-left">
+          <div class="bastion-eyebrow"><span class="dot"></span>// ENTERPRISE TIER · NEW</div>
+          <h3>Sovereign AI, <span class="accent">in one box.</span></h3>
+          <p class="lede">A pre-architected agent platform with role-based templates for Sales, Finance, HR, Ops, Legal, Marketing, Customer Service, and Engineering. An on-premise inference appliance with no telemetry, no shadow ingestion, no outbound calls. Continuous, client-side encrypted continuity backup. Three layers, one product.</p>
+          <div class="ctas">
+            <a class="btn primary" href="/products/bastion/">See Bastion <span class="arrow">→</span></a>
+            <a class="btn" href="/contact/">Book a briefing <span class="arrow">→</span></a>
+          </div>
+          <div class="bastion-meta">
+            <span>2U appliance</span>
+            <span>Air-gap capable</span>
+            <span>SOC 2 · ISO 27001 · GDPR · HIPAA</span>
+          </div>
+        </div>
+
+        <div class="bastion-layers">
+          <div class="bl-card">
+            <svg class="bl-glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="20" cy="9" r="3.5"/>
+              <circle cx="9" cy="22" r="3"/>
+              <circle cx="20" cy="22" r="3"/>
+              <circle cx="31" cy="22" r="3"/>
+              <path d="M20 12.5 L9 19 M20 12.5 L20 19 M20 12.5 L31 19"/>
+              <path d="M9 25 L9 32 M20 25 L20 32 M31 25 L31 32"/>
+            </svg>
+            <div>
+              <div class="bl-num">// 01 · OPERATING LAYER</div>
+              <h4>Structured agent platform</h4>
+              <p>Eight department-scoped agents, each with its own knowledge base, permissions, and handoff surface. The org chart as a data structure.</p>
+            </div>
+          </div>
+          <div class="bl-card">
+            <svg class="bl-glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 4 L34 10 L34 22 C34 29 28 34 20 36 C12 34 6 29 6 22 L6 10 Z"/>
+              <rect x="13" y="15" width="14" height="13" rx="0.6"/>
+              <path d="M13 21.5 L27 21.5"/>
+            </svg>
+            <div>
+              <div class="bl-num">// 02 · SOVEREIGN LAYER</div>
+              <h4>On-premise appliance</h4>
+              <p>The inference stack runs locally. No telemetry, no training feedback, no shadow ingestion. You own the weights, embeddings, vector store, audit log.</p>
+            </div>
+          </div>
+          <div class="bl-card">
+            <svg class="bl-glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 5 C12 5 6 11 6 19 C6 28 13 34 20 36 C27 34 34 28 34 19 C34 11 28 5 20 5 Z"/>
+              <path d="M14 19 L18 23 L26 14"/>
+              <circle cx="20" cy="20" r="11" stroke-dasharray="2 3"/>
+            </svg>
+            <div>
+              <div class="bl-num">// 03 · RESILIENCE LAYER</div>
+              <h4>Encrypted continuity backup</h4>
+              <p>Client-side encrypted snapshots of the entire stack, replicated to a site you control. Lose the appliance, restore in one command. You hold the keys.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Process -->
 <section class="section" id="process">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="kicker">003 · How it works</div>
+      <div class="kicker">004 · How it works</div>
       <h2>Three weeks. Three deliverables.<br/>One quiet system.</h2>
       <p class="sub">No discovery deck. No agency churn. We sit with your operation, plumb the parts that should already be talking, and leave you with something that runs without us.</p>
     </div>
@@ -1384,7 +1565,7 @@
 <section class="section" id="why">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="kicker">004 · Why WildBreeze</div>
+      <div class="kicker">005 · Why WildBreeze</div>
       <h2>Built for operators,<br/>not buyers of dashboards.</h2>
       <p class="sub">We picked these constraints on purpose. They're why we can ship in three weeks and why your CFO doesn't have to sign a vendor risk review.</p>
     </div>
@@ -1418,7 +1599,7 @@
 <section class="section" id="field-guide">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="kicker">005 · Field Guide</div>
+      <div class="kicker">006 · Field Guide</div>
       <h2>Plain-English answers for the AI questions<br/>your team is actually asking.</h2>
       <p class="sub">Two core concepts, what is an agent, what is an MCP server, and a stream of fresh briefings on how small operations are using AI to retire the work nobody wants. Updated every two days.</p>
     </div>
@@ -1475,7 +1656,7 @@
   <div class="wrap">
     <div class="cta-block reveal">
       <span class="cb tl"></span><span class="cb tr"></span><span class="cb bl"></span><span class="cb br"></span>
-      <div class="kicker" style="margin-bottom: 12px; justify-content: center;">006 · Let's talk</div>
+      <div class="kicker" style="margin-bottom: 12px; justify-content: center;">007 · Let's talk</div>
       <h2>Find out what your operation looks like<br/>when the plumbing just works.</h2>
       <p>30 minutes, no slides, no commitments. Bring the spreadsheet someone is maintaining at 11pm, we'll tell you whether WildBreeze is the right fix or honestly point you elsewhere.</p>
       <div class="hero-cta">
