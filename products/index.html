@@ -367,6 +367,77 @@
   }
   .module .deploy { text-transform: uppercase; }
 
+  /* Bastion spotlight banner */
+  .bastion-banner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr auto;
+    gap: 36px; align-items: center;
+    padding: 32px 36px;
+    border: 1px solid rgba(167, 139, 250, 0.30);
+    border-radius: 14px;
+    background:
+      radial-gradient(560px 280px at 0% 0%, rgba(167, 139, 250, 0.10), transparent 60%),
+      radial-gradient(420px 240px at 100% 100%, rgba(94, 242, 255, 0.08), transparent 60%),
+      linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.005));
+    margin-bottom: 56px;
+    transition: border-color 220ms ease, transform 220ms ease;
+    text-decoration: none; color: inherit;
+    overflow: hidden;
+  }
+  .bastion-banner:hover { border-color: rgba(167, 139, 250, 0.55); transform: translateY(-2px); }
+  .bastion-banner .bb-left { display: flex; flex-direction: column; gap: 8px; }
+  .bastion-banner .bb-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--violet);
+  }
+  .bastion-banner .bb-eyebrow::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--violet); box-shadow: 0 0 8px var(--violet);
+  }
+  .bastion-banner h3 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 26px; letter-spacing: -0.015em; line-height: 1.15;
+    margin: 4px 0 0; color: var(--ink);
+  }
+  .bastion-banner h3 .accent {
+    background: linear-gradient(110deg, var(--violet) 20%, var(--cyan) 80%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-style: italic; font-weight: 400;
+  }
+  .bastion-banner .bb-tag {
+    font-size: 14.5px; color: var(--ink-2); line-height: 1.55; margin: 6px 0 0;
+  }
+  .bastion-banner .bb-meta {
+    display: flex; flex-direction: column; gap: 8px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.08em; color: var(--ink-3);
+  }
+  .bastion-banner .bb-meta span { display: inline-flex; align-items: center; gap: 8px; }
+  .bastion-banner .bb-meta span::before {
+    content: ""; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--violet); box-shadow: 0 0 6px var(--violet);
+  }
+  .bastion-banner .bb-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 18px; border-radius: 999px;
+    border: 1px solid rgba(167, 139, 250, 0.45);
+    background: rgba(167, 139, 250, 0.10);
+    color: var(--ink); font-family: var(--sans); font-size: 14px; font-weight: 500;
+    transition: all 180ms ease;
+    white-space: nowrap;
+  }
+  .bastion-banner:hover .bb-cta {
+    border-color: rgba(167, 139, 250, 0.7); background: rgba(167, 139, 250, 0.18);
+  }
+  .bastion-banner .bb-cta .arrow { transition: transform 180ms ease; }
+  .bastion-banner:hover .bb-cta .arrow { transform: translateX(3px); }
+  @media (max-width: 880px) {
+    .bastion-banner { grid-template-columns: 1fr; gap: 18px; padding: 28px 24px; }
+    .bastion-banner .bb-meta { flex-direction: row; flex-wrap: wrap; gap: 8px 18px; }
+  }
+
   /* Status pills */
   .status {
     display: inline-flex; align-items: center; gap: 7px;
@@ -784,6 +855,21 @@
 <!-- Modules section -->
 <section class="section" id="modules">
   <div class="wrap">
+
+    <a class="bastion-banner reveal" href="/products/bastion/">
+      <div class="bb-left">
+        <div class="bb-eyebrow">// SPOTLIGHT — ENTERPRISE TIER</div>
+        <h3>Bastion. <span class="accent">Sovereign AI in your server room.</span></h3>
+        <p class="bb-tag">A turnkey appliance with a structured agent platform, on-premise inference, and encrypted continuity backup. For the work that won't fit in a quiet module.</p>
+      </div>
+      <div class="bb-meta">
+        <span>2U appliance</span>
+        <span>Air-gap capable</span>
+        <span>SOC 2 · ISO 27001 · GDPR · HIPAA</span>
+      </div>
+      <span class="bb-cta">See Bastion <span class="arrow">→</span></span>
+    </a>
+
     <div class="section-head reveal">
       <div class="kicker">001 — The catalog</div>
       <h2>Eight pieces of quiet plumbing. <span class="accent">Pick the one that fits.</span></h2>
