@@ -1,0 +1,1123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bastion — Sovereign AI for the enterprise — WildBreeze</title>
+<meta name="description" content="Bastion is a sovereign AI operating system delivered as a turnkey on-premise appliance. A structured agent platform, an on-premise inference layer, and encrypted continuity backup. Three layers, one product." />
+<meta name="theme-color" content="#06080F" />
+<link rel="canonical" href="https://www.wildbreeze.io/products/bastion/" />
+<link rel="alternate" hreflang="en" href="https://www.wildbreeze.io/products/bastion/" />
+<link rel="alternate" hreflang="x-default" href="https://www.wildbreeze.io/products/bastion/" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+<meta property="og:title" content="WildBreeze — Bastion" />
+<meta property="og:description" content="Sovereign AI for the enterprise. A turnkey appliance that runs the entire inference stack inside your perimeter." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.wildbreeze.io/products/bastion/" />
+<meta property="og:image" content="https://www.wildbreeze.io/og-preview.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="WildBreeze" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="WildBreeze — Bastion" />
+<meta name="twitter:description" content="Sovereign AI for the enterprise. A turnkey on-premise appliance." />
+<meta name="twitter:image" content="https://www.wildbreeze.io/og-preview.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg-0: #06080F; --bg-1: #0A0E1A; --bg-2: #10172A;
+    --ink: #F2F4FA; --ink-2: #B6BDD0; --ink-3: #6F7793;
+    --line: rgba(255,255,255,0.08); --line-2: rgba(255,255,255,0.14);
+    --cyan: #5EF2FF; --violet: #A78BFA;
+    --phos: #B8FF6E; --warn: #FFB46B;
+    --serif: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+    --sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+    --rad: 14px; --maxw: 1180px;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html {
+    background: var(--bg-0); overflow-x: hidden; scroll-behavior: smooth;
+    color: var(--ink); font-family: var(--sans);
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+  body { background: transparent; position: relative; z-index: 0; min-height: 100vh; line-height: 1.55; }
+  ::selection { background: rgba(94, 242, 255, 0.25); color: var(--ink); }
+  a { color: inherit; text-decoration: none; }
+  img, svg { display: block; max-width: 100%; }
+
+  /* Background stack */
+  .field {
+    position: fixed; inset: 0; z-index: -3;
+    background:
+      radial-gradient(1200px 800px at 78% -10%, rgba(94, 242, 255, 0.18), transparent 60%),
+      radial-gradient(900px 600px at 12% 5%, rgba(167, 139, 250, 0.18), transparent 60%),
+      radial-gradient(1000px 700px at 50% 110%, rgba(94, 242, 255, 0.10), transparent 60%),
+      linear-gradient(180deg, #06080F 0%, #080B17 50%, #06080F 100%);
+  }
+  #flow {
+    position: fixed; inset: 0; z-index: -2; width: 100%; height: 100%;
+    pointer-events: none; opacity: 0.85; mix-blend-mode: screen;
+  }
+  .grid {
+    position: fixed; inset: 0; z-index: -1;
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black 30%, transparent 80%);
+    opacity: 0.55; pointer-events: none; animation: gridDrift 60s linear infinite;
+  }
+  @keyframes gridDrift {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 64px 64px, 64px 64px; }
+  }
+
+  /* HUD */
+  .hud-corners { position: fixed; inset: 18px; z-index: 40; pointer-events: none; }
+  .hud-corners::before, .hud-corners::after,
+  .hud-corners > i, .hud-corners > b {
+    content: ""; position: absolute; width: 22px; height: 22px;
+    border: 1px solid rgba(94, 242, 255, 0.55);
+    box-shadow: 0 0 14px rgba(94, 242, 255, 0.25);
+  }
+  .hud-corners::before { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+  .hud-corners::after  { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+  .hud-corners > i     { bottom: 0; left: 0; border-right: 0; border-top: 0; font-style: normal; }
+  .hud-corners > b     { bottom: 0; right: 0; border-left: 0; border-top: 0; font-weight: normal; }
+  .telemetry, .coords {
+    position: fixed; bottom: 22px; z-index: 41;
+    font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: 0.08em; color: var(--ink-3); pointer-events: none;
+  }
+  .telemetry { left: 30px; display: flex; align-items: center; gap: 10px; }
+  .coords    { right: 30px; }
+  .telemetry .live {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--phos); box-shadow: 0 0 10px var(--phos);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  .telemetry .sep { color: rgba(255,255,255,0.18); }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.45; } }
+  @media (max-width: 720px) {
+    .hud-corners, .telemetry, .coords { display: none; }
+  }
+
+  /* Layout primitives */
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; position: relative; }
+  header.nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    background: rgba(6, 8, 15, 0.55);
+    border-bottom: 1px solid var(--line);
+  }
+  header.nav .row { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--serif); font-weight: 600;
+    letter-spacing: -0.01em; font-size: 17px; color: var(--ink);
+  }
+  .logo .mark {
+    width: 36px; height: 18px; display: inline-block; overflow: visible;
+    filter: drop-shadow(0 0 6px rgba(94, 242, 255, 0.55))
+            drop-shadow(0 0 14px rgba(167, 139, 250, 0.30));
+  }
+  .logo .mark .wave { animation: waveFlow 3.4s linear infinite; }
+  @keyframes waveFlow { from { transform: translateX(0); } to { transform: translateX(-8px); } }
+  nav.main { display: flex; align-items: center; gap: 28px; font-family: var(--sans); font-size: 14px; color: var(--ink-2); }
+  nav.main a { position: relative; transition: color 180ms ease; }
+  nav.main a:hover { color: var(--ink); }
+  nav.main a.is-active { color: var(--ink); }
+  nav.main a:not(.cta)::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -6px;
+    height: 1px; background: var(--cyan);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 220ms ease;
+  }
+  nav.main a:not(.cta):hover::after,
+  nav.main a.is-active::after { transform: scaleX(1); }
+  nav.main .cta {
+    color: var(--ink); border: 1px solid var(--line-2); border-radius: 999px;
+    padding: 8px 14px; font-family: var(--sans); transition: all 180ms ease;
+  }
+  nav.main .cta:hover { border-color: rgba(94, 242, 255, 0.5); background: rgba(94, 242, 255, 0.05); }
+  .lang-toggle {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.08em; color: var(--ink-3);
+    display: inline-flex; align-items: center; gap: 6px; margin-left: 6px;
+  }
+  .lang-toggle .active { color: var(--ink); }
+  .lang-toggle .sep { color: rgba(255,255,255,0.18); }
+  .lang-toggle a { color: var(--ink-3); }
+  .lang-toggle a:hover { color: var(--ink); }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    font-family: var(--mono); font-size: 11.5px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-3); margin-bottom: 18px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .breadcrumb a { color: var(--ink-2); transition: color 180ms ease; }
+  .breadcrumb a:hover { color: var(--cyan); }
+  .breadcrumb .arrow { color: var(--line-2); }
+
+  /* Hero */
+  .hero { padding: 90px 0 70px; position: relative; }
+  .hero .head-row {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 24px; margin-bottom: 24px; flex-wrap: wrap;
+  }
+  .hero .head-row .left { display: flex; flex-direction: column; }
+  .hero .kicker {
+    font-family: var(--mono); font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.14em; color: var(--cyan);
+  }
+  .hero h1 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(40px, 7vw, 80px); line-height: 1.04;
+    letter-spacing: -0.035em; margin: 0; max-width: 18ch;
+  }
+  .hero h1 .accent {
+    background: linear-gradient(110deg, var(--cyan) 20%, var(--violet) 80%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-style: italic; font-weight: 400;
+  }
+  .hero .lede {
+    font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2);
+    line-height: 1.6; max-width: 60ch; margin: 24px 0 32px;
+  }
+  .hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 56px; }
+  .hero .meta-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px;
+    padding-top: 28px; border-top: 1px solid var(--line);
+    font-family: var(--mono); font-size: 11.5px;
+    letter-spacing: 0.06em; color: var(--ink-3);
+  }
+  .hero .meta-strip strong {
+    display: block; color: var(--cyan); font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.14em; font-size: 10.5px;
+    margin-bottom: 6px;
+  }
+  .hero .meta-strip span { display: block; }
+
+  /* Sections */
+  .section { padding: 90px 0; position: relative; border-top: 1px solid var(--line); }
+  .section-head { display: flex; flex-direction: column; gap: 14px; margin-bottom: 56px; max-width: 760px; }
+  .kicker-section {
+    font-family: var(--mono); font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.14em; color: var(--cyan);
+  }
+  .section-head h2 {
+    font-family: var(--serif); font-size: clamp(32px, 4.4vw, 52px);
+    letter-spacing: -0.025em; line-height: 1.04; font-weight: 500; margin: 0;
+  }
+  .section-head h2 .accent {
+    background: linear-gradient(110deg, var(--cyan) 20%, var(--violet) 80%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-style: italic; font-weight: 400;
+  }
+  .section-head .sub { font-size: 17px; color: var(--ink-2); max-width: 60ch; margin: 0; }
+
+  /* The problem block — single column, longer-form */
+  .problem {
+    padding: 36px 36px;
+    border: 1px solid var(--line); border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+    max-width: 70ch;
+  }
+  .problem p { color: var(--ink-2); font-size: 16px; line-height: 1.7; margin: 0 0 18px; }
+  .problem p:last-child { margin-bottom: 0; }
+  .problem strong { color: var(--ink); font-weight: 600; }
+
+  /* Layers — three big cards (more weight than module pillars) */
+  .layers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .layer {
+    position: relative;
+    padding: 36px 30px 32px;
+    border: 1px solid var(--line); border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+    overflow: hidden;
+    transition: border-color 220ms ease, transform 220ms ease;
+  }
+  .layer::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(420px 220px at 50% 0%, rgba(94, 242, 255, 0.10), transparent 60%);
+    opacity: 0; transition: opacity 250ms ease; pointer-events: none;
+  }
+  .layer:hover { border-color: var(--line-2); transform: translateY(-2px); }
+  .layer:hover::before { opacity: 1; }
+  .layer .layer-num { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.08em; margin-bottom: 22px; }
+  .layer .glyph { width: 44px; height: 44px; margin-bottom: 22px; color: var(--cyan); }
+  .layer h3 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 22px; letter-spacing: -0.01em;
+    margin: 0 0 8px; color: var(--ink); line-height: 1.25;
+  }
+  .layer .layer-tag {
+    font-family: var(--sans); font-size: 14.5px; color: var(--cyan);
+    margin: 0 0 18px; font-weight: 500;
+  }
+  .layer p { font-size: 14.5px; color: var(--ink-2); line-height: 1.65; margin: 0 0 18px; }
+  .layer ul { list-style: none; padding: 18px 0 0; margin: 0; display: grid; gap: 10px; border-top: 1px solid var(--line); }
+  .layer li { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+  .layer li::before {
+    content: ""; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--cyan); box-shadow: 0 0 6px var(--cyan); flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  /* Why-now grid (3 cards, similar to "built for") */
+  .force-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .force {
+    padding: 30px; border: 1px solid var(--line); border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+    transition: border-color 220ms ease;
+  }
+  .force:hover { border-color: rgba(94, 242, 255, 0.35); }
+  .force .force-num {
+    font-family: var(--mono); font-size: 11px; color: var(--ink-3);
+    letter-spacing: 0.08em; margin-bottom: 14px;
+  }
+  .force h4 {
+    font-family: var(--serif); font-weight: 500; font-size: 19px; letter-spacing: -0.01em;
+    margin: 0 0 12px; color: var(--cyan);
+  }
+  .force p { font-size: 14.5px; color: var(--ink-2); line-height: 1.65; margin: 0; }
+
+  /* Code surface */
+  .surface {
+    margin-top: 40px;
+    border: 1px solid var(--line); border-radius: 14px;
+    background: linear-gradient(180deg, rgba(8, 12, 24, 0.85), rgba(6, 9, 18, 0.85));
+    overflow: hidden;
+  }
+  .surface .bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px; border-bottom: 1px solid var(--line);
+    background: rgba(255,255,255,0.02);
+  }
+  .surface .dots { display: flex; gap: 6px; }
+  .surface .dots i {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(255,255,255,0.15); display: inline-block;
+  }
+  .surface .dots i:nth-child(1) { background: rgba(255, 95, 86, 0.7); }
+  .surface .dots i:nth-child(2) { background: rgba(255, 189, 46, 0.7); }
+  .surface .dots i:nth-child(3) { background: rgba(39, 201, 63, 0.7); }
+  .surface .label {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
+    color: var(--ink-3); text-transform: lowercase;
+  }
+  .surface pre {
+    margin: 0; padding: 22px 24px;
+    font-family: var(--mono); font-size: 13px; line-height: 1.7;
+    color: var(--ink-2); overflow-x: auto; white-space: pre;
+  }
+  .surface .c-cyan   { color: var(--cyan); }
+  .surface .c-violet { color: var(--violet); }
+  .surface .c-phos   { color: var(--phos); }
+  .surface .c-warn   { color: var(--warn); }
+  .surface .c-mute   { color: var(--ink-3); }
+
+  /* What we sell — single panel, two columns */
+  .sell-grid {
+    display: grid; grid-template-columns: 1.05fr 1fr; gap: 22px;
+  }
+  .sell {
+    padding: 30px; border: 1px solid var(--line); border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+  }
+  .sell h4 {
+    font-family: var(--serif); font-weight: 500; font-size: 19px;
+    letter-spacing: -0.01em; margin: 0 0 12px; color: var(--ink);
+  }
+  .sell p { font-size: 14.5px; color: var(--ink-2); line-height: 1.65; margin: 0 0 12px; }
+  .sell p:last-child { margin-bottom: 0; }
+  .sell .pricing-list { list-style: none; padding: 18px 0 0; margin: 12px 0 0; display: grid; gap: 10px; border-top: 1px solid var(--line); }
+  .sell .pricing-list li {
+    font-family: var(--mono); font-size: 12.5px; color: var(--ink-2);
+    display: flex; align-items: flex-start; gap: 12px; line-height: 1.55;
+  }
+  .sell .pricing-list .label {
+    color: var(--cyan); text-transform: uppercase; letter-spacing: 0.1em;
+    font-size: 10.5px; min-width: 7em; padding-top: 2px;
+  }
+
+  /* Moat grid — same pattern as why-grid but 3 wide */
+  .moat-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+  }
+  .moat {
+    padding: 32px 28px;
+    border-right: 1px solid var(--line);
+    transition: background 200ms ease;
+  }
+  .moat:nth-child(3n) { border-right: none; }
+  .moat:hover { background: rgba(94, 242, 255, 0.03); }
+  .moat .moat-num { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.08em; margin-bottom: 14px; }
+  .moat h4 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 18px; letter-spacing: -0.01em;
+    margin: 0 0 10px; color: var(--ink);
+  }
+  .moat p { font-size: 14px; color: var(--ink-2); line-height: 1.6; margin: 0; }
+
+  /* Notes (Q&A) */
+  .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .note {
+    padding: 26px 28px; border: 1px solid var(--line); border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
+  }
+  .note h4 {
+    font-family: var(--serif); font-weight: 500; font-size: 17px;
+    letter-spacing: -0.01em; margin: 0 0 12px; color: var(--ink);
+  }
+  .note p { font-size: 14.5px; color: var(--ink-2); line-height: 1.65; margin: 0; }
+
+  /* Status pill */
+  .status {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 6px 13px; border-radius: 999px;
+    border: 1px solid var(--line); background: rgba(255,255,255,0.02);
+    color: var(--ink-3); white-space: nowrap;
+  }
+  .status::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--ink-3);
+  }
+  .status.flagship {
+    color: var(--violet); border-color: rgba(167, 139, 250, 0.45);
+    background: rgba(167, 139, 250, 0.08);
+  }
+  .status.flagship::before {
+    background: var(--violet); box-shadow: 0 0 10px var(--violet);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 18px; border-radius: 999px;
+    border: 1px solid var(--line-2); background: rgba(255,255,255,0.02);
+    color: var(--ink); font-family: var(--sans); font-size: 14px; font-weight: 500;
+    transition: all 180ms ease; cursor: pointer;
+  }
+  .btn:hover { border-color: rgba(94, 242, 255, 0.5); background: rgba(94, 242, 255, 0.05); }
+  .btn.primary {
+    background: linear-gradient(180deg, rgba(94, 242, 255, 0.95), rgba(94, 242, 255, 0.7));
+    color: #001318; border-color: transparent;
+    box-shadow: 0 8px 24px -8px rgba(94, 242, 255, 0.6),
+                inset 0 0 0 1px rgba(255,255,255,0.4);
+    font-weight: 600;
+  }
+  .btn.primary:hover { transform: translateY(-1px); }
+  .btn .arrow { transition: transform 180ms ease; }
+  .btn:hover .arrow { transform: translateX(3px); }
+
+  /* CTA */
+  .cta-block {
+    position: relative; padding: 64px 56px;
+    border: 1px solid var(--line); border-radius: 22px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+    overflow: hidden; text-align: center;
+  }
+  .cta-block::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(500px 300px at 80% 0%, rgba(94, 242, 255, 0.14), transparent 60%),
+      radial-gradient(500px 300px at 20% 100%, rgba(167, 139, 250, 0.14), transparent 60%);
+    pointer-events: none;
+  }
+  .cta-block::after {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 80%);
+    opacity: 0.4; pointer-events: none;
+  }
+  .cta-block > * { position: relative; z-index: 1; }
+  .cta-block h2 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(28px, 3.8vw, 44px); letter-spacing: -0.025em;
+    line-height: 1.1; margin: 0 0 16px; max-width: 22ch;
+    margin-left: auto; margin-right: auto;
+  }
+  .cta-block h2 .accent {
+    background: linear-gradient(110deg, var(--cyan) 20%, var(--violet) 80%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-style: italic; font-weight: 400;
+  }
+  .cta-block p { color: var(--ink-2); font-size: 17px; margin: 0 auto 32px; max-width: 52ch; }
+
+  /* Footer */
+  footer { border-top: 1px solid var(--line); padding: 70px 0 40px; color: var(--ink-3); }
+  footer .row { display: grid; grid-template-columns: 1.2fr 2fr; gap: 60px; margin-bottom: 50px; }
+  footer .blurb { margin-top: 18px; max-width: 36ch; font-size: 14.5px; color: var(--ink-2); line-height: 1.6; }
+  footer .meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+  footer h5 {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-3); margin: 0 0 14px; font-weight: 500;
+  }
+  footer .col a { display: block; padding: 4px 0; font-size: 14px; color: var(--ink-2); transition: color 180ms ease; }
+  footer .col a:hover { color: var(--cyan); }
+  footer .legal {
+    display: flex; flex-wrap: wrap; align-items: center;
+    justify-content: space-between; gap: 16px;
+    padding-top: 28px; border-top: 1px solid var(--line);
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--ink-3);
+  }
+                                      /* WB-CLIENT-CSS-START */
+  /* Client area pill (footer .legal) — managed by _inject_client_link.py */
+  .client-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-2);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    padding: 6px 14px;
+    text-decoration: none;
+    transition: all 180ms ease;
+  }
+  .client-link:hover {
+    color: var(--cyan);
+    border-color: rgba(94, 242, 255, 0.5);
+    background: rgba(94, 242, 255, 0.04);
+  }
+  .client-link .arrow { color: var(--cyan); transition: transform 180ms ease; }
+  .client-link:hover .arrow { transform: translateX(3px); }
+  /* WB-CLIENT-CSS-END */
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity 700ms ease, transform 700ms ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* Responsive */
+  @media (max-width: 880px) {
+    nav.main { display: none; }
+    .hero { padding: 60px 0 50px; }
+    .hero .meta-strip { grid-template-columns: 1fr 1fr; }
+    .section { padding: 70px 0; }
+    .layers { grid-template-columns: 1fr; }
+    .force-grid { grid-template-columns: 1fr; }
+    .moat-grid { grid-template-columns: 1fr; }
+    .moat { border-right: none; border-bottom: 1px solid var(--line); }
+    .moat:last-child { border-bottom: none; }
+    .sell-grid { grid-template-columns: 1fr; }
+    .notes-grid { grid-template-columns: 1fr; }
+    .cta-block { padding: 44px 24px; border-radius: 18px; }
+    .problem { padding: 28px 24px; }
+    footer .row { grid-template-columns: 1fr; gap: 40px; }
+    footer .meta { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+<!-- WB-TAGS-START -->
+<!-- Google tag (gtag.js) — GA4 G-4S960N841V -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4S960N841V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4S960N841V');
+</script>
+<!-- WB-TAGS-END -->
+</head>
+<body id="top">
+
+<!-- Background stack -->
+<div class="field" aria-hidden="true"></div>
+<canvas id="flow" aria-hidden="true"></canvas>
+<div class="grid" aria-hidden="true"></div>
+
+<!-- HUD chrome -->
+<div class="hud-corners" aria-hidden="true"><i></i><b></b></div>
+<div class="telemetry" aria-hidden="true">
+  <span class="live"></span> WB · BASTION · APPLIANCE 01 <span class="sep">/</span> SOVEREIGN <span class="sep">/</span> RUNTIME <span id="rt">42.3s</span>
+</div>
+<div class="coords" aria-hidden="true">N 38.7902&nbsp;&nbsp;E 0.1664</div>
+
+<!-- Header -->
+<!-- WB-HEADER-START -->
+<header class="nav">
+  <div class="wrap row">
+    <a href="/" class="logo">
+      <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+        <defs>
+          <linearGradient id="wb-mark-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#5EF2FF"/>
+            <stop offset="55%" stop-color="#A78BFA"/>
+            <stop offset="100%" stop-color="#5EF2FF"/>
+          </linearGradient>
+        </defs>
+        <g class="wave">
+          <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                fill="none" stroke="url(#wb-mark-grad)" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+      <span>WildBreeze</span>
+    </a>
+    <nav class="main">
+      <a href="/products/">Modules</a>
+      <a href="/field-guide/">Field Guide</a>
+      <a href="/about/">About</a>
+      <a href="/contact/" class="cta">Contact</a>
+      <span class="lang-toggle"><span class="active">EN</span><span class="sep">·</span><a href="/es/" hreflang="es">ES</a></span>
+    </nav>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="wb-mobile-nav">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <line class="bar top"    x1="4" y1="9"  x2="20" y2="9"  stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        <line class="bar bottom" x1="4" y1="15" x2="20" y2="15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+</header>
+<div class="nav-sheet" id="wb-mobile-nav" hidden>
+  <div class="nav-sheet-inner">
+    <div class="nav-sheet-kicker">// NAVIGATION</div>
+    <nav class="nav-sheet-links">
+      <a href="/products/">Modules</a>
+      <a href="/field-guide/">Field Guide</a>
+      <a href="/about/">About</a>
+    </nav>
+    <div class="nav-sheet-foot">
+      <span class="lang-toggle"><span class="active">EN</span><span class="sep">·</span><a href="/es/" hreflang="es">ES</a></span>
+      <a class="nav-sheet-cta" href="/contact/">Contact <span class="arrow">→</span></a>
+    </div>
+  </div>
+</div>
+<style id="wb-nav-styles">
+  .nav-toggle {
+    display: none;
+    background: transparent; border: 1px solid var(--line-2);
+    border-radius: 999px; padding: 6px; color: var(--ink); cursor: pointer;
+    transition: border-color 180ms ease, background 180ms ease;
+  }
+  .nav-toggle svg { width: 22px; height: 22px; display: block; }
+  .nav-toggle .bar { transition: transform 220ms ease, opacity 180ms ease; transform-origin: 12px 12px; }
+  .nav-toggle:hover { border-color: rgba(94, 242, 255, 0.5); background: rgba(94, 242, 255, 0.05); }
+  .nav-toggle[aria-expanded="true"] .bar.top    { transform: rotate(45deg)  translate(0, 4.24px); }
+  .nav-toggle[aria-expanded="true"] .bar.bottom { transform: rotate(-45deg) translate(0, -4.24px); }
+
+  .nav-sheet {
+    position: fixed; inset: 0; z-index: 60;
+    background: rgba(6, 8, 15, 0.92);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    opacity: 0; transition: opacity 220ms ease;
+  }
+  .nav-sheet[hidden] { display: none; }
+  html.nav-open .nav-sheet { opacity: 1; }
+  html.nav-open { overflow: hidden; }
+
+  .nav-sheet-inner {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: 88px 28px 32px;
+    height: 100%; display: flex; flex-direction: column;
+    transform: translateY(-12px); transition: transform 240ms ease;
+  }
+  html.nav-open .nav-sheet-inner { transform: translateY(0); }
+
+  .nav-sheet-kicker {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.14em; color: var(--cyan); margin-bottom: 24px;
+  }
+  .nav-sheet-links { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+  .nav-sheet-links a {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 28px; letter-spacing: -0.015em; color: var(--ink);
+    padding: 22px 0; border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    transition: color 180ms ease;
+  }
+  .nav-sheet-links a:active, .nav-sheet-links a:hover { color: var(--cyan); }
+
+  .nav-sheet-foot {
+    margin-top: auto; padding-top: 28px;
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .nav-sheet-foot .lang-toggle { margin: 0; align-self: flex-start; font-size: 13px; }
+  .nav-sheet-cta {
+    width: 100%; justify-content: center; padding: 14px 18px;
+    display: inline-flex; align-items: center; gap: 8px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(94, 242, 255, 0.95), rgba(94, 242, 255, 0.7));
+    color: #001318; border: 1px solid transparent;
+    font-family: var(--sans); font-size: 14px; font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 8px 24px -8px rgba(94, 242, 255, 0.6),
+                inset 0 0 0 1px rgba(255,255,255,0.4);
+  }
+  .nav-sheet-cta .arrow { transition: transform 180ms ease; }
+  .nav-sheet-cta:hover .arrow { transform: translateX(3px); }
+
+  @media (max-width: 880px) {
+    .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+    header.nav nav.main { display: none; }
+  }
+  @media (min-width: 881px) { .nav-sheet { display: none !important; } }
+  @media (prefers-reduced-motion: reduce) {
+    .nav-sheet, .nav-sheet-inner, .nav-toggle .bar { transition: opacity 0.01ms; transform: none !important; }
+  }
+</style>
+<script id="wb-nav-script">
+(function(){
+  var toggle = document.querySelector('.nav-toggle');
+  var sheet  = document.getElementById('wb-mobile-nav');
+  if (!toggle || !sheet) return;
+  var html = document.documentElement, lastFocus = null;
+  function open(){
+    lastFocus = document.activeElement;
+    sheet.hidden = false;
+    requestAnimationFrame(function(){
+      html.classList.add('nav-open');
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Close menu');
+      var first = sheet.querySelector('a, button'); if (first) first.focus();
+    });
+  }
+  function close(){
+    html.classList.remove('nav-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open menu');
+    setTimeout(function(){ sheet.hidden = true; }, 250);
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  toggle.addEventListener('click', function(){
+    toggle.getAttribute('aria-expanded') === 'true' ? close() : open();
+  });
+  sheet.addEventListener('click', function(e){ if (e.target === sheet) close(); });
+  sheet.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') close();
+  });
+  var mq = window.matchMedia('(min-width: 881px)');
+  if (mq.addEventListener) mq.addEventListener('change', function(e){ if (e.matches) close(); });
+})();
+</script>
+<!-- WB-HEADER-END -->
+
+<!-- Hero -->
+<section class="hero">
+  <div class="wrap reveal">
+    <div class="breadcrumb">
+      <a href="/products/">← Modules</a>
+      <span class="arrow">/</span>
+      <span>Bastion</span>
+    </div>
+    <div class="head-row">
+      <div class="left">
+        <div class="kicker">// BASTION — SOVEREIGN AI</div>
+      </div>
+      <span class="status flagship">Enterprise tier</span>
+    </div>
+    <h1>Sovereign AI, <span class="accent">delivered as a turnkey appliance.</span></h1>
+    <p class="lede">
+      Bastion is a sovereign AI operating system for the enterprise. Three integrated layers, sold as one product. A pre-architected agent platform with role-based templates for every core function. An on-premise inference appliance that keeps every byte inside your perimeter. Continuous, client-side encrypted continuity backup. The compliance posture, the operating structure, and the resilience story, in one SKU.
+    </p>
+    <div class="ctas">
+      <a class="btn primary" href="/contact/">Book a briefing <span class="arrow">→</span></a>
+      <a class="btn" href="/products/">See all modules <span class="arrow">→</span></a>
+    </div>
+    <div class="meta-strip">
+      <span><strong>Delivery:</strong> Turnkey 2U appliance</span>
+      <span><strong>Residency:</strong> Your server room</span>
+      <span><strong>Posture:</strong> SOC 2, ISO 27001, GDPR, HIPAA</span>
+      <span><strong>Air-gap:</strong> Supported, day one</span>
+    </div>
+  </div>
+</section>
+
+<!-- The problem -->
+<section class="section" id="problem">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker-section">001 — The problem</div>
+      <h2>Two doors, both <span class="accent">closed.</span></h2>
+      <p class="sub">Every enterprise is being told to adopt AI. Almost none of them can do it safely.</p>
+    </div>
+    <div class="problem reveal">
+      <p>The dominant LLM platforms require shipping your most sensitive data, customer records, pricing, IP, legal correspondence, internal strategy, to a third-party cloud, processed on infrastructure you do not control, by a model whose weights and update cycle you do not own. For regulated industries (finance, healthcare, legal, defense, manufacturing IP), this is a non-starter. For everyone else, it is a slow-motion compliance liability.</p>
+      <p>Companies that try to roll their own private AI hit a different wall. A six-month systems integration project. No operational structure, no agent framework, no governance layer. A stack of expensive consultants who leave behind a chatbot that no department actually uses.</p>
+      <p><strong>The market needs a third path.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- The three layers -->
+<section class="section" id="layers">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker-section">002 — Three layers, one product</div>
+      <h2>Structure, sovereignty, <span class="accent">resilience.</span></h2>
+      <p class="sub">Bastion is delivered as one SKU because the three layers reinforce each other. Skip any one of them and the value collapses.</p>
+    </div>
+
+    <div class="layers">
+
+      <!-- 01 — Operating layer -->
+      <div class="layer reveal">
+        <div class="layer-num">// 01</div>
+        <svg class="glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="20" cy="9" r="3.5"/>
+          <circle cx="9" cy="22" r="3"/>
+          <circle cx="20" cy="22" r="3"/>
+          <circle cx="31" cy="22" r="3"/>
+          <circle cx="9" cy="33" r="2.5"/>
+          <circle cx="20" cy="33" r="2.5"/>
+          <circle cx="31" cy="33" r="2.5"/>
+          <path d="M20 12.5 L9 19 M20 12.5 L20 19 M20 12.5 L31 19"/>
+          <path d="M9 25 L9 30.5 M20 25 L20 30.5 M31 25 L31 30.5"/>
+        </svg>
+        <h3>The Operating Layer</h3>
+        <p class="layer-tag">A structured agent platform.</p>
+        <p>A pre-architected organizational LLM with role-based agent templates for every core function. Sales, Finance, HR, Operations, Legal, Marketing, Customer Service, Engineering. Each department gets a configured agent with its own knowledge base, permissioned data access, workflow hooks, and a shared collaboration surface so agents and humans can hand off work between teams.</p>
+        <p>This is the layer most enterprise AI plays skip. We treat the org chart as a first-class data structure. Onboarding is measured in days, not quarters, because the structure is opinionated and the templates ship working.</p>
+        <ul>
+          <li>Eight role-based agent templates</li>
+          <li>Department-scoped knowledge bases</li>
+          <li>Permissioned data access</li>
+          <li>Cross-team handoffs</li>
+        </ul>
+      </div>
+
+      <!-- 02 — Sovereign layer -->
+      <div class="layer reveal">
+        <div class="layer-num">// 02</div>
+        <svg class="glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20 4 L34 10 L34 22 C34 29 28 34 20 36 C12 34 6 29 6 22 L6 10 Z"/>
+          <rect x="13" y="15" width="14" height="13" rx="0.6"/>
+          <path d="M13 21.5 L27 21.5"/>
+          <circle cx="20" cy="18.2" r="0.9" fill="currentColor"/>
+          <circle cx="20" cy="24.8" r="0.9" fill="currentColor"/>
+        </svg>
+        <h3>The Sovereign Layer</h3>
+        <p class="layer-tag">The on-premise appliance.</p>
+        <p>A purpose-built device that lives in the customer's server room, plugs into their network, and runs the entire inference stack locally. No data ever leaves the building. No telemetry, no training feedback loops, no shadow ingestion. The customer owns the model weights, the embeddings, the vector store, and the audit log.</p>
+        <p>Air-gapped deployment is supported out of the box. SOC 2, ISO 27001, GDPR, and HIPAA postures are achievable on day one because the architecture removes the hardest control of all, data residency.</p>
+        <ul>
+          <li>Inference runs locally</li>
+          <li>Air-gap supported</li>
+          <li>No telemetry, no shadow ingestion</li>
+          <li>Customer owns weights and audit log</li>
+        </ul>
+      </div>
+
+      <!-- 03 — Resilience layer -->
+      <div class="layer reveal">
+        <div class="layer-num">// 03</div>
+        <svg class="glyph" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20 5 C12 5 6 11 6 19 C6 28 13 34 20 36 C27 34 34 28 34 19 C34 11 28 5 20 5 Z"/>
+          <path d="M14 19 L18 23 L26 14"/>
+          <circle cx="20" cy="20" r="11" stroke-dasharray="2 3"/>
+        </svg>
+        <h3>The Resilience Layer</h3>
+        <p class="layer-tag">Encrypted continuity backup.</p>
+        <p>Continuous, client-side encrypted snapshots of the entire stack. Model state, knowledge bases, agent configurations, conversation history. Replicated to a customer-controlled secondary site or to our zero-knowledge backup service.</p>
+        <p>If the appliance is lost, stolen, damaged, or replaced, a full restore is a single command. The customer holds the keys. We cannot read the data even if we wanted to.</p>
+        <ul>
+          <li>Continuous encrypted snapshots</li>
+          <li>Customer-controlled secondary site</li>
+          <li>Zero-knowledge backup option</li>
+          <li>Single-command restore</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="surface reveal" aria-hidden="true">
+      <div class="bar">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <div class="label">bastion · appliance 01 · sovereign</div>
+      </div>
+      <pre><span class="c-mute"># bastion — sovereign AI operating system</span>
+<span class="c-violet">appliance</span> <span class="c-cyan">"bastion-01"</span> {
+  <span class="c-violet">residency</span>: <span class="c-cyan">"on-premise"</span>,
+  <span class="c-violet">network</span>:   <span class="c-cyan">"air-gap-capable"</span>,
+  <span class="c-violet">posture</span>:   [<span class="c-cyan">"soc2"</span>, <span class="c-cyan">"iso27001"</span>, <span class="c-cyan">"gdpr"</span>, <span class="c-cyan">"hipaa"</span>],
+  <span class="c-violet">agents</span>:    [<span class="c-cyan">"sales"</span>, <span class="c-cyan">"finance"</span>, <span class="c-cyan">"hr"</span>, <span class="c-cyan">"ops"</span>, <span class="c-cyan">"legal"</span>, <span class="c-cyan">"marketing"</span>, <span class="c-cyan">"cs"</span>, <span class="c-cyan">"eng"</span>],
+  <span class="c-violet">backup</span>:    <span class="c-phos">"client-side encrypted, zero-knowledge"</span>,
+  <span class="c-violet">telemetry</span>: <span class="c-warn">"none"</span>
+}</pre>
+    </div>
+  </div>
+</section>
+
+<!-- Why now -->
+<section class="section" id="why-now">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker-section">003 — Why this, why now</div>
+      <h2>Three forces, <span class="accent">converging.</span></h2>
+      <p class="sub">The companies that win this category will be the ones that productize all three layers, structure, sovereignty, resilience, into a single SKU. That is the gap, and it closes fast.</p>
+    </div>
+    <div class="force-grid">
+      <div class="force reveal">
+        <div class="force-num">// 01</div>
+        <h4>The compliance wall</h4>
+        <p>The EU AI Act, sector-specific data residency rules, and a hardening cyber-insurance market are pricing public-cloud AI out of regulated workloads. The cost of "send your data to a hyperscaler" keeps climbing.</p>
+      </div>
+      <div class="force reveal">
+        <div class="force-num">// 02</div>
+        <h4>Capable open-weight models</h4>
+        <p>Llama, Qwen, Mistral, and DeepSeek-class models are now genuinely useful for enterprise tasks at hardware footprints that fit in a 2U appliance. The "you must use a frontier hyperscaler" argument no longer holds for 80% of internal use cases.</p>
+      </div>
+      <div class="force reveal">
+        <div class="force-num">// 03</div>
+        <h4>The agent shift</h4>
+        <p>The enterprise conversation has moved from "give us a chatbot" to "give us workflow automation with judgment." Buyers want agents wired into their processes, not a search box bolted onto Confluence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- What we sell -->
+<section class="section" id="what-we-sell">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker-section">004 — What we sell</div>
+      <h2>A different shape <span class="accent">from a SaaS pure-play.</span></h2>
+      <p class="sub">Hardware plus software, on an annual subscription. The appliance ships pre-provisioned. The platform updates over an authenticated channel the customer controls.</p>
+    </div>
+    <div class="sell-grid">
+      <div class="sell reveal">
+        <h4>The shape of the deal</h4>
+        <p>Pricing is per-seat plus a hardware lease component, with vertical packs as paid add-ons. The model looks more like Palo Alto Networks or an on-prem Splunk deployment than an OpenAI API reseller, and the gross margins, retention numbers, and contract length reflect that.</p>
+        <ul class="pricing-list">
+          <li><span class="label">Model</span><span>Annual subscription, hardware plus software</span></li>
+          <li><span class="label">Seats</span><span>Per-seat pricing, scaled by department</span></li>
+          <li><span class="label">Hardware</span><span>Lease component, refresh on multi-year cycle</span></li>
+          <li><span class="label">Verticals</span><span>Paid add-on packs (finance, legal, healthcare)</span></li>
+          <li><span class="label">Updates</span><span>Authenticated channel, customer-controlled</span></li>
+        </ul>
+      </div>
+      <div class="sell reveal">
+        <h4>What ships in the box</h4>
+        <p>A 2U appliance, pre-provisioned, plugged in and online inside a day. The agent templates are configured before delivery. The first three departments are onboarded by week two. The platform improves over time through a customer-controlled update channel, never through telemetry or training feedback.</p>
+        <ul class="pricing-list">
+          <li><span class="label">Form factor</span><span>2U rackmount appliance</span></li>
+          <li><span class="label">Setup</span><span>Same-day install, week-two onboarding</span></li>
+          <li><span class="label">Network</span><span>Air-gap capable, no outbound calls required</span></li>
+          <li><span class="label">Audit</span><span>Full local audit log, exportable</span></li>
+          <li><span class="label">Support</span><span>SLA-backed, escalation to operator</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- The moat -->
+<section class="section" id="moat">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker-section">005 — The moat</div>
+      <h2>Three reinforcing <span class="accent">layers.</span></h2>
+      <p class="sub">Each layer makes the next one harder to copy. The result compounds with every customer.</p>
+    </div>
+    <div class="moat-grid">
+      <div class="moat reveal">
+        <div class="moat-num">// 01</div>
+        <h4>Vertical templates that compound</h4>
+        <p>The agent library improves with every customer. Each new finance deployment makes the finance template stronger. The next deployment ships better than the last.</p>
+      </div>
+      <div class="moat reveal">
+        <div class="moat-num">// 02</div>
+        <h4>Structural switching cost</h4>
+        <p>Once an organization's institutional knowledge is encoded as agent context inside the appliance, replatforming is genuinely painful, in the way that ripping out an ERP is painful.</p>
+      </div>
+      <div class="moat reveal">
+        <div class="moat-num">// 03</div>
+        <h4>Trust positioning</h4>
+        <p>"Your data stays on your premises" is a claim a hyperscaler structurally cannot make. We can, and we can prove it cryptographically.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Operating notes -->
+<section class="section" id="notes">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker-section">006 — Operating notes</div>
+      <h2>The honest answers <span class="accent">we get asked first.</span></h2>
+      <p class="sub">If you have a question that isn't here, that's also fine. Bring it to the briefing.</p>
+    </div>
+    <div class="notes-grid">
+      <div class="note reveal">
+        <h4>Where do the model weights come from?</h4>
+        <p>Open-weight families, primarily Llama, Qwen, Mistral, and DeepSeek-class models, selected per workload. The weights ship on the appliance. The customer can inspect them, version them, and roll back. There is no hidden hosted dependency.</p>
+      </div>
+      <div class="note reveal">
+        <h4>What about updates and security patches?</h4>
+        <p>Updates flow over an authenticated channel the customer controls. The customer chooses the cadence and the maintenance window. Air-gapped sites receive signed update bundles delivered by the operator's preferred process.</p>
+      </div>
+      <div class="note reveal">
+        <h4>How is the encryption keyed?</h4>
+        <p>Backups are encrypted client-side with keys held by the customer. Our zero-knowledge backup service stores ciphertext only. We cannot read the data, even with full physical access to the backup volume.</p>
+      </div>
+      <div class="note reveal">
+        <h4>What's the operating layer's posture on integrations?</h4>
+        <p>Department agents reach the rest of the stack through MCP servers running on the appliance. Connectors for ClickUp, Slack, Microsoft 365, Salesforce, Postgres, and the major warehouses ship with the platform. Custom connectors are vertical-pack add-ons.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="cta-block reveal">
+      <h2>The third path. <span class="accent">In your server room.</span></h2>
+      <p>A 60-minute briefing. We walk through the architecture, the deployment model, the compliance posture, and the verticals shipping today. If Bastion is the right shape for your operation, we'll say so. If a smaller WildBreeze module is enough, we'll say that too.</p>
+      <a class="btn primary" href="/contact/">Book a briefing <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <a href="/" class="logo">
+          <svg class="mark" viewBox="0 0 36 18" aria-hidden="true">
+            <defs>
+              <linearGradient id="wb-mark-grad-f" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#5EF2FF"/>
+                <stop offset="55%" stop-color="#A78BFA"/>
+                <stop offset="100%" stop-color="#5EF2FF"/>
+              </linearGradient>
+            </defs>
+            <g class="wave">
+              <path d="M-8 9 q 2 -6 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0 t 4 0"
+                    fill="none" stroke="url(#wb-mark-grad-f)" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+          </svg>
+          <span>WildBreeze</span>
+        </a>
+        <p class="blurb">Quiet automation infrastructure for operations run by humans. Built one operator at a time.</p>
+      </div>
+      <div class="meta">
+        <div class="col">
+          <h5>Modules</h5>
+          <a href="/products/bastion/">Bastion</a>
+          <a href="/products/pulse/">Pulse</a>
+          <a href="/products/almanac/">Almanac</a>
+          <a href="/products/watchtower/">Watchtower</a>
+          <a href="/products/">All modules</a>
+        </div>
+        <div class="col">
+          <h5>Learn</h5>
+          <a href="/field-guide/">Field Guide</a>
+          <a href="/glossary/">Glossary</a>
+          <a href="/calculator/">Cost calculator</a>
+          <a href="/11pm-audit/">11pm Audit</a>
+          <a href="/about/">About</a>
+        </div>
+        <div class="col">
+          <h5>Contact</h5>
+          <a href="/contact/">Contact form</a>
+          <a href="mailto:hello@wildbreeze.io">hello@wildbreeze.io</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      <div>© 2026 WildBreeze. All systems quiet.</div>
+      <!-- WB-CLIENT-HTML-START --><a class="client-link" href="/account/">Client area <span class="arrow">→</span></a><!-- WB-CLIENT-HTML-END -->
+      <div>v2.0 · Made in the wind</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Flow-field canvas */
+(function(){
+  const canvas = document.getElementById('flow');
+  if (!canvas || !canvas.getContext) return;
+  const ctx = canvas.getContext('2d');
+  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const SPEED = reduced ? 0.25 : 1.0;
+  const TRAIL = reduced ? 0.06 : 0.10;
+  const CAP = reduced ? 70 : 160;
+  let DPR = Math.min(window.devicePixelRatio || 1, 2);
+  let W = 0, H = 0, particles = [];
+  function resize(){
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = W * DPR; canvas.height = H * DPR;
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    const target = Math.min(CAP, Math.floor((W*H)/14000));
+    particles = new Array(target).fill(0).map(spawn);
+  }
+  function spawn(){
+    return { x: Math.random()*W, y: Math.random()*H, vx:0, vy:0,
+             life: 60+Math.random()*120,
+             hue: Math.random() < 0.55 ? 'cyan' : 'violet' };
+  }
+  function noise(x,y,t){
+    return (Math.sin((x*0.0042)+(y*0.0031)+t*0.18)
+          + Math.sin((x*0.0017)-(y*0.0024)+t*0.11)) * 0.5;
+  }
+  let t0 = 0;
+  function tick(ts){
+    if (!t0) t0 = ts;
+    const t = (ts - t0) * 0.001;
+    ctx.fillStyle = 'rgba(6,8,15,' + TRAIL + ')';
+    ctx.fillRect(0, 0, W, H);
+    for (let i=0;i<particles.length;i++){
+      const p = particles[i];
+      const a = noise(p.x, p.y, t) * Math.PI * 2;
+      p.vx = p.vx*0.92 + Math.cos(a) * 0.6 * SPEED;
+      p.vy = p.vy*0.92 + Math.sin(a) * 0.6 * SPEED;
+      p.x += p.vx; p.y += p.vy; p.life -= 1;
+      if (p.x<-10||p.x>W+10||p.y<-10||p.y>H+10||p.life<=0){ particles[i]=spawn(); continue; }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 0.9, 0, Math.PI*2);
+      ctx.fillStyle = p.hue==='cyan' ? 'rgba(94,242,255,0.85)' : 'rgba(167,139,250,0.75)';
+      ctx.fill();
+    }
+    requestAnimationFrame(tick);
+  }
+  resize(); window.addEventListener('resize', resize); requestAnimationFrame(tick);
+})();
+
+/* Reveal-on-scroll */
+(function(){
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)){ els.forEach(e=>e.classList.add('in')); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  els.forEach(el => io.observe(el));
+})();
+
+/* Telemetry drift */
+(function(){
+  const rt = document.getElementById('rt');
+  if (!rt) return;
+  let v = 42.3;
+  setInterval(() => {
+    v = Math.max(8, Math.min(180, v + (Math.random()-0.5)*4.0));
+    rt.textContent = v.toFixed(1) + 's';
+  }, 2400);
+})();
+</script>
+
+</body>
+</html>
