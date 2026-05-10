@@ -41,7 +41,25 @@ Static HTML site published to GitHub Pages. Bilingual (EN at root, ES under `/es
 - Sweden weekly → `account/clients/pricemart-finance/`  (skill: `weekly-sweden-report`)
 - Pricemart purchasing watchtower → `account/clients/pricemart-purchasing/`  (skill: `weekly-pricemart-purchasing-watchtower`)
 
+## Wiki (compounding domain knowledge)
+
+`wiki/` is the WildBreeze business knowledge base. Skills tell us *how to build site things*; the wiki tells us *what we know about the business, the clients, and the playbooks*.
+
+- `wiki/index.md`. Catalog. Read first by `wiki-query`.
+- `wiki/entities/`. Clients, prospects, partners, vendors, key people.
+- `wiki/concepts/`. Methodologies (quiet-automation playbook, client onboarding, MCP recipes, pricing patterns).
+- `wiki/sources/`. One dated summary per ingested source (meeting transcripts, sales conversations, customer feedback, competitor pages).
+- `wiki/README.md`. The conventions in full.
+
+Operations:
+- `/wiki-ingest <source>`. File a new source.
+- `/wiki-query <question>`. Answer from the wiki, cited.
+- `/wiki-lint`. Monthly health check. Scheduled.
+
+The wiki does not store: live site code, visual rules (those are skills), credentials, or anything that lives in the repo as published content.
+
 ## Don't
 
-- Don't link `go.napier.me` URLs from any public page (confidential — see MEMORY.md).
+- Don't link `go.napier.me` URLs from any public page (confidential, see MEMORY.md).
 - Don't mention "FitnessNord" or "Welzyn S.L." on `napier.me` personal pages (also in MEMORY.md).
+- Don't put client credentials or access keys in the wiki. Those live in `~/.claude/wildbreeze/clients.json`.
