@@ -135,4 +135,16 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.wildbreeze.io/contact/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.wildbreeze.io/es/contacto/"/>
   </url>
+  <url>
+    <loc>https://www.wildbreeze.io/field-guide/tracking-who-uses-ai-and-who-doesnt/</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.wildbreeze.io/es/guia-de-campo/rastrear-quien-usa-ia-y-quien-no/</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
