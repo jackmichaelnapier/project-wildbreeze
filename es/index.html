@@ -263,13 +263,201 @@
       <a class="btn primary" href="/es/contacto/">Reserva una llamada de 30 minutos <span class="arrow">→</span></a>
       <a class="btn" href="/es/#servicios">Ver lo que construimos</a>
     </div>
+    <a class="ac-herolink" href="#agent-care"><b>NUEVO</b><span>Gestión de agentes: un operador humano con nombre para cada agente de IA</span><span class="arrow">→</span></a>
+  </div>
+</section>
+
+<!-- Agent Care -->
+<section class="section ac" id="agent-care">
+  <style id="ac-styles">
+  .ac { scroll-margin-top: 72px; }
+  .ac h2 .accent {
+    background: linear-gradient(110deg, var(--cyan) 20%, var(--violet) 80%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-style: italic; font-weight: 400; padding-right: 0.08em;
+    -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  }
+  .ac .section-head { margin-bottom: 40px; max-width: 780px; }
+  .ac-panel {
+    margin: 0; padding: 18px; border: 1px solid var(--line-2); border-radius: 22px;
+    background:
+      radial-gradient(700px 300px at 85% 0%, rgba(94,242,255,0.12), transparent 60%),
+      radial-gradient(520px 260px at 8% 100%, rgba(167,139,250,0.12), transparent 60%),
+      rgba(255,255,255,0.015);
+  }
+  .ac-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .ac-loop { display: block; width: 100%; min-width: 1000px; height: auto; }
+  .ac-loop .b1 { fill: rgba(255,255,255,0.025); stroke: var(--line); }
+  .ac-loop .b2 { fill: rgba(94,242,255,0.07); stroke: rgba(94,242,255,0.28); }
+  .ac-loop .box { fill: #0D1322; stroke: var(--line-2); stroke-width: 1.25; }
+  .ac-loop .row { fill: rgba(255,255,255,0.05); }
+  .ac-loop text { font-family: var(--sans); }
+  .ac-loop .zone { font-family: var(--mono); font-weight: 500; font-size: 13px; letter-spacing: 0.12em; fill: var(--cyan); }
+  .ac-loop .zn { font-size: 13px; fill: var(--ink-2); }
+  .ac-loop .h { font-family: var(--serif); font-weight: 500; font-size: 18px; fill: var(--ink); }
+  .ac-loop .l { font-size: 13px; fill: var(--ink-2); }
+  .ac-loop .lb { font-size: 13px; font-weight: 600; fill: var(--ink); }
+  .ac-loop .at { font-size: 13.5px; font-weight: 500; fill: var(--ink); }
+  .ac-loop .flow { stroke: var(--cyan); stroke-width: 1.6; fill: none; }
+  .ac-loop .mk { fill: var(--cyan); }
+  .ac-loop .n { fill: var(--cyan); }
+  .ac-loop .nt { font-family: var(--mono); font-size: 11.5px; font-weight: 500; fill: #001318; text-anchor: middle; }
+  .ac-loop .op { fill: url(#ac-op); }
+  .ac-loop .oh { font-family: var(--serif); font-weight: 600; font-size: 26px; fill: #001318; }
+  .ac-loop .ot { font-size: 14px; font-weight: 500; fill: #001318; }
+  .ac-cap { margin: 12px 4px 2px; font-size: 14.5px; color: var(--ink-2); }
+  .ac-swipe, .ac-steps { display: none; }
+  .ac-swipe { margin: 0 4px 10px; font-family: var(--mono); font-size: 12px; color: var(--ink-2); }
+  .ac-steps { margin: 14px 4px 4px; padding-left: 20px; color: var(--ink-2); font-size: 15px; line-height: 1.55; }
+  .ac-tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 18px; }
+  .ac-tier {
+    padding: 24px 24px 22px; border: 1px solid var(--line); border-radius: 14px; min-width: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+  }
+  .ac-tier h3 { font-family: var(--serif); font-weight: 500; font-size: 22px; line-height: 1.2; margin: 0 0 10px; color: var(--ink); }
+  .ac-tier p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink-2); }
+  .ac-tier .hear { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 12.5px; line-height: 1.55; color: var(--cyan); }
+  .ac-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 28px; margin-top: 26px; }
+  .ac-meta { display: flex; flex-wrap: wrap; gap: 6px 22px; font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); }
+  .ac-herolink {
+    display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; max-width: 100%;
+    margin-top: 16px; padding: 9px 16px; border: 1px solid rgba(94,242,255,0.38); border-radius: 18px;
+    background: rgba(94,242,255,0.06); color: var(--ink); font-size: 14px; line-height: 1.4;
+    transition: all 180ms ease;
+  }
+  .ac-herolink b { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: 0.08em; color: var(--cyan); }
+  .ac-herolink:hover { border-color: rgba(94,242,255,0.7); background: rgba(94,242,255,0.1); }
+  .ac-herolink .arrow { color: var(--cyan); transition: transform 180ms ease; }
+  .ac-herolink:hover .arrow { transform: translateX(3px); }
+  @media (max-width: 880px) { .ac-tiers { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 720px) { .ac-swipe, .ac-steps { display: block; } .ac-panel { padding: 12px; } }
+</style>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">001 · Gestión de agentes · Nuevo</div>
+      <h2>Todo empleado tiene un jefe. <span class="accent">Tus agentes de IA también deberían tenerlo.</span></h2>
+      <p class="sub">Los agentes fallan en silencio. Caduca un acceso, un proveedor cambia un archivo, cambia tu política de devoluciones y nadie se lo dice al agente. WildBreeze asigna a cada agente un operador humano con nombre y apellidos que aprende tu negocio, revisa el trabajo real, arregla lo que falla y solo acude a ti cuando la decisión es tuya.</p>
+    </div>
+
+    <figure class="ac-panel">
+      <p class="ac-swipe">Desliza hacia un lado para ver todo el circuito. Los pasos también aparecen debajo.</p>
+      <div class="ac-scroll" tabindex="0" aria-label="Diagrama del circuito de trabajo, desplazable">
+        <svg class="ac-loop" viewBox="0 0 1200 580" role="img" aria-label="Diagrama en circuito. Tu manual da a los agentes sus instrucciones. Los agentes trabajan en tus herramientas. Cada ejecución queda registrada en controles automáticos. Cualquier anomalía abre un ticket para tu operador de WildBreeze. El operador corrige, ajusta o pausa el agente, te envía una nota semanal y lo que necesite de ti, recoge tu decisión y la escribe en el manual, lo que cierra el circuito.">
+        <defs><marker id="ac-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="mk" d="M0 0 L10 5 L0 10 z"/></marker>
+        <linearGradient id="ac-op" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5EF2FF"/><stop offset="100%" stop-color="#3FC9D8"/></linearGradient></defs>
+        <rect class="b1" x="20" y="16" width="1160" height="242" rx="14"/>
+        <text class="zone" x="44" y="46">TU NEGOCIO</text>
+        <text class="zn" x="1164" y="46" text-anchor="end">Los agentes funcionan en tus cuentas. Tus datos no se mueven.</text>
+        <rect class="b2" x="20" y="336" width="1160" height="228" rx="14"/>
+        <text class="zone" x="950" y="392">WILDBREEZE</text>
+        <text class="zn" x="950" y="416">El software vigila.</text>
+        <text class="zn" x="950" y="436">Una persona actúa.</text>
+        <rect class="box" x="44" y="64" width="230" height="174" rx="10"/>
+        <text class="h" x="62" y="98">Tú, el dueño</text>
+        <text class="l" x="62" y="120">y tu equipo</text>
+        <text class="lb" x="62" y="164">Lees una nota semanal.</text>
+        <text class="lb" x="62" y="186">Tomas las decisiones</text>
+        <text class="lb" x="62" y="206">que solo tú puedes tomar.</text>
+        <rect class="box" x="310" y="64" width="190" height="174" rx="10"/>
+        <text class="h" x="326" y="98">Tu manual</text>
+        <text class="l" x="326" y="126">Cómo trabajáis</text>
+        <text class="l" x="326" y="148">La tarea de cada agente</text>
+        <text class="l" x="326" y="170">Límites claros</text>
+        <text class="l" x="326" y="192">Cada decisión tomada</text>
+        <text class="lb" x="326" y="222">Siempre es tuyo</text>
+        <rect class="box" x="616" y="64" width="314" height="174" rx="10"/>
+        <text class="h" x="632" y="94">Tus agentes de IA</text>
+        <rect class="row" x="632" y="108" width="282" height="36" rx="6"/>
+        <text class="lb" x="646" y="131">Presupuestos</text>
+        <text class="l" x="750" y="131">redacta ofertas</text>
+        <rect class="row" x="632" y="150" width="282" height="36" rx="6"/>
+        <text class="lb" x="646" y="173">Bandeja</text>
+        <text class="l" x="750" y="173">responde a clientes</text>
+        <rect class="row" x="632" y="192" width="282" height="36" rx="6"/>
+        <text class="lb" x="646" y="215">Facturas</text>
+        <text class="l" x="750" y="215">prepara facturas</text>
+        <rect class="box" x="1040" y="64" width="124" height="174" rx="10"/>
+        <text class="h" x="1054" y="98">Tus apps</text>
+        <text class="l" x="1054" y="126">Email</text>
+        <text class="l" x="1054" y="148">Tienda</text>
+        <text class="l" x="1054" y="170">Contabilidad</text>
+        <text class="l" x="1054" y="192">CRM</text>
+        <text class="l" x="1054" y="214">Clientes</text>
+        <rect class="op" x="44" y="356" width="606" height="190" rx="12"/>
+        <text class="oh" x="68" y="396">Tu operador con nombre y apellidos</text>
+        <text class="ot" x="68" y="422">Una persona real que conoce tu empresa y el trabajo de cada agente.</text>
+        <text class="ot" x="68" y="466">Lee una muestra del trabajo real</text>
+        <text class="ot" x="68" y="490">Ajusta lo que se desvía</text>
+        <text class="ot" x="68" y="514">Escribe tu nota del lunes</text>
+        <text class="ot" x="346" y="466">Arregla lo que se rompe</text>
+        <text class="ot" x="346" y="490">Detiene un agente si hace falta</text>
+        <text class="ot" x="346" y="514">Te llama cuando decides tú</text>
+        <rect class="box" x="770" y="356" width="160" height="190" rx="10"/>
+        <text class="h" x="784" y="386">Controles</text>
+        <text class="h" x="784" y="408">automáticos</text>
+        <text class="l" x="784" y="436">¿Se ejecutó?</text>
+        <text class="l" x="784" y="459">¿Terminó?</text>
+        <text class="l" x="784" y="482">¿Dentro de límites?</text>
+        <text class="l" x="784" y="505">¿Resultado correcto?</text>
+        <text class="l" x="784" y="528">¿Coste esperado?</text>
+        <line class="flow" x1="500" y1="150" x2="615" y2="150" marker-end="url(#ac-arrow)"/>
+        <circle class="n" cx="511" cy="130" r="9"/><text class="nt" x="511" y="134">1</text>
+        <text class="at" x="523" y="135">instrucciones</text>
+        <line class="flow" x1="930" y1="150" x2="1039" y2="150" marker-end="url(#ac-arrow)"/>
+        <circle class="n" cx="942" cy="130" r="9"/><text class="nt" x="942" y="134">2</text>
+        <text class="at" x="955" y="135">trabajan</text>
+        <line class="flow" x1="850" y1="238" x2="850" y2="355" marker-end="url(#ac-arrow)"/>
+        <circle class="n" cx="866" cy="297" r="9"/><text class="nt" x="866" y="301">3</text>
+        <text class="at" x="880" y="302">cada ejecución registrada</text>
+        <line class="flow" x1="770" y1="451" x2="651" y2="451" marker-end="url(#ac-arrow)"/>
+        <circle class="n" cx="668" cy="431" r="9"/><text class="nt" x="668" y="435">4</text>
+        <text class="at" x="681" y="436">algo raro</text>
+        <text class="at" x="710" y="472" text-anchor="middle">abre un ticket</text>
+        <line class="flow" x1="636" y1="356" x2="636" y2="239" marker-end="url(#ac-arrow)"/>
+        <circle class="n" cx="652" cy="297" r="9"/><text class="nt" x="652" y="301">5</text>
+        <text class="at" x="666" y="302">corrige, ajusta, pausa</text>
+        <line class="flow" x1="70" y1="356" x2="70" y2="239" marker-end="url(#ac-arrow)"/>
+        <circle class="n" cx="86" cy="297" r="9"/><text class="nt" x="86" y="301">6</text>
+        <text class="at" x="100" y="293">nota semanal y</text>
+        <text class="at" x="100" y="310">lo que te necesita</text>
+        <line class="flow" x1="250" y1="238" x2="250" y2="355" marker-end="url(#ac-arrow)"/>
+        <circle class="n" cx="266" cy="297" r="9"/><text class="nt" x="266" y="301">7</text>
+        <text class="at" x="280" y="302">tu decisión</text>
+        <line class="flow" x1="400" y1="356" x2="400" y2="239" marker-end="url(#ac-arrow)"/>
+        <circle class="n" cx="416" cy="297" r="9"/><text class="nt" x="416" y="301">8</text>
+        <text class="at" x="430" y="302">queda por escrito</text>
+        </svg>
+      </div>
+      <figcaption class="ac-cap">Léelo en orden, del 1 al 8. El paso 8 alimenta el paso 1, así que tus agentes mejoran cada vez que interviene una persona.</figcaption>
+      <ol class="ac-steps">
+        <li>Tu manual da a cada agente sus instrucciones.</li>
+        <li>Los agentes trabajan en tus herramientas.</li>
+        <li>Cada ejecución queda registrada en controles automáticos.</li>
+        <li>Cualquier anomalía abre un ticket para tu operador.</li>
+        <li>Tu operador corrige, ajusta o pausa el agente.</li>
+        <li>Recibes una nota semanal y lo que necesite de ti.</li>
+        <li>Tú decides.</li>
+        <li>Tu decisión queda escrita en el manual.</li>
+      </ol>
+    </figure>
+
+    <div class="ac-tiers">
+      <div class="ac-tier"><h3>Lo resolvemos</h3><p>Accesos caducados, un formato de archivo que cambia, una respuesta que hay que ajustar.</p><p class="hear">Una línea en tu nota del lunes.</p></div>
+      <div class="ac-tier"><h3>Te avisamos</h3><p>Un agente se equivocó y llegó a un cliente o a tus cuentas. Lo paramos, lo corregimos y vemos a quién afectó.</p><p class="hear">Un mensaje claro el mismo día.</p></div>
+      <div class="ac-tier"><h3>Te preguntamos</h3><p>Cualquier tema de dinero, clientes o políticas que el manual aún no cubra.</p><p class="hear">Opciones y una recomendación. Tu respuesta entra en el manual.</p></div>
+    </div>
+
+    <div class="ac-foot">
+      <div class="ac-meta"><span>Funciona con los agentes que ya tienes</span><span>Tus cuentas, tus datos</span><span>El manual es tuyo</span></div>
+      <a class="btn primary" href="/es/contacto/">Reserva una llamada de 30 minutos <span class="arrow">→</span></a>
+    </div>
   </div>
 </section>
 
 <section class="section" id="servicios">
   <div class="wrap">
     <div class="section-head">
-      <div class="kicker">001 · Lo que construimos</div>
+      <div class="kicker">002 · Lo que construimos</div>
       <h2>Tres piezas de fontanería. Una operación silenciosa.</h2>
       <p class="sub">La mayoría de pequeños negocios no necesita otro panel de control. Necesitan que los sistemas que ya usan hablen entre sí, que el trabajo que nadie quiere mantener al día se mantenga solo, y un resumen semanal lo bastante honesto para tomar decisiones.</p>
     </div>
@@ -298,7 +486,7 @@
 <section class="section" id="modulos">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="kicker">002 · Las formas</div>
+      <div class="kicker">003 · Las formas</div>
       <h2>El trabajo que vuelve, <span class="accent">con nombre y forma fija.</span></h2>
       <p class="sub">Cuando el mismo encargo aparece en tres operadores distintos, le ponemos nombre y le damos una forma fija. Ocho hasta ahora. Cada uno corre en tu nube, con su propio horario, sin panel al que entrar.</p>
     </div>
@@ -342,7 +530,7 @@
 <section class="section" id="proceso">
   <div class="wrap">
     <div class="section-head">
-      <div class="kicker">003 · Cómo funciona</div>
+      <div class="kicker">004 · Cómo funciona</div>
       <h2>Tres semanas. Tres entregables. Un sistema silencioso.</h2>
       <p class="sub">Sin presentación de descubrimiento. Sin rotación de agencia. Nos sentamos con tu operación, conectamos las partes que ya deberían estar hablando, y te dejamos algo que funciona sin nosotros.</p>
     </div>
@@ -370,7 +558,7 @@
 <section class="section" id="por-que">
   <div class="wrap">
     <div class="section-head">
-      <div class="kicker">004 · Por qué WildBreeze</div>
+      <div class="kicker">005 · Por qué WildBreeze</div>
       <h2>Hecho para operadores, no para compradores de paneles.</h2>
       <p class="sub">Elegimos estas restricciones a propósito. Son la razón por la que enviamos en tres semanas y por la que tu CFO no tiene que firmar una revisión de riesgo de proveedor.</p>
     </div>
@@ -403,7 +591,7 @@
 <section class="section" id="guia-de-campo">
   <div class="wrap">
     <div class="section-head">
-      <div class="kicker">005 · Guía de campo</div>
+      <div class="kicker">006 · Guía de campo</div>
       <h2>Respuestas en lenguaje claro a las preguntas de IA<br/>que tu equipo se está haciendo de verdad.</h2>
       <p class="sub">Dos conceptos básicos (qué es un agente, qué es un servidor MCP) y un flujo continuo de informes sobre cómo las pequeñas operaciones están usando IA para retirar el trabajo que nadie quiere. Actualizado cada dos días.</p>
     </div>
@@ -434,7 +622,7 @@
 <section class="section" id="contacto-cta">
   <div class="wrap">
     <div style="border:1px solid var(--line-2); border-radius:22px; padding:60px 48px; background: radial-gradient(700px 300px at 80% 0%, rgba(94,242,255,0.18), transparent 60%), radial-gradient(500px 280px at 10% 100%, rgba(167,139,250,0.18), transparent 60%), linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)); text-align:center;">
-      <div class="kicker" style="margin-bottom:12px;">006 · Hablemos</div>
+      <div class="kicker" style="margin-bottom:12px;">007 · Hablemos</div>
       <h2>Descubre cómo se ve tu operación<br/>cuando la fontanería simplemente funciona.</h2>
       <p style="color:var(--ink-2); margin: 16px auto 30px; max-width: 52ch;">30 minutos, sin diapositivas, sin compromisos. Trae la hoja de cálculo que alguien mantiene a las 23h. Te diremos si WildBreeze es la solución correcta o te apuntaremos honestamente a otro sitio.</p>
       <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
